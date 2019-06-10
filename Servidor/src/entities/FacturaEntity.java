@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Calendar;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +33,7 @@ public class FacturaEntity {
 	
 	@Column(name = "startTime", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaFacturacion;
+	private Calendar fechaFacturacion;
 		
 	@Enumerated(EnumType.STRING)
     @Column(length = 9)
@@ -50,7 +52,7 @@ public class FacturaEntity {
 	
 	@Column(name = "startTime", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaCobro;
+	private Calendar fechaCobro;
 
 	public Integer getNumero() {
 		return numero;
@@ -60,11 +62,11 @@ public class FacturaEntity {
 		this.numero = numero;
 	}
 
-	public String getFechaFacturacion() {
+	public Calendar getFechaFacturacion() {
 		return fechaFacturacion;
 	}
 
-	public void setFechaFacturacion(String fechaFacturacion) {
+	public void setFechaFacturacion(Calendar fechaFacturacion) {
 		this.fechaFacturacion = fechaFacturacion;
 	}
 
@@ -100,13 +102,13 @@ public class FacturaEntity {
 		this.estado = estado;
 	}
 
-	public String getFechaCobro() {
+	public Calendar getFechaCobro() {
 		return fechaCobro;
 	}
 
-	public void setFechaCobro(String fechaCobro) {
+	public void setFechaCobro(Calendar fechaCobro) {
 		this.fechaCobro = fechaCobro;
 	}
-	
+
 	
 }

@@ -39,7 +39,7 @@ public class ProductoEntity {
 	private String presentacion;
 	
 	@Column(columnDefinition = "float", nullable=false)
-	private Integer precio;
+	private Float precio;
 	
 	@OneToOne (cascade = CascadeType.ALL)
 	private StockEntity stock;
@@ -76,11 +76,11 @@ public class ProductoEntity {
 		this.presentacion = presentacion;
 	}
 
-	public Integer getPrecio() {
+	public Float getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Integer precio) {
+	public void setPrecio(Float precio) {
 		this.precio = precio;
 	}
 
