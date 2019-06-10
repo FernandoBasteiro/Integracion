@@ -5,6 +5,7 @@ public enum EstadoVenta {
 	FACTURADA (2, "Facturada"),
 	CANCELADA (3, "Cancelada");
 	
+	
 	private final int id;
 	private final String nombre;
 	private EstadoVenta(int id, String nombre) {
