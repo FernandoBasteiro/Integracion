@@ -51,6 +51,55 @@ public class VentaEntity {
 	
 	@Column (columnDefinition = "float", nullable = true)
 	private String total;
+	
+	
+	@Column (columnDefinition = "int", nullable = true)
+	private String nroOperacion;
+	
+	@Column (columnDefinition = "boolean", nullable = true)
+	private String aprobada;
+	
+	@Column (columnDefinition = "int", nullable = true)
+	private String cantCuotas;
+	
+	@Column (columnDefinition = "int", nullable = true) //Aca vamos a tener que agarrar los ultimos 4 digitos en algun momento
+	private String ultimos4DigitosTarjeta;
+	
+	
+	
+	
+
+	public String getNroOperacion() {
+		return nroOperacion;
+	}
+
+	public void setNroOperacion(String nroOperacion) {
+		this.nroOperacion = nroOperacion;
+	}
+
+	public String getAprobada() {
+		return aprobada;
+	}
+
+	public void setAprobada(String aprobada) {
+		this.aprobada = aprobada;
+	}
+
+	public String getCantCuotas() {
+		return cantCuotas;
+	}
+
+	public void setCantCuotas(String cantCuotas) {
+		this.cantCuotas = cantCuotas;
+	}
+
+	public String getUltimos4DigitosTarjeta() {
+		return ultimos4DigitosTarjeta;
+	}
+
+	public void setUltimos4DigitosTarjeta(String ultimos4DigitosTarjeta) {
+		this.ultimos4DigitosTarjeta = ultimos4DigitosTarjeta;
+	}
 
 	public Integer getId() {
 		return id;
