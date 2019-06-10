@@ -15,5 +15,45 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 public class StockEntity {
+	
+	
+	
+	public StockEntity() {
+		super();
+	}
 
+	@Column(columnDefinition = "int", nullable=false)
+	private Integer cantidadMinima;
+	
+	@Column(columnDefinition = "int", nullable=false)
+	private Integer cantidadDisponible;
+	
+	@Column(columnDefinition = "int", nullable=false)
+	private Integer cantidadTotal;
+
+	public Integer getCantidadMinima() {
+		return cantidadMinima;
+	}
+
+	public void setCantidadMinima(Integer cantidadMinima) {
+		this.cantidadMinima = cantidadMinima;
+	}
+
+	public Integer getCantidadDisponible() {
+		return cantidadDisponible;
+	}
+
+	public void setCantidadDisponible(Integer cantidadDisponible) {
+		this.cantidadDisponible = cantidadDisponible;
+	}
+
+	public Integer getCantidadTotal() {
+		return cantidadTotal;
+	}
+
+	public void setCantidadTotal(Integer cantidadTotal) {
+		this.cantidadTotal = cantidadTotal;
+	}
+	
+	
 }

@@ -7,4 +7,15 @@ public class Producto {
 	private String presentacion;
 	private Float precio;
 	private Stock stock;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
