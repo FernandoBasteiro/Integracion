@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Calendar;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,15 +71,15 @@ public class EmpleadoEntity {
 
 	@Column(name = "startTime", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaNacimiento;
+	private Calendar fechaNacimiento;
 
 	@Column(name = "startTime", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaIngreso;
+	private Calendar fechaIngreso;
 
 	@Column(name = "startTime", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaEgreso;
+	private Calendar fechaEgreso;
 	
 	@Enumerated(EnumType.STRING)
     @Column(length = 9)
@@ -90,7 +92,7 @@ public class EmpleadoEntity {
 	private String password;
 
 	@Column (columnDefinition = "float", nullable = true)
-	private String sueldoBase;
+	private Float sueldoBase;
 	
 		
 	@Column(columnDefinition = "int", nullable=true)
@@ -175,27 +177,27 @@ public class EmpleadoEntity {
 		this.genero = genero;
 	}
 
-	public String getFechaNacimiento() {
+	public Calendar getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
+	public void setFechaNacimiento(Calendar fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public String getFechaIngreso() {
+	public Calendar getFechaIngreso() {
 		return fechaIngreso;
 	}
 
-	public void setFechaIngreso(String fechaIngreso) {
+	public void setFechaIngreso(Calendar fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public String getFechaEgreso() {
+	public Calendar getFechaEgreso() {
 		return fechaEgreso;
 	}
 
-	public void setFechaEgreso(String fechaEgreso) {
+	public void setFechaEgreso(Calendar fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
 
@@ -223,11 +225,11 @@ public class EmpleadoEntity {
 		this.password = password;
 	}
 
-	public String getSueldoBase() {
+	public Float getSueldoBase() {
 		return sueldoBase;
 	}
 
-	public void setSueldoBase(String sueldoBase) {
+	public void setSueldoBase(Float sueldoBase) {
 		this.sueldoBase = sueldoBase;
 	}
 
@@ -253,8 +255,8 @@ public class EmpleadoEntity {
 
 	public void setCbu(String cbu) {
 		this.cbu = cbu;
-	}	
-	
+	}
+
 	
 
 }

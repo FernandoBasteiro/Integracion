@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,11 +36,11 @@ public class VentaEntity {
 	
 	@Column(name = "startTime", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaVenta;
+	private Calendar fechaVenta;
 	
 	@OneToMany (cascade = CascadeType.ALL) //ESTO DEBERIA SER VECTOR
 	@JoinColumn (name = "id")
-	private ItemVentaEntity items;
+	private ArrayList<ItemVentaEntity> items; 
 	
 	@OneToOne (cascade = CascadeType.ALL) 
 	@JoinColumn (name = "legajo")
@@ -48,7 +51,20 @@ public class VentaEntity {
 	private EstadoVenta estado;
 	
 	@Column (columnDefinition = "float", nullable = true)
-	private String total;
+	private Float total;
+	
+	
+	@Column (columnDefinition = "int", nullable = true)
+	private Integer nroOperacion;
+	
+	@Column (columnDefinition = "boolean", nullable = true)
+	private boolean aprobada;
+	
+	@Column (columnDefinition = "int", nullable = true)
+	private Integer cantCuotas;
+	
+	@Column (columnDefinition = "int", nullable = true) //Aca vamos a tener que agarrar los ultimos 4 digitos en algun momento
+	private Integer ultimos4DigitosTarjeta;
 
 	public Integer getId() {
 		return id;
@@ -58,19 +74,19 @@ public class VentaEntity {
 		this.id = id;
 	}
 
-	public String getFechaVenta() {
+	public Calendar getFechaVenta() {
 		return fechaVenta;
 	}
 
-	public void setFechaVenta(String fechaVenta) {
+	public void setFechaVenta(Calendar fechaVenta) {
 		this.fechaVenta = fechaVenta;
 	}
 
-	public ItemVentaEntity getItems() {
+	public ArrayList<ItemVentaEntity> getItems() {
 		return items;
 	}
 
-	public void setItems(ItemVentaEntity items) {
+	public void setItems(ArrayList<ItemVentaEntity> items) {
 		this.items = items;
 	}
 
@@ -90,13 +106,47 @@ public class VentaEntity {
 		this.estado = estado;
 	}
 
-	public String getTotal() {
+	public Float getTotal() {
 		return total;
 	}
 
-	public void setTotal(String total) {
+	public void setTotal(Float total) {
 		this.total = total;
 	}
+
+	public Integer getNroOperacion() {
+		return nroOperacion;
+	}
+
+	public void setNroOperacion(Integer nroOperacion) {
+		this.nroOperacion = nroOperacion;
+	}
+
+	public boolean isAprobada() {
+		return aprobada;
+	}
+
+	public void setAprobada(boolean aprobada) {
+		this.aprobada = aprobada;
+	}
+
+	public Integer getCantCuotas() {
+		return cantCuotas;
+	}
+
+	public void setCantCuotas(Integer cantCuotas) {
+		this.cantCuotas = cantCuotas;
+	}
+
+	public Integer getUltimos4DigitosTarjeta() {
+		return ultimos4DigitosTarjeta;
+	}
+
+	public void setUltimos4DigitosTarjeta(Integer ultimos4DigitosTarjeta) {
+		this.ultimos4DigitosTarjeta = ultimos4DigitosTarjeta;
+	}
+	
+	
 	
 		
 }
