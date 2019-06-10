@@ -27,36 +27,38 @@ public class ItemVentaEntity {
 
 	@ManyToOne (cascade = CascadeType.ALL) 
 	@JoinColumn (name = "codigo")
-	private Producto producto;
+	private ProductoEntity producto;
 
 	@Column (columnDefinition = "float", nullable = true)
-	private String precio;
+	private Float precio;
 	
 	@Column (columnDefinition = "int", nullable = true)
-	private String cantidad;
+	private Integer cantidad;
 
-	public Producto getProducto() {
+	public ProductoEntity getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
+	public void setProducto(ProductoEntity producto) {
 		this.producto = producto;
 	}
 
-	public String getPrecio() {
+	public Float getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(String precio) {
+	public void setPrecio(Float precio) {
 		this.precio = precio;
 	}
 
-	public String getCantidad() {
+	public Integer getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(String cantidad) {
+	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
+
+	
 	
 }

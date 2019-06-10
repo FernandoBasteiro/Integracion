@@ -28,5 +28,6 @@ public class Empleado {
 	private Puesto puesto;
 	private Integer cbu;
 	
+	
 
 }
