@@ -42,6 +42,9 @@ public class ControladorEmpleados {
 		return null;
 	}
 	
+	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) {
+		
+	}
 	
 } 
  

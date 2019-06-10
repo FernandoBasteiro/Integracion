@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dto.FacturaDTO;
+import enumeraciones.MedioDePago;
 
 public class ControladorFacturacion {
 
@@ -20,7 +21,7 @@ public class ControladorFacturacion {
 		return null;
 	}
 	
-	public ArrayList<FacturaDTO> listarFacturasPendientes(String medioDePago) {
+	public ArrayList<FacturaDTO> listarFacturasPendientes(MedioDePago medioDePago) {
 		return null;
 	}
 	
