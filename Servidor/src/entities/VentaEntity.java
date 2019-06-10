@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +39,7 @@ public class VentaEntity {
 	
 	@OneToMany (cascade = CascadeType.ALL) //ESTO DEBERIA SER VECTOR
 	@JoinColumn (name = "id")
-	private ItemVentaEntity items;
+	private ArrayList<ItemVentaEntity> items; 
 	
 	@OneToOne (cascade = CascadeType.ALL) 
 	@JoinColumn (name = "legajo")
@@ -66,11 +68,11 @@ public class VentaEntity {
 		this.fechaVenta = fechaVenta;
 	}
 
-	public ItemVentaEntity getItems() {
+	public ArrayList<ItemVentaEntity> getItems() {
 		return items;
 	}
 
-	public void setItems(ItemVentaEntity items) {
+	public void setItems(ArrayList<ItemVentaEntity> items) {
 		this.items = items;
 	}
 
