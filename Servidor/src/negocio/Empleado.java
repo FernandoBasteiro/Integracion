@@ -6,7 +6,7 @@ import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Genero;
 import enumeraciones.Puesto;
-
+ 
 public class Empleado {
 	private String nombre;
 	private String apellido;
