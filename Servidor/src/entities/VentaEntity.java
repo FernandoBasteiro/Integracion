@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +22,8 @@ import javax.persistence.TemporalType;
 import enumeraciones.EstadoVenta;
 import enumeraciones.TipoFactura;
 
+@Entity
+@Table(name="Ventas")
 public class VentaEntity {
 	
 	
@@ -34,13 +37,13 @@ public class VentaEntity {
 	@Column(columnDefinition = "int", nullable=false)
 	private Integer id;
 	
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaVenta", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaVenta;
 	
 	@OneToMany (cascade = CascadeType.ALL) //ESTO DEBERIA SER VECTOR
 	@JoinColumn (name = "id")
-	private ArrayList<ItemVentaEntity> items; 
+	private List<ItemVentaEntity> items; 
 	
 	@OneToOne (cascade = CascadeType.ALL) 
 	@JoinColumn (name = "legajo")
@@ -82,11 +85,11 @@ public class VentaEntity {
 		this.fechaVenta = fechaVenta;
 	}
 
-	public ArrayList<ItemVentaEntity> getItems() {
+	public List<ItemVentaEntity> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<ItemVentaEntity> items) {
+	public void setItems(List<ItemVentaEntity> items) {
 		this.items = items;
 	}
 

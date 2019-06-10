@@ -60,29 +60,24 @@ public class EmpleadoEntity {
 	private String mail;
 
 	
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
+
 	private EstadoCivil estadoCivil;
 	
 
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
 	private Genero genero;
 
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaNacimiento", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaNacimiento;
 
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaIngreso", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaIngreso;
 
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaEgreso", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaEgreso;
 	
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
 	private EstadoEmpleado estado;
 	
 	@Column (columnDefinition = "varchar(40)", nullable = true)
@@ -102,7 +97,6 @@ public class EmpleadoEntity {
     @Column(length = 9)
 	private Puesto puesto;
 	
-	@Column (columnDefinition = "String", nullable = true)
 	private String cbu;
 
 	public Integer getLegajoEmpleado() {

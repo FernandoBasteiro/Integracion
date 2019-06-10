@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+@Entity
+@Table(name="Stocks")
 public class StockEntity {
 	
 	
@@ -21,6 +24,11 @@ public class StockEntity {
 	public StockEntity() {
 		super();
 	}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(columnDefinition = "int", nullable=false)
+	private Integer id;
 
 	@Column(columnDefinition = "int", nullable=false)
 	private Integer cantidadMinima;
@@ -30,6 +38,15 @@ public class StockEntity {
 	
 	@Column(columnDefinition = "int", nullable=false)
 	private Integer cantidadTotal;
+
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getCantidadMinima() {
 		return cantidadMinima;

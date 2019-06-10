@@ -18,12 +18,19 @@ import javax.persistence.TemporalType;
 
 import negocio.Producto;
 
+@Entity
+@Table(name="ItemVentas")
 public class ItemVentaEntity {
 	
 	
 	public ItemVentaEntity() {
 		super();
 	}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(columnDefinition = "int", nullable=false)
+	private Integer id;
 
 	@ManyToOne (cascade = CascadeType.ALL) 
 	@JoinColumn (name = "codigo")
@@ -58,6 +65,15 @@ public class ItemVentaEntity {
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 
 	
 	

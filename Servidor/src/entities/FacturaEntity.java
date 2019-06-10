@@ -20,6 +20,9 @@ import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoFactura;
 import enumeraciones.TipoFactura;
 
+
+@Entity
+@Table(name="Facturas")
 public class FacturaEntity {
 	
 	public FacturaEntity() {
@@ -31,7 +34,7 @@ public class FacturaEntity {
 	@Column(columnDefinition = "int", nullable=false)
 	private Integer numero;
 	
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaFacturacion", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaFacturacion;
 		
@@ -50,7 +53,7 @@ public class FacturaEntity {
     @Column(length = 9)
 	private EstadoFactura estado;
 	
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaCobro", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaCobro;
 

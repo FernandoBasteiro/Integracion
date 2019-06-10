@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
+@Table(name="Productos")
 public class ProductoEntity {
 
 	
@@ -24,7 +26,6 @@ public class ProductoEntity {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(columnDefinition = "int", nullable=false)
 	private Integer codigo;
 	
