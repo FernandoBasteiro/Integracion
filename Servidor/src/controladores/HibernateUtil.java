@@ -3,7 +3,12 @@ package controladores;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import negocio.Empleado;
+import entities.EmpleadoEntity;
+import entities.FacturaEntity;
+import entities.ItemVentaEntity;
+import entities.ProductoEntity;
+import entities.StockEntity;
+import entities.VentaEntity;
 
 public class HibernateUtil
 {
@@ -14,7 +19,12 @@ public class HibernateUtil
         try
         {
         	 AnnotationConfiguration config = new AnnotationConfiguration();
-             config.addAnnotatedClass(Empleado.class);
+             config.addAnnotatedClass(EmpleadoEntity.class);
+             config.addAnnotatedClass(FacturaEntity.class);
+             config.addAnnotatedClass(ItemVentaEntity.class);
+             config.addAnnotatedClass(ProductoEntity.class);
+             config.addAnnotatedClass(StockEntity.class);
+             config.addAnnotatedClass(VentaEntity.class);
              sessionFactory = config.buildSessionFactory();
         }
         catch (Throwable ex)
