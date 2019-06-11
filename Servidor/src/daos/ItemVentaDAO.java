@@ -5,6 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import controladores.HibernateUtil;
+import entities.ItemVentaEntity;
+import entities.ProductoEntity;
+import entities.StockEntity;
 import negocio.ItemVenta;
 
 public class ItemVentaDAO {
@@ -40,13 +43,31 @@ public class ItemVentaDAO {
 
 		try {
 			t = s.beginTransaction();
-			s.saveOrUpdate(itemVenta);
+			s.saveOrUpdate(ItemVentaDAO.getinstance().toEntity(itemVenta));
 			s.flush();
 			t.commit();
 			s.close();
 		} catch (Exception e) {
 			System.out.println("Error al guardar el item venta");
 		}
+	}
+
+	private ItemVentaEntity toEntity(ItemVenta ee) {
+		ItemVentaEntity e = new ItemVentaEntity();
+		
+		e.setCantidad(ee.getCantidad());
+		e.setPrecio(ee.getPrecio());
+		e.setProducto(ProductoDAO.getinstance().toEntity(ee.getProducto()));
+		return e;
+	}
+	
+	private ItemVenta toNegocio(ItemVentaEntity ee) {
+		ItemVenta e = new ItemVenta();
+		
+		e.setCantidad(ee.getCantidad());
+		e.setPrecio(ee.getPrecio());
+		e.setProducto(ProductoDAO.getinstance().toNegocio(ee.getProducto()));	
+		return e;
 	}
 
 }

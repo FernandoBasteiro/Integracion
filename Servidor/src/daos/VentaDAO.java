@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import controladores.HibernateUtil;
+import entities.VentaEntity;
 import negocio.Venta;
 
 public class VentaDAO {
@@ -42,13 +43,24 @@ public class VentaDAO {
 
 		try {
 			t = s.beginTransaction();
-			s.saveOrUpdate(venta);
+			s.saveOrUpdate(VentaDAO.getinstance().toEntity(venta));
 			s.flush();
 			t.commit();
 			s.close();
 		} catch (Exception e) {
 			System.out.println("Error al guardar la venta");
 		}
+	}
+
+	private VentaEntity toEntity(Venta venta) {
+		return null;
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Venta toNegocio(VentaEntity venta) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

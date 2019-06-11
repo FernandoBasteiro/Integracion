@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.joda.time.LocalDate;
 
 import controladores.HibernateUtil;
 import entities.EmpleadoEntity;
@@ -58,8 +59,8 @@ public class Dummy {
 		empleado.setDomicilio("Mardel");
 		empleado.setEstado(EstadoEmpleado.LICENCIA_PAGA);
 		empleado.setEstadoCivil(EstadoCivil.CASADO);
-		empleado.setFechaIngreso(Calendar.getInstance());
-		empleado.setFechaNacimiento(Calendar.getInstance());
+		empleado.setFechaIngreso(LocalDate.now());
+		empleado.setFechaNacimiento(LocalDate.now());
 		empleado.setGenero(Genero.FEMENINO);
 		empleado.setHorasAsignadas(10);
 		empleado.setMail("mail@falso");

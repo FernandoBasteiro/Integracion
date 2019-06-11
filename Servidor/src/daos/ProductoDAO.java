@@ -4,7 +4,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import controladores.HibernateUtil;
+import entities.EmpleadoEntity;
+import entities.ProductoEntity;
+import entities.StockEntity;
+import negocio.Empleado;
 import negocio.Producto;
+import negocio.Stock;
 
 
 public class ProductoDAO {
@@ -38,9 +43,10 @@ public class ProductoDAO {
 		Transaction t = null;
 		s = this.getSession();
 
+
 		try {
 			t = s.beginTransaction();
-			s.saveOrUpdate(producto);
+			s.saveOrUpdate(ProductoDAO.getinstance().toEntity(producto));
 			s.flush();
 			t.commit();
 			s.close();
@@ -49,4 +55,31 @@ public class ProductoDAO {
 		}
 	}
 
+	public ProductoEntity toEntity(Producto ee) {
+		ProductoEntity e = new ProductoEntity();
+		e.setCodigo(ee.getCodigo());
+		e.setNombre(ee.getNombre());
+		e.setDescripcion(ee.getDescripcion());
+		e.setPresentacion(ee.getDescripcion());
+		e.setPrecio(ee.getPrecio());
+		e.setStock(StockDAO.getinstance().toEntity(ee.getStock()));				
+		return e;	
+	}
+	
+	public Producto toNegocio(ProductoEntity ee) {
+		Producto e = new Producto();
+		e.setCodigo(ee.getCodigo());
+		e.setNombre(ee.getNombre());
+		e.setDescripcion(ee.getDescripcion());
+		e.setPresentacion(ee.getDescripcion());
+		e.setPrecio(ee.getPrecio());
+		e.setStock(StockDAO.getinstance().toNegocio(ee.getStock()));				
+		return e;		
+	}	
+	
+	
+	
+	
+	
+	
 }

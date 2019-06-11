@@ -1,6 +1,6 @@
 package negocio;
 
-import java.time.LocalDate;
+import org.joda.time.LocalDate;
 
 import enumeraciones.EstadoFactura;
 import enumeraciones.TipoFactura;

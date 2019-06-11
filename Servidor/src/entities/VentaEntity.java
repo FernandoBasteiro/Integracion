@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -20,7 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import enumeraciones.EstadoVenta;
-import enumeraciones.TipoFactura;
+import enumeraciones.MedioDePago;
 
 @Entity
 @Table(name="Ventas")
@@ -68,6 +67,17 @@ public class VentaEntity {
 	
 	@Column (columnDefinition = "int", nullable = true) //Aca vamos a tener que agarrar los ultimos 4 digitos en algun momento
 	private Integer ultimos4DigitosTarjeta;
+	
+	@Enumerated(EnumType.STRING)
+	private MedioDePago medioDePago;
+
+	public MedioDePago getMedioDePago() {
+		return medioDePago;
+	}
+
+	public void setMedioDePago(MedioDePago medioDePago) {
+		this.medioDePago = medioDePago;
+	}
 
 	public Integer getId() {
 		return id;
