@@ -3,6 +3,7 @@ package Servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +20,9 @@ import dto.StockDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
+import enumeraciones.EstadoFactura;
 import enumeraciones.Genero;
+import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
 import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
@@ -192,27 +195,33 @@ public class Private extends HttpServlet {
 				String dni = request.getParameter("buscarEmpleadoDni");
 				EstadoEmpleado estado = EstadoEmpleado.fromId(request.getParameter("estadoEmpleado") == null ? null : Integer.valueOf(request.getParameter("estadoEmpleado")));
 				Puesto puesto = Puesto.fromId(request.getParameter("puestoEmpleado") == null ? null : Integer.valueOf(request.getParameter("puestoEmpleado")));
-				try {
-					
-				}
-				catch (ExcepcionProceso e) {
+				ArrayList<EmpleadoDTO> empleados = new ArrayList<EmpleadoDTO>();
 				if (legajo != null) {
-					bd.listarEmpleadoPorLegajo(logged, legajo);
+					empleados = bd.listarEmpleadoPorLegajo(logged, legajo);
 				}
 				else if (dni != null) {
-					bd.listarEmpleadoPorDNI(logged, dni);
+					empleados = bd.listarEmpleadoPorDNI(logged, dni);
 				}
 				else {
-					bd.listarEmpleados(logged, puesto, estado);
+					empleados = bd.listarEmpleados(logged, puesto, estado);
 				}
+				request.setAttribute("empleados", empleados);
+				jspPage = "facturacion/index.jsp";
 			}
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				Integer codigo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
 				String nombre = request.getParameter("buscarEmpleadoDni");
-				
-				
+				ProductoDTO p = null;
+				if (codigo != null || nombre != null) {
+					p = new ProductoDTO();
+					p.setCodigo(codigo);
+					p.setNombre(nombre);
+				}
+				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, p);
+				request.setAttribute("productos", productos);
+				jspPage = "productos/index.jsp";
 				/*
 				nada: todos
 				buscarProductoNombre
@@ -220,6 +229,29 @@ public class Private extends HttpServlet {
 				*/
 			}
 			else if (action.equals("listarVentas")) {
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
+				LocalDate fecha = (request.getParameter("fechaFactura") == null ? null : LocalDate.parse(request.getParameter("fechaFactura"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				if (fecha == null) fecha = LocalDate.now();
+				
+				Integer numero = (request.getParameter("buscarFacturaNumero") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaNumero")));
+				Integer operacion = (request.getParameter("buscarFacturaOperacion") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaOperacion")));
+				EstadoFactura estado = EstadoFactura.fromId(request.getParameter("estadoFactura") == null ? null : Integer.valueOf(request.getParameter("estadoFactura")));
+				MedioDePago mdp = MedioDePago.fromId(request.getParameter("medioPagoFactura") == null ? null : Integer.valueOf(request.getParameter("medioPagoFactura")));
+				
+				ArrayList<VentaDTO> ventas = null;
+				if (numero != null) {
+					ventas = bd.listarFacturaPorNroFactura(logged, numero);
+				}
+				else if (operacion != null) {
+					ventas = bd.listarFacturaPorNroOperacion(logged, operacion);
+				}
+				else {
+					ventas = bd.listarFacturas(logged, mdp, fecha, estado);
+				}
+				request.setAttribute("facturas", ventas);
+				jspPage = "facturacion/index.jsp";
+				
 				/*
 				nada: las de hoy
 				buscarFacturaNumero

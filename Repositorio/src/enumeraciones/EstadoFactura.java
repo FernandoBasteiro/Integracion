@@ -17,4 +17,9 @@ public enum EstadoFactura {
 	public String getNombre() {
 		return nombre;
 	}
+	public static EstadoFactura fromId(Integer id) {
+		for (EstadoFactura ef : EstadoFactura.values()) if (ef.getId() == id) return ef;
+		return null;
+	}
+
 }
