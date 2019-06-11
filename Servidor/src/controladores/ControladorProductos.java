@@ -7,11 +7,7 @@ import dto.ProductoDTO;
 
 public class ControladorProductos {
 	
-	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) {
-		
-	}
-	
-	public void modificacionProducto(EmpleadoDTO supervisor, ProductoDTO p) {
+	public void cargarProdtuco(EmpleadoDTO supervisor, ProductoDTO p) {
 		
 	}
 
