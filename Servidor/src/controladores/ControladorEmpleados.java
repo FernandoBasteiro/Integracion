@@ -26,7 +26,7 @@ public class ControladorEmpleados {
 		}
 	}
 	
-	public boolean estaLogueado (EmpleadoDTO e) throws UsuarioNoLogueado {
+	public static boolean estaLogueado (EmpleadoDTO e) throws UsuarioNoLogueado {
 		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
 		if (emp == null || ! emp.getSession().equals(e.getSession())) throw new UsuarioNoLogueado("El usuario no esta logueado");
 		else return true;
@@ -93,7 +93,7 @@ public class ControladorEmpleados {
 				else throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
-		}
+		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 	
