@@ -6,6 +6,7 @@
 				<h2 class="d-inline float-left">Ver factura</h2>
 				<a href="/Web/facturacion/index.jsp" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 				<a href="/Web/facturacion/index.jsp" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
+				<a href="/Web/facturacion/index.jsp" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
 				<hr/>
 			</div>
 		</div>

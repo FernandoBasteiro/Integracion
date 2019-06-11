@@ -17,7 +17,7 @@
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
-							  <input type="search" class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
+							  <input name="buscarEmpleadoLegajo" type="search" class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
 							   <div class="input-group-append">
 							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
 							  </div>
@@ -28,7 +28,7 @@
 							<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
-							  <input type="search" class="form-control" placeholder="Ingrese dni..." aria-label="Ingrese dni" aria-describedby="buscarEmpleadoDni">
+							  <input name="buscarEmpleadoDni" type="search" class="form-control" placeholder="Ingrese dni..." aria-label="Ingrese dni" aria-describedby="buscarEmpleadoDni">
 							   <div class="input-group-append">
 							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
 							  </div>
@@ -38,7 +38,7 @@
 					<div class="form-row">
 						
 							<div class="form-group col-sm-5">
-							    <select class="form-control" id="estadoEmpleado">
+							    <select class="form-control" id="estadoEmpleado" name="estadoEmpleado">
 							      <option selected>- Estado -</option>
 							      <option>Activo</option>
 							      <option>Licencia Paga</option>
@@ -48,7 +48,7 @@
 							    </select>
 							 </div>			
 							<div class="form-group col-sm-5">
-							    <select class="form-control" id="puestoEmpleado">
+							    <select class="form-control" id="puestoEmpleado" name="puestoEmpleado">
 							      <option selected>- Puesto -</option>
 							      <option>Cajero</option>
 							      <option>Repositor</option>

@@ -16,7 +16,7 @@
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
-							  <input type="search" class="form-control" placeholder="Ingrese número de factura..." aria-label="Ingrese número de factura" aria-describedby="buscarFactura">
+							  <input name="buscarFacturaNumero" type="search" class="form-control" placeholder="Ingrese número de factura..." aria-label="Ingrese número de factura" aria-describedby="buscarFacturaNumero">
 							   <div class="input-group-append">
 							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
 							  </div>
@@ -27,7 +27,7 @@
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
-							  <input type="search" class="form-control" placeholder="Ingrese número de operación..." aria-label="Ingrese número de operación" aria-describedby="buscarFactura">
+							  <input name="buscarFacturaOperacion" type="search" class="form-control" placeholder="Ingrese número de operación..." aria-label="Ingrese número de operación" aria-describedby="buscarFacturaOperacion">
 							   <div class="input-group-append">
 							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
 							  </div>
@@ -44,7 +44,7 @@
 							</div>	
 						 </div>			
 						<div class="form-group col-sm-3">
-						    <select class="form-control" id="estadoFactura">
+						    <select class="form-control" id="estadoFactura" name="estadoFactura">
 						      <option selected>- Estado -</option>
 						      <option>Pendiente</option>
 						      <option>Cobrada</option>
@@ -52,7 +52,7 @@
 						    </select>
 						  </div>
 						<div class="form-group col-sm-3">
-						    <select class="form-control" id="estadoFactura">
+						    <select class="form-control" id="medioPagoFactura" name="medioPagoFactura">
 						      <option selected>- Medio de pago -</option>
 						      <option>Efectivo</option>
 						      <option>Tarjeta de débito</option>
@@ -96,7 +96,7 @@
 				      <td class="actions text-center">
 				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/facturacion/index.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <tr>
@@ -111,7 +111,7 @@
 				      <td class="actions text-center">
 				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/facturacion/index.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <tr>
@@ -126,7 +126,7 @@
 				      <td class="actions text-center">
 				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/facturacion/index.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				  </tbody>
