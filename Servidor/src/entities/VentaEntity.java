@@ -45,7 +45,6 @@ public class VentaEntity {
 	
 	@OneToMany (cascade = CascadeType.ALL) 
 	private List<ItemVentaEntity> items; 
-	
 	@OneToOne  
 	private EmpleadoEntity empleado;
 	
@@ -118,6 +117,8 @@ public class VentaEntity {
 	public Integer getId() {
 		return id;
 	}
+	
+	
 
 	public void setId(Integer id) {
 		this.id = id;

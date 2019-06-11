@@ -79,7 +79,7 @@ public class EmpleadoDAO {
 	public Empleado getEmpleadoByLegajo(int legajo){
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where legajo = ?")
+		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where legajoEmpleado = ?")
 					.setParameter(0, legajo)
 					.uniqueResult();
 			return EmpleadoDAO.getinstance().toNegocio(pe);
