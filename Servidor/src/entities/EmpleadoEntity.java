@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +16,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
@@ -171,28 +176,31 @@ public class EmpleadoEntity {
 		this.genero = genero;
 	}
 
-	public Calendar getFechaNacimiento() {
-		return fechaNacimiento;
+	public LocalDate getFechaNacimiento() {
+		return (fechaNacimiento == null ? null : LocalDate.fromCalendarFields(fechaNacimiento));
 	}
 
-	public void setFechaNacimiento(Calendar fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
-	public Calendar getFechaIngreso() {
-		return fechaIngreso;
+	
+	public LocalDate getFechaIngreso() {
+		return (fechaIngreso == null ? null : LocalDate.fromCalendarFields(fechaIngreso));
 	}
 
-	public void setFechaIngreso(Calendar fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setFechaIngreso(LocalDate fechaIngreso) {
+		this.fechaIngreso = fechaIngreso.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
-	public Calendar getFechaEgreso() {
-		return fechaEgreso;
+	
+
+	public LocalDate getFechaEgreso() {
+		return (fechaEgreso == null ? null : LocalDate.fromCalendarFields(fechaEgreso));
 	}
 
-	public void setFechaEgreso(Calendar fechaEgreso) {
-		this.fechaEgreso = fechaEgreso;
+	public void setFechaEgreso(LocalDate fechaEgreso) {
+		this.fechaEgreso = fechaEgreso.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
 	public EstadoEmpleado getEstado() {
@@ -250,6 +258,7 @@ public class EmpleadoEntity {
 	public void setCbu(String cbu) {
 		this.cbu = cbu;
 	}
+	
 
 	
 

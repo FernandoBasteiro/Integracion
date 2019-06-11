@@ -19,8 +19,6 @@ import javax.persistence.TemporalType;
 public class ProductoEntity {
 
 	
-	
-	
 	public ProductoEntity() {
 		super();
 	}
