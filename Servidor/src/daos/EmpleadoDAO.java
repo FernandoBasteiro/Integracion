@@ -125,7 +125,7 @@ public class EmpleadoDAO {
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
 		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where puesto = ?)")
-				.setParameter(0, puesto.getNombre())
+				.setParameter(0, puesto)
 				.list();
 		ArrayList<Empleado> lista = new ArrayList<Empleado>();
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
@@ -137,7 +137,7 @@ public class EmpleadoDAO {
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
 		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where estado = ?)")
-				.setParameter(0, estado.getNombre())
+				.setParameter(0, estado)
 				.list();
 		ArrayList<Empleado> lista = new ArrayList<Empleado>();
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));

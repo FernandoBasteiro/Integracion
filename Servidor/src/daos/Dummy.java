@@ -48,17 +48,17 @@ public class Dummy {
 		stock.setCantidadDisponible(10);
 		stock.setCantidadMinimo(6);
 		stock.setCantidadTotal(12);
-		producto.setCodigo(1234);
+		producto.setCodigo(1234567);
 		producto.setDescripcion("Veneno");
-		producto.setNombre("CocaCola 2L");
+		producto.setNombre("Oreos");
 		producto.setPrecio((float)45.3);
 		producto.setPresentacion("2L");
 		producto.setStock(stock);
-		empleado.setApellido("Sarasa");
+		empleado.setApellido("Montero");
 		empleado.setCbu("1234");
-		empleado.setDni("33333");
+		empleado.setDni("33333444444");
 		empleado.setDomicilio("Mardel");
-		empleado.setEstadoEmpleado(EstadoEmpleado.LICENCIA_PAGA);
+		empleado.setEstadoEmpleado(EstadoEmpleado.ACTIVO);
 		empleado.setEstadoCivil(EstadoCivil.CASADO);
 		empleado.setFechaIngreso(LocalDate.now());
 		empleado.setFechaEgreso(LocalDate.now());
@@ -68,7 +68,7 @@ public class Dummy {
 		empleado.setEmail("mail@falso");
 		empleado.setNacionalidad("Argentino");
 		empleado.setPassword("1234");
-		empleado.setPuesto(Puesto.GERENTE);
+		empleado.setPuesto(Puesto.CAJERO);
 		empleado.setSueldoBase((float)100.3);
 		empleado.setTelefono("1234");
 		itemVenta.setCantidad(10);
@@ -85,7 +85,13 @@ public class Dummy {
 		empleado.setLegajo(1);
 		VentaDAO.getinstance().add(venta);
 		
-	
+		int i=0;
+		for( Empleado e : EmpleadoDAO.getinstance().getEmpleadosByEstado(EstadoEmpleado.DESVINCULADO)) {
+			
+			System.out.println("Empleado "+i+": "+e.getApellido()+" - Estado: "+e.getEstadoEmpleado().toString());
+			i++;
+		}
+		
 		System.out.println("Bien");
 
 	}
