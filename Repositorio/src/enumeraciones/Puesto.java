@@ -1,11 +1,11 @@
 package enumeraciones;
 
 public enum Puesto {
-	CAJERO (1, "Cajero"),
-	REPOSITOR (2, "Repositor"),
-	SUPERVISOR (3, "Supervisor"),
-	GERENTE (4, "Gerente"),
-	SEGURIDAD (5, "Seguridad");
+	REPOSITOR (1, "Repositor"),
+	SEGURIDAD (2, "Seguridad"),
+	CAJERO (3, "Cajero"),
+	SUPERVISOR (4, "Supervisor"),
+	GERENTE (5, "Gerente");
 	
 	private final int id;
 	private final String nombre;
@@ -18,5 +18,9 @@ public enum Puesto {
 	}
 	public String getNombre() {
 		return nombre;
+	}
+	public static Puesto fromId(int id) {
+		for (Puesto p : Puesto.values()) if (p.getId() == id) return p;
+		return null;
 	}
 }

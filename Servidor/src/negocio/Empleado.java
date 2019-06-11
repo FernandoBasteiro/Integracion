@@ -1,8 +1,7 @@
 package negocio;
 
-
 import org.joda.time.LocalDate;
-
+import dto.EmpleadoDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Genero;
@@ -29,6 +28,7 @@ public class Empleado {
 	private Puesto puesto;
 	private String cbu;
 	private String session;
+	
 	public Empleado(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
 			String email, EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
@@ -204,6 +204,16 @@ public class Empleado {
 		super();
 	}
 	
+	public boolean verificarPassword(String p) {
+		if (this.password == p) {
+			return true;
+		}
+		return false;
+	}
 	
+	public EmpleadoDTO getDTO () {
+		//TODO ENVIAR PARAMETROS 
+		return new EmpleadoDTO ();
+	}
 
 }

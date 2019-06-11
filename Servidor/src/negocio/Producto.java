@@ -1,5 +1,7 @@
 package negocio;
 
+import dto.ProductoDTO;
+
 public class Producto {
 	private Integer codigo;
 	private String nombre;
@@ -64,10 +66,15 @@ public class Producto {
 		super();
 	}
 	
+	public void devolverStock(Integer cant) {
+		this.stock.devolverStock(cant);
+	}
 	
 	
-	
-	
+	public ProductoDTO getDTO() {
+		//TODO ENVIAR PARAMETROS 
+		return new ProductoDTO();
+	}
 	
 	
 	

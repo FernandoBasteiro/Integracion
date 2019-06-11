@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 
 import controladores.HibernateUtil;
 import entities.VentaEntity;
+import negocio.Producto;
 import negocio.Venta;
 
 public class VentaDAO {
@@ -58,9 +59,20 @@ public class VentaDAO {
 		
 	}
 
-	public Venta toNegocio(VentaEntity venta) {
-		// TODO Auto-generated method stub
-		return null;
+	public Venta toNegocio(VentaEntity ee) {
+		
+		Venta e = new Venta();
+		e.setCuit(ee.getCuit());
+		e.setEmpleado(EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()));	
+		e.setEstado(ee.getEstado());
+		e.setFechaCobro(ee.getFechaCobro());
+		e.setFechaVenta(ee.getFechaVenta());
+		e.setId(ee.getId());
+		e.setItems(ItemVentaDAO.getinstance().toNegocio(ee.getItems()));
+		e.setTipoFact(ee.getTipo());
+		e.setTotal(ee.getTotal());		
+		
+		return e;
 	}
 
 

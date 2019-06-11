@@ -1,10 +1,13 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.TipoCuenta;
+import enumeraciones.TipoFactura;
 
 public class VentaTarjetaCredito extends Venta {
 	private String numeroTarjeta;
@@ -15,10 +18,12 @@ public class VentaTarjetaCredito extends Venta {
 	private Integer nroOperacion;
 	private Boolean aprobada;
 	private Integer cantCuotas;
+	
 	public VentaTarjetaCredito(Integer id, LocalDateTime fechaVenta, List<ItemVenta> items, Empleado empleado,
 			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
-			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer cantCuotas) {
-		super(id, fechaVenta, items, empleado, estado, total);
+			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer cantCuotas, 
+			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
+		super(id, fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
 		this.numeroTarjeta = numeroTarjeta;
 		this.codigoSeguridad = codigoSeguridad;
 		this.nombre = nombre;
@@ -77,5 +82,9 @@ public class VentaTarjetaCredito extends Venta {
 		this.cantCuotas = cantCuotas;
 	}
 	
+	public VentaDTO getDTO () {
+		//TODO ENVIAR PARAMETROS 
+		return new VentaDTO ();
+	}
 	
 }

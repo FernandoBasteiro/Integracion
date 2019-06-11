@@ -27,4 +27,154 @@ public class EmpleadoDTO {
 	private Integer horasAsignadas;
 	private Puesto puesto;
 	private Integer cbu;
+	private String session;
+	public EmpleadoDTO(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
+			String email, EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
+			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
+			Float sueldoBase, Integer horasAsignadas, Puesto puesto, Integer cbu, String session) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.legajo = legajo;
+		this.dni = dni;
+		this.domicilio = domicilio;
+		this.telefono = telefono;
+		this.email = email;
+		this.estadoCivil = estadoCivil;
+		this.genero = genero;
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaIngreso = fechaIngreso;
+		this.fechaEgreso = fechaEgreso;
+		this.estadoEmpleado = estadoEmpleado;
+		this.nacionalidad = nacionalidad;
+		this.password = password;
+		this.sueldoBase = sueldoBase;
+		this.horasAsignadas = horasAsignadas;
+		this.puesto = puesto;
+		this.cbu = cbu;
+		this.session = session;
+	}
+	public EmpleadoDTO() {
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public Integer getLegajo() {
+		return legajo;
+	}
+	public void setLegajo(Integer legajo) {
+		this.legajo = legajo;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getDomicilio() {
+		return domicilio;
+	}
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public EstadoCivil getEstadoCivil() {
+		return estadoCivil;
+	}
+	public void setEstadoCivil(EstadoCivil estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+	public Genero getGenero() {
+		return genero;
+	}
+	public void setGenero(Genero genero) {
+		this.genero = genero;
+	}
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	public LocalDate getFechaIngreso() {
+		return fechaIngreso;
+	}
+	public void setFechaIngreso(LocalDate fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+	public LocalDate getFechaEgreso() {
+		return fechaEgreso;
+	}
+	public void setFechaEgreso(LocalDate fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
+	}
+	public EstadoEmpleado getEstadoEmpleado() {
+		return estadoEmpleado;
+	}
+	public void setEstadoEmpleado(EstadoEmpleado estadoEmpleado) {
+		this.estadoEmpleado = estadoEmpleado;
+	}
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Float getSueldoBase() {
+		return sueldoBase;
+	}
+	public void setSueldoBase(Float sueldoBase) {
+		this.sueldoBase = sueldoBase;
+	}
+	public Integer getHorasAsignadas() {
+		return horasAsignadas;
+	}
+	public void setHorasAsignadas(Integer horasAsignadas) {
+		this.horasAsignadas = horasAsignadas;
+	}
+	public Puesto getPuesto() {
+		return puesto;
+	}
+	public void setPuesto(Puesto puesto) {
+		this.puesto = puesto;
+	}
+	public Integer getCbu() {
+		return cbu;
+	}
+	public void setCbu(Integer cbu) {
+		this.cbu = cbu;
+	}
+	public String getSession() {
+		return session;
+	}
+	public void setSession(String session) {
+		this.session = session;
+	}
+	
+	
 }

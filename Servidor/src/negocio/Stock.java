@@ -33,6 +33,13 @@ public class Stock {
 		super();
 	}
 	
+	public void devolverStock(Integer cant) {
+		this.cantidadDisponible =+ cant;
+	}
 	
-	
+	public void bajaStock ( ) {
+		this.cantidadMinimo = 0;
+		this.cantidadTotal = 0;
+		this.cantidadTotal = 0;
+	}
 }

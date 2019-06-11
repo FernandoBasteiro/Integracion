@@ -97,7 +97,7 @@ public class EmpleadoDAO {
 		
 	}
 
-	private Empleado toNegocio(EmpleadoEntity ee) {
+	public Empleado toNegocio(EmpleadoEntity ee) {
 		Empleado e = new Empleado();
 		e.setApellido(ee.getApellido());
 		e.setCbu(ee.getCbu());

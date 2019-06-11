@@ -2,6 +2,7 @@ package entities;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,8 +19,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
+import enumeraciones.TipoFactura;
 
 @Entity
 @Table(name="Ventas")
@@ -56,6 +61,22 @@ public class VentaEntity {
 	private Float total;
 	
 	
+	//DATOS FACTURA
+	
+
+	@Enumerated(EnumType.STRING)
+    @Column(length = 9)
+	private TipoFactura tipo;
+	
+	@Column (columnDefinition = "varchar(40)", nullable = true)
+	private String cuit;
+	
+	@Column(name = "fechaCobro", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
+		private Calendar fechaCobro;
+	
+	//DATOS PARTICULARES DE CADA HERENCIA
+	
 	@Column (columnDefinition = "int", nullable = true)
 	private Integer nroOperacion;
 	
@@ -74,6 +95,36 @@ public class VentaEntity {
 	public MedioDePago getMedioDePago() {
 		return medioDePago;
 	}
+	
+
+	public TipoFactura getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(TipoFactura tipo) {
+		this.tipo = tipo;
+	}
+
+
+	public String getCuit() {
+		return cuit;
+	}
+
+
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
+	}
+
+
+	public LocalDate getFechaCobro() {
+		return (fechaCobro == null ? null : LocalDate.fromCalendarFields(fechaCobro));
+	}
+
+	public void setFechaCobro(LocalDate fechaCobro) {
+		this.fechaCobro = fechaCobro.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
+	}
+
 
 	public void setMedioDePago(MedioDePago medioDePago) {
 		this.medioDePago = medioDePago;
@@ -87,12 +138,12 @@ public class VentaEntity {
 		this.id = id;
 	}
 
-	public Calendar getFechaVenta() {
-		return fechaVenta;
+	public LocalDate getFechaVenta() {
+		return (fechaVenta == null ? null : LocalDate.fromCalendarFields(fechaVenta));
 	}
 
-	public void setFechaVenta(Calendar fechaVenta) {
-		this.fechaVenta = fechaVenta;
+	public void setFechaVenta(LocalDate fechaVenta) {
+		this.fechaVenta = fechaVenta.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
 	public List<ItemVentaEntity> getItems() {
