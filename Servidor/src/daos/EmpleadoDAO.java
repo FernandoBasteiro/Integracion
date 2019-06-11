@@ -2,7 +2,6 @@ package daos;
 
 import controladores.HibernateUtil;
 import entities.EmpleadoEntity;
-import entities.FacturaEntity;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Puesto;
 import negocio.Empleado;
