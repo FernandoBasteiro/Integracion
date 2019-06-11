@@ -8,6 +8,7 @@ import dto.EmpleadoDTO;
 import dto.FacturaDTO;
 import dto.ProductoDTO;
 import enumeraciones.EstadoEmpleado;
+import enumeraciones.EstadoFactura;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
 import interfaces.InterfazRemota;
@@ -45,19 +46,20 @@ public class ObjetoRemoto implements InterfazRemota {
 	}
 
 	@Override
-	public ArrayList<EmpleadoDTO> listarEmpleado(EmpleadoDTO supervisor) throws RemoteException {
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI(EmpleadoDTO gerente, String dni) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<EmpleadoDTO> listarEmpleado(EmpleadoDTO supervisor, EstadoEmpleado ee) throws RemoteException {
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo(EmpleadoDTO gerente, Integer leg) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<EmpleadoDTO> listarEmpleado(EmpleadoDTO supervisor, Puesto p) throws RemoteException {
+	public ArrayList<EmpleadoDTO> listarEmpleados(EmpleadoDTO gerente, Puesto p, EstadoEmpleado e)
+			throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -75,26 +77,21 @@ public class ObjetoRemoto implements InterfazRemota {
 	}
 
 	@Override
-	public ArrayList<FacturaDTO> listarFacturas(EmpleadoDTO gerente, LocalDate fecha) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<FacturaDTO> listarFacturasPendientes(EmpleadoDTO gerente) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<FacturaDTO> listarFacturasPendientes(EmpleadoDTO gerente, MedioDePago medioDePago)
+	public ArrayList<FacturaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<FacturaDTO> listarFacturasPendientes(EmpleadoDTO gerente, Integer nroOperacion)
+	public ArrayList<FacturaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<FacturaDTO> listarFacturas(EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
@@ -137,7 +134,7 @@ public class ObjetoRemoto implements InterfazRemota {
 	}
 
 	@Override
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor) throws RemoteException {
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -147,5 +144,5 @@ public class ObjetoRemoto implements InterfazRemota {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

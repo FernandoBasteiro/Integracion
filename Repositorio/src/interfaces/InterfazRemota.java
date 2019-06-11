@@ -9,6 +9,7 @@ import dto.EmpleadoDTO;
 import dto.FacturaDTO;
 import dto.ProductoDTO;
 import enumeraciones.EstadoEmpleado;
+import enumeraciones.EstadoFactura;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
 
@@ -19,16 +20,15 @@ public interface InterfazRemota extends Remote {
 	public void modificacionEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
 	public void bajaEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
 	public EmpleadoDTO mostrarFichaEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
-	public ArrayList<EmpleadoDTO> listarEmpleado (EmpleadoDTO supervisor) throws RemoteException;
-	public ArrayList<EmpleadoDTO> listarEmpleado (EmpleadoDTO supervisor, EstadoEmpleado ee) throws RemoteException;
-	public ArrayList<EmpleadoDTO> listarEmpleado (EmpleadoDTO supervisor, Puesto p) throws RemoteException;
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI (EmpleadoDTO gerente, String dni) throws RemoteException;
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo (EmpleadoDTO gerente, Integer leg) throws RemoteException;
+	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws RemoteException;
 	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
 	
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) throws RemoteException;
-	public ArrayList<FacturaDTO> listarFacturas(EmpleadoDTO gerente, LocalDate fecha) throws RemoteException;
-	public ArrayList<FacturaDTO> listarFacturasPendientes (EmpleadoDTO gerente) throws RemoteException;
-	public ArrayList<FacturaDTO> listarFacturasPendientes (EmpleadoDTO gerente, MedioDePago medioDePago) throws RemoteException;
-	public ArrayList<FacturaDTO> listarFacturasPendientes (EmpleadoDTO gerente, Integer nroOperacion) throws RemoteException;
+	public ArrayList<FacturaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws RemoteException;
+	public ArrayList<FacturaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws RemoteException;
+	public ArrayList<FacturaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) throws RemoteException;
 	public FacturaDTO mostrarFactura (EmpleadoDTO gerente, FacturaDTO f) throws RemoteException;
 	
 	public void generarVenta(EmpleadoDTO cajero, FacturaDTO f) throws RemoteException;
@@ -37,6 +37,6 @@ public interface InterfazRemota extends Remote {
 	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor) throws RemoteException;
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 }

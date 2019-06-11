@@ -27,6 +27,7 @@ public class Empleado {
 	private Integer horasAsignadas;
 	private Puesto puesto;
 	private Integer cbu;
+	private String session;
 	
 	
 
