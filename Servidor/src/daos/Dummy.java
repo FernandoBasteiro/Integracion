@@ -98,17 +98,18 @@ public class Dummy {
 		}*/
 		
 		
-		EmpleadoDTO empleado = new EmpleadoDTO();
+		Empleado empleado = new Empleado();
 
-		empleado.setApellido("AgregadoPorGerente");
+		empleado.setNombre("Fernando");
+		empleado.setApellido("Basteiro");
 		empleado.setCbu("1234");
 		empleado.setDni("12");
 		empleado.setDomicilio("BA");
 		empleado.setEstadoEmpleado(EstadoEmpleado.ACTIVO);
 		empleado.setEstadoCivil(EstadoCivil.CASADO);
-		empleado.setFechaIngreso(java.time.LocalDate.now());
-		empleado.setFechaEgreso(java.time.LocalDate.now());
-		empleado.setFechaNacimiento(java.time.LocalDate.now());
+		empleado.setFechaIngreso(LocalDate.now());
+		empleado.setFechaEgreso(LocalDate.now());
+		empleado.setFechaNacimiento(LocalDate.now());
 		empleado.setGenero(Genero.FEMENINO);
 		empleado.setHorasAsignadas(10);
 		empleado.setEmail("mail@falso");
@@ -118,7 +119,9 @@ public class Dummy {
 		empleado.setSueldoBase((float)100.3);
 		empleado.setTelefono("1234");
 		
+		EmpleadoDAO.getinstance().add(empleado);
 		
+		/*
 		EmpleadoDTO gerente = new EmpleadoDTO();
 		gerente.setLegajo(1);
 		gerente.setPassword("1234");
@@ -127,7 +130,7 @@ public class Dummy {
 		System.out.println(gerente.getApellido());
 		ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
 		
-		
+		*/
 		
 		
 		
