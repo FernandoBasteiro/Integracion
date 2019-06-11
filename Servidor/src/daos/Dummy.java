@@ -102,13 +102,13 @@ public class Dummy {
 
 		empleado.setApellido("AgregadoPorGerente");
 		empleado.setCbu("1234");
-		empleado.setDni("000");
+		empleado.setDni("12");
 		empleado.setDomicilio("BA");
 		empleado.setEstadoEmpleado(EstadoEmpleado.ACTIVO);
 		empleado.setEstadoCivil(EstadoCivil.CASADO);
-		empleado.setFechaIngreso(ConversorFechas.convertJodaToJava(LocalDate.now()));
-		empleado.setFechaEgreso(ConversorFechas.convertJodaToJava(LocalDate.now()));
-		empleado.setFechaNacimiento(ConversorFechas.convertJodaToJava(LocalDate.now()));
+		empleado.setFechaIngreso(java.time.LocalDate.now());
+		empleado.setFechaEgreso(java.time.LocalDate.now());
+		empleado.setFechaNacimiento(java.time.LocalDate.now());
 		empleado.setGenero(Genero.FEMENINO);
 		empleado.setHorasAsignadas(10);
 		empleado.setEmail("mail@falso");
@@ -125,7 +125,7 @@ public class Dummy {
 		gerente.setSession("3");
 		gerente=ControladorEmpleados.getInstance().iniciarSesion(gerente);
 		System.out.println(gerente.getApellido());
-		//ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
+		ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
 		
 		
 		

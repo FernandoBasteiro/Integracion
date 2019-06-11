@@ -48,7 +48,7 @@ public class EmpleadoDAO {
 			t.commit();
 			s.close();
 		} catch (Exception e) {
-			System.out.println("Error al Guardar Empleado");
+			e.printStackTrace();
 		}
 	}
 		
@@ -73,6 +73,7 @@ public class EmpleadoDAO {
 		e.setPuesto(ee.getPuesto());
 		e.setSueldoBase(ee.getSueldoBase());
 		e.setTelefono(ee.getTelefono());
+		e.setSession(ee.getSession());
 		return e;		
 	}
 
@@ -92,6 +93,9 @@ public class EmpleadoDAO {
 		EmpleadoEntity ee = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where dni = ?")
 					.setParameter(0, dni)
 					.uniqueResult();
+		if(ee==null)
+			return null;
+		else
 			return EmpleadoDAO.getinstance().toNegocio(ee);
 		
 	}
@@ -117,6 +121,7 @@ public class EmpleadoDAO {
 		e.setPuesto(ee.getPuesto());
 		e.setSueldoBase(ee.getSueldoBase());
 		e.setTelefono(ee.getTelefono());
+		e.setSession(ee.getSession());
 		return e;		
 	}	
 	
