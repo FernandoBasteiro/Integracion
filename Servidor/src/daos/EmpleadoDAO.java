@@ -1,6 +1,7 @@
 package daos;
 
 import controladores.HibernateUtil;
+import entities.EmpleadoEntity;
 import negocio.Empleado;
 
 import java.util.ArrayList;
@@ -49,6 +50,49 @@ public class EmpleadoDAO {
 			System.out.println("Error al Guardar Empleado");
 		}
 	}
+		
+	public Empleado getEmpleadoByLegajo(int legajo){
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where legajo = ?")
+					.setParameter(0, legajo)
+					.uniqueResult();
+			return EmpleadoDAO.getinstance().toNegocio(pe);
+		
+	}
+	
+	public Empleado getEmpleadoByDni(String dni){
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where dni = ?")
+					.setParameter(0, dni)
+					.uniqueResult();
+			return EmpleadoDAO.getinstance().toNegocio(pe);
+		
+	}
+
+	private Empleado toNegocio(EmpleadoEntity pe) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }
