@@ -15,6 +15,9 @@ import enumeraciones.EstadoFactura;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
 import excepciones.ComunicacionException;
+import excepciones.ExcepcionProceso;
+import excepciones.UsuarioNoLogueado;
+import excepciones.UsuarioSinPermisos;
 import interfaces.InterfazRemota;
 
 public class BusinessDelegate {
@@ -30,7 +33,7 @@ public class BusinessDelegate {
 	
 	private BusinessDelegate() throws ComunicacionException{
 		try {
-			ir = (InterfazRemota) Naming.lookup("//127.0.0.1/Super");
+			ir = (InterfazRemota) Naming.lookup("//127.0.0.1/SuperSarasaServer");
 		} catch (MalformedURLException e) {
 			throw new ComunicacionException("La direccion especificada no es correcta");
 		} catch (RemoteException e) {
@@ -40,7 +43,7 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws ComunicacionException {
+	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws ComunicacionException, UsuarioNoLogueado {
 		try {
 			return ir.iniciarSesion(e);
 		} catch (RemoteException re) {
@@ -48,7 +51,7 @@ public class BusinessDelegate {
 		}
 
 	}
-	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
+	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		try {
 			ir.altaEmpleado(gerente, empleado);
 		} catch (RemoteException re) {
@@ -56,6 +59,7 @@ public class BusinessDelegate {
 		}
 		
 	}
+	/*
 	public void modificacionEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
 		try {
 			ir.modificacionEmpleado(gerente, empleado);
@@ -199,4 +203,5 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
+	*/
 }

@@ -1,12 +1,14 @@
 package dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Genero;
 import enumeraciones.Puesto;
 
-public class EmpleadoDTO {
+public class EmpleadoDTO implements Serializable {
 	private String nombre;
 	private String apellido;
 	private Integer legajo;

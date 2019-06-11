@@ -12,11 +12,15 @@ import enumeraciones.EstadoEmpleado;
 import enumeraciones.EstadoFactura;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
+import excepciones.ExcepcionProceso;
+import excepciones.UsuarioNoLogueado;
+import excepciones.UsuarioSinPermisos;
 
 
 public interface InterfazRemota extends Remote {
-	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws RemoteException;
-	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
+	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws RemoteException, UsuarioNoLogueado;
+	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso;
+	/*
 	public void modificacionEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
 	public void bajaEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
 	public EmpleadoDTO mostrarFichaEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
@@ -39,4 +43,5 @@ public interface InterfazRemota extends Remote {
 	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
+	*/
 }

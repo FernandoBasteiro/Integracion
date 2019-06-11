@@ -109,7 +109,7 @@ public class Private extends HttpServlet {
 				nuevo.setCbu(cbu);
 				try {
 					if (nuevo.getLegajo() == null) bd.altaEmpleado(logged, nuevo);
-					else bd.modificacionEmpleado(logged, nuevo);
+					//TODO else bd.modificacionEmpleado(logged, nuevo);
 					request.setAttribute("success", "Se creo el usuario");
 				}
 				catch (ExcepcionProceso e) {
@@ -118,6 +118,7 @@ public class Private extends HttpServlet {
 				}
 				jspPage = "empleados/crearEmpleado.jsp";					
 			}
+			/*
 			else if (action.equals("crearProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -227,6 +228,7 @@ public class Private extends HttpServlet {
 				buscarProductoNombre
 				buscarProductoCodigo
 				*/
+			/*
 			}
 			else if (action.equals("listarVentas")) {
 				HttpSession session = request.getSession();
@@ -260,13 +262,14 @@ public class Private extends HttpServlet {
 				estadoFactura
 				medioPagoFactura
 				*/
+			/*
 			}
 			else if (action.equals("vender")) {
 				//nada: todos los productos
 			}
 			else if (action.equals("facturar")) {
 				
-			}
+			}*/
 		}
 		catch (UsuarioSinPermisos usp) {
 			jspPage = "index.jsp";
