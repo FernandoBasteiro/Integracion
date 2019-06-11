@@ -22,3 +22,24 @@
 }());
 
 // Place any jQuery/helper plugins in here.
+$('#formVenta #pagoEfectivo').dependsOn({
+	'#formVenta #medioPago': {
+		values: ['1']
+	}
+}, {
+	hide: true
+});
+$('#formVenta #pagoDebito').dependsOn({
+	'#formVenta #medioPago': {
+		values: ['3']
+	}
+}, {
+	hide: true
+});
+$('#formVenta #pagoCredito').dependsOn({
+	'#formVenta #medioPago': {
+		values: ['2']
+	}
+}, {
+	hide: true
+});

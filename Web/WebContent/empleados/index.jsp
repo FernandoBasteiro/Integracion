@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline">Administrar Empleados</h2>
-				<a href="/Web/empleados/crearEmpleado.jsp" class="btn btn-primary float-right">Nuevo empleado</a>
+				<a href="/Web/empleados/crearEmpleado.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo empleado</a>
 				<hr/>
 			</div>
 		</div>
