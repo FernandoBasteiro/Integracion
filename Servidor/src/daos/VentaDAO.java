@@ -10,9 +10,13 @@ import controladores.HibernateUtil;
 import entities.ItemVentaEntity;
 import entities.ProductoEntity;
 import entities.VentaEntity;
+import enumeraciones.MedioDePago;
 import negocio.ItemVenta;
 import negocio.Producto;
 import negocio.Venta;
+import negocio.VentaEfectivo;
+import negocio.VentaTarjetaCredito;
+import negocio.VentaTarjetaDebito;
 
 public class VentaDAO {
 	
@@ -50,11 +54,11 @@ public class VentaDAO {
 		try {
 			t = s.beginTransaction();
 			s.saveOrUpdate(VentaDAO.getinstance().toEntity(venta));
-			s.flush();
 			t.commit();
+			//s.flush();
 			s.close();
 		} catch (Exception e) {
-			System.out.println("Error al guardar la venta");
+			e.printStackTrace();
 		}
 	}
 
@@ -74,7 +78,15 @@ public class VentaDAO {
 		e.setId(ee.getId());
 		e.setTipo(ee.getTipoFact());
 		e.setTotal(ee.getTotal());
-			
+		if(ee instanceof VentaEfectivo) {
+			e.setMedioDePago(MedioDePago.EFECTIVO);
+		}
+		if(ee instanceof VentaTarjetaCredito) {
+			e.setMedioDePago(MedioDePago.TARJETA_CREDITO);
+		}
+		if(ee instanceof VentaTarjetaDebito) {
+			e.setMedioDePago(MedioDePago.TARJETA_DEBITO);
+		}	 			
 		return e;
 		
 	}
@@ -84,7 +96,7 @@ public class VentaDAO {
 		ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();
 		
 		
-		for (ItemVentaEntity iv : ee.getItems()) {
+		for (ItemVentaEntity iv : ee.getItemVentas()) {
 			items.add(ItemVentaDAO.getinstance().toNegocio(iv));
 		}
 		Venta e = new Venta();

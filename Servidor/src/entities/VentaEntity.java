@@ -38,58 +38,43 @@ public class VentaEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(columnDefinition = "int", nullable=false)
 	private Integer id;
 	
-	@Column(name = "fechaVenta", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaVenta;
 	
 	@OneToMany (cascade = CascadeType.ALL) //ESTO DEBERIA SER VECTOR
-	@JoinColumn (name = "id")
 	private List<ItemVentaEntity> items; 
 	
-	@OneToOne (cascade = CascadeType.ALL) 
-	@JoinColumn (name = "legajo")
+	@OneToOne  
 	private EmpleadoEntity empleado;
 	
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
 	private EstadoVenta estado;
 	
-	@Column (columnDefinition = "float", nullable = true)
 	private Float total;
 	
 	
 	//DATOS FACTURA
 	
 
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
 	private TipoFactura tipo;
 	
-	@Column (columnDefinition = "varchar(40)", nullable = true)
 	private String cuit;
 	
-	@Column(name = "fechaCobro", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-		private Calendar fechaCobro;
+	private Calendar fechaCobro;
 	
 	//DATOS PARTICULARES DE CADA HERENCIA
 	
-	@Column (columnDefinition = "int", nullable = true)
 	private Integer nroOperacion;
 	
-	@Column (columnDefinition = "boolean", nullable = true)
 	private boolean aprobada;
 	
-	@Column (columnDefinition = "int", nullable = true)
 	private Integer cantCuotas;
 	
-	@Column (columnDefinition = "int", nullable = true) //Aca vamos a tener que agarrar los ultimos 4 digitos en algun momento
+	//@Column (columnDefinition = "int", nullable = true) //Aca vamos a tener que agarrar los ultimos 4 digitos en algun momento
 	private Integer ultimos4DigitosTarjeta;
 	
-	@Enumerated(EnumType.STRING)
 	private MedioDePago medioDePago;
 
 	public MedioDePago getMedioDePago() {
@@ -122,7 +107,7 @@ public class VentaEntity {
 	}
 
 	public void setFechaCobro(LocalDate fechaCobro) {
-		this.fechaCobro = fechaCobro.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
+		this.fechaCobro = (fechaCobro == null ? null : fechaCobro.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault()));
 	}
 
 
@@ -143,16 +128,27 @@ public class VentaEntity {
 	}
 
 	public void setFechaVenta(LocalDate fechaVenta) {
-		this.fechaVenta = fechaVenta.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
+		this.fechaVenta = (fechaVenta == null ? null : fechaVenta.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault()));
 	}
 
-	public List<ItemVentaEntity> getItems() {
+	public List<ItemVentaEntity> getItemVentas() {
 		return items;
 	}
 
-	public void setItems(List<ItemVentaEntity> items) {
-		this.items = items;
+	public void setItemVentas(List<ItemVentaEntity> itemVentas) {
+		this.items = itemVentas;
 	}
+
+
+	public void setFechaVenta(Calendar fechaVenta) {
+		this.fechaVenta = fechaVenta;
+	}
+
+
+	public void setFechaCobro(Calendar fechaCobro) {
+		this.fechaCobro = fechaCobro;
+	}
+
 
 	public EmpleadoEntity getEmpleado() {
 		return empleado;
