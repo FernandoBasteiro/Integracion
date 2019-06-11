@@ -1,11 +1,13 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.TipoCuenta;
+import enumeraciones.TipoFactura;
 
 public class VentaTarjetaDebito extends Venta {
 	private String numeroTarjeta;
@@ -19,8 +21,9 @@ public class VentaTarjetaDebito extends Venta {
 	private TipoCuenta tipoCuenta;
 	public VentaTarjetaDebito(Integer id, LocalDateTime fechaVenta, List<ItemVenta> items, Empleado empleado,
 			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
-			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer pin, TipoCuenta tipoCuenta) {
-		super(id, fechaVenta, items, empleado, estado, total);
+			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer pin, TipoCuenta tipoCuenta, 
+			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
+		super(id, fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
 		this.numeroTarjeta = numeroTarjeta;
 		this.codigoSeguridad = codigoSeguridad;
 		this.nombre = nombre;
