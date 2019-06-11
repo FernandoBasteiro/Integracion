@@ -5,6 +5,15 @@ import java.rmi.server.UnicastRemoteObject;
 
 import controladores.ControladorEmpleados;
 import dto.EmpleadoDTO;
+<<<<<<< HEAD
+=======
+import dto.ProductoDTO;
+import dto.VentaDTO;
+import enumeraciones.EstadoEmpleado;
+import enumeraciones.EstadoFactura;
+import enumeraciones.MedioDePago;
+import enumeraciones.Puesto;
+>>>>>>> refs/remotes/origin/tomas
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
@@ -17,13 +26,36 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	public ObjetoRemoto() throws RemoteException {}
 
 	@Override
+<<<<<<< HEAD
 	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws RemoteException, UsuarioNoLogueado {
 		return ControladorEmpleados.getInstance().iniciarSesion(e);
+=======
+	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws RemoteException {
+		try {
+			ControladorEmpleados.getInstance().iniciarSesion(e);
+		} catch (UsuarioNoLogueado e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return null;
+>>>>>>> refs/remotes/origin/tomas
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
+=======
+	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException {
+		// TODO Auto-generated method stub
+		try {
+			ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
+		} catch (UsuarioNoLogueado | UsuarioSinPermisos | ExcepcionProceso e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+>>>>>>> refs/remotes/origin/tomas
 	}
 	/*
 	@Override
@@ -68,7 +100,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		// TODO Auto-generated method stub
 		
 	}
-
+/**
 	@Override
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) throws RemoteException {
 		// TODO Auto-generated method stub
@@ -143,5 +175,27 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		// TODO Auto-generated method stub
 		return null;
 	}
+<<<<<<< HEAD
 	*/
+=======
+
+	@Override
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO v) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public VentaDTO mostrarFactura(EmpleadoDTO gerente, VentaDTO v) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void generarVenta(EmpleadoDTO cajero, VentaDTO v) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}*/
+
+>>>>>>> refs/remotes/origin/tomas
 }
