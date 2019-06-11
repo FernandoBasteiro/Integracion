@@ -19,4 +19,8 @@ public enum Puesto {
 	public String getNombre() {
 		return nombre;
 	}
+	public static Puesto fromId(int id) {
+		for (Puesto p : Puesto.values()) if (p.getId() == id) return p;
+		return null;
+	}
 }

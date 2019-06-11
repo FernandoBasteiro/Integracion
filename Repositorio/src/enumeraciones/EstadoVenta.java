@@ -3,7 +3,8 @@ package enumeraciones;
 public enum EstadoVenta {
 	ABIERTA (1, "Abierta"),
 	FACTURADA (2, "Facturada"),
-	CANCELADA (3, "Cancelada");
+	COBRADA (3, "Facturada"),
+	ANULADA (4, "Anulada");
 	
 	
 	private final int id;
@@ -17,5 +18,9 @@ public enum EstadoVenta {
 	}
 	public String getNombre() {
 		return nombre;
+	}
+	public static EstadoVenta fromId(int id) {
+		for (EstadoVenta ev : EstadoVenta.values()) if (ev.getId() == id) return ev;
+		return null;
 	}
 }
