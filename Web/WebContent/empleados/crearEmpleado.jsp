@@ -127,7 +127,6 @@
 				</div>
 			</div>
 		</form>
-		</div>
 		<hr/>
 	</div><!-- container -->
 </main>
