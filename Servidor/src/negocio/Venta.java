@@ -14,7 +14,6 @@ public class Venta {
 	private Empleado empleado;
 	private EstadoVenta estado;
 	private Float total;
-	
 	//Datos Factura
 	private TipoFactura tipoFact;
 	private String cuit;
