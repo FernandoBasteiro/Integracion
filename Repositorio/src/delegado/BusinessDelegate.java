@@ -8,9 +8,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dto.EmpleadoDTO;
-import dto.FacturaDTO;
 import dto.ProductoDTO;
+import dto.VentaDTO;
 import enumeraciones.EstadoEmpleado;
+import enumeraciones.EstadoFactura;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
 import excepciones.ComunicacionException;
@@ -77,41 +78,39 @@ public class BusinessDelegate {
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
-
-	}
-	public ArrayList<EmpleadoDTO> listarEmpleado (EmpleadoDTO supervisor) throws ComunicacionException {
-		try {
-			return ir.listarEmpleado(supervisor);
-		} catch (RemoteException re) {
-			throw new ComunicacionException("Error en las comunicaciones");	
-		}
-
-	}
-	public ArrayList<EmpleadoDTO> listarEmpleado (EmpleadoDTO supervisor, EstadoEmpleado ee) throws ComunicacionException {
-		try {
-			return ir.listarEmpleado(supervisor, ee);
-		} catch (RemoteException re) {
-			throw new ComunicacionException("Error en las comunicaciones");	
-		}
-
-	}
-	public ArrayList<EmpleadoDTO> listarEmpleado (EmpleadoDTO supervisor, Puesto p) throws ComunicacionException {
-		try {
-			return ir.listarEmpleado(supervisor, p);
-		} catch (RemoteException re) {
-			throw new ComunicacionException("Error en las comunicaciones");	
-		}
 	}
 	
-	public void eliminarEmpleado (EmpleadoDTO gerente, Puesto p) throws ComunicacionException {
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI (EmpleadoDTO gerente, String dni) throws ComunicacionException {
 		try {
-			ir.listarEmpleado(gerente, p);
+			return ir.listarEmpleadoPorDNI(gerente, dni);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo (EmpleadoDTO gerente, Integer leg) throws ComunicacionException {
+		try {
+			return ir.listarEmpleadoPorLegajo(gerente, leg);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws ComunicacionException {
+		try {
+			return ir.listarEmpleados(gerente, p, e);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
 
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) throws ComunicacionException {
+	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
+		try {
+			ir.eliminarEmpleado(gerente, empleado);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
 		try {
 			ir.marcarFacturaCobrada(gerente, f);
 		} catch (RemoteException re) {
@@ -119,39 +118,29 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public ArrayList<FacturaDTO> listarFacturas(EmpleadoDTO gerente, LocalDate fecha) throws ComunicacionException {
+	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws ComunicacionException {
 		try {
-			return ir.listarFacturas(gerente, fecha);
+			return ir.listarFacturaPorNroFactura(gerente, nroFact);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws ComunicacionException{
+		try {
+			return ir.listarFacturaPorNroOperacion(gerente, nroOper);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) throws ComunicacionException{
+		try {
+			return ir.listarFacturas(gerente, m, fch, e);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
 	
-	public ArrayList<FacturaDTO> listarFacturasPendientes (EmpleadoDTO gerente) throws ComunicacionException {
-		try {
-			return ir.listarFacturasPendientes(gerente);
-		} catch (RemoteException re) {
-			throw new ComunicacionException("Error en las comunicaciones");	
-		}
-	}
-	
-	
-	public ArrayList<FacturaDTO> listarFacturasPendientes (EmpleadoDTO gerente, MedioDePago medioDePago) throws ComunicacionException {
-		try {
-			return ir.listarFacturasPendientes(gerente, medioDePago);
-		} catch (RemoteException re) {
-			throw new ComunicacionException("Error en las comunicaciones");	
-		}
-	}
-	public ArrayList<FacturaDTO> listarFacturasPendientes (EmpleadoDTO gerente, Integer nroOperacion) throws ComunicacionException {
-		try {
-			return ir.listarFacturasPendientes(gerente, nroOperacion);
-		} catch (RemoteException re) {
-			throw new ComunicacionException("Error en las comunicaciones");	
-		}
-	}
-	
-	public FacturaDTO mostrarFactura (EmpleadoDTO gerente, FacturaDTO f) throws ComunicacionException {
+	public VentaDTO mostrarFactura (EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
 		try {
 			return ir.mostrarFactura(gerente, f);
 		} catch (RemoteException re) {
@@ -159,7 +148,7 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public void generarVenta(EmpleadoDTO cajero, FacturaDTO f) throws ComunicacionException {
+	public void generarVenta(EmpleadoDTO cajero, VentaDTO f) throws ComunicacionException {
 		try {
 			ir.generarVenta(cajero, f);
 		} catch (RemoteException re) {
@@ -195,9 +184,9 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor) throws ComunicacionException {
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
 		try {
-			return ir.listarProductos(supervisor);
+			return ir.listarProductos(supervisor, p);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}

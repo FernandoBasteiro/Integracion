@@ -1,6 +1,8 @@
 package entities;
 
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,9 +19,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+
 import enumeraciones.EstadoVenta;
+import enumeraciones.MedioDePago;
 import enumeraciones.TipoFactura;
 
+@Entity
+@Table(name="Ventas")
 public class VentaEntity {
 	
 	
@@ -30,75 +38,81 @@ public class VentaEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(columnDefinition = "int", nullable=false)
 	private Integer id;
 	
-	@Column(name = "startTime", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaVenta;
+	private Calendar fechaVenta;
 	
 	@OneToMany (cascade = CascadeType.ALL) //ESTO DEBERIA SER VECTOR
-	@JoinColumn (name = "id")
-	private ArrayList<ItemVentaEntity> items; 
+	private List<ItemVentaEntity> items; 
 	
-	@OneToOne (cascade = CascadeType.ALL) 
-	@JoinColumn (name = "legajo")
+	@OneToOne  
 	private EmpleadoEntity empleado;
 	
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
 	private EstadoVenta estado;
 	
-	@Column (columnDefinition = "float", nullable = true)
-	private String total;
+	private Float total;
 	
 	
-	@Column (columnDefinition = "int", nullable = true)
-	private String nroOperacion;
-	
-	@Column (columnDefinition = "boolean", nullable = true)
-	private String aprobada;
-	
-	@Column (columnDefinition = "int", nullable = true)
-	private String cantCuotas;
-	
-	@Column (columnDefinition = "int", nullable = true) //Aca vamos a tener que agarrar los ultimos 4 digitos en algun momento
-	private String ultimos4DigitosTarjeta;
-	
-	
-	
+	//DATOS FACTURA
 	
 
-	public String getNroOperacion() {
-		return nroOperacion;
+	private TipoFactura tipo;
+	
+	private String cuit;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar fechaCobro;
+	
+	//DATOS PARTICULARES DE CADA HERENCIA
+	
+	private Integer nroOperacion;
+	
+	private boolean aprobada;
+	
+	private Integer cantCuotas;
+	
+	//@Column (columnDefinition = "int", nullable = true) //Aca vamos a tener que agarrar los ultimos 4 digitos en algun momento
+	private Integer ultimos4DigitosTarjeta;
+	
+	private MedioDePago medioDePago;
+
+	public MedioDePago getMedioDePago() {
+		return medioDePago;
+	}
+	
+
+	public TipoFactura getTipo() {
+		return tipo;
 	}
 
-	public void setNroOperacion(String nroOperacion) {
-		this.nroOperacion = nroOperacion;
+
+	public void setTipo(TipoFactura tipo) {
+		this.tipo = tipo;
 	}
 
-	public String getAprobada() {
-		return aprobada;
+
+	public String getCuit() {
+		return cuit;
 	}
 
-	public void setAprobada(String aprobada) {
-		this.aprobada = aprobada;
+
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
 	}
 
-	public String getCantCuotas() {
-		return cantCuotas;
+
+	public LocalDate getFechaCobro() {
+		return (fechaCobro == null ? null : LocalDate.fromCalendarFields(fechaCobro));
 	}
 
-	public void setCantCuotas(String cantCuotas) {
-		this.cantCuotas = cantCuotas;
+	public void setFechaCobro(LocalDate fechaCobro) {
+		this.fechaCobro = (fechaCobro == null ? null : fechaCobro.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault()));
 	}
 
-	public String getUltimos4DigitosTarjeta() {
-		return ultimos4DigitosTarjeta;
-	}
 
-	public void setUltimos4DigitosTarjeta(String ultimos4DigitosTarjeta) {
-		this.ultimos4DigitosTarjeta = ultimos4DigitosTarjeta;
+	public void setMedioDePago(MedioDePago medioDePago) {
+		this.medioDePago = medioDePago;
 	}
 
 	public Integer getId() {
@@ -109,21 +123,32 @@ public class VentaEntity {
 		this.id = id;
 	}
 
-	public String getFechaVenta() {
-		return fechaVenta;
+	public LocalDate getFechaVenta() {
+		return (fechaVenta == null ? null : LocalDate.fromCalendarFields(fechaVenta));
 	}
 
-	public void setFechaVenta(String fechaVenta) {
-		this.fechaVenta = fechaVenta;
+	public void setFechaVenta(LocalDate fechaVenta) {
+		this.fechaVenta = (fechaVenta == null ? null : fechaVenta.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault()));
 	}
 
-	public ArrayList<ItemVentaEntity> getItems() {
+	public List<ItemVentaEntity> getItemVentas() {
 		return items;
 	}
 
-	public void setItems(ArrayList<ItemVentaEntity> items) {
-		this.items = items;
+	public void setItemVentas(List<ItemVentaEntity> itemVentas) {
+		this.items = itemVentas;
 	}
+
+
+	public void setFechaVenta(Calendar fechaVenta) {
+		this.fechaVenta = fechaVenta;
+	}
+
+
+	public void setFechaCobro(Calendar fechaCobro) {
+		this.fechaCobro = fechaCobro;
+	}
+
 
 	public EmpleadoEntity getEmpleado() {
 		return empleado;
@@ -141,13 +166,47 @@ public class VentaEntity {
 		this.estado = estado;
 	}
 
-	public String getTotal() {
+	public Float getTotal() {
 		return total;
 	}
 
-	public void setTotal(String total) {
+	public void setTotal(Float total) {
 		this.total = total;
 	}
+
+	public Integer getNroOperacion() {
+		return nroOperacion;
+	}
+
+	public void setNroOperacion(Integer nroOperacion) {
+		this.nroOperacion = nroOperacion;
+	}
+
+	public boolean isAprobada() {
+		return aprobada;
+	}
+
+	public void setAprobada(boolean aprobada) {
+		this.aprobada = aprobada;
+	}
+
+	public Integer getCantCuotas() {
+		return cantCuotas;
+	}
+
+	public void setCantCuotas(Integer cantCuotas) {
+		this.cantCuotas = cantCuotas;
+	}
+
+	public Integer getUltimos4DigitosTarjeta() {
+		return ultimos4DigitosTarjeta;
+	}
+
+	public void setUltimos4DigitosTarjeta(Integer ultimos4DigitosTarjeta) {
+		this.ultimos4DigitosTarjeta = ultimos4DigitosTarjeta;
+	}
+	
+	
 	
 		
 }

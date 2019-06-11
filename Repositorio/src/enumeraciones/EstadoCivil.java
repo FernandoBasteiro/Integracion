@@ -19,6 +19,9 @@ public enum EstadoCivil {
 	public String getNombre() {
 		return nombre;
 	}
-	
+	public static EstadoCivil fromId(Integer id) {
+		for (EstadoCivil ec : EstadoCivil.values()) if (ec.getId() == id) return ec;
+		return null;
+	}
 	
 }

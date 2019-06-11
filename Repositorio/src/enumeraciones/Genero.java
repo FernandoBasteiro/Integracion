@@ -17,4 +17,8 @@ public enum Genero {
 	public String getNombre() {
 		return nombre;
 	}
+	public static Genero fromId(Integer id) {
+		for (Genero g : Genero.values()) if (g.getId() == id) return g;
+		return null;
+	}
 }

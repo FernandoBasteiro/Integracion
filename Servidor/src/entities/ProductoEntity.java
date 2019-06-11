@@ -14,17 +14,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
+@Table(name="Productos")
 public class ProductoEntity {
 
-	
-	
 	
 	public ProductoEntity() {
 		super();
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(columnDefinition = "int", nullable=false)
 	private Integer codigo;
 	
@@ -39,7 +38,7 @@ public class ProductoEntity {
 	private String presentacion;
 	
 	@Column(columnDefinition = "float", nullable=false)
-	private Integer precio;
+	private Float precio;
 	
 	@OneToOne (cascade = CascadeType.ALL)
 	private StockEntity stock;
@@ -76,11 +75,11 @@ public class ProductoEntity {
 		this.presentacion = presentacion;
 	}
 
-	public Integer getPrecio() {
+	public Float getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Integer precio) {
+	public void setPrecio(Float precio) {
 		this.precio = precio;
 	}
 

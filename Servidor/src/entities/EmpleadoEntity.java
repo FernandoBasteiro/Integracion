@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +16,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
@@ -58,29 +65,24 @@ public class EmpleadoEntity {
 	private String mail;
 
 	
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
+
 	private EstadoCivil estadoCivil;
 	
 
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
 	private Genero genero;
 
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaNacimiento", columnDefinition="DATETIME", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaNacimiento;
+	private Calendar fechaNacimiento;
 
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaIngreso", columnDefinition="DATETIME", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaIngreso;
+	private Calendar fechaIngreso;
 
-	@Column(name = "startTime", columnDefinition="DATETIME")
+	@Column(name = "fechaEgreso", columnDefinition="DATETIME", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
-	private String fechaEgreso;
+	private Calendar fechaEgreso;
 	
-	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
 	private EstadoEmpleado estado;
 	
 	@Column (columnDefinition = "varchar(40)", nullable = true)
@@ -90,7 +92,7 @@ public class EmpleadoEntity {
 	private String password;
 
 	@Column (columnDefinition = "float", nullable = true)
-	private String sueldoBase;
+	private Float sueldoBase;
 	
 		
 	@Column(columnDefinition = "int", nullable=true)
@@ -100,7 +102,6 @@ public class EmpleadoEntity {
     @Column(length = 9)
 	private Puesto puesto;
 	
-	@Column (columnDefinition = "String", nullable = true)
 	private String cbu;
 
 	public Integer getLegajoEmpleado() {
@@ -175,28 +176,31 @@ public class EmpleadoEntity {
 		this.genero = genero;
 	}
 
-	public String getFechaNacimiento() {
-		return fechaNacimiento;
+	public LocalDate getFechaNacimiento() {
+		return (fechaNacimiento == null ? null : LocalDate.fromCalendarFields(fechaNacimiento));
 	}
 
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
-	public String getFechaIngreso() {
-		return fechaIngreso;
+	
+	public LocalDate getFechaIngreso() {
+		return (fechaIngreso == null ? null : LocalDate.fromCalendarFields(fechaIngreso));
 	}
 
-	public void setFechaIngreso(String fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setFechaIngreso(LocalDate fechaIngreso) {
+		this.fechaIngreso = fechaIngreso.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
-	public String getFechaEgreso() {
-		return fechaEgreso;
+	
+
+	public LocalDate getFechaEgreso() {
+		return (fechaEgreso == null ? null : LocalDate.fromCalendarFields(fechaEgreso));
 	}
 
-	public void setFechaEgreso(String fechaEgreso) {
-		this.fechaEgreso = fechaEgreso;
+	public void setFechaEgreso(LocalDate fechaEgreso) {
+		this.fechaEgreso = fechaEgreso.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
 	public EstadoEmpleado getEstado() {
@@ -223,11 +227,11 @@ public class EmpleadoEntity {
 		this.password = password;
 	}
 
-	public String getSueldoBase() {
+	public Float getSueldoBase() {
 		return sueldoBase;
 	}
 
-	public void setSueldoBase(String sueldoBase) {
+	public void setSueldoBase(Float sueldoBase) {
 		this.sueldoBase = sueldoBase;
 	}
 
@@ -253,8 +257,9 @@ public class EmpleadoEntity {
 
 	public void setCbu(String cbu) {
 		this.cbu = cbu;
-	}	
+	}
 	
+
 	
 
 }
