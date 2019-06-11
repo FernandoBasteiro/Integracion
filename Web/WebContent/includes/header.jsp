@@ -39,15 +39,18 @@
 	    	<li class="nav-item">
 	    		<a class="nav-link" href="productos.jsp">Productos</a>
 	    	</li>
-		    <li class="nav-item dropdown">
+	    	<li class="nav-item">
+	    		<a class="nav-link" href="facturacion.jsp">Facturación</a>
+	    	</li>
+		    <!--li class="nav-item dropdown">
 			    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Facturación</a>
 			    <div class="dropdown-menu" aria-labelledby="dropdown01">
 					<a class="dropdown-item" href="#">Listar Facturas</a>
-					<a class="dropdown-item" href="#">Ingresar Cobranza</a>
+					<a class="dropdown-item" href="#">Pendientes de cobro</a>
 				</div>
-			</li>
+			</li-->
 		</ul>
-	    <a class="btn btn-primary" href="login.jsp">Iniciar sesión</a>
+	    <a class="btn btn-primary" href="index.jsp">Iniciar sesión</a>
 	  </div>
 	</nav>
 	<nav aria-label="breadcrumb">
