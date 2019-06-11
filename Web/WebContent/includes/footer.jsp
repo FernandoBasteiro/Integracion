@@ -27,6 +27,7 @@
 	<script>window.jQuery || document.write('<script src="/Web/js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
 	<script src="/Web/js/vendor/popper.min.js"></script>
 	<script src="/Web/js/vendor/bootstrap.min.js"></script>
+	<script src="/Web/js/vendor/dependsOn/dependsOn.min.js"></script>
 	<script src="/Web/js/plugins.js"></script>
 	<script src="/Web/js/main.js"></script>
 </body>
