@@ -19,6 +19,7 @@ public class VentaTarjetaDebito extends Venta {
 	private Boolean aprobada;
 	private Integer pin;
 	private TipoCuenta tipoCuenta;
+	
 	public VentaTarjetaDebito(Integer id, LocalDateTime fechaVenta, List<ItemVenta> items, Empleado empleado,
 			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
 			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer pin, TipoCuenta tipoCuenta, 
