@@ -2,7 +2,7 @@
 <main role="main">
 	<div class="container">
 		<form action="/Web/Private" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="action" value="crearEmpleado"/>
+			<input id="action" name="action" type="hidden" value="crearEmpleado"/>
 			<div class="form-row">
 				<div class="form-group col-sm-12 text-right">
 					<% if(request.getParameter("id") == null){ %>
@@ -123,7 +123,7 @@
 					<input type="password" required placeholder="Repita la contraseña..." name="passwordEmpleado2" class="form-control" value=""/>
 				</div>
 				<div class="form-group col-sm-12 text-right">
-					<button class="btn btn-primary"><i class="fas fa-save mr-2"></i>Guardar</button>
+					<button class="btn btn-primary" type="submit"><i class="fas fa-save mr-2"></i>Guardar</button>
 				</div>
 			</div>
 		</form>
