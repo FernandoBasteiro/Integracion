@@ -4,7 +4,6 @@
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline">Facturación</h2>
-				<a href="#" class="btn btn-primary float-right">Ingresar cobranza</a>
 				<hr/>
 			</div>
 		</div>
@@ -110,8 +109,8 @@
 				      <td>3355</td>
 				      <td>$1570.02</td>
 				      <td class="actions text-center">
-				      	<a href="facturacion.jsp?view=id" class="view mx-2" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="facturacion.jsp?edit=id" class="edit mx-2" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
+				      	<a href="facturacion.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="facturacion.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
 				      	<a href="facturacion.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      
 				      </td>
@@ -126,8 +125,8 @@
 				      <td>7655</td>
 				      <td>$170.20</td>
 				      <td class="actions text-center">
-				      	<a href="facturacion.jsp?view=id" class="view mx-2" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="facturacion.jsp?edit=id" class="edit mx-2" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
+				      	<a href="facturacion.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="facturacion.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
 				      	<a href="facturacion.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      	
 				      </td>
