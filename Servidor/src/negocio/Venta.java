@@ -9,7 +9,7 @@ import enumeraciones.TipoFactura;
 import dto.ItemVentaDTO;
 import dto.VentaDTO;
 
-public class Venta {
+public abstract class Venta {
 	protected Integer id;
 	protected LocalDate fechaVenta;
 	protected List<ItemVenta> items;
@@ -125,8 +125,5 @@ public class Venta {
 		return itemsDTO;
 	}
 	
-	/*public VentaDTO getDTO () {
-		//TODO ENVIAR PARAMETROS 
-		return new VentaDTO ();
-	}*/
+	public abstract VentaDTO getDTO();
 }
