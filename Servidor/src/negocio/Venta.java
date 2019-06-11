@@ -1,26 +1,25 @@
 package negocio;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import org.joda.time.LocalDate;
 import java.util.List;
 import enumeraciones.EstadoVenta;
 import enumeraciones.TipoFactura;
 import dto.VentaDTO;
 
 public class Venta {
-	private Integer id;
-	private LocalDateTime fechaVenta;
-	private List<ItemVenta> items;
-	private Empleado empleado;
-	private EstadoVenta estado;
-	private Float total;
+	protected Integer id;
+	protected LocalDate fechaVenta;
+	protected List<ItemVenta> items;
+	protected Empleado empleado;
+	protected EstadoVenta estado;
+	protected Float total;
 	//Datos Factura
-	private TipoFactura tipoFact;
-	private String cuit;
-	private LocalDate fechaCobro;
+	protected TipoFactura tipoFact;
+	protected String cuit;
+	protected LocalDate fechaCobro;
 	
 	
-	public Venta(Integer id, LocalDateTime fechaVenta, List<ItemVenta> items, Empleado empleado, EstadoVenta estado,
+	public Venta(Integer id, LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado, EstadoVenta estado,
 			Float total, TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
 		super();
 		this.id = id;
@@ -33,7 +32,7 @@ public class Venta {
 		this.cuit = cuit;
 		this.fechaCobro = fechaCobro;
 	}
-	public Venta(LocalDateTime fechaVenta, List<ItemVenta> items, Empleado empleado, EstadoVenta estado, Float total, 
+	public Venta(LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado, EstadoVenta estado, Float total, 
 			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
 		super();
 		this.fechaVenta = fechaVenta;
@@ -54,10 +53,10 @@ public class Venta {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public LocalDateTime getFechaVenta() {
+	public LocalDate getFechaVenta() {
 		return fechaVenta;
 	}
-	public void setFechaVenta(LocalDateTime fechaVenta) {
+	public void setFechaVenta(LocalDate fechaVenta) {
 		this.fechaVenta = fechaVenta;
 	}
 	public List<ItemVenta> getItems() {

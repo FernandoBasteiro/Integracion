@@ -86,6 +86,97 @@ public class VentaDTO {
 	}
 	public void setMedioDePago(MedioDePago medioDePago) {
 		this.medioDePago = medioDePago;
+	}	
+	
+	public Float getMontoRecibido() {
+		return montoRecibido;
+	}
+	public void setMontoRecibido(Float montoRecibido) {
+		this.montoRecibido = montoRecibido;
+	}
+	public Float getVuelto() {
+		return vuelto;
+	}
+	public void setVuelto(Float vuelto) {
+		this.vuelto = vuelto;
+	}
+	public String getNumeroTarjeta() {
+		return numeroTarjeta;
+	}
+	public void setNumeroTarjeta(String numeroTarjeta) {
+		this.numeroTarjeta = numeroTarjeta;
+	}
+	public Integer getCodigoSeguridad() {
+		return codigoSeguridad;
+	}
+	public void setCodigoSeguridad(Integer codigoSeguridad) {
+		this.codigoSeguridad = codigoSeguridad;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public Integer getDni() {
+		return dni;
+	}
+	public void setDni(Integer dni) {
+		this.dni = dni;
+	}
+	public String getFechaVto() {
+		return fechaVto;
+	}
+	public void setFechaVto(String fechaVto) {
+		this.fechaVto = fechaVto;
+	}
+	public Integer getNroOperacion() {
+		return nroOperacion;
+	}
+	public void setNroOperacion(Integer nroOperacion) {
+		this.nroOperacion = nroOperacion;
+	}
+	public Boolean getAprobada() {
+		return aprobada;
+	}
+	public void setAprobada(Boolean aprobada) {
+		this.aprobada = aprobada;
+	}
+	public Integer getCantCuotas() {
+		return cantCuotas;
+	}
+	public void setCantCuotas(Integer cantCuotas) {
+		this.cantCuotas = cantCuotas;
+	}
+	public Integer getPin() {
+		return pin;
+	}
+	public void setPin(Integer pin) {
+		this.pin = pin;
+	}
+	public TipoCuenta getTipoCuenta() {
+		return tipoCuenta;
+	}
+	public void setTipoCuenta(TipoCuenta tipoCuenta) {
+		this.tipoCuenta = tipoCuenta;
+	}
+	public TipoFactura getTipoFact() {
+		return tipoFact;
+	}
+	public void setTipoFact(TipoFactura tipoFact) {
+		this.tipoFact = tipoFact;
+	}
+	public String getCuit() {
+		return cuit;
+	}
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
+	}
+	public LocalDate getFechaCobro() {
+		return fechaCobro;
+	}
+	public void setFechaCobro(LocalDate fechaCobro) {
+		this.fechaCobro = fechaCobro;
 	}
 	public VentaDTO(Integer id, LocalDateTime fechaVenta, List<ItemVentaDTO> items, EmpleadoDTO empleado,
 			EstadoVenta estado, Float total, MedioDePago medioDePago, 
@@ -103,8 +194,23 @@ public class VentaDTO {
 		this.estado = estado;
 		this.total = total;
 		this.medioDePago = medioDePago;
-		
+		this.montoRecibido = montoRecibido;
+		this.vuelto = vuelto;
+		this.numeroTarjeta = numeroTarjeta;
+		this.codigoSeguridad = codigoSeguridad;
+		this.nombre = nombre;
+		this.dni = dni;
+		this.fechaVto = fechaVto;
+		this.nroOperacion = nroOperacion;
+		this.aprobada = aprobada;
+		this.cantCuotas = cantCuotas;
+		this.pin = pin;
+		this.tipoCuenta = tipoCuenta;
+		this.tipoFact = tipoFact;
+		this.cuit = cuit;
+		this.fechaCobro = fechaCobro;
 	}
+	
 	public VentaDTO() {
 	}
 	
