@@ -51,16 +51,17 @@ public class Dummy {
 		producto.setCodigo(1234);
 		producto.setDescripcion("Veneno");
 		producto.setNombre("CocaCola 2L");
-		producto.setPrecio((float)40.3);
+		producto.setPrecio((float)45.3);
 		producto.setPresentacion("2L");
 		producto.setStock(stock);
 		empleado.setApellido("Sarasa");
 		empleado.setCbu("1234");
-		empleado.setDni("12345");
+		empleado.setDni("33333");
 		empleado.setDomicilio("Mardel");
 		empleado.setEstadoEmpleado(EstadoEmpleado.LICENCIA_PAGA);
 		empleado.setEstadoCivil(EstadoCivil.CASADO);
 		empleado.setFechaIngreso(LocalDate.now());
+		empleado.setFechaEgreso(LocalDate.now());
 		empleado.setFechaNacimiento(LocalDate.now());
 		empleado.setGenero(Genero.FEMENINO);
 		empleado.setHorasAsignadas(10);
@@ -68,9 +69,9 @@ public class Dummy {
 		empleado.setNacionalidad("Argentino");
 		empleado.setPassword("1234");
 		empleado.setPuesto(Puesto.GERENTE);
-		empleado.setSueldoBase((float)13.3);
+		empleado.setSueldoBase((float)100.3);
 		empleado.setTelefono("1234");
-		itemVenta.setCantidad(13);
+		itemVenta.setCantidad(10);
 		itemVenta.setPrecio((float)41);
 		itemVenta.setProducto(producto);
 		items.add(itemVenta);
@@ -82,8 +83,10 @@ public class Dummy {
 		EmpleadoDAO.getinstance().add(empleado);
 		ProductoDAO.getinstance().add(producto);
 		StockDAO.getinstance().add(stock);
-		VentaDAO.getinstance().add(venta);
+		empleado.setLegajo(1);
 		ItemVentaDAO.getinstance().add(itemVenta);
+		VentaDAO.getinstance().add(venta);
+		
 	
 		System.out.println("Bien");
 

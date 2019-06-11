@@ -71,15 +71,15 @@ public class EmpleadoEntity {
 
 	private Genero genero;
 
-	@Column(name = "fechaNacimiento", columnDefinition="DATETIME")
+	@Column(name = "fechaNacimiento", columnDefinition="DATETIME", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaNacimiento;
 
-	@Column(name = "fechaIngreso", columnDefinition="DATETIME")
+	@Column(name = "fechaIngreso", columnDefinition="DATETIME", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaIngreso;
 
-	@Column(name = "fechaEgreso", columnDefinition="DATETIME")
+	@Column(name = "fechaEgreso", columnDefinition="DATETIME", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaEgreso;
 	

@@ -132,7 +132,7 @@ public class EmpleadoDAO {
 		return lista;
 	}
 	
-	public ArrayList<Empleado> getEmpleadosByPuesto(EstadoEmpleado estado) {
+	public ArrayList<Empleado> getEmpleadosByEstado(EstadoEmpleado estado) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
