@@ -1,5 +1,7 @@
 package negocio;
 
+import excepciones.ExcepcionProceso;
+
 public class Stock {
 	private Integer cantidadMinimo;
 	private Integer cantidadTotal;
@@ -41,5 +43,12 @@ public class Stock {
 		this.cantidadMinimo = 0;
 		this.cantidadTotal = 0;
 		this.cantidadTotal = 0;
+	}
+	
+	public void descontarStock(Integer cant) throws ExcepcionProceso {
+		if (cant <= this.cantidadDisponible) {
+			this.cantidadDisponible =- cant;
+		}
+		else throw new ExcepcionProceso("No hay stock disponible.");
 	}
 }

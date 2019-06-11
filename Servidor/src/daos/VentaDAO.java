@@ -70,6 +70,7 @@ public class VentaDAO {
 			items.add(ItemVentaDAO.getinstance().toEntity(iv));
 		}
 		
+		e.setItemVentas(items);
 		e.setCuit(ee.getCuit());
 		e.setEmpleado(EmpleadoDAO.getinstance().toEntity(ee.getEmpleado()));	
 		e.setEstado(ee.getEstado());

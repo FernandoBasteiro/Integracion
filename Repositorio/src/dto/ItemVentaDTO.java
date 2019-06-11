@@ -5,6 +5,7 @@ public class ItemVentaDTO {
 	private ProductoDTO producto;
 	private Float precio;
 	private Integer cantidad;
+	
 	public ProductoDTO getProducto() {
 		return producto;
 	}

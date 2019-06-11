@@ -48,7 +48,7 @@ public class EmpleadoDAO {
 			t.commit();
 			s.close();
 		} catch (Exception e) {
-			System.out.println("Error al Guardar Empleado");
+			e.printStackTrace();
 		}
 	}
 		
@@ -73,13 +73,14 @@ public class EmpleadoDAO {
 		e.setPuesto(ee.getPuesto());
 		e.setSueldoBase(ee.getSueldoBase());
 		e.setTelefono(ee.getTelefono());
+		e.setSession(ee.getSession());
 		return e;		
 	}
 
 	public Empleado getEmpleadoByLegajo(int legajo){
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where legajo = ?")
+		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where legajoEmpleado = ?")
 					.setParameter(0, legajo)
 					.uniqueResult();
 			return EmpleadoDAO.getinstance().toNegocio(pe);
@@ -92,6 +93,9 @@ public class EmpleadoDAO {
 		EmpleadoEntity ee = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where dni = ?")
 					.setParameter(0, dni)
 					.uniqueResult();
+		if(ee==null)
+			return null;
+		else
 			return EmpleadoDAO.getinstance().toNegocio(ee);
 		
 	}
@@ -117,6 +121,7 @@ public class EmpleadoDAO {
 		e.setPuesto(ee.getPuesto());
 		e.setSueldoBase(ee.getSueldoBase());
 		e.setTelefono(ee.getTelefono());
+		e.setSession(ee.getSession());
 		return e;		
 	}	
 	
@@ -125,7 +130,7 @@ public class EmpleadoDAO {
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
 		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where puesto = ?)")
-				.setParameter(0, puesto.getNombre())
+				.setParameter(0, puesto)
 				.list();
 		ArrayList<Empleado> lista = new ArrayList<Empleado>();
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
@@ -137,7 +142,7 @@ public class EmpleadoDAO {
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
 		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where estado = ?)")
-				.setParameter(0, estado.getNombre())
+				.setParameter(0, estado)
 				.list();
 		ArrayList<Empleado> lista = new ArrayList<Empleado>();
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));

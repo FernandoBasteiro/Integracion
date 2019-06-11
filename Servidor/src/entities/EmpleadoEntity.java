@@ -103,6 +103,29 @@ public class EmpleadoEntity {
 	private Puesto puesto;
 	
 	private String cbu;
+	private String session;
+	
+	
+
+	public String getSession() {
+		return session;
+	}
+
+	public void setSession(String session) {
+		this.session = session;
+	}
+
+	public void setFechaNacimiento(Calendar fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public void setFechaIngreso(Calendar fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
+	public void setFechaEgreso(Calendar fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
+	}
 
 	public Integer getLegajoEmpleado() {
 		return legajoEmpleado;
