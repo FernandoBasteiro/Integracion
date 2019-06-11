@@ -29,6 +29,7 @@ public class Empleado {
 	private String cbu;
 	private String session;
 	
+	//FECHAS JODA
 	public Empleado(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
 			String email, EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
@@ -55,9 +56,11 @@ public class Empleado {
 		this.cbu = cbu;
 		this.session = session;
 	}
+	
+	//FECHAS JAVA
 	public Empleado(String nombre, String apellido, String dni, String domicilio, String telefono, String email,
-			EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
-			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
+			EstadoCivil estadoCivil, Genero genero, java.time.LocalDate fechaNacimiento, java.time.LocalDate fechaIngreso,
+			java.time.LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
 			Float sueldoBase, Integer horasAsignadas, Puesto puesto, String cbu, String session) {
 		super();
 		this.nombre = nombre;
@@ -68,9 +71,9 @@ public class Empleado {
 		this.email = email;
 		this.estadoCivil = estadoCivil;
 		this.genero = genero;
-		this.fechaNacimiento = fechaNacimiento;
-		this.fechaIngreso = fechaIngreso;
-		this.fechaEgreso = fechaEgreso;
+		this.fechaNacimiento = this.convertJavaToJoda(fechaNacimiento);
+		this.fechaIngreso = this.convertJavaToJoda(fechaIngreso);
+		this.fechaEgreso = this.convertJavaToJoda(fechaEgreso);
 		this.estadoEmpleado = estadoEmpleado;
 		this.nacionalidad = nacionalidad;
 		this.password = password;
@@ -211,12 +214,12 @@ public class Empleado {
 		return false;
 	}
 	
-	protected java.time.LocalDate convertJodaToJava (LocalDate jodaTime) {
+	private java.time.LocalDate convertJodaToJava (LocalDate jodaTime) {
 		if (jodaTime != null) return java.time.LocalDate.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth());
 		return null;
 	}
 	
-	protected LocalDate convertJavaToJoda (java.time.LocalDate javaTime) {
+	private LocalDate convertJavaToJoda (java.time.LocalDate javaTime) {
 		if (javaTime != null) return new org.joda.time.LocalDate(javaTime.getYear(), javaTime.getMonthValue(), javaTime.getDayOfMonth());
 		return null;
 	}
@@ -225,7 +228,7 @@ public class Empleado {
 		//TODO ENVIAR PARAMETROS 
 		return new EmpleadoDTO (this.nombre, this.apellido, this.legajo, this.dni, this.domicilio, this.telefono,
 				this.email, this.estadoCivil, this.genero, convertJodaToJava(fechaNacimiento), convertJodaToJava(fechaIngreso),
-				convertJodaToJava(fechaEgreso), this.estadoEmpleado, this.nacionalidad, this.password,
+				convertJodaToJava(fechaEgreso), this.estadoEmpleado, this.nacionalidad, null,
 				this.sueldoBase, this.horasAsignadas, this.puesto, this.cbu, this.session);
 	}
 	public void guardar() {
