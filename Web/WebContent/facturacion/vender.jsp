@@ -9,132 +9,241 @@
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form method="get" class="filter-tools">
+				<form method="post" action="?" id="formVenta" enctype="multipart/form-data">
+					<div class="form-row">		
+						<div class="form-group col-sm-6">
+						    <select name="tipoFactura" class="form-control" id="estadoFactura">
+						      <option selected>Tipo de Factura</option>
+						      <option>A</option>
+						      <option>B</option>
+						      <option>C</option>
+						    </select>
+						  </div>
+						<div class="form-group col-sm-6">
+						    <input placeholder="Ingrese CUIT..." type="text" name="cuitFactura" class="form-control"/>
+						</div>			
+					</div>
 					<div class="form-row pb-2">
-						<div class="col-sm-6">
+						<div class="form-group col-sm-6">
 							<div class="input-group">
 								<div class="input-group-prepend">
-						          <div class="input-group-text">Buscar</div>
-						      </div>
-							  <input type="search" class="form-control" placeholder="Ingrese número de factura..." aria-label="Ingrese número de factura" aria-describedby="buscarFactura">
-							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
-							  </div>
+							    	<label class="input-group-text" for="buscarProducto">Buscar producto por código</label>
+							  	</div>
+							 	<select id="productoAutocomplete" name="buscarProducto" class="form-control">
+							  		<option></option>
+							  	</select>
 							</div>
 						</div>
-						<div class="col-sm-6">
+						<div class="form-group col-sm-4">
 							<div class="input-group">
 								<div class="input-group-prepend">
-						          <div class="input-group-text">Buscar</div>
-						      </div>
-							  <input type="search" class="form-control" placeholder="Ingrese número de operación..." aria-label="Ingrese número de operación" aria-describedby="buscarFactura">
-							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
-							  </div>
+							    	<label class="input-group-text" for="buscarProducto">Cantidad</label>
+							  	</div>
+							 	<input type="number" min="0" name="cantidadProducto" value="1" class="form-control"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-2">
+					    	<button class="btn btn-success btn-block" type="button"><i class="fas fa-plus mr-2"></i>Agregar producto</button>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col col-xs-12">
+							<table class="table">
+							  <thead>
+							    <tr>
+							      <th scope="col">#</th>
+							      <th scope="col">Código</th>
+							      <th scope="col">Nombre</th>
+							      <th scope="col">Presentación</th>
+							      <th scope="col">Cantidad</th>
+							      <th scope="col">Precio</th>
+							      <th scope="col">Subtotal</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      <th scope="row">1</th>
+							      <td>12345322</td>
+							      <td>Coca-Cola</td>
+							      <td>Botella 500ml</td>
+							      <td>2</td>
+							      <td>$40.00</td>
+							      <td>$80.00</td>
+							    </tr>
+							    <tr>
+							      <th scope="row">2</th>
+							      <td>23423424</td>
+							      <td>Gatorade</td>
+							      <td>Botella 1lt</td>
+							      <td>1</td>
+							      <td>$80.00</td>
+							      <td>$80.00</td>
+							    </tr>
+							    <tr>
+							      <th scope="row">3</th>
+							      <td>55454434</td>
+							      <td>Tomate</td>
+							      <td>Bolsa 5kg</td>
+							      <td>1</td>
+							      <td>$100.00</td>
+							      <td>$100.00</td>
+							    </tr>
+							  </tbody>
+							  <tfoot>
+							    <tr class="table-active">
+							      <th colspan="6" class="text-right ">Total</th>
+							      <th>$260.00</th>
+							    </tr>
+							  </tfoot>
+							</table>
+						</div>	
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm-12">
+							<h3 class="h4 mb-3 mt-4">Datos del pago</h3>
+						</div>
+						<div class="form-group col-sm-6">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="buscarProducto">Seleccionar medio de pago</label>
+							  	</div>
+							 	<select id="medioPago" name="medioPago" class="form-control">
+									<option value="1" selected>Efectivo</option>
+									<option value="2">Tarjeta de Crédito</option>
+									<option value="3">Tarjeta de Débito</option>
+								</select>
+							</div>						
+						</div>
+						<div class="form-group col-sm-6" id="pagoEfectivo">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="montoPago"><i class="fas fa-dollar-sign"></i></label>
+							  	</div>
+								<input type="number" min="0" step="0,01" name="montoPago" id="montoPago" class="form-control" placeholder="Ingrese monto con el que abona"/>
 							</div>
 						</div>
 					</div>
-					<div class="form-row align-items-right">
-						<div class="form-group col-sm-3">
+					<div class="form-row" id="pagoDebito">
+						<div class="form-group col-sm-8">
 							<div class="input-group">
 								<div class="input-group-prepend">
-					          		<div class="input-group-text">Fecha</div>
-					        	</div>
-						 		 <input type="date" name="fechaFactura" class="form-control" placeholder="dd/mm/aaaa" value="">
-							</div>	
-						 </div>			
-						<div class="form-group col-sm-3">
-						    <select class="form-control" id="estadoFactura">
-						      <option selected>- Estado -</option>
-						      <option>Pendiente</option>
-						      <option>Cobrada</option>
-						      <option>Anulada</option>
-						    </select>
-						  </div>
-						<div class="form-group col-sm-3">
-						    <select class="form-control" id="estadoFactura">
-						      <option selected>- Medio de pago -</option>
-						      <option>Efectivo</option>
-						      <option>Tarjeta de débito</option>
-						      <option>Tarjeta de crédito</option>
-						    </select>
-						  </div>
-						  <div class="form-group col-sm-3">
-					    		<button class="btn btn-secondary btn-block" type="button">Filtrar</button>
-						  </div>			
+							    	<label class="input-group-text" for="debitoTarjeta">Número tarjeta</label>
+							  	</div>
+								<input type="text" name="debitoTarjeta" id="debitoTarjeta" class="form-control" placeholder="0000 0000 0000 0000"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-4">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="debitoCodigoSeguridad">Código de Seguridad</label>
+							  	</div>
+								<input type="number" min="0" name="debitoCodigoSeguridad" id="debitoCodigoSeguridad" class="form-control" placeholder="000"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-8">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="debitoTitular">Titular</label>
+							  	</div>
+								<input type="text" name="debitoTitular" id="debitoTitular" class="form-control" placeholder="Juan Perez"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-4">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="debitoDni">DNI</label>
+							  	</div>
+								<input type="text" name="debitoDni" id="debitoDni" class="form-control" placeholder="12345678"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-4">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="debitoVencimiento">Fecha de vencimiento</label>
+							  	</div>
+								<input type="text" name="debitoVencimiento" id="debitoVencimiento" class="form-control" placeholder="MMAA"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-4">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="debitoTipoCuenta">Tipo de Cuenta</label>
+							  	</div>
+							 	<select id="debitoTipoCuenta" name="debitoTipoCuenta" class="form-control">
+									<option value="1" selected>Caja de Ahorro<option>
+									<option value="2">Cuenta Corriente<option>
+								</select>
+							</div>						
+						</div>	
+						<div class="form-group col-sm-4">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="debitoPin">PIN</label>
+							  	</div>
+								<input type="number" min="0" name="debitoPin" id="debitoPin" class="form-control" placeholder="1234"/>
+							</div>
+						</div>		
 					</div>
+					<div class="form-row" id="pagoCredito">
+						<div class="form-group col-sm-8">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="creditoTarjeta">Número tarjeta</label>
+							  	</div>
+								<input type="text" name="creditoTarjeta" id="creditoTarjeta" class="form-control" placeholder="0000 0000 0000 0000"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-4">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="creditoCodigoSeguridad">Código de Seguridad</label>
+							  	</div>
+								<input type="number" min="0" name="creditoCodigoSeguridad" id="creditoCodigoSeguridad" class="form-control" placeholder="000"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-8">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="creditoTitular">Titular</label>
+							  	</div>
+								<input type="text" name="creditoTitular" id="creditoTitular" class="form-control" placeholder="Juan Perez"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-4">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="creditoDni">DNI</label>
+							  	</div>
+								<input type="text" name="creditoDni" id="creditoDni" class="form-control" placeholder="12345678"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-6">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="creditoVencimiento">Fecha de vencimiento</label>
+							  	</div>
+								<input type="text" name="creditoVencimiento" id="creditoVencimiento" class="form-control" placeholder="MMAA"/>
+							</div>
+						</div>
+						<div class="form-group col-sm-6">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="creditoCuotas">Cuotas</label>
+							  	</div>
+								<input type="number" min="0" max="12" name="creditoCuotas" id="creditoCodigoSeguridad" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm-12 text-right">
+							<button class="btn btn-success"><i class="fas fa-file-invoice-dollar mr-2"></i>Generar Factura</button>
+						</div>
+					</div>		
 				</form>
 				<hr/>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col col-xs-12">
-				<table class="table table-striped">
-				  <thead>
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">Nro. Factura</th>
-				      <th scope="col">Tipo</th>
-				      <th scope="col">CUIT</th>
-				      <th scope="col">Estado</th>
-				      <th scope="col">Medio de Pago</th>
-				      <th scope="col">Nro. Operación</th>
-				      <th scope="col">Total</th>
-				      <th scope="col" class="text-center">Acciones</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>0001120002</td>
-				      <td>A</td>
-				      <td>20-16894056-5</td>
-				      <td><span class="badge badge-pill badge-warning">Pendiente</span></td>
-				      <td>EFVO</td>
-				      <td>-</td>
-				      <td>$1200.02</td>
-				      <td class="actions text-center">
-				      	<a href="facturacion.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="facturacion.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="facturacion.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
-				      </td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>0001120005</td>
-				      <td>C</td>
-				      <td>Consumidor Final</td>
-				      <td><span class="badge badge-pill badge-danger">Anulada</span></td>
-				      <td>TD</td>
-				      <td>3355</td>
-				      <td>$1570.02</td>
-				      <td class="actions text-center">
-				      	<a href="facturacion.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="facturacion.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="facturacion.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
-				      
-				      </td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>0001120008</td>
-				      <td>B</td>
-				      <td>20-16000056-5</td>
-				      <td><span class="badge badge-pill badge-success">Cobrada</span></td>
-				      <td>TC</td>
-				      <td>7655</td>
-				      <td>$170.20</td>
-				      <td class="actions text-center">
-				      	<a href="facturacion.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="facturacion.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="facturacion.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
-				      	
-				      </td>
-				    </tr>
-				  </tbody>
-				</table>
-			</div>
-		</div>
+		
 		<hr/>
 	</div><!-- container -->
 </main>
