@@ -73,8 +73,27 @@ public class EmpleadoDAO {
 
 	private Empleado toNegocio(EmpleadoEntity ee) {
 		Empleado e = new Empleado();
+		e.setApellido(ee.getApellido());
+		e.setCbu(ee.getCbu());
+		e.setDni(ee.getDni());
+		e.setDomicilio(ee.getDomicilio());
+		e.setEmail(ee.getMail());
+		e.setEstadoCivil(ee.getEstadoCivil());
+		e.setEstadoEmpleado(ee.getEstado());
+		e.setFechaEgreso(ee.getFechaEgreso());
+		e.setFechaIngreso(ee.getFechaIngreso());
+		e.setFechaNacimiento(ee.getFechaNacimiento());
+		e.setGenero(ee.getGenero());
+		e.setHorasAsignadas(ee.getHorasAsignadas());
+		e.setLegajo(ee.getLegajoEmpleado());
+		e.setNacionalidad(ee.getNacionalidad());
+		e.setNombre(ee.getNombre());
+		e.setPassword(ee.getPassword());
+		e.setPuesto(ee.getPuesto());
+		e.setSueldoBase(ee.getSueldoBase());
+		e.setTelefono(ee.getTelefono());
 		
-
+//SEGUIR CON EL DAO QUE ESTA ABAJO COMO EJEMPLO
 		
 		
 		

@@ -1,6 +1,7 @@
 package negocio;
 
-import java.time.LocalDate;
+
+import org.joda.time.LocalDate;
 
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
@@ -26,12 +27,12 @@ public class Empleado {
 	private Float sueldoBase;
 	private Integer horasAsignadas;
 	private Puesto puesto;
-	private Integer cbu;
+	private String cbu;
 	private String session;
 	public Empleado(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
 			String email, EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
-			Float sueldoBase, Integer horasAsignadas, Puesto puesto, Integer cbu, String session) {
+			Float sueldoBase, Integer horasAsignadas, Puesto puesto, String cbu, String session) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -57,7 +58,7 @@ public class Empleado {
 	public Empleado(String nombre, String apellido, String dni, String domicilio, String telefono, String email,
 			EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
-			Float sueldoBase, Integer horasAsignadas, Puesto puesto, Integer cbu, String session) {
+			Float sueldoBase, Integer horasAsignadas, Puesto puesto, String cbu, String session) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -187,10 +188,10 @@ public class Empleado {
 	public void setPuesto(Puesto puesto) {
 		this.puesto = puesto;
 	}
-	public Integer getCbu() {
+	public String getCbu() {
 		return cbu;
 	}
-	public void setCbu(Integer cbu) {
+	public void setCbu(String cbu) {
 		this.cbu = cbu;
 	}
 	public String getSession() {
