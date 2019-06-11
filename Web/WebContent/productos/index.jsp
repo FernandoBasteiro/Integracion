@@ -66,7 +66,7 @@
 				      <td class="actions text-center">
 				      	<a href="/Web/productos/verProducto.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/productos/crearProducto.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="productos.jsp?delete=id" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Web/productos/index.jsp?action=eliminarProducto&codigo=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>
 				  </tbody>
