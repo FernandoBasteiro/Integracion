@@ -3,37 +3,37 @@ package controladores;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import dto.EmpleadoDTO;
 import dto.FacturaDTO;
+import enumeraciones.EstadoFactura;
 import enumeraciones.MedioDePago;
+import enumeraciones.TipoFactura;
+import negocio.Venta;
 
 public class ControladorFacturacion {
 
 	
-	public void marcarFacturaCobrada(FacturaDTO f) {
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) {
 		
 	}
 	
-	public ArrayList<FacturaDTO> listarFacturas(LocalDate fecha) {
+	public ArrayList<FacturaDTO> listarFacturasPorNroFactura(EmpleadoDTO gerente, Integer nroFact) {
 		return null;
 	}
 	
-	public ArrayList<FacturaDTO> listarFacturasPendientes() {
+	public ArrayList<FacturaDTO> listarFacturasPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) {
 		return null;
 	}
-	
-	public ArrayList<FacturaDTO> listarFacturasPendientes(MedioDePago medioDePago) {
+
+	public ArrayList<FacturaDTO> listarFacturas(EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) {
 		return null;
 	}
-	
-	public ArrayList<FacturaDTO> listarFacturasPendientes(Integer nroOperacion) {
-		return null;
-	}
-	
-	public void generarFactura(FacturaDTO f) {
+		
+	public void generarFactura(Venta v, TipoFactura tipo, String cuit) {
 		
 	}
 	
-	public FacturaDTO mostrarFactura(FacturaDTO f) {
+	public FacturaDTO mostrarFactura(EmpleadoDTO gerente, FacturaDTO f) {
 		
 		return f;
 	}

@@ -1,19 +1,12 @@
 package controladores;
 
+import dto.EmpleadoDTO;
+import dto.FacturaDTO;
 import dto.VentaDTO;
 
 public class ControladorVentas {
 	
-	public void generarVentaEfectivo(VentaDTO v) {
+	public void generarVenta(EmpleadoDTO cajero, FacturaDTO f) {
 		
 	}
-	
-	public void generarVentaTC(VentaDTO v) {
-		
-	}
-	
-	public void generarVentaTD(VentaDTO v) {
-	
-	}	
-
 }

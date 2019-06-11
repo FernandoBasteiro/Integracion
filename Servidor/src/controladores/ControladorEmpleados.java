@@ -14,31 +14,31 @@ public class ControladorEmpleados {
 		return e;
 	}
 	
-	public  void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO e) {
+	public  void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) {
 			
 	}
 	
-	public  void modificacionEmpleado(EmpleadoDTO gerente, EmpleadoDTO e) {
+	public  void modificacionEmpleado(EmpleadoDTO gerente, EmpleadoDTO eempleado) {
 		
 	}
 	
-	public  void bajaEmpleado(EmpleadoDTO gerente, EmpleadoDTO e) {
+	public  void bajaEmpleado(EmpleadoDTO gerente, EmpleadoDTO eempleado) {
 		
 	}
 	
-	public EmpleadoDTO mostrarFichaEmpleado(EmpleadoDTO gerente, EmpleadoDTO e) {
-		return e;
+	public EmpleadoDTO mostrarFichaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) {
+		return empleado;
 	}
 	
-	public ArrayList<EmpleadoDTO> listarEmpleados(EmpleadoDTO supervisor) {
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI(EmpleadoDTO gerente, String dni) {
 		return null;
 	}
 	
-	public ArrayList<EmpleadoDTO> listarEmpleados(EmpleadoDTO supervisor, EstadoEmpleado ee) {
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo(EmpleadoDTO gerente, Integer leg) {
 		return null;
 	}
 	
-	public ArrayList<EmpleadoDTO> listarEmpleados(EmpleadoDTO supervisor, Puesto p) {
+	public ArrayList<EmpleadoDTO> listarEmpleados(EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) {
 		return null;
 	}
 	
