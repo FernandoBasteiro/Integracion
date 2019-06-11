@@ -82,9 +82,7 @@ public class Dummy {
 		
 		EmpleadoDAO.getinstance().add(empleado);
 		ProductoDAO.getinstance().add(producto);
-		StockDAO.getinstance().add(stock);
 		empleado.setLegajo(1);
-		ItemVentaDAO.getinstance().add(itemVenta);
 		VentaDAO.getinstance().add(venta);
 		
 	

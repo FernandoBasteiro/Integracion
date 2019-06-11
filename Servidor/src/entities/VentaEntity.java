@@ -43,7 +43,7 @@ public class VentaEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fechaVenta;
 	
-	@OneToMany (cascade = CascadeType.ALL) //ESTO DEBERIA SER VECTOR
+	@OneToMany (cascade = CascadeType.ALL) 
 	private List<ItemVentaEntity> items; 
 	
 	@OneToOne  
