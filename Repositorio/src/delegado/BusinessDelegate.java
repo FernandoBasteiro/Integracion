@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dto.EmpleadoDTO;
-import dto.FacturaDTO;
 import dto.ProductoDTO;
+import dto.VentaDTO;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.EstadoFactura;
 import enumeraciones.MedioDePago;
@@ -110,7 +110,7 @@ public class BusinessDelegate {
 		}
 	}
 
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) throws ComunicacionException {
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
 		try {
 			ir.marcarFacturaCobrada(gerente, f);
 		} catch (RemoteException re) {
@@ -118,21 +118,21 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public ArrayList<FacturaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws ComunicacionException {
+	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws ComunicacionException {
 		try {
 			return ir.listarFacturaPorNroFactura(gerente, nroFact);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<FacturaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws ComunicacionException{
+	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws ComunicacionException{
 		try {
 			return ir.listarFacturaPorNroOperacion(gerente, nroOper);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<FacturaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) throws ComunicacionException{
+	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) throws ComunicacionException{
 		try {
 			return ir.listarFacturas(gerente, m, fch, e);
 		} catch (RemoteException re) {
@@ -140,7 +140,7 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public FacturaDTO mostrarFactura (EmpleadoDTO gerente, FacturaDTO f) throws ComunicacionException {
+	public VentaDTO mostrarFactura (EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
 		try {
 			return ir.mostrarFactura(gerente, f);
 		} catch (RemoteException re) {
@@ -148,7 +148,7 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public void generarVenta(EmpleadoDTO cajero, FacturaDTO f) throws ComunicacionException {
+	public void generarVenta(EmpleadoDTO cajero, VentaDTO f) throws ComunicacionException {
 		try {
 			ir.generarVenta(cajero, f);
 		} catch (RemoteException re) {
