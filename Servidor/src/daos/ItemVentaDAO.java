@@ -1,11 +1,17 @@
 package daos;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import controladores.HibernateUtil;
+import entities.ItemVentaEntity;
+import entities.ProductoEntity;
+import entities.StockEntity;
 import negocio.ItemVenta;
+import negocio.Producto;
 
 public class ItemVentaDAO {
 	
@@ -40,7 +46,7 @@ public class ItemVentaDAO {
 
 		try {
 			t = s.beginTransaction();
-			s.saveOrUpdate(itemVenta);
+			s.saveOrUpdate(ItemVentaDAO.getinstance().toEntity(itemVenta));
 			s.flush();
 			t.commit();
 			s.close();
@@ -49,4 +55,23 @@ public class ItemVentaDAO {
 		}
 	}
 
+	public ItemVentaEntity toEntity(ItemVenta ee) {
+		ItemVentaEntity e = new ItemVentaEntity();
+		
+		e.setCantidad(ee.getCantidad());
+		e.setPrecio(ee.getPrecio());
+		e.setProducto(ProductoDAO.getinstance().toEntity(ee.getProducto()));
+		return e;
+	}
+	
+	public ItemVenta toNegocio(ItemVentaEntity ee) {
+		ItemVenta e = new ItemVenta();
+		
+		e.setCantidad(ee.getCantidad());
+		e.setPrecio(ee.getPrecio());
+		e.setProducto(ProductoDAO.getinstance().toNegocio(ee.getProducto()));	
+		return e;
+	}
+	
+	
 }

@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +16,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+
 
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoFactura;
@@ -65,12 +71,12 @@ public class FacturaEntity {
 		this.numero = numero;
 	}
 
-	public Calendar getFechaFacturacion() {
-		return fechaFacturacion;
+	public LocalDate getFechaFacturacion() {
+		return (fechaFacturacion == null ? null : LocalDate.fromCalendarFields(fechaFacturacion));
 	}
 
-	public void setFechaFacturacion(Calendar fechaFacturacion) {
-		this.fechaFacturacion = fechaFacturacion;
+	public void setFechaFacturacion(LocalDate fechaFacturacion) {
+		this.fechaFacturacion = fechaFacturacion.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
 	public TipoFactura getTipo() {
@@ -105,12 +111,12 @@ public class FacturaEntity {
 		this.estado = estado;
 	}
 
-	public Calendar getFechaCobro() {
-		return fechaCobro;
+	public LocalDate getFechaCobro() {
+		return (fechaCobro == null ? null : LocalDate.fromCalendarFields(fechaCobro));
 	}
 
-	public void setFechaCobro(Calendar fechaCobro) {
-		this.fechaCobro = fechaCobro;
+	public void setFechaCobro(LocalDate fechaCobro) {
+		this.fechaCobro = fechaCobro.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault());
 	}
 
 	

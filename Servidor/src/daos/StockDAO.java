@@ -5,6 +5,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import controladores.HibernateUtil;
+import entities.ProductoEntity;
+import entities.StockEntity;
+import entities.VentaEntity;
 import negocio.Producto;
 import negocio.Stock;
 
@@ -41,7 +44,7 @@ public class StockDAO {
 
 		try {
 			t = s.beginTransaction();
-			s.saveOrUpdate(stock);
+			s.saveOrUpdate(StockDAO.getinstance().toEntity(stock));
 			s.flush();
 			t.commit();
 			s.close();
@@ -50,4 +53,20 @@ public class StockDAO {
 		}
 	}
 
+	public StockEntity toEntity(Stock ee) {
+		StockEntity e = new StockEntity();
+		e.setCantidadMinima(ee.getCantidadMinimo());
+		e.setCantidadTotal(ee.getCantidadTotal());
+		e.setCantidadDisponible(ee.getCantidadDisponible());
+		return e;
+	}
+
+	public Stock toNegocio(StockEntity ee) {
+		Stock e = new Stock();
+		e.setCantidadMinimo(ee.getCantidadMinima());
+		e.setCantidadTotal(ee.getCantidadTotal());
+		e.setCantidadDisponible(ee.getCantidadDisponible());
+		return null;
+	}
+	
 }

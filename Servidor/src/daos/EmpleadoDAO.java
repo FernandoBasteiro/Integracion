@@ -2,6 +2,9 @@ package daos;
 
 import controladores.HibernateUtil;
 import entities.EmpleadoEntity;
+import entities.FacturaEntity;
+import enumeraciones.EstadoEmpleado;
+import enumeraciones.Puesto;
 import negocio.Empleado;
 
 import java.util.ArrayList;
@@ -36,13 +39,12 @@ public class EmpleadoDAO {
 			s.close();
 	}
 
-	public void guardarEmpleado(Empleado empleado) {
+	public void add(Empleado empleado) {
 		Transaction t = null;
 		s = this.getSession();
-
 		try {
 			t = s.beginTransaction();
-			s.saveOrUpdate(empleado);
+			s.saveOrUpdate(EmpleadoDAO.getinstance().toEntity(empleado));
 			s.flush();
 			t.commit();
 			s.close();
@@ -51,6 +53,30 @@ public class EmpleadoDAO {
 		}
 	}
 		
+	public EmpleadoEntity toEntity(Empleado ee) {
+		EmpleadoEntity e = new EmpleadoEntity();
+		e.setApellido(ee.getApellido());
+		e.setCbu(ee.getCbu());
+		e.setDni(ee.getDni());
+		e.setDomicilio(ee.getDomicilio());
+		e.setMail(ee.getEmail());
+		e.setEstadoCivil(ee.getEstadoCivil());
+		e.setEstado(ee.getEstadoEmpleado());
+		e.setFechaEgreso(ee.getFechaEgreso());
+		e.setFechaIngreso(ee.getFechaIngreso());
+		e.setFechaNacimiento(ee.getFechaNacimiento());
+		e.setGenero(ee.getGenero());
+		e.setHorasAsignadas(ee.getHorasAsignadas());
+		e.setLegajoEmpleado(ee.getLegajo());
+		e.setNacionalidad(ee.getNacionalidad());
+		e.setNombre(ee.getNombre());
+		e.setPassword(ee.getPassword());
+		e.setPuesto(ee.getPuesto());
+		e.setSueldoBase(ee.getSueldoBase());
+		e.setTelefono(ee.getTelefono());
+		return e;		
+	}
+
 	public Empleado getEmpleadoByLegajo(int legajo){
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -64,14 +90,14 @@ public class EmpleadoDAO {
 	public Empleado getEmpleadoByDni(String dni){
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where dni = ?")
+		EmpleadoEntity ee = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where dni = ?")
 					.setParameter(0, dni)
 					.uniqueResult();
-			return EmpleadoDAO.getinstance().toNegocio(pe);
+			return EmpleadoDAO.getinstance().toNegocio(ee);
 		
 	}
 
-	private Empleado toNegocio(EmpleadoEntity ee) {
+	public Empleado toNegocio(EmpleadoEntity ee) {
 		Empleado e = new Empleado();
 		e.setApellido(ee.getApellido());
 		e.setCbu(ee.getCbu());
@@ -92,59 +118,31 @@ public class EmpleadoDAO {
 		e.setPuesto(ee.getPuesto());
 		e.setSueldoBase(ee.getSueldoBase());
 		e.setTelefono(ee.getTelefono());
-		
-//SEGUIR CON EL DAO QUE ESTA ABAJO COMO EJEMPLO
-		
-		
-		
-		
-		return null;
+		return e;		
+	}	
+	
+	public ArrayList<Empleado> getEmpleadosByPuesto(Puesto puesto) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where puesto = ?)")
+				.setParameter(0, puesto.getNombre())
+				.list();
+		ArrayList<Empleado> lista = new ArrayList<Empleado>();
+		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
+		return lista;
 	}
 	
-	
-	
-	
-	
-	public Partida toNegocio(PartidaEntity pe) {
-		Partida p = new Partida(pe.getId());
-		p.setEsAbierta(pe.getEsAbierta());
-		p.setEstado(pe.getEstado());
-		p.setGanador(pe.getGanador());
-		p.setFechaCreacion(pe.getFechaCreacion());
-		p.setFechaActualizacion(pe.getFechaActualizacion());
-		ArrayList<Juego> juegos = new ArrayList<Juego>();
-		for (JuegoEntity je : pe.getJuegos()) {
-			juegos.add(JuegoDAO.getInstancia().toNegocio(je));
-		}
-		p.setJuegos(juegos);
-		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
-		for (JugadorEntity je : pe.getJugadores()) {
-			jugadores.add(JugadorDAO.getInstancia().toNegocio(je));
-		}
-		p.setJugadores(jugadores);
-		ArrayList<Jugador> jugadoresListos = new ArrayList<Jugador>();
-		for (JugadorEntity je : pe.getJugadoresListos()) {
-			jugadoresListos.add(JugadorDAO.getInstancia().toNegocio(je));
-		}
-		p.setJugadoresListos(jugadoresListos);
-		return p;
+	public ArrayList<Empleado> getEmpleadosByPuesto(EstadoEmpleado estado) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where estado = ?)")
+				.setParameter(0, estado.getNombre())
+				.list();
+		ArrayList<Empleado> lista = new ArrayList<Empleado>();
+		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
+		return lista;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
