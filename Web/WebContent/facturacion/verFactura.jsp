@@ -65,7 +65,7 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 				  <% 
 				  int item_num = 1;
 				  for (ItemVentaDTO item : factura.getItems()){ 
-				  float subtotal = item.getPrecio()*item.getCantidad();
+				  Float subtotal = item.getPrecio()*item.getCantidad();
 				  %>
 				    <tr>
 				      <th scope="row"><%=item_num%></th>
