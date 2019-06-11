@@ -4,25 +4,36 @@
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline">Administrar Productos</h2>
-				<a href="#" class="btn btn-primary float-right">Nuevo producto</a>
+				<a href="/Web/productos/verProducto.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo producto</a>
 				<hr/>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form method="get" class="filter-tools">
-					<div class="form-row">
-						<div class="col-sm-12">
+				<form action="?" method="post" class="filter-tools">
+					<div class="form-row pb-2">
+						<div class="col-sm-6">
 							<div class="input-group">
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
-						        </div>
-							  <input type="search" class="form-control" placeholder="Ingrese nombre o código de producto..." aria-label="Ingrese nombre o código de producto" aria-describedby="buscarProducto">
+						      </div>
+							  <input name="buscarProductoNombre" type="search" class="form-control" placeholder="Ingrese nombre del producto..." aria-label="Ingrese nombre del producto" aria-describedby="buscarProductoNombre">
 							   <div class="input-group-append">
 							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
 							  </div>
 							</div>
-						</div>				
+						</div>	
+						<div class="col-sm-6">
+							<div class="input-group">
+							<div class="input-group-prepend">
+						          <div class="input-group-text">Buscar</div>
+						      </div>
+							  <input name="buscarProductoCodigo" type="search" class="form-control" placeholder="Ingrese código..." aria-label="Ingrese código" aria-describedby="buscarProductoCodigo">
+							   <div class="input-group-append">
+							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+							  </div>
+							</div>
+						</div>	
 					</div>
 				</form>
 				<hr/>
@@ -53,9 +64,9 @@
 				      <td>$90.00</td>
 				      <td>100u</td>
 				      <td class="actions text-center">
-				      	<a href="productos.jsp?view=id" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="productos.jsp?edit=id" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="productos.jsp?delete=id" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Web/productos/verProducto.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/productos/crearProducto.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="/Web/productos/index.jsp?action=eliminarProducto&codigo=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>
 				  </tbody>

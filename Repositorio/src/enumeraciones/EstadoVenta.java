@@ -19,7 +19,7 @@ public enum EstadoVenta {
 	public String getNombre() {
 		return nombre;
 	}
-	public static EstadoVenta fromId(int id) {
+	public static EstadoVenta fromId(Integer id) {
 		for (EstadoVenta ev : EstadoVenta.values()) if (ev.getId() == id) return ev;
 		return null;
 	}
