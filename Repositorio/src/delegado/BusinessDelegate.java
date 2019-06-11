@@ -110,7 +110,7 @@ public class BusinessDelegate {
 		}
 	}
 
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
+	/**public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
 		try {
 			ir.marcarFacturaCobrada(gerente, f);
 		} catch (RemoteException re) {
@@ -198,5 +198,5 @@ public class BusinessDelegate {
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
-	}
+	}*/
 }
