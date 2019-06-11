@@ -19,10 +19,11 @@ public class ControladorProductos {
 		
 	}
 	
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor, ProductoDTO p) {
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) {
 		//TODO ProductoDTO puede ser null, se devuelve todos los productos. 
 		//Puede tener nombre, se devuelven todos los productos que coincidan con el nombre. 
 		//O puede tener un codigo, te devuelve un array con el producto de ese codigo.
+		//y que tenga stock
 		return new ArrayList<ProductoDTO>();
 	}
 	

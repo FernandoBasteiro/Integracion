@@ -157,9 +157,23 @@ public class ControladorVentas {
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
 
-	public ArrayList<VentaDTO> listarFacturas(EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) {
-		//TODO pendiente de hacer en el DAO
-		return null;
+	public ArrayList<VentaDTO> listarFacturas(EmpleadoDTO g, MedioDePago m, LocalDate fch, EstadoVenta e) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentasByEstadoFechaMedioDePago(fch, e, m);
+				if (ventas != null) {
+					ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
+					for (Venta v: ventas) {
+						vtas.add(v.getDTO());
+					}
+					return vtas;
+				}
+				else throw new ExcepcionProceso("No existen ventas con esos criterios.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");	
 	}
 		
 	public VentaDTO mostrarFactura(EmpleadoDTO g, VentaDTO v) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
