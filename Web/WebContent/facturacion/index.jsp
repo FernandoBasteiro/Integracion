@@ -94,9 +94,9 @@
 				      <td>-</td>
 				      <td>$1200.02</td>
 				      <td class="actions text-center">
-				      	<a href="facturacion.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="facturacion.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="facturacion.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
+				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <tr>
@@ -109,10 +109,9 @@
 				      <td>3355</td>
 				      <td>$1570.02</td>
 				      <td class="actions text-center">
-				      	<a href="facturacion.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="facturacion.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="facturacion.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
-				      
+				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <tr>
@@ -125,10 +124,9 @@
 				      <td>7655</td>
 				      <td>$170.20</td>
 				      <td class="actions text-center">
-				      	<a href="facturacion.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="facturacion.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="facturacion.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
-				      	
+				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?edit=id" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?delete=id" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				  </tbody>
