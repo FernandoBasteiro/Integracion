@@ -1,7 +1,7 @@
 package negocio;
 
 import java.time.LocalDate;
-
+import dto.FacturaDTO;
 import enumeraciones.EstadoFactura;
 import enumeraciones.TipoFactura;
 
@@ -13,6 +13,7 @@ public class Factura {
 	private String cuit;
 	private EstadoFactura estado;
 	private LocalDate fechaCobro;
+	
 	public Factura(Integer numero, LocalDate fechaFacturacion, TipoFactura tipo, Venta venta, String cuit,
 			EstadoFactura estado, LocalDate fechaCobro) {
 		super();
@@ -80,7 +81,18 @@ public class Factura {
 		super();
 	}
 	
+	public void marcarFacturaCobrada() {
+		this.setFechaCobro(LocalDate.now());
+		this.setEstado(EstadoFactura.COBRADA);
+	}
 	
+	public void anularFactura() {
+		this.venta.cancelarVenta();
+		this.setEstado(EstadoFactura.ANULADA);
+	}
 	
-	
+	public FacturaDTO getDTO () {
+		//TODO ENVIAR PARAMETROS 
+		return new FacturaDTO ();
+	}
 }

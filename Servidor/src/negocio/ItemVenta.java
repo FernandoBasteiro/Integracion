@@ -1,5 +1,7 @@
 package negocio;
 
+import dto.ItemVentaDTO;
+
 public class ItemVenta {
 	private Producto producto;
 	private Float precio;
@@ -35,7 +37,12 @@ public class ItemVenta {
 		this.cantidad = cantidad;
 	}
 	
+	public void devolverProducto() {
+		this.producto.devolverStock(this.cantidad);
+	}
 	
-	
-	
+	public ItemVentaDTO getDTO () {
+		//TODO ENVIAR PARAMETROS 
+				return new ItemVentaDTO();
+	}
 }

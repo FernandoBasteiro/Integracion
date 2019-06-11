@@ -3,6 +3,7 @@ package negocio;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.TipoCuenta;
 
@@ -77,5 +78,9 @@ public class VentaTarjetaCredito extends Venta {
 		this.cantCuotas = cantCuotas;
 	}
 	
+	public VentaDTO getDTO () {
+		//TODO ENVIAR PARAMETROS 
+		return new VentaDTO ();
+	}
 	
 }
