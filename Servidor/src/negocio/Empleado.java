@@ -1,6 +1,9 @@
 package negocio;
 
 import org.joda.time.LocalDate;
+
+import controladores.ConversorFechas;
+import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
@@ -29,6 +32,7 @@ public class Empleado {
 	private String cbu;
 	private String session;
 	
+	//FECHAS JODA
 	public Empleado(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
 			String email, EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
@@ -55,9 +59,11 @@ public class Empleado {
 		this.cbu = cbu;
 		this.session = session;
 	}
+	
+	//FECHAS JAVA
 	public Empleado(String nombre, String apellido, String dni, String domicilio, String telefono, String email,
-			EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
-			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
+			EstadoCivil estadoCivil, Genero genero, java.time.LocalDate fechaNacimiento, java.time.LocalDate fechaIngreso,
+			java.time.LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
 			Float sueldoBase, Integer horasAsignadas, Puesto puesto, String cbu, String session) {
 		super();
 		this.nombre = nombre;
@@ -68,9 +74,9 @@ public class Empleado {
 		this.email = email;
 		this.estadoCivil = estadoCivil;
 		this.genero = genero;
-		this.fechaNacimiento = fechaNacimiento;
-		this.fechaIngreso = fechaIngreso;
-		this.fechaEgreso = fechaEgreso;
+		this.fechaNacimiento = this.fechaNacimiento;
+		this.fechaIngreso = this.fechaIngreso;
+		this.fechaEgreso = this.fechaEgreso;
 		this.estadoEmpleado = estadoEmpleado;
 		this.nacionalidad = nacionalidad;
 		this.password = password;
@@ -203,7 +209,7 @@ public class Empleado {
 	public Empleado() {
 		super();
 	}
-	
+
 	public boolean verificarPassword(String p) {
 		if (this.password == p) {
 			return true;
@@ -211,21 +217,14 @@ public class Empleado {
 		return false;
 	}
 	
-	protected java.time.LocalDate convertJodaToJava (LocalDate jodaTime) {
-		if (jodaTime != null) return java.time.LocalDate.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth());
-		return null;
-	}
-	
-	protected LocalDate convertJavaToJoda (java.time.LocalDate javaTime) {
-		if (javaTime != null) return new org.joda.time.LocalDate(javaTime.getYear(), javaTime.getMonthValue(), javaTime.getDayOfMonth());
-		return null;
-	}
-	
 	public EmpleadoDTO getDTO () {
-		//TODO ENVIAR PARAMETROS 
 		return new EmpleadoDTO (this.nombre, this.apellido, this.legajo, this.dni, this.domicilio, this.telefono,
-				this.email, this.estadoCivil, this.genero, convertJodaToJava(fechaNacimiento), convertJodaToJava(fechaIngreso),
-				convertJodaToJava(fechaEgreso), this.estadoEmpleado, this.nacionalidad, this.password,
+				this.email, this.estadoCivil, this.genero, ConversorFechas.convertJodaToJava(this.fechaNacimiento), ConversorFechas.convertJodaToJava(this.fechaIngreso),
+				ConversorFechas.convertJodaToJava(this.fechaEgreso), this.estadoEmpleado, this.nacionalidad, null,
 				this.sueldoBase, this.horasAsignadas, this.puesto, this.cbu, this.session);
+	}
+	public void guardar() {
+		EmpleadoDAO.getinstance().add(this);
+		
 	}
 }

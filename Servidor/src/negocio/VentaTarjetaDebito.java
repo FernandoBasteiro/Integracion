@@ -1,8 +1,10 @@
 package negocio;
 
-import org.joda.time.LocalDate;
 import java.util.List;
 
+import org.joda.time.LocalDate;
+
+import controladores.ConversorFechas;
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
@@ -92,14 +94,14 @@ public class VentaTarjetaDebito extends Venta {
 	
 	public VentaDTO getDTO () {
 	
-		return new VentaDTO (this.id, convertJodaToJava(this.fechaVenta), this.gesItemsDTO (), this.empleado.getDTO(),
+		return new VentaDTO (this.id, ConversorFechas.convertJodaToJava(this.fechaVenta), this.gesItemsDTO (), this.empleado.getDTO(),
 				this.estado, this.total, MedioDePago.TARJETA_DEBITO, 
 				null, null, //Datos EFVTO
 				this.numeroTarjeta, this.codigoSeguridad, this.nombre, this.dni, //Datos Tarjetas TC+TD	
 				this.fechaVto, this.nroOperacion, this.aprobada, //Datos Tarjetas TC+TD		
 				null, //Datos TC			
 				this.pin, this.tipoCuenta, //Datos TD
-				this.tipoFact, this.cuit, convertJodaToJava(this.fechaCobro)); //Datos Factura
+				this.tipoFact, this.cuit, ConversorFechas.convertJodaToJava(this.fechaCobro)); //Datos Factura
 	}
 	
 }
