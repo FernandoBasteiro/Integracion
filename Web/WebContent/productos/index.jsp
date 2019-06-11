@@ -1,4 +1,4 @@
-<jsp:include page="includes/header.jsp"/>
+<jsp:include page="../includes/header.jsp"/>
 <main role="main">
 	<div class="container">
 		<div class="row">
@@ -65,4 +65,4 @@
 		<hr/>
 	</div><!-- container -->
 </main>
-<jsp:include page="includes/footer.jsp"/>
+<jsp:include page="../includes/footer.jsp"/>
