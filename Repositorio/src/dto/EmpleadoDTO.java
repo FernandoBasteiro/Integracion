@@ -1,7 +1,6 @@
 package dto;
 
 import java.time.LocalDate;
-
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Genero;

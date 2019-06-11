@@ -3,7 +3,7 @@ package enumeraciones;
 public enum EstadoVenta {
 	ABIERTA (1, "Abierta"),
 	FACTURADA (2, "Facturada"),
-	COBRADA (3, "Facturada"),
+	COBRADA (3, "Cobrada"),
 	ANULADA (4, "Anulada");
 	
 	

@@ -1,6 +1,8 @@
 package negocio;
 
 import org.joda.time.LocalDate;
+
+import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
@@ -140,20 +142,20 @@ public class Empleado {
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaNacimiento(java.time.LocalDate fechaNacimiento) {
+		this.fechaNacimiento = convertJavaToJoda(fechaNacimiento);
 	}
 	public LocalDate getFechaIngreso() {
 		return fechaIngreso;
 	}
-	public void setFechaIngreso(LocalDate fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setFechaIngreso(java.time.LocalDate fechaIngreso) {
+		this.fechaIngreso = convertJavaToJoda(fechaIngreso);
 	}
 	public LocalDate getFechaEgreso() {
 		return fechaEgreso;
 	}
-	public void setFechaEgreso(LocalDate fechaEgreso) {
-		this.fechaEgreso = fechaEgreso;
+	public void setFechaEgreso(java.time.LocalDate fechaEgreso) {
+		this.fechaEgreso = convertJavaToJoda(fechaEgreso);
 	}
 	public EstadoEmpleado getEstadoEmpleado() {
 		return estadoEmpleado;
@@ -206,7 +208,7 @@ public class Empleado {
 	public Empleado() {
 		super();
 	}
-	
+
 	public boolean verificarPassword(String p) {
 		if (this.password == p) {
 			return true;
@@ -225,14 +227,13 @@ public class Empleado {
 	}
 	
 	public EmpleadoDTO getDTO () {
-		//TODO ENVIAR PARAMETROS 
 		return new EmpleadoDTO (this.nombre, this.apellido, this.legajo, this.dni, this.domicilio, this.telefono,
 				this.email, this.estadoCivil, this.genero, convertJodaToJava(fechaNacimiento), convertJodaToJava(fechaIngreso),
 				convertJodaToJava(fechaEgreso), this.estadoEmpleado, this.nacionalidad, null,
 				this.sueldoBase, this.horasAsignadas, this.puesto, this.cbu, this.session);
 	}
 	public void guardar() {
-		// TODO Auto-generated method stub
+		EmpleadoDAO.getinstance().add(this);
 		
 	}
 }
