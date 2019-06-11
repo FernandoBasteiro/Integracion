@@ -71,12 +71,45 @@ public class EmpleadoDAO {
 		
 	}
 
-	private Empleado toNegocio(EmpleadoEntity pe) {
-		// TODO Auto-generated method stub
+	private Empleado toNegocio(EmpleadoEntity ee) {
+		Empleado e = new Empleado();
+		
+
+		
+		
+		
+		
 		return null;
 	}
 	
 	
+	
+	
+	
+	public Partida toNegocio(PartidaEntity pe) {
+		Partida p = new Partida(pe.getId());
+		p.setEsAbierta(pe.getEsAbierta());
+		p.setEstado(pe.getEstado());
+		p.setGanador(pe.getGanador());
+		p.setFechaCreacion(pe.getFechaCreacion());
+		p.setFechaActualizacion(pe.getFechaActualizacion());
+		ArrayList<Juego> juegos = new ArrayList<Juego>();
+		for (JuegoEntity je : pe.getJuegos()) {
+			juegos.add(JuegoDAO.getInstancia().toNegocio(je));
+		}
+		p.setJuegos(juegos);
+		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+		for (JugadorEntity je : pe.getJugadores()) {
+			jugadores.add(JugadorDAO.getInstancia().toNegocio(je));
+		}
+		p.setJugadores(jugadores);
+		ArrayList<Jugador> jugadoresListos = new ArrayList<Jugador>();
+		for (JugadorEntity je : pe.getJugadoresListos()) {
+			jugadoresListos.add(JugadorDAO.getInstancia().toNegocio(je));
+		}
+		p.setJugadoresListos(jugadoresListos);
+		return p;
+	}
 	
 	
 	
