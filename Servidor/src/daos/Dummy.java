@@ -8,12 +8,6 @@ import org.hibernate.SessionFactory;
 import org.joda.time.LocalDate;
 
 import controladores.HibernateUtil;
-import entities.EmpleadoEntity;
-import entities.FacturaEntity;
-import entities.ItemVentaEntity;
-import entities.ProductoEntity;
-import entities.StockEntity;
-import entities.VentaEntity;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.EstadoFactura;
@@ -21,6 +15,11 @@ import enumeraciones.EstadoVenta;
 import enumeraciones.Genero;
 import enumeraciones.Puesto;
 import enumeraciones.TipoFactura;
+import negocio.Empleado;
+import negocio.ItemVenta;
+import negocio.Producto;
+import negocio.Stock;
+import negocio.Venta;
 
 public class Dummy {
 	private static Dummy instancia;
@@ -35,17 +34,19 @@ public class Dummy {
 		}
 		return instancia;
 	}
-	
+	public static void main(String[] args)
+	{
+		Dummy.getInstancia();
+	}
 	public void probarBase() {
-		StockEntity stock = new StockEntity();
-		ProductoEntity producto = new ProductoEntity();
-		EmpleadoEntity empleado = new EmpleadoEntity();
-		FacturaEntity factura = new FacturaEntity();
-		ItemVentaEntity itemVenta = new ItemVentaEntity();
-		ArrayList<ItemVentaEntity> items = new ArrayList<ItemVentaEntity>();
-		VentaEntity venta = new VentaEntity();
+		Stock stock = new Stock();
+		Producto producto = new Producto();
+		Empleado empleado = new Empleado();
+		ItemVenta itemVenta = new ItemVenta();
+		ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();
+		Venta venta = new Venta();
 		stock.setCantidadDisponible(10);
-		stock.setCantidadMinima(6);
+		stock.setCantidadMinimo(6);
 		stock.setCantidadTotal(12);
 		producto.setCodigo(1234);
 		producto.setDescripcion("Veneno");
@@ -57,13 +58,13 @@ public class Dummy {
 		empleado.setCbu("1234");
 		empleado.setDni("12345");
 		empleado.setDomicilio("Mardel");
-		empleado.setEstado(EstadoEmpleado.LICENCIA_PAGA);
+		empleado.setEstadoEmpleado(EstadoEmpleado.LICENCIA_PAGA);
 		empleado.setEstadoCivil(EstadoCivil.CASADO);
 		empleado.setFechaIngreso(LocalDate.now());
 		empleado.setFechaNacimiento(LocalDate.now());
 		empleado.setGenero(Genero.FEMENINO);
 		empleado.setHorasAsignadas(10);
-		empleado.setMail("mail@falso");
+		empleado.setEmail("mail@falso");
 		empleado.setNacionalidad("Argentino");
 		empleado.setPassword("1234");
 		empleado.setPuesto(Puesto.GERENTE);
@@ -73,44 +74,18 @@ public class Dummy {
 		itemVenta.setPrecio((float)41);
 		itemVenta.setProducto(producto);
 		items.add(itemVenta);
-		venta.setAprobada(true);
-		venta.setCantCuotas(null);
 		venta.setEmpleado(empleado);
 		venta.setEstado(EstadoVenta.FACTURADA);
-		venta.setFechaVenta(Calendar.getInstance());
 		venta.setItems(items);
-		venta.setNroOperacion(1234);
 		venta.setTotal((float)13.3);
-		venta.setUltimos4DigitosTarjeta(1234);
-		factura.setCuit(null);
-		factura.setEstado(EstadoFactura.PENDIENTE);
-		factura.setFechaCobro(Calendar.getInstance());
-		factura.setFechaFacturacion(Calendar.getInstance());
-		factura.setTipo(TipoFactura.C);
-		factura.setVenta(venta);
 		
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-		session.beginTransaction();
-		session.save(stock);
-		session.getTransaction().commit();
-		session.beginTransaction();
-		session.save(producto);
-		session.getTransaction().commit();
-		session.beginTransaction();
-		session.save(empleado);
-		session.getTransaction().commit();
-		session.beginTransaction();
-		session.save(venta);
-		session.getTransaction().commit();
-		session.beginTransaction();
-		session.save(itemVenta);
-		session.getTransaction().commit();
-		session.beginTransaction();
-		Integer numero = (Integer)session.save(factura);
-		session.getTransaction().commit();
-		session.close();
-		System.out.println(numero);
+		EmpleadoDAO.getinstance().add(empleado);
+		ProductoDAO.getinstance().add(producto);
+		StockDAO.getinstance().add(stock);
+		VentaDAO.getinstance().add(venta);
+		ItemVentaDAO.getinstance().add(itemVenta);
+	
+		System.out.println("Bien");
 
 	}
 }

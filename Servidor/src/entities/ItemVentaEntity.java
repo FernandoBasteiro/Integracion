@@ -35,10 +35,6 @@ public class ItemVentaEntity {
 	@ManyToOne (cascade = CascadeType.ALL) 
 	@JoinColumn (name = "codigo")
 	private ProductoEntity producto;
-
-	@ManyToOne (cascade = CascadeType.ALL) 
-	@JoinColumn (name = "codigo")
-	private VentaEntity venta;
 	
 	@Column (columnDefinition = "float", nullable = true)
 	private Float precio;

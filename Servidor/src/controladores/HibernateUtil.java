@@ -4,7 +4,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import entities.EmpleadoEntity;
-import entities.FacturaEntity;
 import entities.ItemVentaEntity;
 import entities.ProductoEntity;
 import entities.StockEntity;
@@ -20,7 +19,6 @@ public class HibernateUtil
         {
         	 AnnotationConfiguration config = new AnnotationConfiguration();
              config.addAnnotatedClass(EmpleadoEntity.class);
-             config.addAnnotatedClass(FacturaEntity.class);
              config.addAnnotatedClass(ItemVentaEntity.class);
              config.addAnnotatedClass(ProductoEntity.class);
              config.addAnnotatedClass(StockEntity.class);
