@@ -1,5 +1,7 @@
 package daos;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,6 +11,7 @@ import entities.ItemVentaEntity;
 import entities.ProductoEntity;
 import entities.StockEntity;
 import negocio.ItemVenta;
+import negocio.Producto;
 
 public class ItemVentaDAO {
 	
@@ -61,7 +64,7 @@ public class ItemVentaDAO {
 		return e;
 	}
 	
-	private ItemVenta toNegocio(ItemVentaEntity ee) {
+	public ItemVenta toNegocio(ItemVentaEntity ee) {
 		ItemVenta e = new ItemVenta();
 		
 		e.setCantidad(ee.getCantidad());
@@ -69,5 +72,16 @@ public class ItemVentaDAO {
 		e.setProducto(ProductoDAO.getinstance().toNegocio(ee.getProducto()));	
 		return e;
 	}
-
+	
+	public ArrayList<ItemsVenta> getItems() {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<ItemsVenta> lista_entities = (ArrayList<ItemsVenta>) session.createQuery("from ItemsVentaEntity where nombre like %?%)")
+				.setParameter(0, nombre)
+				.list();
+		ArrayList<Producto> lista = new ArrayList<Producto>();
+		for (ProductoEntity productoEntity : lista_entities) lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
+		return lista;
+	}
 }

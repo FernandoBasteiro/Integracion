@@ -1,11 +1,15 @@
 package daos;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import controladores.HibernateUtil;
+import entities.ItemVentaEntity;
 import entities.VentaEntity;
+import negocio.ItemVenta;
 import negocio.Producto;
 import negocio.Venta;
 
@@ -61,7 +65,13 @@ public class VentaDAO {
 
 	public Venta toNegocio(VentaEntity ee) {
 		
+		ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();
 		Venta e = new Venta();
+		
+		for (ItemVentaEntity iv : ee.getItems()) {
+			items.add(ItemVentaDAO.getinstance().toNegocio(iv));
+		}
+		
 		e.setCuit(ee.getCuit());
 		e.setEmpleado(EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()));	
 		e.setEstado(ee.getEstado());
@@ -70,7 +80,10 @@ public class VentaDAO {
 		e.setId(ee.getId());
 		e.setItems(ItemVentaDAO.getinstance().toNegocio(ee.getItems()));
 		e.setTipoFact(ee.getTipo());
-		e.setTotal(ee.getTotal());		
+		e.setTotal(ee.getTotal());
+		
+		
+		
 		
 		return e;
 	}
