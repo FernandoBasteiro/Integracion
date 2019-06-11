@@ -5,10 +5,11 @@
  	if (empleado == null) {
  %>
 <div class="container">
-	<form class="form-signin text-center"
-		action="/Web/Private?action=login">
-		<img class="mb-4" src="/Web/img/logo_transparent.png"
-			alt="Logo Sarasa IAPP" width="150" height="114">
+	<form method="post" class="form-signin text-center"
+		action="/Web/Private">
+		<input type="hidden" name="action" value="login" /> <img class="mb-4"
+			src="/Web/img/logo_transparent.png" alt="Logo Sarasa IAPP"
+			width="150" height="114">
 		<h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
 		<div class="form-group">
 			<label for="legajo" class="sr-only">Legajo</label> <input type=text
@@ -29,7 +30,10 @@
  %>
 <div class="jumbotron">
 	<div class="container">
-		<h1 class="display-3">Bienvenido <%=empleado.getNombre()%>!</h1>
+		<h1 class="display-3">
+			Bienvenido
+			<%=empleado.getNombre()%>!
+		</h1>
 		<p>This is a template for a simple marketing or informational
 			website. It includes a large callout called a jumbotron and three
 			supporting pieces of content. Use it as a starting point to create
