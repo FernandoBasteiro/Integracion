@@ -19,7 +19,7 @@ public enum EstadoEmpleado {
 	public String getNombre() {
 		return nombre;
 	}
-	public static EstadoEmpleado fromId(int id) {
+	public static EstadoEmpleado fromId(Integer id) {
 		for (EstadoEmpleado ee : EstadoEmpleado.values()) if (ee.getId() == id) return ee;
 		return null;
 	}
