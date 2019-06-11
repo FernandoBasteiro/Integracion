@@ -79,7 +79,7 @@ public class EmpleadoDAO {
 	public Empleado getEmpleadoByLegajo(int legajo){
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where legajo = ?")
+		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where legajoEmpleado = ?")
 					.setParameter(0, legajo)
 					.uniqueResult();
 			return EmpleadoDAO.getinstance().toNegocio(pe);
@@ -125,7 +125,7 @@ public class EmpleadoDAO {
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
 		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where puesto = ?)")
-				.setParameter(0, puesto.getNombre())
+				.setParameter(0, puesto)
 				.list();
 		ArrayList<Empleado> lista = new ArrayList<Empleado>();
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
@@ -137,7 +137,7 @@ public class EmpleadoDAO {
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
 		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where estado = ?)")
-				.setParameter(0, estado.getNombre())
+				.setParameter(0, estado)
 				.list();
 		ArrayList<Empleado> lista = new ArrayList<Empleado>();
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));

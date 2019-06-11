@@ -103,6 +103,7 @@ public class EmpleadoEntity {
 	private Puesto puesto;
 	
 	private String cbu;
+	private String session;
 
 	public Integer getLegajoEmpleado() {
 		return legajoEmpleado;
