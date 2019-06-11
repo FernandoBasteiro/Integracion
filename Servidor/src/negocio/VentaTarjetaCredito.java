@@ -34,6 +34,21 @@ public class VentaTarjetaCredito extends Venta {
 		this.aprobada = aprobada;
 		this.cantCuotas = cantCuotas;
 	}
+	
+	public VentaTarjetaCredito(LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
+			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
+			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer cantCuotas, 
+			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
+		super(fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
+		this.numeroTarjeta = numeroTarjeta;
+		this.codigoSeguridad = codigoSeguridad;
+		this.nombre = nombre;
+		this.dni = dni;
+		this.fechaVto = fechaVto;
+		this.nroOperacion = nroOperacion;
+		this.aprobada = aprobada;
+		this.cantCuotas = cantCuotas;
+	}
 	public String getNumeroTarjeta() {
 		return numeroTarjeta;
 	}
