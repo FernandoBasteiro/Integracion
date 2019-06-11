@@ -2,6 +2,7 @@ package negocio;
 
 import org.joda.time.LocalDate;
 
+import controladores.ConversorFechas;
 import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
 import enumeraciones.EstadoCivil;
@@ -73,9 +74,9 @@ public class Empleado {
 		this.email = email;
 		this.estadoCivil = estadoCivil;
 		this.genero = genero;
-		this.fechaNacimiento = this.convertJavaToJoda(fechaNacimiento);
-		this.fechaIngreso = this.convertJavaToJoda(fechaIngreso);
-		this.fechaEgreso = this.convertJavaToJoda(fechaEgreso);
+		this.fechaNacimiento = this.fechaNacimiento;
+		this.fechaIngreso = this.fechaIngreso;
+		this.fechaEgreso = this.fechaEgreso;
 		this.estadoEmpleado = estadoEmpleado;
 		this.nacionalidad = nacionalidad;
 		this.password = password;
@@ -142,20 +143,20 @@ public class Empleado {
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(java.time.LocalDate fechaNacimiento) {
-		this.fechaNacimiento = convertJavaToJoda(fechaNacimiento);
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	public LocalDate getFechaIngreso() {
 		return fechaIngreso;
 	}
-	public void setFechaIngreso(java.time.LocalDate fechaIngreso) {
-		this.fechaIngreso = convertJavaToJoda(fechaIngreso);
+	public void setFechaIngreso(LocalDate fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
 	}
 	public LocalDate getFechaEgreso() {
 		return fechaEgreso;
 	}
-	public void setFechaEgreso(java.time.LocalDate fechaEgreso) {
-		this.fechaEgreso = convertJavaToJoda(fechaEgreso);
+	public void setFechaEgreso(LocalDate fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
 	}
 	public EstadoEmpleado getEstadoEmpleado() {
 		return estadoEmpleado;
@@ -216,20 +217,10 @@ public class Empleado {
 		return false;
 	}
 	
-	private java.time.LocalDate convertJodaToJava (LocalDate jodaTime) {
-		if (jodaTime != null) return java.time.LocalDate.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth());
-		return null;
-	}
-	
-	private LocalDate convertJavaToJoda (java.time.LocalDate javaTime) {
-		if (javaTime != null) return new org.joda.time.LocalDate(javaTime.getYear(), javaTime.getMonthValue(), javaTime.getDayOfMonth());
-		return null;
-	}
-	
 	public EmpleadoDTO getDTO () {
 		return new EmpleadoDTO (this.nombre, this.apellido, this.legajo, this.dni, this.domicilio, this.telefono,
-				this.email, this.estadoCivil, this.genero, convertJodaToJava(fechaNacimiento), convertJodaToJava(fechaIngreso),
-				convertJodaToJava(fechaEgreso), this.estadoEmpleado, this.nacionalidad, null,
+				this.email, this.estadoCivil, this.genero, ConversorFechas.convertJodaToJava(this.fechaNacimiento), ConversorFechas.convertJodaToJava(this.fechaIngreso),
+				ConversorFechas.convertJodaToJava(this.fechaEgreso), this.estadoEmpleado, this.nacionalidad, null,
 				this.sueldoBase, this.horasAsignadas, this.puesto, this.cbu, this.session);
 	}
 	public void guardar() {

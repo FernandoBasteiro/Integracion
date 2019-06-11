@@ -1,15 +1,13 @@
 package negocio;
 
-import org.joda.time.LocalDate;
 import java.util.List;
-import java.util.Vector;
 
-import enumeraciones.MedioDePago;
-import enumeraciones.TipoCuenta;
-import dto.EmpleadoDTO;
-import dto.ItemVentaDTO;
+import org.joda.time.LocalDate;
+
+import controladores.ConversorFechas;
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
+import enumeraciones.MedioDePago;
 import enumeraciones.TipoFactura;
 
 public class VentaEfectivo extends Venta {
@@ -41,13 +39,13 @@ public class VentaEfectivo extends Venta {
 	
 	public VentaDTO getDTO () {
 		//TODO ENVIAR PARAMETROS 
-		return new VentaDTO (this.id, convertJodaToJava(this.fechaVenta), this.gesItemsDTO (), this.empleado.getDTO(),
+		return new VentaDTO (this.id, ConversorFechas.convertJodaToJava(this.fechaVenta), this.gesItemsDTO (), this.empleado.getDTO(),
 				this.estado, this.total, MedioDePago.EFECTIVO, 
 				this.montoRecibido, this.vuelto, //Datos EFVTO
 				null, null, null, null, //Datos Tarjetas TC+TD	
 				null, null, null, //Datos Tarjetas TC+TD		
 				null, //Datos TC			
 				null, null, //Datos TD
-				this.tipoFact, this.cuit, convertJodaToJava(this.fechaCobro)); //Datos Factura
+				this.tipoFact, this.cuit, ConversorFechas.convertJodaToJava(this.fechaCobro)); //Datos Factura
 	}
 }

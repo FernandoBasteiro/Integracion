@@ -117,16 +117,6 @@ public class Venta {
 		this.setEstado(EstadoVenta.COBRADA);
 	}
 	
-	protected java.time.LocalDate convertJodaToJava (LocalDate jodaTime) {
-		if (jodaTime != null) return java.time.LocalDate.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth());
-		return null;
-	}
-	
-	protected LocalDate convertJavaToJoda (java.time.LocalDate javaTime) {
-		if (javaTime != null) return new org.joda.time.LocalDate(javaTime.getYear(), javaTime.getMonthValue(), javaTime.getDayOfMonth());
-		return null;
-	}
-	
 	protected List<ItemVentaDTO> gesItemsDTO () {
 		List<ItemVentaDTO> itemsDTO = new Vector<ItemVentaDTO> ();
 		for (ItemVenta i : this.items) {
