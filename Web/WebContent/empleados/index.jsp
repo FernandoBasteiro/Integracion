@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline">Administrar Empleados</h2>
-				<a href="#" class="btn btn-primary float-right">Nuevo empleado</a>
+				<a href="/Web/empleados/crearEmpleado.jsp" class="btn btn-primary float-right">Nuevo empleado</a>
 				<hr/>
 			</div>
 		</div>
@@ -88,9 +88,9 @@
 				      <td>32961625</td>
 				      <td>Cajera</td>
 				      <td class="actions text-center">
-				      	<a href="/Web/empleados/index.jsp?view=id" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/empleados/index.jsp?edit=id" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/empleados/index.jsp?delete=id" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <tr>
@@ -101,9 +101,9 @@
 				      <td>33004993</td>
 				      <td>Repositor</td>
 				      <td class="actions text-center">
-				      	<a href="/Web/empleados/index.jsp?view=id" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/empleados/index.jsp?edit=id" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/empleados/index.jsp?delete=id" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <tr>
@@ -114,9 +114,9 @@
 				      <td>30004693</td>
 				      <td>Supervisor</td>
 				      <td class="actions text-center">
-				      	<a href="/Web/empleados/index.jsp?view=id" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/empleados/index.jsp?edit=id" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/empleados/index.jsp?delete=id" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>
 				  </tbody>

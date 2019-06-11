@@ -5,7 +5,7 @@
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left">Ver empleado</h2>
 				<a href="/Web/empleados/index.jsp" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
-				<a href="/Web/empleados/index.jsp" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
+				<a href="/Web/empleados/editarEmpleado.jsp?id=0" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
 				<hr/>
 			</div>
 		</div>

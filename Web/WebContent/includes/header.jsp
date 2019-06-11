@@ -31,6 +31,8 @@
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
+	  <% boolean logged_in = true; 
+	  if (logged_in){%>
 	  <div class="collapse navbar-collapse" id="navegacion">
 	    <ul class="navbar-nav mr-auto">
 	    	<li class="nav-item">
@@ -46,8 +48,9 @@
 	    		<a class="nav-link" href="/Web/facturacion/index.jsp">Facturación</a>
 	    	</li>
 		</ul>
-	    <a class="btn btn-primary" href="/Web/index.jsp">Iniciar sesión</a>
+	    <a class="btn btn-outline-info" href="#">Cerrar sesión</a>
 	  </div>
+	  <%} %>
 	</nav>
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
