@@ -1,4 +1,5 @@
 <jsp:include page="../includes/header.jsp"/>
+<%@ page import="enumeraciones.MedioDePago"%>
 <main role="main">
 	<div class="container">
 		<div class="row">
@@ -108,9 +109,13 @@
 							    	<label class="input-group-text" for="buscarProducto">Seleccionar medio de pago</label>
 							  	</div>
 							 	<select id="medioPago" name="medioPago" class="form-control">
-									<option value="1" selected>Efectivo</option>
-									<option value="2">Tarjeta de Crédito</option>
-									<option value="3">Tarjeta de Débito</option>
+									<%
+									for (MedioDePago mdp : MedioDePago.values()) {
+									%>
+										<option value=<%=mdp.getId() %>><%=mdp.getNombre() %></option>
+									<%
+									}
+									%>
 								</select>
 							</div>						
 						</div>

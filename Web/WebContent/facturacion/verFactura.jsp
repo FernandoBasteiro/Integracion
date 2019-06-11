@@ -1,3 +1,8 @@
+<%@ page import="dto.VentaDTO"%>
+<%@ page import="dto.ItemVentaDTO"%>
+<%
+VentaDTO factura = (VentaDTO) request.getAttribute("factura");
+%>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
 	<div class="container">
@@ -12,34 +17,34 @@
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Fecha de facturación:</strong>11/06/2019</p>
+				<p><strong class="mr-2">Fecha de facturación:</strong><%=factura.getFechaVenta()%></p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Número:</strong><span class="badge badge-pill badge-info">0001231239</span></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col col-xs-6">
-				<p><strong class="mr-2">Fecha de cobro:</strong>11/06/2019</p>
-			</div>
-			<div class="col col-xs-6">
-				<p><strong class="mr-2">Estado:</strong><span class="badge badge-pill badge-success">Cobrada</span></p>
+				<p><strong class="mr-2">Número:</strong><span class="badge badge-pill badge-info"><%=factura.getId()%></span></p>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Tipo de factura:</strong><span class="badge badge-pill badge-dark">A</span></p>
+				<p><strong class="mr-2">Fecha de cobro:</strong><%=factura.getFechaCobro()%></p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">CUIT:</strong>27-32546345-2</p>
+				<p><strong class="mr-2">Estado:</strong><span class="badge badge-pill badge-success"><%=factura.getEstado()%></span></p>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Medio de pago:</strong>Efectivo</p>
+				<p><strong class="mr-2">Tipo de factura:</strong><span class="badge badge-pill badge-dark"><%=factura.getTipoFact()%></span></p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Cajero:</strong>Erica Nuñez</p>
+				<p><strong class="mr-2">CUIT:</strong><%=factura.getCuit()%></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-xs-6">
+				<p><strong class="mr-2">Medio de pago:</strong><%=factura.getMedioDePago()%></p>
+			</div>
+			<div class="col col-xs-6">
+				<p><strong class="mr-2">Cajero:</strong><%=factura.getEmpleado()%></p>
 			</div>
 		</div>
 		<div class="row">
@@ -51,44 +56,34 @@
 				      <th scope="col">Código</th>
 				      <th scope="col">Nombre</th>
 				      <th scope="col">Presentación</th>
-				      <th scope="col">Cantidad</th>
 				      <th scope="col">Precio</th>
+				      <th scope="col">Cantidad</th>
 				      <th scope="col">Subtotal</th>
 				    </tr>
 				  </thead>
 				  <tbody>
+				  <% 
+				  int item_num = 1;
+				  for (ItemVentaDTO item : factura.getItems()){ 
+				  Float subtotal = item.getPrecio()*item.getCantidad();
+				  %>
 				    <tr>
-				      <th scope="row">1</th>
-				      <td>12345322</td>
-				      <td>Coca-Cola</td>
-				      <td>Botella 500ml</td>
-				      <td>2</td>
-				      <td>$40.00</td>
-				      <td>$80.00</td>
+				      <th scope="row"><%=item_num%></th>
+				      <td><%=item.getProducto().getCodigo()%></td>
+				      <td><%=item.getProducto().getNombre()%></td>
+				      <td><%=item.getProducto().getPresentacion()%></td>
+				      <td>$<%=item.getPrecio()%></td>
+				      <td><%=item.getCantidad()%></td>
+				      <td>$<%=subtotal%></td>
 				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>23423424</td>
-				      <td>Gatorade</td>
-				      <td>Botella 1lt</td>
-				      <td>1</td>
-				      <td>$80.00</td>
-				      <td>$80.00</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>55454434</td>
-				      <td>Tomate</td>
-				      <td>Bolsa 5kg</td>
-				      <td>1</td>
-				      <td>$100.00</td>
-				      <td>$100.00</td>
-				    </tr>
+				    <%
+				  item_num++;  
+				  } %>
 				  </tbody>
 				  <tfoot>
 				    <tr class="table-active">
 				      <th colspan="6" class="text-right ">Total</th>
-				      <th>$260.00</th>
+				      <th><%=factura.getTotal()%></th>
 				    </tr>
 				  </tfoot>
 				</table>
