@@ -1,5 +1,7 @@
 package daos;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -7,6 +9,7 @@ import controladores.HibernateUtil;
 import entities.EmpleadoEntity;
 import entities.ProductoEntity;
 import entities.StockEntity;
+import enumeraciones.Puesto;
 import negocio.Empleado;
 import negocio.Producto;
 import negocio.Stock;
@@ -78,8 +81,26 @@ public class ProductoDAO {
 	}	
 	
 	
+	public ArrayList<Producto> getProductoByNombre(String nombre) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity where nombre like %?%)")
+				.setParameter(0, nombre)
+				.list();
+		ArrayList<Producto> lista = new ArrayList<Producto>();
+		for (ProductoEntity productoEntity : lista_entities) lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
+		return lista;
+	}
 	
-	
-	
+	public Producto getProductoByCodigo(int codigo){
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		ProductoEntity pe = (ProductoEntity) session.createQuery("from ProductoEntity where codigo = ?")
+					.setParameter(0, codigo)
+					.uniqueResult();
+			return ProductoDAO.getinstance().toNegocio(pe);
+		
+	}
 	
 }
