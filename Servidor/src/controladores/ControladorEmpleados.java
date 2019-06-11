@@ -1,9 +1,8 @@
 package controladores;
 
 import java.util.ArrayList;
-
+import java.util.Vector;
 import org.joda.time.LocalDate;
-
 import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
 import enumeraciones.EstadoEmpleado;
@@ -15,6 +14,18 @@ import negocio.Empleado;
 import negocio.ItemVenta;
 
 public class ControladorEmpleados {
+	
+	private static ControladorEmpleados instance;
+	public ControladorEmpleados() {
+		super();
+	}
+	
+	public static ControladorEmpleados getInstance(){
+		if(instance == null){
+			instance = new ControladorEmpleados ();
+		}
+		return instance;
+	}
 	
 	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws UsuarioNoLogueado {
 		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
