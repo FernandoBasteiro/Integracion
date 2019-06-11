@@ -228,4 +228,8 @@ public class Empleado {
 				convertJodaToJava(fechaEgreso), this.estadoEmpleado, this.nacionalidad, this.password,
 				this.sueldoBase, this.horasAsignadas, this.puesto, this.cbu, this.session);
 	}
+	public void guardar() {
+		// TODO Auto-generated method stub
+		
+	}
 }
