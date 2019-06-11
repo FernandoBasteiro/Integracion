@@ -37,6 +37,22 @@ public class VentaTarjetaDebito extends Venta {
 		this.pin = pin;
 		this.tipoCuenta = tipoCuenta;
 	}
+	
+	public VentaTarjetaDebito(LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
+			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
+			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer pin, TipoCuenta tipoCuenta, 
+			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
+		super(fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
+		this.numeroTarjeta = numeroTarjeta;
+		this.codigoSeguridad = codigoSeguridad;
+		this.nombre = nombre;
+		this.dni = dni;
+		this.fechaVto = fechaVto;
+		this.nroOperacion = nroOperacion;
+		this.aprobada = aprobada;
+		this.pin = pin;
+		this.tipoCuenta = tipoCuenta;
+	}
 	public String getNumeroTarjeta() {
 		return numeroTarjeta;
 	}

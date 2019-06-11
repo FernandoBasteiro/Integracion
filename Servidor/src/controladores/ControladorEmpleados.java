@@ -1,9 +1,8 @@
 package controladores;
 
 import java.util.ArrayList;
-
+import java.util.Vector;
 import org.joda.time.LocalDate;
-
 import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
 import enumeraciones.EstadoEmpleado;
@@ -12,8 +11,21 @@ import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Empleado;
+import negocio.ItemVenta;
 
 public class ControladorEmpleados {
+	
+	private static ControladorEmpleados instance;
+	public ControladorEmpleados() {
+		super();
+	}
+	
+	public static ControladorEmpleados getInstance(){
+		if(instance == null){
+			instance = new ControladorEmpleados ();
+		}
+		return instance;
+	}
 	
 	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws UsuarioNoLogueado {
 		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
@@ -25,7 +37,7 @@ public class ControladorEmpleados {
 		}
 	}
 	
-	public boolean estaLogueado (EmpleadoDTO e) throws UsuarioNoLogueado {
+	public static boolean estaLogueado (EmpleadoDTO e) throws UsuarioNoLogueado {
 		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
 		if (emp == null || ! emp.getSession().equals(e.getSession())) throw new UsuarioNoLogueado("El usuario no esta logueado");
 		else return true;
@@ -81,7 +93,7 @@ public class ControladorEmpleados {
 		}
 	}
 	
-	public EmpleadoDTO mostrarFichaEmpleado(EmpleadoDTO gerente, EmpleadoDTO e) throws  UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
+	public EmpleadoDTO mostrarFichaEmpleado(EmpleadoDTO gerente, EmpleadoDTO e) throws  UsuarioSinPermisos, ExcepcionProceso, UsuarioNoLogueado {
 
 		if (estaLogueado(gerente)) {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
@@ -92,20 +104,74 @@ public class ControladorEmpleados {
 				else throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");
+	}
+	
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI(EmpleadoDTO gerente, String dni) throws ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
+		if (estaLogueado(gerente)) {
+			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByDni(dni);
+				if (emp != null) {
+					ArrayList<EmpleadoDTO> list = new ArrayList<EmpleadoDTO> ();
+					list.add(emp.getDTO());
+					return list;
+				}
+				else throw new ExcepcionProceso("No existe un empleado con ese número de dni.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}
-		else throw new UsuarioNoLogueado("Legajo o password inválido.");
+		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 	
-	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI(EmpleadoDTO gerente, String dni) {
-		return null;
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo(EmpleadoDTO gerente, Integer leg) throws ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
+		if (estaLogueado(gerente)) {
+			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(leg);
+				if (emp != null) {
+					ArrayList<EmpleadoDTO> list = new ArrayList<EmpleadoDTO> ();
+					list.add(emp.getDTO());
+					return list;
+				}
+				else throw new ExcepcionProceso("No existe un empleado con ese número de dni.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}
+		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 	
-	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo(EmpleadoDTO gerente, Integer leg) {
-		return null;
-	}
-	
-	public ArrayList<EmpleadoDTO> listarEmpleados(EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) {
-		return null;
+	public ArrayList<EmpleadoDTO> listarEmpleados(EmpleadoDTO gerente, Puesto p, EstadoEmpleado est) throws ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
+		if (estaLogueado(gerente)) {
+			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				
+				ArrayList<Empleado> list = new ArrayList<Empleado> ();
+				ArrayList<EmpleadoDTO> listDTO = new ArrayList<EmpleadoDTO> ();
+				
+				if (p != null) {
+					list = EmpleadoDAO.getinstance().getEmpleadosByPuesto(p);
+					if (list != null) {
+						for (Empleado e : list) {
+							listDTO.add(e.getDTO());
+						}
+					}
+				}
+				if (est != null) {
+					list = EmpleadoDAO.getinstance().getEmpleadosByEstado(est);
+					if (list != null) {
+						for (Empleado e : list) {
+							listDTO.add(e.getDTO());
+						}
+					}
+				}
+				
+				if (listDTO != null) {
+					return listDTO;
+				}				
+				else throw new ExcepcionProceso("No existen empleado con ese ese estado y/o puesto.");
+			}
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}
+		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 	
 	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws  UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
@@ -119,7 +185,7 @@ public class ControladorEmpleados {
 			}
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}
-		else throw new UsuarioNoLogueado("Legajo o password inválido.");
+		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 	
 	
