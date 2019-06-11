@@ -1,7 +1,6 @@
 package dto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import enumeraciones.EstadoVenta;
@@ -11,7 +10,7 @@ import enumeraciones.TipoFactura;
 
 public class VentaDTO {
 	private Integer id;
-	private LocalDateTime fechaVenta;
+	private LocalDate fechaVenta;
 	private List<ItemVentaDTO> items;
 	private EmpleadoDTO empleado;
 	private EstadoVenta estado;
@@ -51,10 +50,10 @@ public class VentaDTO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public LocalDateTime getFechaVenta() {
+	public LocalDate getFechaVenta() {
 		return fechaVenta;
 	}
-	public void setFechaVenta(LocalDateTime fechaVenta) {
+	public void setFechaVenta(LocalDate fechaVenta) {
 		this.fechaVenta = fechaVenta;
 	}
 	public List<ItemVentaDTO> getItems() {
@@ -178,15 +177,14 @@ public class VentaDTO {
 	public void setFechaCobro(LocalDate fechaCobro) {
 		this.fechaCobro = fechaCobro;
 	}
-	public VentaDTO(Integer id, LocalDateTime fechaVenta, List<ItemVentaDTO> items, EmpleadoDTO empleado,
+	public VentaDTO(Integer id, LocalDate fechaVenta, List<ItemVentaDTO> items, EmpleadoDTO empleado,
 			EstadoVenta estado, Float total, MedioDePago medioDePago, 
 			Float montoRecibido, Float vuelto, //Datos EFVTO
 			String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni, //Datos Tarjetas TC+TD	
 			String fechaVto, Integer nroOperacion, Boolean aprobada, //Datos Tarjetas TC+TD		
 			Integer cantCuotas, //Datos TC			
 			Integer pin, TipoCuenta tipoCuenta, //Datos TD
-			TipoFactura tipoFact, String cuit, LocalDate fechaCobro //Datos Factura
-			) {
+			TipoFactura tipoFact, String cuit, LocalDate fechaCobro ) { //Datos Factura
 		this.id = id;
 		this.fechaVenta = fechaVenta;
 		this.items = items;
@@ -214,5 +212,5 @@ public class VentaDTO {
 	public VentaDTO() {
 	}
 	
-	
+
 }
