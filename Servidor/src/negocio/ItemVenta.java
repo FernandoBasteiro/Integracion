@@ -1,6 +1,7 @@
 package negocio;
 
 import dto.ItemVentaDTO;
+import dto.ProductoDTO;
 
 public class ItemVenta {
 	private Producto producto;
@@ -43,6 +44,6 @@ public class ItemVenta {
 	
 	public ItemVentaDTO getDTO () {
 		//TODO ENVIAR PARAMETROS 
-				return new ItemVentaDTO();
+				return new ItemVentaDTO(this.producto.getDTO(), this.precio, this.cantidad);
 	}
 }

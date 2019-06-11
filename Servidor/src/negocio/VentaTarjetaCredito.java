@@ -1,12 +1,10 @@
 package negocio;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import org.joda.time.LocalDate;
 import java.util.List;
-
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
-import enumeraciones.TipoCuenta;
+import enumeraciones.MedioDePago;
 import enumeraciones.TipoFactura;
 
 public class VentaTarjetaCredito extends Venta {
@@ -19,7 +17,7 @@ public class VentaTarjetaCredito extends Venta {
 	private Boolean aprobada;
 	private Integer cantCuotas;
 	
-	public VentaTarjetaCredito(Integer id, LocalDateTime fechaVenta, List<ItemVenta> items, Empleado empleado,
+	public VentaTarjetaCredito(Integer id, LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
 			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
 			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer cantCuotas, 
 			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
@@ -83,8 +81,15 @@ public class VentaTarjetaCredito extends Venta {
 	}
 	
 	public VentaDTO getDTO () {
-		//TODO ENVIAR PARAMETROS 
-		return new VentaDTO ();
+		 
+		return new VentaDTO (this.id, convertJodaToJava(this.fechaVenta), this.gesItemsDTO (), this.empleado.getDTO(),
+				this.estado, this.total, MedioDePago.TARJETA_CREDITO, 
+				null, null, //Datos EFVTO
+				this.numeroTarjeta, this.codigoSeguridad, this.nombre, this.dni, //Datos Tarjetas TC+TD	
+				this.fechaVto, this.nroOperacion, this.aprobada, //Datos Tarjetas TC+TD		
+				this.cantCuotas, //Datos TC			
+				null, null, //Datos TD
+				this.tipoFact, this.cuit, convertJodaToJava(this.fechaCobro)); //Datos Factura
 	}
 	
 }

@@ -28,6 +28,7 @@ public class EmpleadoDTO {
 	private Puesto puesto;
 	private String cbu;
 	private String session;
+	
 	public EmpleadoDTO(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
 			String email, EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,

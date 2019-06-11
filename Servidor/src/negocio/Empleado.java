@@ -211,9 +211,21 @@ public class Empleado {
 		return false;
 	}
 	
+	protected java.time.LocalDate convertJodaToJava (LocalDate jodaTime) {
+		if (jodaTime != null) return java.time.LocalDate.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth());
+		return null;
+	}
+	
+	protected LocalDate convertJavaToJoda (java.time.LocalDate javaTime) {
+		if (javaTime != null) return new org.joda.time.LocalDate(javaTime.getYear(), javaTime.getMonthValue(), javaTime.getDayOfMonth());
+		return null;
+	}
+	
 	public EmpleadoDTO getDTO () {
 		//TODO ENVIAR PARAMETROS 
-		return new EmpleadoDTO ();
+		return new EmpleadoDTO (this.nombre, this.apellido, this.legajo, this.dni, this.domicilio, this.telefono,
+				this.email, this.estadoCivil, this.genero, convertJodaToJava(fechaNacimiento), convertJodaToJava(fechaIngreso),
+				convertJodaToJava(fechaEgreso), this.estadoEmpleado, this.nacionalidad, this.password,
+				this.sueldoBase, this.horasAsignadas, this.puesto, this.cbu, this.session);
 	}
-
 }
