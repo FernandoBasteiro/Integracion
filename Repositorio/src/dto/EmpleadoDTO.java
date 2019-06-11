@@ -27,10 +27,11 @@ public class EmpleadoDTO {
 	private Integer horasAsignadas;
 	private Puesto puesto;
 	private Integer cbu;
+	private String session;
 	public EmpleadoDTO(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
 			String email, EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
-			Float sueldoBase, Integer horasAsignadas, Puesto puesto, Integer cbu) {
+			Float sueldoBase, Integer horasAsignadas, Puesto puesto, Integer cbu, String session) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.legajo = legajo;
@@ -50,6 +51,7 @@ public class EmpleadoDTO {
 		this.horasAsignadas = horasAsignadas;
 		this.puesto = puesto;
 		this.cbu = cbu;
+		this.session = session;
 	}
 	public EmpleadoDTO() {
 	}
@@ -166,6 +168,12 @@ public class EmpleadoDTO {
 	}
 	public void setCbu(Integer cbu) {
 		this.cbu = cbu;
+	}
+	public String getSession() {
+		return session;
+	}
+	public void setSession(String session) {
+		this.session = session;
 	}
 	
 	
