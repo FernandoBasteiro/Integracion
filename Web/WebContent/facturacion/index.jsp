@@ -9,7 +9,7 @@
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form method="get" class="filter-tools">
+				<form method="post" action="?" class="filter-tools">
 					<div class="form-row pb-2">
 						<div class="col-sm-6">
 							<div class="input-group">

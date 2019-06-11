@@ -36,7 +36,7 @@
 	  <div class="collapse navbar-collapse" id="navegacion">
 	    <ul class="navbar-nav mr-auto">
 	    	<li class="nav-item">
-	    		<a class="btn btn-outline-success" href="ventas/index.jsp">Vender</a>
+	    		<a class="btn btn-outline-success" href="/Web/facturacion/vender.jsp">Vender</a>
 	    	</li>
 	    	<li class="nav-item">
 	    		<a class="nav-link" href="/Web/empleados/index.jsp">Empleados</a>

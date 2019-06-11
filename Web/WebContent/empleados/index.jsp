@@ -10,7 +10,7 @@
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form method="get" class="filter-tools">
+				<form method="post" action="?" class="filter-tools">
 					<div class="form-row pb-2">
 						<div class="col-sm-6">
 							<div class="input-group">
@@ -76,6 +76,7 @@
 				      <th scope="col">Nombre</th>
 				      <th scope="col">DNI</th>
 				      <th scope="col">Puesto</th>
+				      <th scope="col">Estado</th>
 				      <th scope="col" class="text-center">Acciones</th>
 				    </tr>
 				  </thead>
@@ -87,6 +88,7 @@
 				      <td>Erica Natalia</td>
 				      <td>32961625</td>
 				      <td>Cajera</td>
+				      <td><span class="badge badge-pill badge-success">Activo</span></td>
 				      <td class="actions text-center">
 				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
@@ -100,6 +102,7 @@
 				      <td>Fernando</td>
 				      <td>33004993</td>
 				      <td>Repositor</td>
+				      <td><span class="badge badge-pill badge-warning">Licencia Paga</span></td>
 				      <td class="actions text-center">
 				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
@@ -113,6 +116,21 @@
 				      <td>Federico</td>
 				      <td>30004693</td>
 				      <td>Supervisor</td>
+				      <td><span class="badge badge-pill badge-info">Desvinculado</span></td>
+				      <td class="actions text-center">
+				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      </td>
+				    </tr>
+				    <tr>
+				      <th scope="row">3</th>
+				      <td>609405</td>
+				      <td>Montero</td>
+				      <td>Tomás</td>
+				      <td>30004693</td>
+				      <td>Supervisor</td>
+				      <td><span class="badge badge-pill badge-info">Desvinculado</span></td>
 				      <td class="actions text-center">
 				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
