@@ -17,7 +17,7 @@
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						        </div>
-							  <input type="search" class="form-control" placeholder="Ingrese nombre o código de producto" aria-label="Ingrese nombre o código de producto" aria-describedby="buscarProducto">
+							  <input type="search" class="form-control" placeholder="Ingrese nombre o código de producto..." aria-label="Ingrese nombre o código de producto" aria-describedby="buscarProducto">
 							   <div class="input-group-append">
 							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
 							  </div>
@@ -40,7 +40,7 @@
 				      <th scope="col">Presentación</th>
 				      <th scope="col">Precio</th>
 				      <th scope="col">Stock</th>
-				      <th scope="col">Acciones</th>
+				      <th scope="col" class="text-center">Acciones</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -52,7 +52,7 @@
 				      <td>Botella de 2.25lt</td>
 				      <td>$90.00</td>
 				      <td>100u</td>
-				      <td class="actions">
+				      <td class="actions text-center">
 				      	<a href="productos.jsp?view=id" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="productos.jsp?edit=id" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
 				      	<a href="productos.jsp?delete=id" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
