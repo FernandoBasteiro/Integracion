@@ -55,7 +55,7 @@ public class ItemVentaDAO {
 		}
 	}
 
-	private ItemVentaEntity toEntity(ItemVenta ee) {
+	public ItemVentaEntity toEntity(ItemVenta ee) {
 		ItemVentaEntity e = new ItemVentaEntity();
 		
 		e.setCantidad(ee.getCantidad());
@@ -73,15 +73,5 @@ public class ItemVentaDAO {
 		return e;
 	}
 	
-	public ArrayList<ItemsVenta> getItems() {
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-		@SuppressWarnings("unchecked")
-		ArrayList<ItemsVenta> lista_entities = (ArrayList<ItemsVenta>) session.createQuery("from ItemsVentaEntity where nombre like %?%)")
-				.setParameter(0, nombre)
-				.list();
-		ArrayList<Producto> lista = new ArrayList<Producto>();
-		for (ProductoEntity productoEntity : lista_entities) lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
-		return lista;
-	}
+	
 }

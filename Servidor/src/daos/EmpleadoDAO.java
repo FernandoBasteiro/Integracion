@@ -53,7 +53,7 @@ public class EmpleadoDAO {
 		}
 	}
 		
-	private EmpleadoEntity toEntity(Empleado ee) {
+	public EmpleadoEntity toEntity(Empleado ee) {
 		EmpleadoEntity e = new EmpleadoEntity();
 		e.setApellido(ee.getApellido());
 		e.setCbu(ee.getCbu());

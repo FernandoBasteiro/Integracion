@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import controladores.HibernateUtil;
 import entities.ItemVentaEntity;
+import entities.ProductoEntity;
 import entities.VentaEntity;
 import negocio.ItemVenta;
 import negocio.Producto;
@@ -57,36 +58,70 @@ public class VentaDAO {
 		}
 	}
 
-	private VentaEntity toEntity(Venta venta) {
-		return null;
-		// TODO Auto-generated method stub
+	private VentaEntity toEntity(Venta ee) {
+		ArrayList<ItemVentaEntity> items = new ArrayList<ItemVentaEntity>();
+		VentaEntity e = new VentaEntity();
+		
+		for (ItemVenta iv : ee.getItems()) {
+			items.add(ItemVentaDAO.getinstance().toEntity(iv));
+		}
+		
+		e.setCuit(ee.getCuit());
+		e.setEmpleado(EmpleadoDAO.getinstance().toEntity(ee.getEmpleado()));	
+		e.setEstado(ee.getEstado());
+		e.setFechaCobro(ee.getFechaCobro());
+		e.setFechaVenta(ee.getFechaVenta());
+		e.setId(ee.getId());
+		e.setTipo(ee.getTipoFact());
+		e.setTotal(ee.getTotal());
+			
+		return e;
 		
 	}
 
 	public Venta toNegocio(VentaEntity ee) {
 		
 		ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();
-		Venta e = new Venta();
+		
 		
 		for (ItemVentaEntity iv : ee.getItems()) {
 			items.add(ItemVentaDAO.getinstance().toNegocio(iv));
 		}
-		
+		Venta e = new Venta();
+		e.setItems(items);
 		e.setCuit(ee.getCuit());
 		e.setEmpleado(EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()));	
 		e.setEstado(ee.getEstado());
 		e.setFechaCobro(ee.getFechaCobro());
 		e.setFechaVenta(ee.getFechaVenta());
 		e.setId(ee.getId());
-		e.setItems(ItemVentaDAO.getinstance().toNegocio(ee.getItems()));
 		e.setTipoFact(ee.getTipo());
 		e.setTotal(ee.getTotal());
-		
-		
-		
-		
+			
 		return e;
 	}
 
-
+	public ArrayList<Venta> getVentaByNumeroDeOperacion(Integer numero) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<VentaEntity> lista_entities = (ArrayList<VentaEntity>) session.createQuery("from VentaEntity where nroOperacion=?)")
+				.setParameter(0, numero)
+				.list();
+		ArrayList<Venta> lista = new ArrayList<Venta>();
+		for (VentaEntity ventaEntity : lista_entities) lista.add(VentaDAO.getinstance().toNegocio(ventaEntity));
+		return lista;
+	}
+	
+	public ArrayList<Venta> getVentaByIdVenta(Integer id) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<VentaEntity> lista_entities = (ArrayList<VentaEntity>) session.createQuery("from VentaEntity where id=?)")
+				.setParameter(0, id)
+				.list();
+		ArrayList<Venta> lista = new ArrayList<Venta>();
+		for (VentaEntity ventaEntity : lista_entities) lista.add(VentaDAO.getinstance().toNegocio(ventaEntity));
+		return lista;
+	}
 }
