@@ -48,7 +48,7 @@
 	    		<a class="nav-link" href="/Web/facturacion/index.jsp">Facturación</a>
 	    	</li>
 		</ul>
-	    <a class="btn btn-outline-info" href="#">Cerrar sesión</a>
+	    <a class="btn btn-outline-info" href="/Web/Private?action=logout">Cerrar sesión</a>
 	  </div>
 	  <%} %>
 	</nav>

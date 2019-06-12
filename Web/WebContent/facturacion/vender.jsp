@@ -10,7 +10,7 @@
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form method="post" action="?" id="formVenta" enctype="multipart/form-data">
+				<form method="post" action="?" id="formVenta">
 					<div class="form-row">		
 						<div class="form-group col-sm-6">
 						    <select name="tipoFactura" class="form-control" id="estadoFactura">

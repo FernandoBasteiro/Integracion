@@ -1,45 +1,47 @@
 // Avoid `console` errors in browsers that lack a console.
 (function() {
-  var method;
-  var noop = function () {};
-  var methods = [
-    'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
-    'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
-    'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
-    'timeline', 'timelineEnd', 'timeStamp', 'trace', 'warn'
-  ];
-  var length = methods.length;
-  var console = (window.console = window.console || {});
+	var method;
+	var noop = function() {
+	};
+	var methods = [ 'assert', 'clear', 'count', 'debug', 'dir', 'dirxml',
+			'error', 'exception', 'group', 'groupCollapsed', 'groupEnd',
+			'info', 'log', 'markTimeline', 'profile', 'profileEnd', 'table',
+			'time', 'timeEnd', 'timeline', 'timelineEnd', 'timeStamp', 'trace',
+			'warn' ];
+	var length = methods.length;
+	var console = (window.console = window.console || {});
 
-  while (length--) {
-    method = methods[length];
+	while (length--) {
+		method = methods[length];
 
-    // Only stub undefined methods.
-    if (!console[method]) {
-      console[method] = noop;
-    }
-  }
+		// Only stub undefined methods.
+		if (!console[method]) {
+			console[method] = noop;
+		}
+	}
 }());
 
 // Place any jQuery/helper plugins in here.
-$('#formVenta #pagoEfectivo').dependsOn({
-	'#formVenta #medioPago': {
-		values: ['1']
-	}
-}, {
-	hide: true
-});
-$('#formVenta #pagoDebito').dependsOn({
-	'#formVenta #medioPago': {
-		values: ['3']
-	}
-}, {
-	hide: true
-});
-$('#formVenta #pagoCredito').dependsOn({
-	'#formVenta #medioPago': {
-		values: ['2']
-	}
-}, {
-	hide: true
-});
+if ($('#formVenta').length) {
+	$('#formVenta #pagoEfectivo').dependsOn({
+		'#formVenta #medioPago' : {
+			values : [ '1' ]
+		}
+	}, {
+		hide : true
+	});
+	$('#formVenta #pagoDebito').dependsOn({
+		'#formVenta #medioPago' : {
+			values : [ '3' ]
+		}
+	}, {
+		hide : true
+	});
+	$('#formVenta #pagoCredito').dependsOn({
+		'#formVenta #medioPago' : {
+			values : [ '2' ]
+		}
+	}, {
+		hide : true
+	});
+}
