@@ -1,5 +1,6 @@
 package negocio;
 
+import dto.StockDTO;
 import excepciones.ExcepcionProceso;
 
 public class Stock {
@@ -50,5 +51,9 @@ public class Stock {
 			this.cantidadDisponible =- cant;
 		}
 		else throw new ExcepcionProceso("No hay stock disponible.");
+	}
+	
+	public StockDTO getDTO () {
+		return new StockDTO (this.cantidadMinimo, this.cantidadTotal, this.cantidadDisponible);
 	}
 }

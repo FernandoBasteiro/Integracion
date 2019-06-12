@@ -32,7 +32,6 @@ public class StockDTO implements Serializable {
 		this.cantidadDisponible = cantidadDisponible;
 	}
 	public StockDTO() {
-	}
-	
+	}	
 	
 }
