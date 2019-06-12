@@ -44,7 +44,16 @@ if ($('#formVenta').length) {
 	}, {
 		hide : true
 	});
+	$('#formVenta #cuitFactura').dependsOn({
+		'#formVenta #tipoFactura' : {
+			values : [ '1', '2' ]
+		}
+	}, {
+		hide : true
+	});
 }
+
+
 
 /*** autocomplete ***/
 if ($('#productoAutocomplete').length) {

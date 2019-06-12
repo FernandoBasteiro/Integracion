@@ -1,3 +1,4 @@
+<%@ page import="enumeraciones.TipoFactura"%>
 <%@ page import="dto.EmpleadoDTO"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
@@ -17,15 +18,28 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 				<form method="post" action="?" id="formVenta">
 					<div class="form-row">		
 						<div class="form-group col-sm-6">
-						    <select name="tipoFactura" class="form-control" id="estadoFactura">
-						      <option selected>Tipo de Factura</option>
-						      <option>A</option>
-						      <option>B</option>
-						      <option>C</option>
-						    </select>
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="tipoFactura">Tipo de Factura</label>
+							  	</div>
+							    <select id="tipoFactura" name="tipoFactura" class="form-control" id="estadoFactura">
+							      <%
+									for (TipoFactura tipoFactura : TipoFactura.values()) {
+									%>
+										<option value=<%=tipoFactura.getId() %>><%=tipoFactura.getNombre() %></option>
+									<%
+									}
+									%>
+							    </select>
+						    </div>
 						  </div>
-						<div class="form-group col-sm-6">
-						    <input placeholder="Ingrese CUIT..." type="text" name="cuitFactura" class="form-control"/>
+						<div class="form-group col-sm-6" id="cuitFactura">
+							<div class="input-group">
+								<div class="input-group-prepend">
+							    	<label class="input-group-text" for="cuitFactura">CUIT</label>
+							  	</div>
+						   		<input placeholder="Ingrese CUIT..." type="text" name="cuitFactura" class="form-control" value="Consumidor Final"/>
+						    </div>
 						</div>			
 					</div>
 					<div class="form-row pb-2">
