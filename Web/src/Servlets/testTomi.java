@@ -2,23 +2,15 @@ package Servlets;
 
 
 import java.rmi.RemoteException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
-import dto.ItemVentaDTO;
 import dto.ProductoDTO;
-import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
-import enumeraciones.EstadoVenta;
 import enumeraciones.Genero;
-import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
-import enumeraciones.TipoCuenta;
-import enumeraciones.TipoFactura;
 import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
@@ -46,7 +38,7 @@ public class testTomi {
 
 		
 		//ARMO EL EMPLEADO NUEVO PARA AGREGAR
-		EmpleadoDTO empleado = new EmpleadoDTO();
+		/**EmpleadoDTO empleado = new EmpleadoDTO();
 		empleado.setApellido("AgregadoEnTestTomi");
 		empleado.setCbu("1234");
 		empleado.setDni("12333");
@@ -63,12 +55,14 @@ public class testTomi {
 		empleado.setPassword("1234");
 		empleado.setPuesto(Puesto.CAJERO);
 		empleado.setSueldoBase((float)100.3);
-		empleado.setTelefono("1234");
+		empleado.setTelefono("1234");*/
 		
 		//ARMO EL GERENTE PARA INICIAR SESION
 		EmpleadoDTO gerente = new EmpleadoDTO();
 		gerente.setLegajo(1);
 		gerente.setPassword("1234");
+		gerente.setSession("1");
+		
 		
 		//INICIO SESION
 		gerente=BusinessDelegate.getInstance().iniciarSesion(gerente);
@@ -103,11 +97,11 @@ public class testTomi {
 		BusinessDelegate.getInstance().modificacionEmpleado(gerente, empleado2);
 		*/
 		
-		ArrayList<EmpleadoDTO> empleados = new ArrayList<EmpleadoDTO>();
+		//ArrayList<EmpleadoDTO> empleados = new ArrayList<EmpleadoDTO>();
 		
-		empleados=BusinessDelegate.getInstance().listarEmpleadoPorDNI(gerente, "5666");
+		//empleados=BusinessDelegate.getInstance().listarEmpleadoPorDNI(gerente, "5666");
 		
-		System.out.println(empleados.get(0).getApellido());
+		//System.out.println(empleados.get(0).getApellido());
 				
 		
 		//ControladorEmpleados.getInstance().listarEmpleadoPorLegajo(gerente, leg)
@@ -294,6 +288,35 @@ public class testTomi {
 		
 		
 		----------------FIN CREDITO*/
+		
+		
+		
+		
+		// PRODUCTOS -------------------------------------------------------------------------
+		
+		ProductoDTO p = new ProductoDTO();
+		p.setCodigo(1008);
+		p.setDescripcion("Cabellos grasos");
+		p.setNombre("Shampoo Dove");
+		p.setPrecio((float)67.9);
+		p.setPresentacion("Botella 1L");	
+		BusinessDelegate.getInstance().altaProducto(gerente, p);
+		
+		System.out.println("Producto Original:");
+
+		p=BusinessDelegate.getInstance().mostrarProducto(gerente, p);
+		System.out.println(p.getNombre());
+		System.out.println(p.getPresentacion());
+		System.out.println(p.getPrecio());
+
+		p.setPrecio((float)51.4);
+		
+		BusinessDelegate.getInstance().modificacionProducto(gerente, p);
+		
+		System.out.println("Producto Nuevo:");
+		p=BusinessDelegate.getInstance().mostrarProducto(gerente, p);
+		System.out.println(p.getNombre());
+		System.out.println(p.getPresentacion());
 		
 		System.out.println("Bien");
 

@@ -5,10 +5,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 import controladores.ControladorEmpleados;
 import controladores.ControladorProductos;
 import controladores.ControladorVentas;
+import controladores.ConversorFechas;
 import dto.EmpleadoDTO;
 import dto.ProductoDTO;
 import dto.VentaDTO;
@@ -69,8 +69,8 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void eliminarEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void eliminarEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
+		ControladorEmpleados.getInstance().eliminarEmpleado(gerente, empleado);
 		
 	}
 
@@ -78,36 +78,35 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		return ControladorProductos.getInstancia().listarProductos(cajero, p);
 	}
 
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws RemoteException {
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		// TODO Auto-generated method stub
+		ControladorVentas.getInstance().marcarFacturaCobrada(gerente, f);
 		
 	}
 
 	@Override
 	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+			throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado {
+		return ControladorVentas.getInstance().listarFacturasPorNroFactura(gerente, nroFact);
 	}
 
 	@Override
 	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+			throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos {
+		return ControladorVentas.getInstance().listarFacturasPorNroOperacion(gerente, nroOper);
 	}
 	
 	
 	@Override
 	public ArrayList<VentaDTO> listarFacturas(EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoVenta e)
-			throws RemoteException {
-		return null;
+			throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos {
+		
+		return ControladorVentas.getInstance().listarFacturas(gerente, m, ConversorFechas.convertJavaToJoda(fch), e);
 	}
 
 	@Override
-	public VentaDTO mostrarFactura(EmpleadoDTO gerente, VentaDTO f) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public VentaDTO mostrarFactura(EmpleadoDTO gerente, VentaDTO f) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		return ControladorVentas.getInstance().mostrarFactura(gerente, f);
 	}
 
 	@Override
@@ -116,36 +115,35 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		
 	}
 
-	@Override
-	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
-		// TODO Auto-generated method stub
+	@Override 
+	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		 ControladorProductos.getInstancia().modifcacionProducto(supervisor, p);
 		
 	}
 
 	@Override
-	public void modificacionProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void modificacionProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		 ControladorProductos.getInstancia().modifcacionProducto(supervisor, p);
 		
 	}
 
 	@Override
-	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		ControladorProductos.getInstancia().bajaProducto(supervisor, p);
 		
 	}
 
 	@Override
-	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		ControladorProductos.getInstancia().actualizarStock(supervisor, p);
 	}
 
 
 	
 	@Override
-	public ProductoDTO mostrarProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public ProductoDTO mostrarProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+				// TODO Auto-generated method stub
+		return ControladorProductos.getInstancia().mostrarProducto(supervisor, p);
 	}
 	
 }
