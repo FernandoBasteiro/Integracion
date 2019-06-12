@@ -227,7 +227,7 @@ public class Private extends HttpServlet {
 				}
 				request.setAttribute("empleados", empleados);
 				jspPage = "empleados/index.jsp";
-			} /*
+			} 
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -242,13 +242,16 @@ public class Private extends HttpServlet {
 				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, p);
 				request.setAttribute("productos", productos);
 				jspPage = "productos/index.jsp";
+				
+				
+			}
 				/*
 				nada: todos
 				buscarProductoNombre
 				buscarProductoCodigo
-				*/
+				
+			
 			/*
-			}
 			else if (action.equals("listarVentas")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");

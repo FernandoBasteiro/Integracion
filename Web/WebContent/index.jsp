@@ -67,7 +67,7 @@
 	    	if (empleado.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
 	    	%>
 			<p>
-				<a class="btn btn-warning" href="/Web/productos/index.jsp" role="button">Administrar
+				<a class="btn btn-warning" href="/Web/Private?action=listarProductos" role="button">Administrar
 					&raquo;</a>
 			</p>
 			<%}%>
