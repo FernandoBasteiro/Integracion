@@ -1,6 +1,9 @@
+<%@ page import="dto.EmpleadoDTO"%>
 <%@ page import="dto.ProductoDTO"%>
 <%
-ProductoDTO prod = (ProductoDTO) request.getAttribute("producto");
+ProductoDTO prod = (ProductoDTO) request.getAttribute("producto"); 
+EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
+if (empleado == null) response.sendRedirect("/Web/index.jsp");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">

@@ -1,3 +1,7 @@
+<%@ page import="dto.EmpleadoDTO"%>
+<% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
+if (empleado == null) response.sendRedirect("/Web/index.jsp");
+%>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
 	<div class="container">
