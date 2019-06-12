@@ -1,3 +1,7 @@
+<%@ page import="enumeraciones.EstadoEmpleado"%>
+<%@ page import="enumeraciones.EstadoCivil"%>
+<%@ page import="enumeraciones.Genero"%>
+<%@ page import="enumeraciones.Puesto"%>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
 	<div class="container">
@@ -23,10 +27,13 @@
 				<div class="form-group col-sm-6">
 					<label for="estadoEmpleado">Estado</label>
 					<select name="estadoEmpleado" class="form-control">
-						<option value="activo">Activo</option>
-						<option value="licencia_paga">Licencia Paga</option>
-						<option value="licencia_no_paga">Licencia No Paga</option>
-						<option value="desvinculado">Desvinculado</option>
+						<%
+						for (EstadoEmpleado estadoEmp : EstadoEmpleado.values()) {
+						%>
+							<option value=<%=estadoEmp.getId() %>><%=estadoEmp.getNombre() %></option>
+						<%
+						}
+						%>
 					</select>
 				</div>
 			</div>
@@ -73,11 +80,13 @@
 				<div class="form-group col-sm-6">
 					<label for="estadoCivilEmpleado">Estado Civil</label>
 					<select name="estadoCivilEmpleado" class="form-control">
-						<option value="soltero">Soltero</option>
-						<option value="en_concubinato">En concubinato</option>
-						<option value="casado">Casado</option>
-						<option value="divorciado">Divorciado</option>
-						<option value="viudo">Viudo</option>
+						<%
+						for (EstadoCivil estadoCivil : EstadoCivil.values()) {
+						%>
+							<option value=<%=estadoCivil.getId() %>><%=estadoCivil.getNombre() %></option>
+						<%
+						}
+						%>
 					</select>
 				</div>
 			</div>
@@ -85,9 +94,13 @@
 				<div class="form-group col-sm-6">
 					<label for="generoEmpleado">Género</label>
 					<select name="generoEmpleado" class="form-control">
-						<option value="femenino">Femenino</option>
-						<option value="masculino">Masculino</option>
-						<option value="no_binario">No binario</option>
+					<%
+						for (Genero genero : Genero.values()) {
+						%>
+							<option value=<%=genero.getId() %>><%=genero.getNombre() %></option>
+						<%
+						}
+						%>
 					</select>
 				</div>				
 				<div class="form-group col-sm-6">
@@ -104,11 +117,13 @@
 				<div class="form-group col-sm-6">
 					<label for="puestoEmpleado">Puesto</label>
 					<select name="puestoEmpleado" class="form-control">
-						<option value="cajero">Cajero</option>
-						<option value="repositor">Repositor</option>
-						<option value="seguridad">Seguridad</option>
-						<option value="supervisor">Supervisor</option>
-						<option value="gerente">Gerente</option>
+						<%
+						for (Puesto puesto : Puesto.values()) {
+						%>
+							<option value=<%=puesto.getId() %>><%=puesto.getNombre() %></option>
+						<%
+						}
+						%>
 					</select>				
 				</div>
 				<div class="form-group col-sm-6">
