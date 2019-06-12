@@ -2,9 +2,9 @@ package remoto;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-import org.joda.time.LocalDate;
 
 import controladores.ControladorEmpleados;
 import controladores.ControladorProductos;
@@ -115,7 +115,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	 return	ControladorVentas.getInstance().generarVenta(c, v);
 		
 	}
-/**
+
 	@Override
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
 		// TODO Auto-generated method stub
@@ -140,12 +140,12 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		
 	}
 
-	@Override
+
 	
 	@Override
 	public ProductoDTO mostrarProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	*/
+	
 }
