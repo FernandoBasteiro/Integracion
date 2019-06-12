@@ -75,7 +75,7 @@ public class ControladorVentas {
 						else throw new ExcepcionProceso("Error TD. Venta no aprobada.");
 						break;
 					case TARJETA_CREDITO:
-						//TODO llamar a CREDITOS
+						//TODO llamar a CREDITOS COD 200 + STRING
 						v.setAprobada(true);
 						v.setNroOperacion(456789);
 						if (v.getAprobada()) {
@@ -148,6 +148,24 @@ public class ControladorVentas {
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
+
+	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws UsuarioNoLogueado, UsuarioSinPermisos {
+		
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentasByEstadoFechaMedioDePago(null, EstadoVenta.FACTURADA, null);
+				for (Venta v : ventas) {
+					//********************************************
+					//TODO TRAER LAS COBRANZAR DE TC DEL PERIORDO 
+					//********************************************
+					v.marcarFacturaCobrada();
+				}								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");		
+	}
+	
 	
 	public ArrayList<VentaDTO> listarFacturasPorNroFactura(EmpleadoDTO g, Integer idVta) throws UsuarioSinPermisos, UsuarioNoLogueado {
 		
