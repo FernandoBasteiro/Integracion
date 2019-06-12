@@ -2,20 +2,17 @@ package controladores;
 
 import org.joda.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
+import daos.ParamGralesDAO;
 import daos.EmpleadoDAO;
 import daos.ProductoDAO;
 import daos.VentaDAO;
 import dto.EmpleadoDTO;
 import dto.ItemVentaDTO;
 import dto.VentaDTO;
-import enumeraciones.EstadoFactura;
+import entities.ParamGralesEntity;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
-import enumeraciones.TipoFactura;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
@@ -30,11 +27,20 @@ import negocio.VentaTarjetaDebito;
 public class ControladorVentas {
 	
 	private static ControladorVentas instance;
+	private String  cuit; // los usa el bco + liquidar sueldo
+	private Integer tc_id_establecimiento;	 //lo usa la entidad crediticia
+	private String  bco_cbu;          	     //lo usa la entidad bancaria
+	private String  bco_razonSocial;	 	//lo usa la entidad bancaria
 	
 	public ControladorVentas() {
-		super();
+		super(); 
+		ParamGralesEntity pg = ParamGralesDAO.getinstance().getParamGralesDAO();
+		cuit = pg.getCuit();
+		tc_id_establecimiento = pg.getTc_id_establecimiento();
+		bco_cbu = pg.getBco_cbu();
+		bco_razonSocial = pg.getBco_razonSocial();	
 	}
-	
+
 	public static ControladorVentas getInstance(){
 		if(instance == null){
 			instance = new ControladorVentas ();
@@ -245,4 +251,22 @@ public class ControladorVentas {
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
+
+	public String getCuit() {
+		return cuit;
+	}
+
+	public Integer getTc_id_establecimiento() {
+		return tc_id_establecimiento;
+	}
+
+	public String getBco_cbu() {
+		return bco_cbu;
+	}
+
+	public String getBco_razonSocial() {
+		return bco_razonSocial;
+	}
+	
+	
 }
