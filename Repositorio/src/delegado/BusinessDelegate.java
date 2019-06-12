@@ -188,14 +188,15 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
+	*/
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos {
 		try {
-			return ir.listarProductos(supervisor, p);
+			return ir.listarProductos(cajero, p);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	
+	/*
 	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
 		try {
 			return ir.mostrarProducto(supervisor, p);

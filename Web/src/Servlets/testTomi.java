@@ -63,6 +63,8 @@ public class testTomi {
 		
 		//INICIO SESION
 		gerente=BusinessDelegate.getInstance().iniciarSesion(gerente);
+		
+	
 	
 		//AGREGO EMPLEADO
 		//BusinessDelegate.getInstance().altaEmpleado(gerente, empleado);
@@ -76,11 +78,11 @@ public class testTomi {
 		BusinessDelegate.getInstance().bajaEmpleado(gerente, empleado2);
 		
 		*/
-		
 		for( EmpleadoDTO e : BusinessDelegate.getInstance().listarEmpleados(gerente, Puesto.GERENTE, EstadoEmpleado.ACTIVO))
 		{
 			System.out.println(e.getApellido());
 		}
+		
 		
 		
 		
