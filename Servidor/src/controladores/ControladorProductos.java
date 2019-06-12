@@ -32,8 +32,7 @@ public class ControladorProductos {
 		//TODO ProductoDTO puede ser null, se devuelve todos los productos. 
 		//Puede tener nombre, se devuelven todos los productos que coincidan con el nombre. 
 		//O puede tener un codigo, te devuelve un array con el producto de ese codigo.
-		//y que tenga stock
-		
+
 		if (ControladorEmpleados.getInstance().estaLogueado(cajero)) {
 			if (cajero.getPuesto().getId() >= Puesto.CAJERO.getId()) {
 				ArrayList<Producto> prods = null;
