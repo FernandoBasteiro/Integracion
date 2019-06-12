@@ -61,7 +61,7 @@
 	    	if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 	    	%>
 	    	<li class="nav-item">
-	    		<a class="nav-link" href="/Web/facturacion/index.jsp">Facturación</a>
+	    		<a class="nav-link" href="/Web/Private?action=listarVentas">Facturación</a>
 	    	</li>
 	    	<% 
 	    	}

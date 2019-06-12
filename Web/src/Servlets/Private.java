@@ -23,6 +23,8 @@ import dto.StockDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
+import enumeraciones.EstadoFactura;
+import enumeraciones.EstadoVenta;
 import enumeraciones.Genero;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
@@ -257,7 +259,7 @@ public class Private extends HttpServlet {
 				buscarProductoCodigo
 				
 			
-			/*
+			*/
 			else if (action.equals("listarVentas")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -266,8 +268,8 @@ public class Private extends HttpServlet {
 				
 				Integer numero = (request.getParameter("buscarFacturaNumero") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaNumero")));
 				Integer operacion = (request.getParameter("buscarFacturaOperacion") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaOperacion")));
-				EstadoFactura estado = EstadoFactura.fromId(request.getParameter("estadoFactura") == null ? null : Integer.valueOf(request.getParameter("estadoFactura")));
-				MedioDePago mdp = MedioDePago.fromId(request.getParameter("medioPagoFactura") == null ? null : Integer.valueOf(request.getParameter("medioPagoFactura")));
+				EstadoVenta estado = (request.getParameter("estadoFactura") == null ? null : EstadoVenta.fromId(Integer.valueOf(request.getParameter("estadoFactura"))));
+				MedioDePago mdp = (request.getParameter("medioPagoFactura") == null ? null : MedioDePago.fromId(Integer.valueOf(request.getParameter("medioPagoFactura"))));
 				
 				ArrayList<VentaDTO> ventas = null;
 				if (numero != null) {
@@ -281,7 +283,7 @@ public class Private extends HttpServlet {
 				}
 				request.setAttribute("facturas", ventas);
 				jspPage = "facturacion/index.jsp";
-				
+			}
 				/*
 				nada: las de hoy
 				buscarFacturaNumero
@@ -291,7 +293,7 @@ public class Private extends HttpServlet {
 				medioPagoFactura
 				*/
 			/*
-			} 
+			 
 			else if (action.equals("vender")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");

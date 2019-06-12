@@ -1,6 +1,14 @@
 <%@ page import="dto.EmpleadoDTO"%>
+<%@ page import="dto.ProductoDTO"%>
+<%@ page import="dto.VentaDTO"%>
+<%@ page import="enumeraciones.EstadoEmpleado"%>
+<%@ page import="enumeraciones.EstadoVenta"%>
+<%@ page import="enumeraciones.Puesto"%>
+<%@ page import="java.util.ArrayList"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
+else {
+ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("ventas");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
@@ -88,51 +96,53 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 				    </tr>
 				  </thead>
 				  <tbody>
+				  <%
+				  	int fila = 1;
+				  	for (VentaDTO v : ventas) {
+				  	
+				  		String statusBadge = "";
+						switch(v.getEstado()){
+							case COBRADA:
+								statusBadge = "badge-success";
+								break;
+							case FACTURADA:
+								statusBadge = "badge-warning";
+								break;
+							case ABIERTA:
+								statusBadge = "badge-info";
+								break;
+							case ANULADA:
+								statusBadge = "badge-danger";
+								break;
+							default:
+								statusBadge = "badge-info";
+								break;
+						
+						}
+						
+				  %>
+				  
+				  
+				  
+				  
 				    <tr>
-				      <th scope="row">1</th>
-				      <td>0001120002</td>
-				      <td>A</td>
-				      <td>20-16894056-5</td>
-				      <td><span class="badge badge-pill badge-warning">Pendiente</span></td>
-				      <td>EFVO</td>
-				      <td>-</td>
-				      <td>$1200.02</td>
+				      <th scope="row"><%=fila++ %></th>
+				       <td><%=v.getId() %></td>
+				       <td><%=v.getTipoFact() %></td>
+				       <td><%=v.getCuit() %></td>
+				       <td><span class="badge badge-pill <%=statusBadge%>"><%=v.getEstado().getNombre() %></span></td>
+				       <td><%=v.getMedioDePago().getNombre() %></td>
+				       <td><%=v.getNroOperacion() %></td>
+				       <td><%=v.getTotal() %></td>
+				      
 				      <td class="actions text-center">
 				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/facturacion/index.jsp?action=cobrar&factura=nro" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
 				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>0001120005</td>
-				      <td>C</td>
-				      <td>Consumidor Final</td>
-				      <td><span class="badge badge-pill badge-danger">Anulada</span></td>
-				      <td>TD</td>
-				      <td>3355</td>
-				      <td>$1570.02</td>
-				      <td class="actions text-center">
-				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=cobrar&factura=nro" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
-				      </td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>0001120008</td>
-				      <td>B</td>
-				      <td>20-16000056-5</td>
-				      <td><span class="badge badge-pill badge-success">Cobrada</span></td>
-				      <td>TC</td>
-				      <td>7655</td>
-				      <td>$170.20</td>
-				      <td class="actions text-center">
-				      	<a href="/Web/facturacion/verFactura.jsp?view=id" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=cobrar&factura=nro" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
-				      </td>
-				    </tr>
+				    <% } %>
+				    
 				  </tbody>
 				</table>
 			</div>
@@ -141,3 +151,4 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 	</div><!-- container -->
 </main>
 <jsp:include page="../includes/footer.jsp"/>
+<% } %>
