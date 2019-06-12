@@ -99,7 +99,6 @@ public class EmpleadoEntity {
 	private Integer horasAsignadas;
 	
 	@Enumerated(EnumType.STRING)
-    @Column(length = 9)
 	private Puesto puesto;
 	
 	private String cbu;
