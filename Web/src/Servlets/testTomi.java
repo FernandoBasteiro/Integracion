@@ -2,15 +2,23 @@ package Servlets;
 
 
 import java.rmi.RemoteException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
+import dto.ItemVentaDTO;
 import dto.ProductoDTO;
+import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
+import enumeraciones.EstadoVenta;
 import enumeraciones.Genero;
+import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
+import enumeraciones.TipoCuenta;
+import enumeraciones.TipoFactura;
 import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
@@ -115,7 +123,7 @@ public class testTomi {
  * 
  *    PRODUCTOS 
  */
-		ProductoDTO prod = new ProductoDTO();
+		/**ProductoDTO prod = new ProductoDTO();
 		prod.setNombre("Tallar");
 		//prod.setCodigo(1234567);
 		ArrayList<ProductoDTO> productos = new ArrayList<ProductoDTO>();
@@ -125,6 +133,140 @@ public class testTomi {
 			System.out.println(p.getNombre());
 
 		}
+		*/
+		
+		
+		/**
+		 * 
+		 * 
+		 * 
+		 * 
+		 *    VENTAS 
+		 */	
+		
+		/** EFECTIVO --------------------------------------------------------------EFECTIVO
+		VentaDTO v = new VentaDTO();
+		
+		ProductoDTO p = new ProductoDTO();
+		p.setCodigo(1234567);
+		
+		ItemVentaDTO iv	= new ItemVentaDTO();
+		iv.setCantidad(2);
+		iv.setProducto(p);
+		
+		ArrayList<ItemVentaDTO> ivs = new ArrayList<ItemVentaDTO>();
+		ivs.add(iv);
+		
+		//v.setAprobada(aprobada);
+		//v.setCantCuotas(cantCuotas);
+		//v.setCodigoSeguridad(codigoSeguridad);
+		v.setCuit("2");
+		//v.setDni(dni);
+		v.setEmpleado(gerente);
+		//v.setEstado(null);
+		//v.setFechaCobro(fechaCobro);
+		v.setFechaVenta(LocalDate.now());
+		//v.setFechaVto();
+		//v.setId(id);
+		v.setItems(ivs);
+		v.setMedioDePago(MedioDePago.EFECTIVO);
+		v.setMontoRecibido((float)500);
+		//v.setNombre(nombre);
+		//v.setNroOperacion(nroOperacion);
+		//v.setNumeroTarjeta(numeroTarjeta);
+		//v.setPin(pin);
+		//v.setTipoCuenta(tipoCuenta);
+		v.setTipoFact(TipoFactura.A);
+		v.setTotal((float)200);
+		v.setVuelto((float)300);
+		
+		
+		BusinessDelegate.getInstance().generarVenta(gerente, v);
+		----------------------------------------------------------------------FIN EFECTIVO*/
+		
+		/** -----------------------------------------------------------------TARJETA DEBITO
+		 * 
+		 
+
+		VentaDTO v = new VentaDTO();
+		
+		ProductoDTO p = new ProductoDTO();
+		p.setCodigo(1234567);
+		
+		ItemVentaDTO iv	= new ItemVentaDTO();
+		iv.setCantidad(2);
+		iv.setProducto(p);
+		
+		ArrayList<ItemVentaDTO> ivs = new ArrayList<ItemVentaDTO>();
+		ivs.add(iv);
+		
+		v.setAprobada(true);
+		//v.setCantCuotas(cantCuotas);
+		v.setCodigoSeguridad(1234);
+		v.setCuit("2");
+		v.setDni("3434");
+		v.setEmpleado(gerente);
+		//v.setEstado(null);
+		//v.setFechaCobro(fechaCobro);
+		v.setFechaVenta(LocalDate.now());
+		//v.setFechaVto();
+		//v.setId(id);
+		v.setItems(ivs);
+		v.setMedioDePago(MedioDePago.TARJETA_DEBITO);
+		//v.setMontoRecibido((float)500);
+		v.setNombre("Cliente");
+		v.setNroOperacion(123456789);
+		v.setNumeroTarjeta("12345678910111111");
+		v.setPin(1234);
+		v.setTipoCuenta(TipoCuenta.CAJA_AHORRO);
+		v.setTipoFact(TipoFactura.A);
+		v.setTotal((float)700);
+		//v.setVuelto((float)300);
+		
+		
+		BusinessDelegate.getInstance().generarVenta(gerente, v); ----------------FIN DEBITO*/
+		
+		/** -----------------------------------------------------------------TARJETA DEBITO
+		 */ 
+		 
+
+		VentaDTO v = new VentaDTO();
+		
+		ProductoDTO p = new ProductoDTO();
+		p.setCodigo(1234567);
+		
+		ItemVentaDTO iv	= new ItemVentaDTO();
+		iv.setCantidad(2);
+		iv.setProducto(p);
+		
+		ArrayList<ItemVentaDTO> ivs = new ArrayList<ItemVentaDTO>();
+		ivs.add(iv);
+		
+		v.setAprobada(true);
+		v.setCantCuotas(3);
+		v.setCodigoSeguridad(1234);
+		v.setCuit("2");
+		v.setDni("3434");
+		v.setEmpleado(gerente);
+		//v.setEstado(null);
+		//v.setFechaCobro(fechaCobro);
+		v.setFechaVenta(LocalDate.now());
+		v.setFechaVto("1234");
+		//v.setId(id);
+		v.setItems(ivs);
+		v.setMedioDePago(MedioDePago.TARJETA_CREDITO);
+		//v.setMontoRecibido((float)500);
+		v.setNombre("Cliente");
+		v.setNroOperacion(123456789);
+		v.setNumeroTarjeta("12345678910111111");
+		//v.setPin(1234);
+		//v.setTipoCuenta(TipoCuenta.CAJA_AHORRO);
+		v.setTipoFact(TipoFactura.A);
+		v.setTotal((float)400);
+		//v.setVuelto((float)300);
+		
+		
+		BusinessDelegate.getInstance().generarVenta(gerente, v); /**----------------FIN CREDITO*/
 		
 		System.out.println("Bien");
 

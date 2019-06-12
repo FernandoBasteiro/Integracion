@@ -55,6 +55,7 @@ public class StockDAO {
 
 	public StockEntity toEntity(Stock ee) {
 		StockEntity e = new StockEntity();
+		e.setId(ee.getId());
 		e.setCantidadMinima(ee.getCantidadMinimo());
 		e.setCantidadTotal(ee.getCantidadTotal());
 		e.setCantidadDisponible(ee.getCantidadDisponible());
@@ -64,6 +65,7 @@ public class StockDAO {
 	public Stock toNegocio(StockEntity ee) {
 		Stock e = new Stock();
 		e.setCantidadMinimo(ee.getCantidadMinima());
+		e.setId(ee.getId());
 		e.setCantidadTotal(ee.getCantidadTotal());
 		e.setCantidadDisponible(ee.getCantidadDisponible());
 		return e;

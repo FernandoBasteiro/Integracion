@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import controladores.ControladorEmpleados;
 import controladores.ControladorProductos;
+import controladores.ControladorVentas;
 import dto.EmpleadoDTO;
 import dto.ProductoDTO;
+import dto.VentaDTO;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Puesto;
 import excepciones.ExcepcionProceso;
@@ -73,7 +75,10 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 /**
-	@Override
+	@throws UsuarioSinPermisos 
+ * @throws ExcepcionProceso 
+ * @throws UsuarioNoLogueado 
+ * @Override
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) throws RemoteException {
 		// TODO Auto-generated method stub
 		
@@ -105,13 +110,13 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+*/
 	@Override
-	public void generarVenta(EmpleadoDTO cajero, FacturaDTO f) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void generarVenta(EmpleadoDTO c, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		ControladorVentas.getInstance().generarVenta(c, v);
 		
 	}
-
+/**
 	@Override
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
 		// TODO Auto-generated method stub

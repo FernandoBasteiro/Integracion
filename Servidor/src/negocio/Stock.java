@@ -4,6 +4,7 @@ import dto.StockDTO;
 import excepciones.ExcepcionProceso;
 
 public class Stock {
+	private Integer id;
 	private Integer cantidadMinimo;
 	private Integer cantidadTotal;
 	private Integer cantidadDisponible;
@@ -13,6 +14,19 @@ public class Stock {
 		this.cantidadMinimo = cantidadMinimo;
 		this.cantidadTotal = cantidadTotal;
 		this.cantidadDisponible = cantidadDisponible;
+	}
+	public Stock(Integer id, Integer cantidadMinimo, Integer cantidadTotal, Integer cantidadDisponible) {
+		super();
+		this.id=id;
+		this.cantidadMinimo = cantidadMinimo;
+		this.cantidadTotal = cantidadTotal;
+		this.cantidadDisponible = cantidadDisponible;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public Integer getCantidadMinimo() {
 		return cantidadMinimo;
@@ -48,7 +62,7 @@ public class Stock {
 	
 	public void descontarStock(Integer cant) throws ExcepcionProceso {
 		if (cant <= this.cantidadDisponible) {
-			this.cantidadDisponible =- cant;
+			this.cantidadDisponible -= cant;
 		}
 		else throw new ExcepcionProceso("No hay stock disponible.");
 	}
