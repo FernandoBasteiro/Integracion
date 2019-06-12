@@ -52,7 +52,7 @@ public class Stock {
 	}
 	
 	public void devolverStock(Integer cant) {
-		this.cantidadDisponible =+ cant;
+		this.cantidadDisponible += cant;
 	}
 	
 	public void bajaStock() {
