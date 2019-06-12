@@ -75,6 +75,19 @@ if ($('#productoAutocomplete').length) {
 
 	(function() {
 		"use strict";
+		
+		$.ajax({
+			url: '/Web/Private/listarProductos',
+			dataType: 'json',
+			success: function(data){
+				console.log(data)
+			},
+			error: function(jqXHR,textStatus,errorThrown){
+				console.log(jqXHR,textStatus,errorThrown);
+			}
+			
+		})
+		
 		const productos = [ {
 			"id" : 1,
 			"nombreProducto" : "Amsterdam"
@@ -401,18 +414,22 @@ if ($('#productoAutocomplete').length) {
 						});
 		var listadoVenta = $('#listadoItemVenta');
 		var index = 1;
+		var totalVenta = 0;
 
 		$('#agregarProducto').on('click', function(e){
 			e.preventDefault();
 			var codProd = parseInt($('#codigo-producto').val());
 			var cantProd = parseInt($('#cantidad-producto').val());
 			if (isNaN(codProd) || isNaN(cantProd)) return;
+			
 			var prod = productos.find(producto => producto.id === codProd);
-			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.id+'</td><td>'+prod.id+'</td><td>Botella 500ml</td><td>'+cantProd+'</td><td>$40.00</td><td>$'+cantProd+'</td><input type="hidden" name="items[]" value="['+prod.id+','+cantProd+']" /></tr>')
+			totalVenta += prod.precio*cantProd;
+			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.id+'</td><td>'+prod.id+'</td><td>Botella 500ml</td><td>'+cantProd+'</td><td>$40.00</td><td>$'+cantProd+'</td><input type="hidden" name="items" value="'+prod.id+','+cantProd+'" /></tr>')
 			listadoVenta.find('tbody').append(itemVta);
 			index++;
 			$('#codigo-producto, #buscarProducto').val('');
 			$('#cantidad-producto').val('1');
+			$('#totalVenta').text('$'+ totalVenta);
 			
 		})
 	})();
