@@ -63,7 +63,7 @@ public class ProductoDAO {
 		e.setCodigo(ee.getCodigo());
 		e.setNombre(ee.getNombre());
 		e.setDescripcion(ee.getDescripcion());
-		e.setPresentacion(ee.getDescripcion());
+		e.setPresentacion(ee.getPresentacion());
 		e.setPrecio(ee.getPrecio());
 		e.setStock(StockDAO.getinstance().toEntity(ee.getStock()));				
 		return e;	
@@ -74,7 +74,7 @@ public class ProductoDAO {
 		e.setCodigo(ee.getCodigo());
 		e.setNombre(ee.getNombre());
 		e.setDescripcion(ee.getDescripcion());
-		e.setPresentacion(ee.getDescripcion());
+		e.setPresentacion(ee.getPresentacion());
 		e.setPrecio(ee.getPrecio());
 		e.setStock(StockDAO.getinstance().toNegocio(ee.getStock()));				
 		return e;		
