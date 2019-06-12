@@ -173,16 +173,15 @@ public class EmpleadoDAO {
 		if (p2 >= 0) {
 			q.setParameter(p2,e);
 		}
-		
-		
-		
+			
 		@SuppressWarnings("unchecked")
 		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) q.list();		
 		ArrayList<Empleado> lista = new ArrayList<Empleado>();
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
 		return lista;
 	}
-	
+}
+<<<<<<< HEAD
 	
 	
 	
@@ -192,6 +191,8 @@ public class EmpleadoDAO {
 	
 	
 	/**
+=======
+>>>>>>> refs/remotes/origin/Fede
 	public ArrayList<Empleado> getEmpleadosByPuesto(Puesto puesto) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
