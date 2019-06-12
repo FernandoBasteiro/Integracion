@@ -44,7 +44,7 @@ public class ControladorProductos {
 			if (supervisor.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
 				 ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
 				if (prods != null) {
-					prods.get(0).bajaStock();
+					prods.get(0).bajaProducto();
 					prods.get(0).guardarStock();
 				} else
 					throw new ExcepcionProceso("Error al dar de baja el producto.");
