@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="dto.EmpleadoDTO"%>
 <!doctype html>
 <html class="no-js" lang="es">
 
@@ -31,8 +32,10 @@
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
-	  <% boolean logged_in = true; 
-	  if (logged_in){%>
+	  <%
+		 	EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
+		 	if (empleado != null) {
+ 		%>
 	  <div class="collapse navbar-collapse" id="navegacion">
 	    <ul class="navbar-nav mr-auto">
 	    	<li class="nav-item">
