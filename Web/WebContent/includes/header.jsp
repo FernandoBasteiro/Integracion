@@ -26,16 +26,16 @@
   <!--[if IE]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
-
+  <%
+  EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
+  if (empleado != null) {
+  %>
 	<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
 	  <a class="navbar-brand" href="/Web/index.jsp"><img alt="Super Sarasa IAPP logo" src="/Web/img/logo_transparent_nowords.png" height="40" width="70"/><span class="pl-1">SARASA IAPP</span></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
-	  <%
-		 	EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
-		 	if (empleado != null) {
- 		%>
+
 	  <div class="collapse navbar-collapse" id="navegacion">
 	    <ul class="navbar-nav mr-auto">
 	    	<li class="nav-item">
@@ -53,7 +53,7 @@
 		</ul>
 	    <a class="btn btn-outline-info" href="/Web/Private?action=logout">Cerrar sesión</a>
 	  </div>
-	  <%} %>
+
 	</nav>
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
@@ -61,3 +61,4 @@
 	    <li class="breadcrumb-item active" aria-current="page">Nivel 2</li>
 	  </ol>
 	</nav>
+	<%} %>
