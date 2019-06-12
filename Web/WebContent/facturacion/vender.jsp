@@ -31,7 +31,11 @@
 							    	<label class="input-group-text" for="buscarProducto">Buscar producto por código</label>
 							  	</div>
 							 	<select id="productoAutocomplete" name="buscarProducto" class="form-control">
-							  		<option></option>
+							  		<option value="1">Producto 1</option>
+							  		<option value="2">Producto 2</option>
+							  		<option value="3">Producto 3</option>
+							  		<option value="4">Producto 4</option>
+							  		<option value="5">Producto 5</option>
 							  	</select>
 							</div>
 						</div>
