@@ -113,7 +113,7 @@ public class ControladorVentas {
 				if (ventas != null) {
 					Venta vta = ventas.get(0);
 					vta.marcarFacturaCobrada();
-					VentaDAO.getinstance().add(vta);
+					vta.grabar();
 				}
 				else throw new ExcepcionProceso("No existe una venta con ese número de venta.");								
 			} 		

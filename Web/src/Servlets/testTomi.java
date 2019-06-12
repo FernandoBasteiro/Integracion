@@ -182,10 +182,10 @@ public class testTomi {
 		
 		
 		BusinessDelegate.getInstance().generarVenta(gerente, v);
-		----------------------------------------------------------------------FIN EFECTIVO*/
+		----------------------------------------------------------------------FIN EFECTIVO
 		
-		/** -----------------------------------------------------------------TARJETA DEBITO
-		 * 
+		-----------------------------------------------------------------TARJETA DEBITO */
+		 
 		 
 
 		VentaDTO v = new VentaDTO();
@@ -216,7 +216,7 @@ public class testTomi {
 		//v.setMontoRecibido((float)500);
 		v.setNombre("Cliente");
 		v.setNroOperacion(123456789);
-		v.setNumeroTarjeta("12345678910111111");
+		v.setNumeroTarjeta("12345678910111112");
 		v.setPin(1234);
 		v.setTipoCuenta(TipoCuenta.CAJA_AHORRO);
 		v.setTipoFact(TipoFactura.A);
@@ -224,10 +224,10 @@ public class testTomi {
 		//v.setVuelto((float)300);
 		
 		
-		BusinessDelegate.getInstance().generarVenta(gerente, v); ----------------FIN DEBITO*/
+		BusinessDelegate.getInstance().generarVenta(gerente, v); /**----------------FIN DEBITO
 		
 		/** -----------------------------------------------------------------TARJETA DEBITO
-		 */ 
+		 
 		 
 
 		VentaDTO v = new VentaDTO();
