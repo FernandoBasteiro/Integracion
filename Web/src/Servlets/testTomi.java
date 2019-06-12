@@ -69,7 +69,6 @@ public class testTomi {
 		EmpleadoDTO gerente = new EmpleadoDTO();
 		gerente.setLegajo(1);
 		gerente.setPassword("1234");
-		gerente.setSession("3");
 		
 		//INICIO SESION
 		gerente=BusinessDelegate.getInstance().iniciarSesion(gerente);
@@ -143,7 +142,7 @@ public class testTomi {
 		 * 
 		 *    VENTAS 
 		 
-		 EFECTIVO --------------------------------------------------------------EFECTIVO */
+		 EFECTIVO --------------------------------------------------------------EFECTIVO 
 		VentaDTO v = new VentaDTO();
 		
 		ProductoDTO p = new ProductoDTO();
@@ -184,7 +183,7 @@ public class testTomi {
 		System.out.println("VENTA NUEVA .- EFECTIVO: ");
 		System.out.println("Vuelto: "+v2.getVuelto());
 		System.out.println("Total: "+v2.getTotal());
-		
+		*/
 		
 		
 		/**----------------------------------------------------------------------FIN EFECTIVO
