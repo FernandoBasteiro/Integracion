@@ -19,6 +19,7 @@ import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
 import dto.ItemVentaDTO;
 import dto.ProductoDTO;
+import dto.StockDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
@@ -128,8 +129,8 @@ public class Private extends HttpServlet {
 				}
 									
 			}
-			/*
-			else if (action.equals("crearProducto")) {
+			
+			/**else if (action.equals("crearProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				String nombre = request.getParameter("nombreProducto");
@@ -151,7 +152,12 @@ public class Private extends HttpServlet {
 				stock.setCantidadMinimo(stockMin);
 				stock.setCantidadTotal(stockTot);
 				nuevo.setStock(stock);
-				bd.cargarProducto(logged, nuevo);
+				try {
+					bd.altaProducto(logged, nuevo);
+				} catch (ExcepcionProceso e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				jspPage = "productos/crearProducto.jsp";
 			} */
 			else if (action.equals("verEmpleado")) {
@@ -170,7 +176,7 @@ public class Private extends HttpServlet {
 				if (request.getParameter("modificar") == null) jspPage = "empleados/verEmpleado.jsp";
 				else jspPage = "empleados/crearEmpleado.jsp";
 				
-			} /*
+			} 
 			else if (action.equals("verProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -185,7 +191,7 @@ public class Private extends HttpServlet {
 					request.setAttribute("error", e.getMessage());
 				}
 				jspPage = "productos/verProducto.jsp";
-			}
+			}/*
 			else if (action.equals("verVenta")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");

@@ -1,5 +1,12 @@
 <%@ page import="dto.EmpleadoDTO"%>
-<% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
+<%@ page import="dto.EmpleadoDTO"%>
+<%@ page import="dto.ProductoDTO"%>
+<%@ page import="enumeraciones.EstadoEmpleado"%>
+<%@ page import="enumeraciones.Puesto"%>
+<%@ page import="java.util.ArrayList"%>
+<%
+ProductoDTO prod = (ProductoDTO) request.getAttribute("producto"); 
+EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
 %>
 <jsp:include page="../includes/header.jsp"/>

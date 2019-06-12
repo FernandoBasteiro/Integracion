@@ -79,11 +79,11 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				       <td><%=p.getStock().getCantidadDisponible()+"u" %></td>
 				     
 				      <td class="actions text-center">
-				      	<a href="/Web/Private?action=verProducto&codigo=1" class="view mx-1" title="Ver producto"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/Private?action=verProducto&codigo=<%=p.getCodigo() %>" class="view mx-1" title="Ver producto"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/productos/crearProducto.jsp?id=0" class="edit mx-1" title="Editar producto"><i class="fas fa-pencil-alt text-primary"></i></a>
 				      	<a href="/Web/productos/index.jsp?action=eliminarProducto&codigo=0" class="delete mx-1" title="Eliminar producto" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
-				    </tr>
+				    </tr>      
 				      <% } %>
 				  </tbody>
 				</table>
