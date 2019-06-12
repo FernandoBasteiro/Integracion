@@ -1,5 +1,6 @@
 package negocio;
 
+import daos.StockDAO;
 import dto.StockDTO;
 import excepciones.ExcepcionProceso;
 
@@ -54,7 +55,7 @@ public class Stock {
 		this.cantidadDisponible =+ cant;
 	}
 	
-	public void bajaStock ( ) {
+	public void bajaStock() {
 		this.cantidadMinimo = 0;
 		this.cantidadTotal = 0;
 		this.cantidadTotal = 0;
@@ -69,5 +70,15 @@ public class Stock {
 	
 	public StockDTO getDTO () {
 		return new StockDTO (this.cantidadMinimo, this.cantidadTotal, this.cantidadDisponible);
+	}
+	
+	public void guardar() {
+		StockDAO.getinstance().add(this);
+	}
+	
+	public void actualizarStock(Integer cTot, Integer cDisp, Integer cMin) {
+		this.cantidadTotal = cTot;
+		this.cantidadMinimo = cMin;
+		this.cantidadDisponible = cDisp;		
 	}
 }
