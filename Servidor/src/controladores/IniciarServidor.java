@@ -34,6 +34,7 @@ public class IniciarServidor {
 			LocalDateTime now = LocalDateTime.now();
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
 			System.out.println(dtf.format(now) + " - Server started successfully.");
+			ControladorVentas.getInstance();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
