@@ -24,7 +24,6 @@ public class ParamGralesDAO {
 	public Session getSession() {
 		if (s == null || !s.isOpen())
 			s = sf.openSession();
-
 		return s;
 	}
 
@@ -32,30 +31,12 @@ public class ParamGralesDAO {
 		if (s.isOpen())
 			s.close();
 	}
-
-	public void add(ParamGralesEntity param) {
-		Transaction t = null;
-		s = this.getSession();
-		try {
-			t = s.beginTransaction();
-			s.saveOrUpdate(param);
-			t.commit();
-			s.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
-	public ParamGralesEntity getParamGralesDAO(){
-	SessionFactory sf = HibernateUtil.getSessionFactory();
-	Session session = sf.openSession();
-	ParamGralesEntity pg = (ParamGralesEntity) session.createQuery("from ParamGrales ")
-				.uniqueResult();
-	if(pg==null)
-		return null;
-	else
-		return pg;
+	public String getValor(String clave) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		ParamGralesEntity pg = (ParamGralesEntity) session.createQuery("FROM ParamGralesEntity WHERE clave = ?").setParameter(0, clave).uniqueResult();
+		if(pg==null) return null;
+		else return pg.getValor();
 	}
-
-	
 }
