@@ -71,7 +71,7 @@ public class Private extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.invalidate();
 				jspPage = "index.jsp";
-				request.setAttribute("error", "Usuario desconectado correctamente.");	
+				request.setAttribute("success", "Usuario desconectado correctamente.");	
 			}
 			else if (action.equals("crearEmpleado")) {
 				HttpSession session = request.getSession();
@@ -113,12 +113,12 @@ public class Private extends HttpServlet {
 				nuevo.setFechaEgreso(fechaEgreso);
 				nuevo.setSueldoBase(sueldoBase);
 				nuevo.setCbu(cbu);
-				nuevo.setPassword(password);
+				if (! password.isEmpty()) nuevo.setPassword(password);
 				nuevo.setEstadoEmpleado(estado);
 				try {
 					if (nuevo.getLegajo() == null) bd.altaEmpleado(logged, nuevo);
 					else bd.modificacionEmpleado(logged, nuevo);
-					request.setAttribute("success", "Se creo el usuario");
+					request.setAttribute("success", "Se guardo el usuario");
 					jspPage = "Private?action=listarEmpleados&todos=si";
 				}
 				catch (ExcepcionProceso e) {
@@ -167,7 +167,8 @@ public class Private extends HttpServlet {
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
 				}
-				jspPage = "empleados/verEmpleado.jsp";
+				if (request.getParameter("modificar") == null) jspPage = "empleados/verEmpleado.jsp";
+				else jspPage = "empleados/crearEmpleado.jsp";
 				
 			} /*
 			else if (action.equals("verProducto")) {
@@ -350,7 +351,7 @@ public class Private extends HttpServlet {
 				}
 				
 				try {
-					bd.generarVenta(logged, v);
+					v = bd.generarVenta(logged, v);
 					request.setAttribute("venta", v);
 					request.setAttribute("success", "Venta aprobada");
 				} catch (ExcepcionProceso e) {
