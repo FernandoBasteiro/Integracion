@@ -191,7 +191,7 @@ public class EmpleadoDAO {
 	
 	
 	
-	
+	/**
 	public ArrayList<Empleado> getEmpleadosByPuesto(Puesto puesto) {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
@@ -215,5 +215,5 @@ public class EmpleadoDAO {
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
 		return lista;
 	}
-	
+	*/
 }

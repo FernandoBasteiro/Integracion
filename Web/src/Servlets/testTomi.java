@@ -2,6 +2,7 @@ package Servlets;
 
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
@@ -77,14 +78,29 @@ public class testTomi {
 		empleado2.setDni("12");
 		BusinessDelegate.getInstance().bajaEmpleado(gerente, empleado2);
 		
-		*/
+		
 		for( EmpleadoDTO e : BusinessDelegate.getInstance().listarEmpleados(gerente, Puesto.GERENTE, EstadoEmpleado.ACTIVO))
 		{
 			System.out.println(e.getApellido());
 		}
+		*/
 		
+		//MOSTRAR FICHA Y MODIFICAR
+		/**
+		EmpleadoDTO empleado2 = new EmpleadoDTO();
+		empleado2.setLegajo(2);
+		empleado2=BusinessDelegate.getInstance().mostrarFichaEmpleado(gerente, empleado2);
+		empleado2.setDni("12");
+		empleado2.setNombre("Paula");
+		BusinessDelegate.getInstance().modificacionEmpleado(gerente, empleado2);
+		*/
 		
+		ArrayList<EmpleadoDTO> empleados = new ArrayList<EmpleadoDTO>();
 		
+		empleados=BusinessDelegate.getInstance().listarEmpleadoPorDNI(gerente, "5666");
+		
+		System.out.println(empleados.get(0).getApellido());
+				
 		
 		//ControladorEmpleados.getInstance().listarEmpleadoPorLegajo(gerente, leg)
 		
