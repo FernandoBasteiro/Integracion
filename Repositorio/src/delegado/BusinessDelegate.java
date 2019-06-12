@@ -60,7 +60,7 @@ public class BusinessDelegate {
 		
 	}
 	
-	public void modificacionEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
+	public void modificacionEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		try {
 			ir.modificacionEmpleado(gerente, empleado);
 		} catch (RemoteException re) {
@@ -68,7 +68,7 @@ public class BusinessDelegate {
 		}
 
 	}
-	public void bajaEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
+	public void bajaEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		try {
 			ir.bajaEmpleado(gerente, empleado);
 		} catch (RemoteException re) {
@@ -76,7 +76,7 @@ public class BusinessDelegate {
 		}
 
 	}
-	public EmpleadoDTO mostrarFichaEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
+	public EmpleadoDTO mostrarFichaEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException, UsuarioSinPermisos, ExcepcionProceso, UsuarioNoLogueado {
 		try {
 			return ir.mostrarFichaEmpleado(gerente, empleado);
 		} catch (RemoteException re) {
@@ -98,9 +98,12 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws ComunicacionException, ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado, RemoteException {
-		
+	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws ComunicacionException, UsuarioSinPermisos, UsuarioNoLogueado {
+		try {
 			return ir.listarEmpleados(gerente, p, e);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
 	}
 
 	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
