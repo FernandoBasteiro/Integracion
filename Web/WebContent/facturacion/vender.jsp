@@ -12,7 +12,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col col-xs-12">
-			<h2 class="d-inline">Vender</h2>
+			<h2 class="d-inline"><i class="fas fa-cash-register mr-3 text-success"></i>Vender</h2>
 			<hr />
 		</div>
 	</div>

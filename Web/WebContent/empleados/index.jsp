@@ -12,7 +12,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 	<div class="container">
 		<div class="row">
 			<div class="col col-xs-12">
-				<h2 class="d-inline">Administrar Empleados</h2>
+				<h2 class="d-inline"><i class="fas fa-users mr-3 text-primary"></i>Administrar Empleados</h2>
 				<a href="/Web/empleados/crearEmpleado.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo empleado</a>
 				<hr/>
 			</div>
@@ -108,7 +108,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 				      <td><span class="badge badge-pill badge-success"><%=e.getEstadoEmpleado().getNombre() %></span></td>
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verEmpleado&legajo=<%=e.getLegajo() %>" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/empleados/crearEmpleado.jsp?id=<%=e.getLegajo() %>" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="/Web/Private?action=verEmpleado&modificar=true&legajo=<%=e.getLegajo() %>" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
 				      	<a href="/Web/empleados/index.jsp?action=eliminarEmpleado&legajo=<%=e.getLegajo() %>" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>
