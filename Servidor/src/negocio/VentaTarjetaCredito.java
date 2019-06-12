@@ -116,4 +116,13 @@ public class VentaTarjetaCredito extends Venta {
 		VentaDAO.getinstance().add(this);
 	}
 	
+	@Override
+	public void cancelarVenta() {
+		for (ItemVenta i : items) {
+			i.devolverProducto();
+		}	
+		this.setEstado(EstadoVenta.ANULADA);
+		this.grabar();
+	}
+	
 }
