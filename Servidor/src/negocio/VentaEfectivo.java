@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.LocalDate;
 
 import controladores.ConversorFechas;
+import daos.VentaDAO;
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
