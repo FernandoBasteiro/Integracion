@@ -40,7 +40,7 @@ public class listarProductos extends HttpServlet {
 			JsonObjectBuilder productoJson;
 			for (ProductoDTO p : productos) {
 				productoJson = Json.createObjectBuilder()
-						.add("codigo", p.getCodigo())
+						.add("codigo", p.getCodigo().toString())
 						.add("nombre", p.getNombre())
 						.add("descripcion", p.getDescripcion())
 						.add("presentacion", p.getPresentacion())
