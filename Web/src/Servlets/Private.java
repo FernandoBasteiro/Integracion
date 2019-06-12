@@ -297,22 +297,22 @@ public class Private extends HttpServlet {
 				}
 				MedioDePago mdp = MedioDePago.fromId(request.getParameter("medioPago") == null ? null : Integer.valueOf(request.getParameter("medioPago")));
 				
-				Float montoPago = (request.getParameter("montoPago") == null ? null : Float.valueOf(request.getParameter("montoPago")));
+				Float montoPago = (request.getParameter("montoPago").isEmpty() ? null : Float.valueOf(request.getParameter("montoPago")));
 				
 				String numeroTarjetaDebito = request.getParameter("debitoTarjeta");
-				Integer codigoSeguridadDebito = (request.getParameter("debitoCodigoSeguridad") == null ? null : Integer.valueOf(request.getParameter("debitoCodigoSeguridad")));
+				Integer codigoSeguridadDebito = (request.getParameter("debitoCodigoSeguridad").isEmpty() ? null : Integer.valueOf(request.getParameter("debitoCodigoSeguridad")));
 				String titularDebito = request.getParameter("debitoTitular");
 				String dniDebito = request.getParameter("debitoDni");
 				String vencimientoDebito = request.getParameter("debitoVencimiento");
-				TipoCuenta tc = TipoCuenta.fromId(request.getParameter("debitoTipoCuenta") == null ? null : Integer.valueOf(request.getParameter("debitoTipoCuenta")));
-				Integer pin = (request.getParameter("debitoPin") == null ? null : Integer.valueOf(request.getParameter("debitoPin")));
+				TipoCuenta tc = TipoCuenta.fromId(request.getParameter("debitoTipoCuenta").isEmpty() ? null : Integer.valueOf(request.getParameter("debitoTipoCuenta")));
+				Integer pin = (request.getParameter("debitoPin").isEmpty() ? null : Integer.valueOf(request.getParameter("debitoPin")));
 				
 				String numeroTarjetaCredito = request.getParameter("creditoTarjeta");
-				Integer codigoSeguridadCredito = (request.getParameter("creditoCodigoSeguridad") == null ? null : Integer.valueOf(request.getParameter("creditoCodigoSeguridad")));
+				Integer codigoSeguridadCredito = (request.getParameter("creditoCodigoSeguridad").isEmpty() ? null : Integer.valueOf(request.getParameter("creditoCodigoSeguridad")));
 				String titularCredito = request.getParameter("creditoTitular");
 				String dniCredito = request.getParameter("creditoDni");
 				String vencimientoCredito = request.getParameter("creditoVencimiento");
-				Integer cuotas = (request.getParameter("creditoCuotas") == null ? null : Integer.valueOf(request.getParameter("creditoCuotas")));
+				Integer cuotas = (request.getParameter("creditoCuotas").isEmpty() ? null : Integer.valueOf(request.getParameter("creditoCuotas")));
 				
 				VentaDTO v = new VentaDTO();
 				v.setEmpleado(logged);
