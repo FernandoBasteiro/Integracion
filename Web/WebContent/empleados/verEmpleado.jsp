@@ -1,5 +1,8 @@
 <%@ page import="dto.EmpleadoDTO"%>
-<% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
+<%@ page import="enumeraciones.EstadoEmpleado"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
+<% 
+EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
 EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 %>
@@ -19,7 +22,30 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 				<p><strong class="mr-2">Legajo:</strong><span class="badge badge-pill badge-info"><%=emp.getLegajo()%></span></p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Estado:</strong><span class="badge badge-pill badge-success"><%=emp.getEstadoEmpleado()%></span></p>
+			<% 
+			String statusBadge = "";
+			switch(emp.getEstadoEmpleado()){
+				case ACTIVO:
+					statusBadge = "badge-success";
+					break;
+				case LICENCIA_PAGA:
+					statusBadge = "badge-warning";
+					break;
+				case LICENCIA_NO_PAGA:
+					statusBadge = "badge-warning";
+					break;
+				case DESVINCULADO:
+					statusBadge = "badge-danger";
+					break;
+				case ANULADO:
+					statusBadge = "badge-danger";
+					break;
+				default:
+					statusBadge = "badge-info";
+					break;
+			}
+			%>
+				<p><strong class="mr-2">Estado:</strong><span class="badge badge-pill <%=statusBadge%>"><%=emp.getEstadoEmpleado().getNombre()%></span></p>
 			</div>
 		</div>
 		<h3 class="mb-3 mt-4">Datos Personales</h3>
@@ -54,29 +80,29 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Estado civil:</strong><%=emp.getEstadoCivil()%></p>
+				<p><strong class="mr-2">Estado civil:</strong><%=emp.getEstadoCivil().getNombre()%></p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Género:</strong><%=emp.getGenero()%></p>
+				<p><strong class="mr-2">Género:</strong><%=emp.getGenero().getNombre()%></p>
 			</div>				
 		</div>
 		<div class="row">
 			<div class="col col-xs-12">
-				<p><strong class="mr-2">Fecha de nacimiento:</strong><%=emp.getFechaNacimiento()%></p>
+				<p><strong class="mr-2">Fecha de nacimiento:</strong><%=emp.getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))%></p>
 			</div>	
 		</div>
 		<h3 class="mb-3 mt-4">Datos Laborales</h3>
 		<div class="row">
 			<div class="col col-xs-12">
-				<p><strong class="mr-2">Puesto:</strong><span class="badge badge-pill badge-dark"><%=emp.getPuesto()%></span></p>
+				<p><strong class="mr-2">Puesto:</strong><span class="badge badge-pill badge-dark"><%=emp.getPuesto().getNombre()%></span></p>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Fecha de ingreso:</strong><%=emp.getFechaIngreso()%></p>
+				<p><strong class="mr-2">Fecha de ingreso:</strong><%=emp.getFechaIngreso().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))%></p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Fecha de egreso:</strong><%=emp.getFechaEgreso() %></p>
+				<p><strong class="mr-2">Fecha de egreso:</strong><%=(emp.getFechaEgreso()==null) ? "-" : emp.getFechaEgreso().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))%></p>
 			</div>
 		</div>
 		<div class="row">

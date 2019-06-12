@@ -19,36 +19,41 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form method="post" action="?" class="filter-tools">
+				
 					<div class="form-row pb-2">
 						<div class="col-sm-6">
-							<div class="input-group">
-								<div class="input-group-prepend">
-						          <div class="input-group-text">Buscar</div>
-						      </div>
-							  <input name="buscarEmpleadoLegajo" type="search" class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
-							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
-							  </div>
-							</div>
+							<form method="post" action="/Web/Private?action=listarEmpleados">
+								<div class="input-group">
+									<div class="input-group-prepend">
+							          <div class="input-group-text">Buscar</div>
+							      </div>
+								  <input name="buscarEmpleadoLegajo" type="search" class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
+								   <div class="input-group-append">
+								    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+								  </div>
+								</div>
+							</form>
 						</div>	
 						<div class="col-sm-6">
-							<div class="input-group">
-							<div class="input-group-prepend">
-						          <div class="input-group-text">Buscar</div>
-						      </div>
-							  <input name="buscarEmpleadoDni" type="search" class="form-control" placeholder="Ingrese dni..." aria-label="Ingrese dni" aria-describedby="buscarEmpleadoDni">
-							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
-							  </div>
-							</div>
+							<form method="post" action="/Web/Private?action=listarEmpleados">
+								<div class="input-group">
+									<div class="input-group-prepend">
+								          <div class="input-group-text">Buscar</div>
+								      </div>
+									  <input name="buscarEmpleadoDni" type="search" class="form-control" placeholder="Ingrese dni..." aria-label="Ingrese dni" aria-describedby="buscarEmpleadoDni">
+									   <div class="input-group-append">
+									    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+									  </div>
+								</div>
+							</form>
 						</div>	
 					</div>
-					<div class="form-row">
-						
+					
+						<form method="post" action="/Web/Private?action=listarEmpleados">
+						<div class="form-row">
 							<div class="form-group col-sm-5">
 							    <select class="form-control" id="estadoEmpleado" name="estadoEmpleado">
-							      <option selected>- Estado -</option>
+							      <option disabled selected>- Estado -</option>
 							      <%
 									for (EstadoEmpleado estadoEmp : EstadoEmpleado.values()) {
 									%>
@@ -60,7 +65,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 							 </div>			
 							<div class="form-group col-sm-5">
 							    <select class="form-control" id="puestoEmpleado" name="puestoEmpleado">
-							      <option selected>- Puesto -</option>
+							      <option disabled selected>- Puesto -</option>
 							      <%
 									for (Puesto puesto : Puesto.values()) {
 									%>
@@ -71,10 +76,12 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 							    </select>
 							  </div>
 							  <div class="form-group col-sm-2">
-						    		<button class="btn btn-secondary btn-block" type="button">Filtrar</button>
-							  </div>			
-					</div>
-				</form>
+						    		<button class="btn btn-secondary btn-block" type="submit">Filtrar</button>
+							  </div>
+							  </div>
+						</form>			
+					
+				
 				<hr/>
 			</div>
 		</div>
