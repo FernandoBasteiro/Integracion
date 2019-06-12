@@ -28,14 +28,13 @@ public class listarProductos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		JsonObjectBuilder json = Json.createObjectBuilder();
 		try {
 			BusinessDelegate bd = BusinessDelegate.getInstance();
-			
 			HttpSession session = request.getSession();
 			EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 			ArrayList<ProductoDTO> productos;
 			productos = bd.listarProductos(logged, null);
-			JsonObjectBuilder json = Json.createObjectBuilder();
 			JsonArrayBuilder productosJson = Json.createArrayBuilder();
 			JsonObjectBuilder productoJson;
 			for (ProductoDTO p : productos) {
@@ -47,13 +46,22 @@ public class listarProductos extends HttpServlet {
 						.add("precio", p.getPrecio());
 				productosJson.add(productoJson);
 			}
-			json.add("EnCurso", productosJson);
-			response.setContentType("application/json");
-			response.getWriter().write(json.build().toString());
+			json.add("productos", productosJson);
+		}
+		catch (UsuarioNoLogueado unl) {
+			json.add("error", unl.getMessage());
+		}
+		catch (UsuarioSinPermisos usp) {
+			json.add("error", usp.getMessage());
+		}
+		catch (ComunicacionException ce) {
+			json.add("error", ce.getMessage());
 		}
 		catch (Exception e) {
-			JsonObjectBuilder json = Json.createObjectBuilder().add("error", e.getMessage());	
+			json.add("error", "Otro error");
 		}
+		response.setContentType("application/json");
+		response.getWriter().write(json.build().toString());
 	}
 
 	/**

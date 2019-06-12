@@ -40,11 +40,13 @@ public class ControladorEmpleados {
 	}
 
 	public static boolean estaLogueado(EmpleadoDTO e) throws UsuarioNoLogueado {
-		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
-		if (emp == null || !emp.getSession().equals(e.getSession()))
-			throw new UsuarioNoLogueado("El usuario no esta logueado");
-		else
-			return true;
+		if (e != null) {
+			Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
+			if (emp != null && emp.getSession().equals(e.getSession())) {
+				return true;
+			}
+		}
+		throw new UsuarioNoLogueado("El usuario no esta logueado");
 	}
 
 	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado)
