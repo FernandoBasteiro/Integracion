@@ -29,7 +29,7 @@ public class VentaDTO implements Serializable {
 	private String numeroTarjeta;
 	private Integer codigoSeguridad;
 	private String nombre;
-	private Integer dni;
+	private String dni;
 	private String fechaVto;
 	private Integer nroOperacion;
 	private Boolean aprobada;
@@ -120,10 +120,10 @@ public class VentaDTO implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Integer getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(Integer dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	public String getFechaVto() {
@@ -183,7 +183,7 @@ public class VentaDTO implements Serializable {
 	public VentaDTO(Integer id, LocalDate fechaVenta, List<ItemVentaDTO> items, EmpleadoDTO empleado,
 			EstadoVenta estado, Float total, MedioDePago medioDePago, 
 			Float montoRecibido, Float vuelto, //Datos EFVTO
-			String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni, //Datos Tarjetas TC+TD	
+			String numeroTarjeta, Integer codigoSeguridad, String nombre, String dni, //Datos Tarjetas TC+TD	
 			String fechaVto, Integer nroOperacion, Boolean aprobada, //Datos Tarjetas TC+TD		
 			Integer cantCuotas, //Datos TC			
 			Integer pin, TipoCuenta tipoCuenta, //Datos TD

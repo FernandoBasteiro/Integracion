@@ -15,7 +15,7 @@ public class VentaTarjetaDebito extends Venta {
 	private String numeroTarjeta;
 	private Integer codigoSeguridad;
 	private String nombre;
-	private Integer dni;
+	private String dni;
 	private String fechaVto;
 	private Integer nroOperacion;
 	private Boolean aprobada;
@@ -23,7 +23,7 @@ public class VentaTarjetaDebito extends Venta {
 	private TipoCuenta tipoCuenta;
 	
 	public VentaTarjetaDebito(Integer id, LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
-			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
+			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, String dni,
 			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer pin, TipoCuenta tipoCuenta, 
 			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
 		super(id, fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
@@ -39,7 +39,7 @@ public class VentaTarjetaDebito extends Venta {
 	}
 	
 	public VentaTarjetaDebito(LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
-			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
+			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, String dni,
 			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer pin, TipoCuenta tipoCuenta, 
 			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
 		super(fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
@@ -71,10 +71,10 @@ public class VentaTarjetaDebito extends Venta {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Integer getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(Integer dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	public String getFechaVto() {
