@@ -119,12 +119,14 @@ public class Private extends HttpServlet {
 					if (nuevo.getLegajo() == null) bd.altaEmpleado(logged, nuevo);
 					else bd.modificacionEmpleado(logged, nuevo);
 					request.setAttribute("success", "Se creo el usuario");
+					jspPage = "Private?action=listarEmpleados&todos=si";
 				}
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
 					request.setAttribute("empleado", nuevo);
+					jspPage = "empleados/crearEmpleado.jsp";
 				}
-				jspPage = "empleados/crearEmpleado.jsp";					
+									
 			}
 			/*
 			else if (action.equals("crearProducto")) {
@@ -166,6 +168,7 @@ public class Private extends HttpServlet {
 					request.setAttribute("error", e.getMessage());
 				}
 				jspPage = "empleados/verEmpleado.jsp";
+				
 			} /*
 			else if (action.equals("verProducto")) {
 				HttpSession session = request.getSession();
@@ -200,10 +203,17 @@ public class Private extends HttpServlet {
 			else if (action.equals("listarEmpleados")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				Integer legajo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
-				String dni = request.getParameter("buscarEmpleadoDni");
-				EstadoEmpleado estado = EstadoEmpleado.fromId(request.getParameter("estadoEmpleado") == null ? null : Integer.valueOf(request.getParameter("estadoEmpleado")));
-				Puesto puesto = Puesto.fromId(request.getParameter("puestoEmpleado") == null ? null : Integer.valueOf(request.getParameter("puestoEmpleado")));
+				String todos = request.getParameter("todos");
+				Integer legajo = null;
+				String dni = null;
+				EstadoEmpleado estado = EstadoEmpleado.ACTIVO;
+				Puesto puesto = null;					
+				if (todos == null) {
+					legajo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
+					dni = request.getParameter("buscarEmpleadoDni");
+					estado = EstadoEmpleado.fromId(request.getParameter("estadoEmpleado") == null ? EstadoEmpleado.ACTIVO.getId() : Integer.valueOf(request.getParameter("estadoEmpleado")));
+					puesto = (request.getParameter("puestoEmpleado") == null ? null : Puesto.fromId(Integer.valueOf(request.getParameter("puestoEmpleado"))));					
+				}
 				ArrayList<EmpleadoDTO> empleados = new ArrayList<EmpleadoDTO>();
 				if (legajo != null) {
 					empleados = bd.listarEmpleadoPorLegajo(logged, legajo);
@@ -215,7 +225,7 @@ public class Private extends HttpServlet {
 					empleados = bd.listarEmpleados(logged, puesto, estado);
 				}
 				request.setAttribute("empleados", empleados);
-				jspPage = "facturacion/index.jsp";
+				jspPage = "empleados/index.jsp";
 			} /*
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
