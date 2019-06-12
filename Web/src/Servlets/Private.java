@@ -91,6 +91,7 @@ public class Private extends HttpServlet {
 				LocalDate fechaIngreso = (request.getParameter("fechaIngresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaIngresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				Float sueldoBase = (request.getParameter("sueldoEmpleado") == null ? null : Float.valueOf(request.getParameter("sueldoEmpleado")));
 				String cbu = request.getParameter("cbuEmpleado");
+				String password = request.getParameter("passwordEmpleado");
 				nuevo.setLegajo(legajo);
 				nuevo.setNombre(nombre);
 				nuevo.setApellido(apellido);
@@ -107,9 +108,11 @@ public class Private extends HttpServlet {
 				nuevo.setFechaIngreso(fechaIngreso);
 				nuevo.setSueldoBase(sueldoBase);
 				nuevo.setCbu(cbu);
+				nuevo.setPassword(password);
+				nuevo.setEstadoEmpleado(estado);
 				try {
 					if (nuevo.getLegajo() == null) bd.altaEmpleado(logged, nuevo);
-					//TODO else bd.modificacionEmpleado(logged, nuevo);
+					else bd.modificacionEmpleado(logged, nuevo);
 					request.setAttribute("success", "Se creo el usuario");
 				}
 				catch (ExcepcionProceso e) {
@@ -143,7 +146,7 @@ public class Private extends HttpServlet {
 				nuevo.setStock(stock);
 				bd.cargarProducto(logged, nuevo);
 				jspPage = "productos/crearProducto.jsp";
-			}
+			} */
 			else if (action.equals("verEmpleado")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -158,7 +161,7 @@ public class Private extends HttpServlet {
 					request.setAttribute("error", e.getMessage());
 				}
 				jspPage = "empleados/verEmpleado.jsp";
-			}
+			} /*
 			else if (action.equals("verProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -188,7 +191,7 @@ public class Private extends HttpServlet {
 					request.setAttribute("error", e.getMessage());
 				}
 				jspPage = "facturacion/verFactura.jsp";
-			}
+			} */
 			else if (action.equals("listarEmpleados")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -208,7 +211,7 @@ public class Private extends HttpServlet {
 				}
 				request.setAttribute("empleados", empleados);
 				jspPage = "facturacion/index.jsp";
-			}
+			} /*
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");

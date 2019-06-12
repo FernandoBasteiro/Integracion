@@ -68,7 +68,8 @@ public class EmpleadoDAO {
 		e.setMail(ee.getEmail());
 		e.setEstadoCivil(ee.getEstadoCivil());
 		e.setEstado(ee.getEstadoEmpleado());
-		e.setFechaEgreso(ee.getFechaEgreso());
+		if(ee.getFechaEgreso()!=null)
+			{e.setFechaEgreso(ee.getFechaEgreso());}
 		e.setFechaIngreso(ee.getFechaIngreso());
 		e.setFechaNacimiento(ee.getFechaNacimiento());
 		e.setGenero(ee.getGenero());
