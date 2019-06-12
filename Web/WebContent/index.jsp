@@ -31,7 +31,7 @@
 <div class="jumbotron">
 	<div class="container">
 		<h1 class="display-3">
-			Bienvenido
+			Bienvenid@
 			<%=empleado.getNombre()%>!
 		</h1>
 		<p>This is a template for a simple marketing or informational
