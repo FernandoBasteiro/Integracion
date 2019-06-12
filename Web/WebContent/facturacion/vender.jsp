@@ -278,10 +278,8 @@
 					</div>
 				</div>
 			</form>
-			<hr />
 		</div>
 	</div>
-
 	<hr />
 </div>
 <!-- container --> </main>
