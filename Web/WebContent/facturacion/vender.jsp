@@ -44,7 +44,7 @@
 								<label class="input-group-text" for="cuitFactura">CUIT</label>
 							</div>
 							<input placeholder="Ingrese CUIT..." type="text"
-								name="cuitFactura" class="form-control" value="Consumidor Final" />
+								name="cuitFactura" class="form-control" value="" />
 						</div>
 					</div>
 				</div>
