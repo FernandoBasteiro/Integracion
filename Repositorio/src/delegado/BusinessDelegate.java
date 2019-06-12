@@ -106,7 +106,7 @@ public class BusinessDelegate {
 		}
 	}
 
-	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
+	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		try {
 			ir.eliminarEmpleado(gerente, empleado);
 		} catch (RemoteException re) {
@@ -114,7 +114,7 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			ir.marcarFacturaCobrada(gerente, f);
 		} catch (RemoteException re) {

@@ -28,11 +28,11 @@ public interface InterfazRemota extends Remote {
 	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI (EmpleadoDTO gerente, String dni) throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado;
 	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo (EmpleadoDTO gerente, Integer leg) throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado;
 	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado;
-	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
+	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso;
 	
 	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;
 	
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO v) throws RemoteException;
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado;
 	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;
 	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoVenta e) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;

@@ -69,8 +69,8 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void eliminarEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void eliminarEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
+		ControladorEmpleados.getInstance().eliminarEmpleado(gerente, empleado);
 		
 	}
 
@@ -78,8 +78,9 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		return ControladorProductos.getInstancia().listarProductos(cajero, p);
 	}
 
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws RemoteException {
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		// TODO Auto-generated method stub
+		ControladorVentas.getInstance().marcarFacturaCobrada(gerente, f);
 		
 	}
 
