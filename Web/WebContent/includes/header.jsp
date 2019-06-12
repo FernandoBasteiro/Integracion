@@ -71,10 +71,53 @@
 	  </div>
 
 	</nav>
+	<% 
+	String bread = (String)request.getServletPath();
+	String[] crumbs = bread.split("/");
+	/*
+	/index.jsp  => active
+	/empleados/index.jsp => Empleados / Administrar
+	/empleados/crearEmpleado.jsp => Empleados / Crear
+	/empleados/verEmpleado.jsp => Empleados / Ver
+	/facturacion/index.jsp => Facturación / Administrar
+	/facturacion/verFactura.jsp => Facturación / Ver
+	/facturacion/vender.jsp => Facturación / Vender
+	/productos/index.jsp => Productos / Administrar
+	/productos/crearProducto.jsp => Productos / Crear
+	/productos/verProducto.jsp => Productos / Ver
+	
+	*/
+	%>
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a href="index.jsp">Inicio</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Nivel 2</li>
+	    <%
+	    for(int i = 0; i < crumbs.length; i++){ %>
+	    	<% if(crumbs[i].contains(".jsp")){ 
+	    		String[] endCrumb = crumbs[i].split(".jsp");
+	    		String txtCrumb = "";
+	    		
+	    		if(endCrumb[0].contains("index") && crumbs.length == 1){
+	    			txtCrumb = "Inicio";
+	    		}else if (endCrumb[0].contains("index") && crumbs.length > 1){
+	    			txtCrumb = "Administrar";
+	    		}else if(endCrumb[0].contains("crear")){
+	    			txtCrumb = "Crear";
+	    		}else if(endCrumb[0].contains("ver")){
+	    			txtCrumb = "Ver";
+	    		}else{
+	    			txtCrumb = endCrumb[0];
+	    		}
+	    	%>
+	    		<li class="breadcrumb-item active text-capitalize" aria-current="page"><%=txtCrumb%></li>
+	    	<%} else if(i == 0 && crumbs.length > 1){%>
+	    		<li class="breadcrumb-item text-capitalize"><a href="/Web/index.jsp">Inicio</a></li>
+	    		<%
+	    	}else {
+	    		%>
+	    		<li class="breadcrumb-item text-capitalize"><a href="/Web/<%=crumbs[i]%>/index.jsp"><%=crumbs[i]%></a></li>
+	    		<% 
+	    	} %>
+	   <% } %>
 	  </ol>
 	</nav>
 	<%}

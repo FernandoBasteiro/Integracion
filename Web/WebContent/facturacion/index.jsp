@@ -7,7 +7,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 	<div class="container">
 		<div class="row">
 			<div class="col col-xs-12">
-				<h2 class="d-inline">Facturación</h2>
+				<h2 class="d-inline"><i class="fas fa-file-invoice-dollar mr-3 text-info"></i>Facturación</h2>
 				<hr/>
 			</div>
 		</div>
