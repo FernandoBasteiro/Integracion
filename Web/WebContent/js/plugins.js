@@ -75,263 +75,22 @@ if ($('#productoAutocomplete').length) {
 
 	(function() {
 		"use strict";
-		const productos = [ {
-			"id" : 1,
-			"nombreProducto" : "Amsterdam"
-		}, {
-			"id" : 2,
-			"nombreProducto" : "Athens"
-		}, {
-			"id" : 3,
-			"nombreProducto" : "Baghdad"
-		}, {
-			"id" : 4,
-			"nombreProducto" : "Bangkok"
-		}, {
-			"id" : 5,
-			"nombreProducto" : "Barcelona"
-		}, {
-			"id" : 6,
-			"nombreProducto" : "Beijing"
-		}, {
-			"id" : 7,
-			"nombreProducto" : "Belgrade"
-		}, {
-			"id" : 8,
-			"nombreProducto" : "Berlin"
-		}, {
-			"id" : 9,
-			"nombreProducto" : "Bogota"
-		}, {
-			"id" : 10,
-			"nombreProducto" : "Bratislava"
-		}, {
-			"id" : 11,
-			"nombreProducto" : "Brussels"
-		}, {
-			"id" : 12,
-			"nombreProducto" : "Bucharest"
-		}, {
-			"id" : 13,
-			"nombreProducto" : "Budapest"
-		}, {
-			"id" : 14,
-			"nombreProducto" : "Buenos Aires"
-		}, {
-			"id" : 15,
-			"nombreProducto" : "Cairo"
-		}, {
-			"id" : 16,
-			"nombreProducto" : "CapeTown"
-		}, {
-			"id" : 17,
-			"nombreProducto" : "Caracas"
-		}, {
-			"id" : 18,
-			"nombreProducto" : "Chicago"
-		}, {
-			"id" : 19,
-			"nombreProducto" : "Copenhagen"
-		}, {
-			"id" : 20,
-			"nombreProducto" : "Dhaka"
-		}, {
-			"id" : 21,
-			"nombreProducto" : "Dubai"
-		}, {
-			"id" : 22,
-			"nombreProducto" : "Dublin"
-		}, {
-			"id" : 23,
-			"nombreProducto" : "Frankfurt"
-		}, {
-			"id" : 24,
-			"nombreProducto" : "Geneva"
-		}, {
-			"id" : 25,
-			"nombreProducto" : "Hanoi"
-		}, {
-			"id" : 26,
-			"nombreProducto" : "Helsinki"
-		}, {
-			"id" : 27,
-			"nombreProducto" : "Hong Kong"
-		}, {
-			"id" : 28,
-			"nombreProducto" : "Istanbul"
-		}, {
-			"id" : 29,
-			"nombreProducto" : "Jakarta"
-		}, {
-			"id" : 30,
-			"nombreProducto" : "Jerusalem"
-		}, {
-			"id" : 31,
-			"nombreProducto" : "Johannesburg"
-		}, {
-			"id" : 32,
-			"nombreProducto" : "Kabul"
-		}, {
-			"id" : 33,
-			"nombreProducto" : "Karachi"
-		}, {
-			"id" : 34,
-			"nombreProducto" : "Kiev"
-		}, {
-			"id" : 35,
-			"nombreProducto" : "Kuala Lumpur"
-		}, {
-			"id" : 36,
-			"nombreProducto" : "Lagos"
-		}, {
-			"id" : 37,
-			"nombreProducto" : "Lahore"
-		}, {
-			"id" : 38,
-			"nombreProducto" : "Lima"
-		}, {
-			"id" : 39,
-			"nombreProducto" : "Lisbon"
-		}, {
-			"id" : 40,
-			"nombreProducto" : "Ljubljana"
-		}, {
-			"id" : 41,
-			"nombreProducto" : "London"
-		}, {
-			"id" : 42,
-			"nombreProducto" : "Los Angeles"
-		}, {
-			"id" : 43,
-			"nombreProducto" : "Luxembourg"
-		}, {
-			"id" : 44,
-			"nombreProducto" : "Madrid"
-		}, {
-			"id" : 45,
-			"nombreProducto" : "Manila"
-		}, {
-			"id" : 46,
-			"nombreProducto" : "Marrakesh"
-		}, {
-			"id" : 47,
-			"nombreProducto" : "Melbourne"
-		}, {
-			"id" : 48,
-			"nombreProducto" : "Mexico City"
-		}, {
-			"id" : 49,
-			"nombreProducto" : "Montreal"
-		}, {
-			"id" : 50,
-			"nombreProducto" : "Moscow"
-		}, {
-			"id" : 51,
-			"nombreProducto" : "Mumbai"
-		}, {
-			"id" : 52,
-			"nombreProducto" : "Nairobi"
-		}, {
-			"id" : 53,
-			"nombreProducto" : "New Delhi"
-		}, {
-			"id" : 54,
-			"nombreProducto" : "NewYork"
-		}, {
-			"id" : 55,
-			"nombreProducto" : "Nicosia"
-		}, {
-			"id" : 56,
-			"nombreProducto" : "Oslo"
-		}, {
-			"id" : 57,
-			"nombreProducto" : "Ottawa"
-		}, {
-			"id" : 58,
-			"nombreProducto" : "Paris"
-		}, {
-			"id" : 59,
-			"nombreProducto" : "Prague"
-		}, {
-			"id" : 60,
-			"nombreProducto" : "Reykjavik"
-		}, {
-			"id" : 61,
-			"nombreProducto" : "Riga"
-		}, {
-			"id" : 62,
-			"nombreProducto" : "Rio de Janeiro"
-		}, {
-			"id" : 63,
-			"nombreProducto" : "Rome"
-		}, {
-			"id" : 64,
-			"nombreProducto" : "Saint Petersburg"
-		}, {
-			"id" : 65,
-			"nombreProducto" : "San Francisco"
-		}, {
-			"id" : 66,
-			"nombreProducto" : "Santiago de Chile"
-		}, {
-			"id" : 67,
-			"nombreProducto" : "São Paulo"
-		}, {
-			"id" : 68,
-			"nombreProducto" : "Seoul"
-		}, {
-			"id" : 69,
-			"nombreProducto" : "Shanghai"
-		}, {
-			"id" : 70,
-			"nombreProducto" : "Singapore"
-		}, {
-			"id" : 71,
-			"nombreProducto" : "Sofia"
-		}, {
-			"id" : 72,
-			"nombreProducto" : "Stockholm"
-		}, {
-			"id" : 73,
-			"nombreProducto" : "Sydney"
-		}, {
-			"id" : 74,
-			"nombreProducto" : "Tallinn"
-		}, {
-			"id" : 75,
-			"nombreProducto" : "Tehran"
-		}, {
-			"id" : 76,
-			"nombreProducto" : "The Hague"
-		}, {
-			"id" : 77,
-			"nombreProducto" : "Tokyo"
-		}, {
-			"id" : 78,
-			"nombreProducto" : "Toronto"
-		}, {
-			"id" : 79,
-			"nombreProducto" : "Venice"
-		}, {
-			"id" : 80,
-			"nombreProducto" : "Vienna"
-		}, {
-			"id" : 81,
-			"nombreProducto" : "Vilnius"
-		}, {
-			"id" : 82,
-			"nombreProducto" : "Warsaw"
-		}, {
-			"id" : 83,
-			"nombreProducto" : "Washington D.C."
-		}, {
-			"id" : 84,
-			"nombreProducto" : "Wellington"
-		}, {
-			"id" : 85,
-			"nombreProducto" : "Zagreb"
-		} ];
+		
+		var productos = [];
 
+		$.ajax({
+			url: '/Web/Private/listarProductos',
+			dataType: 'json',
+			success: function(data){
+				productos = [data];
+				productos = productos[0].productos;
+			},
+			error: function(jqXHR,textStatus,errorThrown){
+				console.log(jqXHR,textStatus,errorThrown);
+			}
+			
+		})
+		
 		$('.bs-autocomplete')
 				.each(
 						function() {
@@ -353,7 +112,6 @@ if ($('#productoAutocomplete').length) {
 											{
 												minLength : 2,
 												autoFocus : true,
-
 												source : function(request,
 														response) {
 													var _regexp = new RegExp(
@@ -361,7 +119,7 @@ if ($('#productoAutocomplete').length) {
 													var data = productos
 															.filter(function(
 																	item) {
-																return item.nombreProducto
+																return item.codigo
 																		.match(_regexp);
 															});
 													response(data);
@@ -395,24 +153,29 @@ if ($('#productoAutocomplete').length) {
 										"item.autocomplete", item).append(
 										'<a class="nav-link">'
 												+ item[_data.item_label]
+												+ ' (' + item[_data.item_sublabel] + ')'
 												+ '</a>').appendTo(ul);
 							};
 							// end autocomplete
 						});
 		var listadoVenta = $('#listadoItemVenta');
 		var index = 1;
+		var totalVenta = 0;
 
 		$('#agregarProducto').on('click', function(e){
 			e.preventDefault();
-			var codProd = parseInt($('#codigo-producto').val());
+			var codProd = $('#codigo-producto').val();
 			var cantProd = parseInt($('#cantidad-producto').val());
 			if (isNaN(codProd) || isNaN(cantProd)) return;
-			var prod = productos.find(producto => producto.id === codProd);
-			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.id+'</td><td>'+prod.id+'</td><td>Botella 500ml</td><td>'+cantProd+'</td><td>$40.00</td><td>$'+cantProd+'</td><input type="hidden" name="items[]" value="['+prod.id+','+cantProd+']" /></tr>')
+			
+			var prod = productos.find(producto => producto.codigo === codProd);
+			totalVenta += prod.precio*cantProd;
+			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.codigo+'</td><td>'+prod.nombre+'</td><td>'+prod.presentacion+'</td><td>'+cantProd+'</td><td>$'+prod.precio+'</td><td>$'+prod.precio*cantProd+'</td><input type="hidden" name="items" value="'+prod.codigo+','+cantProd+'" /></tr>')
 			listadoVenta.find('tbody').append(itemVta);
 			index++;
 			$('#codigo-producto, #buscarProducto').val('');
 			$('#cantidad-producto').val('1');
+			$('#totalVenta').text('$'+ totalVenta);
 			
 		})
 	})();
