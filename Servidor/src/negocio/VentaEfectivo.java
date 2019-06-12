@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.LocalDate;
 
 import controladores.ConversorFechas;
+import daos.VentaDAO;
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
@@ -59,8 +60,12 @@ public class VentaEfectivo extends Venta {
 				null, null, //Datos TD
 				this.tipoFact, this.cuit, ConversorFechas.convertJodaToJava(this.fechaCobro)); //Datos Factura
 	}
-	
-	public float calcularVuelto () {
+
+	@Override
+	public void grabar() {
+		VentaDAO.getinstance().add(this);
+	}
+	public Float calcularVuelto () {
 		return this.montoRecibido - this.total;
 	}
 }

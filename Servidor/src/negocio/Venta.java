@@ -125,11 +125,12 @@ public abstract class Venta {
 		return itemsDTO;
 	}
 	
-	public float calcularTotal () {
-		float sum = 0;
+	public Float calcularTotal () {
+		Float sum = (float) 0;
 		for (ItemVenta i : items) {
-			sum += i.getPrecio();
+			sum = sum+(i.getPrecio()*i.getCantidad());
 		}
+		this.total=sum;
 		return sum;
 	}
 	

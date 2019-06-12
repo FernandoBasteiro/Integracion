@@ -142,9 +142,8 @@ public class testTomi {
 		 * 
 		 * 
 		 *    VENTAS 
-		 */	
-		
-		/** EFECTIVO --------------------------------------------------------------EFECTIVO
+		 
+		 EFECTIVO --------------------------------------------------------------EFECTIVO */
 		VentaDTO v = new VentaDTO();
 		
 		ProductoDTO p = new ProductoDTO();
@@ -170,21 +169,27 @@ public class testTomi {
 		//v.setId(id);
 		v.setItems(ivs);
 		v.setMedioDePago(MedioDePago.EFECTIVO);
-		v.setMontoRecibido((float)500);
+		v.setMontoRecibido((float)10);
 		//v.setNombre(nombre);
 		//v.setNroOperacion(nroOperacion);
 		//v.setNumeroTarjeta(numeroTarjeta);
 		//v.setPin(pin);
 		//v.setTipoCuenta(tipoCuenta);
 		v.setTipoFact(TipoFactura.A);
-		v.setTotal((float)200);
-		v.setVuelto((float)300);
+		
+		VentaDTO v2 = new VentaDTO();
+		
+		v2=BusinessDelegate.getInstance().generarVenta(gerente, v); 
+		
+		System.out.println("VENTA NUEVA .- EFECTIVO: ");
+		System.out.println("Vuelto: "+v2.getVuelto());
+		System.out.println("Total: "+v2.getTotal());
 		
 		
-		BusinessDelegate.getInstance().generarVenta(gerente, v);
-		----------------------------------------------------------------------FIN EFECTIVO
 		
-		-----------------------------------------------------------------TARJETA DEBITO */
+		/**----------------------------------------------------------------------FIN EFECTIVO
+		
+		-----------------------------------------------------------------TARJETA DEBITO 
 		 
 		 
 
@@ -194,13 +199,12 @@ public class testTomi {
 		p.setCodigo(1234567);
 		
 		ItemVentaDTO iv	= new ItemVentaDTO();
-		iv.setCantidad(2);
+		iv.setCantidad(10);
 		iv.setProducto(p);
 		
 		ArrayList<ItemVentaDTO> ivs = new ArrayList<ItemVentaDTO>();
 		ivs.add(iv);
 		
-		v.setAprobada(true);
 		//v.setCantCuotas(cantCuotas);
 		v.setCodigoSeguridad(1234);
 		v.setCuit("2");
@@ -215,19 +219,31 @@ public class testTomi {
 		v.setMedioDePago(MedioDePago.TARJETA_DEBITO);
 		//v.setMontoRecibido((float)500);
 		v.setNombre("Cliente");
-		v.setNroOperacion(123456789);
 		v.setNumeroTarjeta("12345678910111112");
 		v.setPin(1234);
 		v.setTipoCuenta(TipoCuenta.CAJA_AHORRO);
 		v.setTipoFact(TipoFactura.A);
-		v.setTotal((float)700);
 		//v.setVuelto((float)300);
 		
+		VentaDTO v2 = new VentaDTO();
+		v2=BusinessDelegate.getInstance().generarVenta(gerente, v); 
 		
-		BusinessDelegate.getInstance().generarVenta(gerente, v); /**----------------FIN DEBITO
+		System.out.println("VENTA NUEVA .- DEBITO: ");
+		System.out.println("Numero Operacion:"+v2.getNroOperacion());
+		System.out.println("Aprobada: "+v2.getAprobada());
+		System.out.println("Producto: "+v2.getItems().get(0).getProducto().getNombre());
+		System.out.println("Cantidad: "+v2.getItems().get(0).getCantidad());
+		System.out.println("Total: "+v2.getTotal());
+
 		
-		/** -----------------------------------------------------------------TARJETA DEBITO
-		 
+		
+		
+		
+		
+		/**----------------FIN DEBITO
+		
+		 -----------------------------------------------------------------TARJETA CREDITO*/
+		 /**
 		 
 
 		VentaDTO v = new VentaDTO();
@@ -236,13 +252,13 @@ public class testTomi {
 		p.setCodigo(1234567);
 		
 		ItemVentaDTO iv	= new ItemVentaDTO();
-		iv.setCantidad(2);
+		iv.setCantidad(3);
 		iv.setProducto(p);
 		
 		ArrayList<ItemVentaDTO> ivs = new ArrayList<ItemVentaDTO>();
 		ivs.add(iv);
 		
-		v.setAprobada(true);
+		//v.setAprobada(true);
 		v.setCantCuotas(3);
 		v.setCodigoSeguridad(1234);
 		v.setCuit("2");
@@ -257,16 +273,28 @@ public class testTomi {
 		v.setMedioDePago(MedioDePago.TARJETA_CREDITO);
 		//v.setMontoRecibido((float)500);
 		v.setNombre("Cliente");
-		v.setNroOperacion(123456789);
+		//v.setNroOperacion(123456789);
 		v.setNumeroTarjeta("12345678910111111");
 		//v.setPin(1234);
 		//v.setTipoCuenta(TipoCuenta.CAJA_AHORRO);
 		v.setTipoFact(TipoFactura.A);
-		v.setTotal((float)400);
+		//v.setTotal((float)400);
 		//v.setVuelto((float)300);
 		
 		
-		BusinessDelegate.getInstance().generarVenta(gerente, v); /**----------------FIN CREDITO*/
+		VentaDTO v2 = new VentaDTO();
+		v2=BusinessDelegate.getInstance().generarVenta(gerente, v); 
+		
+		System.out.println("VENTA NUEVA .- CREDITO: ");
+		System.out.println("Numero Operacion:"+v2.getNroOperacion());
+		System.out.println("Aprobada: "+v2.getAprobada());
+		System.out.println("Producto: "+v2.getItems().get(0).getProducto().getNombre());
+		System.out.println("Cantidad: "+v2.getItems().get(0).getCantidad());
+		System.out.println("Total: "+v2.getTotal());
+		
+		
+		
+		----------------FIN CREDITO*/
 		
 		System.out.println("Bien");
 
