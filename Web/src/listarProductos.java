@@ -47,6 +47,9 @@ public class listarProductos extends HttpServlet {
 						.add("precio", p.getPrecio());
 				productosJson.add(productoJson);
 			}
+			json.add("EnCurso", productosJson);
+			response.setContentType("application/json");
+			response.getWriter().write(json.build().toString());
 		}
 		catch (Exception e) {
 			JsonObjectBuilder json = Json.createObjectBuilder().add("error", e.getMessage());	
