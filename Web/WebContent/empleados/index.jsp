@@ -1,8 +1,11 @@
 <%@ page import="dto.EmpleadoDTO"%>
 <%@ page import="enumeraciones.EstadoEmpleado"%>
 <%@ page import="enumeraciones.Puesto"%>
+<%@ page import="java.util.ArrayList"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
+else {
+ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute("empleados");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
@@ -91,62 +94,25 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 				    </tr>
 				  </thead>
 				  <tbody>
+				  <%
+				  	int fila = 1;
+				  	for (EmpleadoDTO e : empleados) {
+				  %>
 				    <tr>
-				      <th scope="row">1</th>
-				      <td>607104</td>
-				      <td>Nuñez</td>
-				      <td>Erica Natalia</td>
-				      <td>32961625</td>
-				      <td>Cajera</td>
-				      <td><span class="badge badge-pill badge-success">Activo</span></td>
+				      <th scope="row"><%=fila++ %></th>
+				      <td><%=e.getLegajo() %></td>
+				      <td><%=e.getApellido() %></td>
+				      <td><%=e.getNombre() %></td>
+				      <td><%=e.getDni() %></td>
+				      <td><%=e.getPuesto().getNombre() %></td>
+				      <td><span class="badge badge-pill badge-success"><%=e.getEstadoEmpleado().getNombre() %></span></td>
 				      <td class="actions text-center">
-				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/empleados/index.jsp?action=eliminarEmpleado&legajo=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Web/Private?action=verEmpleado&legajo=<%=e.getLegajo() %>" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Web/empleados/crearEmpleado.jsp?id=<%=e.getLegajo() %>" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="/Web/empleados/index.jsp?action=eliminarEmpleado&legajo=<%=e.getLegajo() %>" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>607105</td>
-				      <td>Basteiro</td>
-				      <td>Fernando</td>
-				      <td>33004993</td>
-				      <td>Repositor</td>
-				      <td><span class="badge badge-pill badge-warning">Licencia Paga</span></td>
-				      <td class="actions text-center">
-				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/empleados/index.jsp?action=eliminarEmpleado&legajo=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
-				      </td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>608105</td>
-				      <td>Fossati</td>
-				      <td>Federico</td>
-				      <td>30004693</td>
-				      <td>Supervisor</td>
-				      <td><span class="badge badge-pill badge-info">Desvinculado</span></td>
-				      <td class="actions text-center">
-				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/empleados/index.jsp?action=eliminarEmpleado&legajo=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
-				      </td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>609405</td>
-				      <td>Montero</td>
-				      <td>Tomás</td>
-				      <td>30004693</td>
-				      <td>Supervisor</td>
-				      <td><span class="badge badge-pill badge-info">Desvinculado</span></td>
-				      <td class="actions text-center">
-				      	<a href="/Web/empleados/verEmpleado.jsp?id=0" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/empleados/crearEmpleado.jsp?id=0" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/empleados/index.jsp?action=eliminarEmpleado&legajo=0" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
-				      </td>
-				    </tr>
+				    <% } %>
 				  </tbody>
 				</table>
 			</div>
@@ -155,3 +121,4 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 	</div><!-- container -->
 </main>
 <jsp:include page="../includes/footer.jsp"/>
+<% } %>
