@@ -7,7 +7,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 	<div class="container">
 		<div class="row">
 			<div class="col col-xs-12">
-				<h2 class="d-inline">Administrar Productos</h2>
+				<h2 class="d-inline"><i class="fas fa-boxes mr-3 text-warning"></i>Administrar Productos</h2>
 				<a href="/Web/productos/crearProducto.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo producto</a>
 				<hr/>
 			</div>
