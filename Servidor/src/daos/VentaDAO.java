@@ -131,7 +131,7 @@ public class VentaDAO {
 		e.setTotal(ee.getTotal());
 		e.setMedioDePago(MedioDePago.TARJETA_DEBITO);
 		e.setNroOperacion(ee.getNroOperacion());
-		e.setUltimos4DigitosTarjeta(Integer.parseInt(ee.getNumeroTarjeta().substring(12,15)));
+		e.setUltimos4DigitosTarjeta(Integer.parseInt(ee.getNumeroTarjeta().substring(ee.getNumeroTarjeta().length()-4,ee.getNumeroTarjeta().length())));
 		 		 			
 		return e;
 		
