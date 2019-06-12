@@ -229,7 +229,7 @@
 							</div>
 							<input type="number" min="0" name="creditoCodigoSeguridad"
 								id="creditoCodigoSeguridad" class="form-control"
-								placeholder="000" />
+								placeholder="000" autocomplete="off"/>
 						</div>
 					</div>
 					<div class="form-group col-sm-8">

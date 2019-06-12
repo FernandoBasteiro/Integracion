@@ -64,6 +64,15 @@ public class ControladorEmpleados {
 							empleado.getNacionalidad(), empleado.getPassword(), empleado.getSueldoBase(),
 							empleado.getHorasAsignadas(), empleado.getPuesto(), empleado.getCbu(),
 							empleado.getSession());
+					
+					//***********************************************
+					//TODO Alta caja de ahorro en la entidad bancaria
+					//***********************************************
+					
+					//***********************************************
+					//TODO Infomar CBU a liquidacion sueldos
+					//***********************************************
+					
 					nuevo.guardar();
 				} else
 					throw new ExcepcionProceso("Ya existe un empleado con ese número de DNI.");
@@ -80,6 +89,9 @@ public class ControladorEmpleados {
 				if (emp != null) {
 					if (e.getFechaEgreso()!=null) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
+						//*************************************************************
+						//TODO informar a liquidacion de sueldos para liquidacion final
+						//************************************************************
 					}
 					if (e.getPassword()!=null) {
 						emp.setPassword(e.getPassword());
@@ -170,7 +182,6 @@ public class ControladorEmpleados {
 				list = EmpleadoDAO.getinstance().getEmpleadosByPuestoAndEstado(p, est);
 				for (Empleado e : list)
 					listDTO.add(e.getDTO());
-
 				return listDTO;
 			} else
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
@@ -184,7 +195,29 @@ public class ControladorEmpleados {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(empleado.getLegajo());
 				if (emp != null) {
-					emp.guardar();
+					emp.setEstadoEmpleado(EstadoEmpleado.ANULADO);
+					emp.setFechaEgreso(LocalDate.now());
+					emp.guardar();					
+				} else
+					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
+			} else
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		} else
+			throw new UsuarioNoLogueado("Usuario no logueado.");
+	}
+	
+	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado, Boolean lic_paga, Integer dias)
+			throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
+		if (estaLogueado(gerente)) {
+			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(empleado.getLegajo());
+				if (emp != null) {
+					//**************************************
+					//TODO llamar a LiqSueldo con Novedad
+					//***************************************
+					ControladorVentas.getInstance().getCuit();
+					emp.getDni(); //es el CUIL del empleado			
+					
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
 			} else

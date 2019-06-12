@@ -40,6 +40,8 @@ public interface InterfazRemota extends Remote {
 	public VentaDTO mostrarFactura (EmpleadoDTO gerente, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	  
 	public VentaDTO generarVenta(EmpleadoDTO cajero, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
+	public void anularFactura(EmpleadoDTO g, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
+	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;
 	
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;

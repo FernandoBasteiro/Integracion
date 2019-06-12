@@ -206,4 +206,21 @@ public class BusinessDelegate {
 		}
 	}
 	
+	public void anularFactura(EmpleadoDTO g, VentaDTO v) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos, ComunicacionException {
+		try {
+			ir.anularFactura(g, v);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+	
+	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos {
+		try {
+			ir.marcarFacturasCobradas(g, periodo);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+	
+	
 }

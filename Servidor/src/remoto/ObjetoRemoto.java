@@ -138,12 +138,20 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		ControladorProductos.getInstancia().actualizarStock(supervisor, p);
 	}
 
-
-	
 	@Override
 	public ProductoDTO mostrarProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
-				// TODO Auto-generated method stub
 		return ControladorProductos.getInstancia().mostrarProducto(supervisor, p);
+	}
+
+	@Override
+	public void anularFactura(EmpleadoDTO g, VentaDTO v)
+			throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		ControladorVentas.getInstance().anularFactura(g, v);
+	}
+
+	@Override
+	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos {
+		ControladorVentas.getInstance().marcarFacturasCobradas(g, periodo);
 	}
 	
 }
