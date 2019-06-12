@@ -1,16 +1,15 @@
 <%@ page import="dto.ProductoDTO"%>
-<jsp:include page="../includes/header.jsp"/>
 <%
-// url:  /private?action=verProducto&codigo=request.getParameter("codigo")
 ProductoDTO prod = (ProductoDTO) request.getAttribute("producto");
 %>
+<jsp:include page="../includes/header.jsp"/>
 <main role="main">
 	<div class="container">
 		<div class="row">
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left">Ver producto</h2>
 				<a href="/Web/productos/index.jsp" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
-				<a href="/Web/productos/crearProducto.jsp?id=0" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
+				<a href="/Web/Private?action=crearProducto&codigo=<%=prod.getCodigo()%>" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
 				<hr/>
 			</div>
 		</div>

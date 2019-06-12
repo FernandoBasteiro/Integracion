@@ -1,32 +1,31 @@
 package remoto;
 
 import java.rmi.RemoteException;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.rmi.server.UnicastRemoteObject;
 
+import controladores.ControladorEmpleados;
 import dto.EmpleadoDTO;
-import dto.FacturaDTO;
-import dto.ProductoDTO;
-import enumeraciones.EstadoEmpleado;
-import enumeraciones.EstadoFactura;
-import enumeraciones.MedioDePago;
-import enumeraciones.Puesto;
+import excepciones.ExcepcionProceso;
+import excepciones.UsuarioNoLogueado;
+import excepciones.UsuarioSinPermisos;
 import interfaces.InterfazRemota;
 
-public class ObjetoRemoto implements InterfazRemota {
+public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota {
+	
+	private static final long serialVersionUID = -1715957252381957302L;
+
+	public ObjetoRemoto() throws RemoteException {}
 
 	@Override
-	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws RemoteException, UsuarioNoLogueado {
+		return ControladorEmpleados.getInstance().iniciarSesion(e);
 	}
 
 	@Override
-	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
+		ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
 	}
-
+	/*
 	@Override
 	public void modificacionEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException {
 		// TODO Auto-generated method stub
@@ -69,7 +68,7 @@ public class ObjetoRemoto implements InterfazRemota {
 		// TODO Auto-generated method stub
 		
 	}
-
+/**
 	@Override
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) throws RemoteException {
 		// TODO Auto-generated method stub
@@ -144,5 +143,5 @@ public class ObjetoRemoto implements InterfazRemota {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	*/
 }

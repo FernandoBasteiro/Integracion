@@ -48,7 +48,7 @@ public class ControladorEmpleados {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByDni(empleado.getDni());
 				if (emp == null) {
-					Empleado nuevo = new Empleado(empleado.getNombre(), empleado.getApellido(), empleado.getDni(), empleado.getDomicilio(), empleado.getTelefono(), empleado.getEmail(), empleado.getEstadoCivil(), empleado.getGenero(), empleado.getFechaNacimiento(), empleado.getFechaIngreso(), empleado.getFechaEgreso(), empleado.getEstadoEmpleado(), empleado.getNacionalidad(), empleado.getPassword(), empleado.getSueldoBase(), empleado.getHorasAsignadas(), empleado.getPuesto(), empleado.getCbu(), empleado.getSession());
+					Empleado nuevo = new Empleado(empleado.getNombre(), empleado.getApellido(), empleado.getDni(), empleado.getDomicilio(), empleado.getTelefono(), empleado.getEmail(), empleado.getEstadoCivil(), empleado.getGenero(), ConversorFechas.convertJavaToJoda(empleado.getFechaNacimiento()), ConversorFechas.convertJavaToJoda(empleado.getFechaIngreso()), ConversorFechas.convertJavaToJoda(empleado.getFechaEgreso()), empleado.getEstadoEmpleado(), empleado.getNacionalidad(), empleado.getPassword(), empleado.getSueldoBase(), empleado.getHorasAsignadas(), empleado.getPuesto(), empleado.getCbu(), empleado.getSession());
 					nuevo.guardar();
 				}
 				else throw new ExcepcionProceso("Ya existe un empleado con ese número de DNI.");
