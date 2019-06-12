@@ -50,10 +50,13 @@ public class ControladorVentas {
 				
 				ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();
 				for (ItemVentaDTO id : v.getItems()) {
-						Producto p = ProductoDAO.getinstance().getProductoByCodigo(id.getProducto().getCodigo());
-						p.getStock().descontarStock(id.getCantidad());
-						ItemVenta i = new ItemVenta(p, id.getPrecio(), id.getCantidad());
-						items.add(i);
+						ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(id.getProducto().getCodigo());
+						if (prods != null) {
+							Producto p = prods.get(0);
+							p.getStock().descontarStock(id.getCantidad());
+							ItemVenta i = new ItemVenta(p, id.getPrecio(), id.getCantidad());
+							items.add(i);
+						}
 				}
 				
 				//Ver tipo de VENTA

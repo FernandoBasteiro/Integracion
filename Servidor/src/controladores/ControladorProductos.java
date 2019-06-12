@@ -1,18 +1,17 @@
 package controladores;
 
 import java.util.ArrayList;
-
 import daos.ProductoDAO;
 import daos.VentaDAO;
 import dto.EmpleadoDTO;
 import dto.ProductoDTO;
-import dto.VentaDTO;
 import enumeraciones.Puesto;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Producto;
 import negocio.Venta;
+
 
 public class ControladorProductos {
 	
@@ -60,7 +59,18 @@ public class ControladorProductos {
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 	
-	public ProductoDTO mostrarProducto(EmpleadoDTO supervisor, ProductoDTO p) {
-		return new ProductoDTO();
+	public ProductoDTO mostrarProducto(EmpleadoDTO supervisor, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
+			if (supervisor.getPuesto().getId() >= Puesto.CAJERO.getId()) {
+				ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
+				if (prods != null) {
+					return prods.get(0).getDTO();
+				}
+				else throw new ExcepcionProceso("No existen productos con esos criterios.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}
+		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
+	
 }
