@@ -157,6 +157,7 @@ public class VentaDAO {
 		e.setMedioDePago(MedioDePago.TARJETA_CREDITO);
 		e.setNroOperacion(ee.getNroOperacion());
 		e.setUltimos4DigitosTarjeta(Integer.parseInt(ee.getNumeroTarjeta().substring(13,16)));
+		e.setCantCuotas(ee.getCantCuotas());
 		 			
 		return e;
 		
