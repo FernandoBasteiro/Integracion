@@ -1,6 +1,7 @@
 package negocio;
 
 import dto.ProductoDTO;
+import dto.StockDTO;
 
 public class Producto {
 	private Integer codigo;
@@ -70,10 +71,8 @@ public class Producto {
 		this.stock.devolverStock(cant);
 	}
 	
-	
 	public ProductoDTO getDTO() {
-		//TODO ENVIAR PARAMETROS 
-		return new ProductoDTO();
+		return new ProductoDTO(this.codigo, this.nombre, this.descripcion, this.presentacion, this.precio, this.stock.getDTO());
 	}
 	
 	

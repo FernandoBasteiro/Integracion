@@ -28,7 +28,7 @@ public class ControladorProductos {
 		
 	}
 	
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) {
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		//TODO ProductoDTO puede ser null, se devuelve todos los productos. 
 		//Puede tener nombre, se devuelven todos los productos que coincidan con el nombre. 
 		//O puede tener un codigo, te devuelve un array con el producto de ese codigo.
@@ -36,30 +36,29 @@ public class ControladorProductos {
 		
 		if (ControladorEmpleados.getInstance().estaLogueado(cajero)) {
 			if (cajero.getPuesto().getId() >= Puesto.CAJERO.getId()) {
-				ArrayList<Producto> prods;
+				ArrayList<Producto> prods = null;
 				if (p == null) {
 					prods = ProductoDAO.getinstance().getProductos();
-				} if (!empty(p.getNombre) {
-					
-					
+				} 
+				if (p.getNombre() != null) {
+					prods = ProductoDAO.getinstance().getProductoByNombre(p.getNombre());
 				}
-				
-				
-				if (ventas != null) {
-					ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
-					for (Venta v: ventas) {
-						vtas.add(v.getDTO());
+				if (p.getCodigo() != null) {
+					prods = ProductoDAO.getinstance().getProductoByNombre(p.getNombre());
+				}
+								
+				if (prods != null) {
+					ArrayList<ProductoDTO> prodsDTO = new ArrayList<ProductoDTO> ();
+					for (Producto r: prods) {
+						prodsDTO.add(r.getDTO());
 					}
-					return vtas;
+					return prodsDTO;
 				}
-				else throw new ExcepcionProceso("No existen ventas con esos criterios.");								
+				else throw new ExcepcionProceso("No existen productos con esos criterios.");								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
-		
-		
-		return new ArrayList<ProductoDTO>();
 	}
 	
 	public ProductoDTO mostrarProducto(EmpleadoDTO supervisor, ProductoDTO p) {
