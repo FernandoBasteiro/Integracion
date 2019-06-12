@@ -54,7 +54,7 @@ public class ControladorVentas {
 						if (prods != null) {
 							Producto p = prods.get(0);
 							p.getStock().descontarStock(id.getCantidad());
-							ItemVenta i = new ItemVenta(p, id.getPrecio(), id.getCantidad());
+							ItemVenta i = new ItemVenta(p, p.getPrecio(), id.getCantidad());
 							items.add(i);
 						}
 				}
