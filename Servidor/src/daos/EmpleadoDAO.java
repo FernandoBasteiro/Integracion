@@ -171,7 +171,7 @@ public class EmpleadoDAO {
 		}
 		//carga parametro de estado empleado
 		if (p2 >= 0) {
-			q.setParameter(p2,e);
+			q.setParameter(p2,e); 
 		}
 			
 		@SuppressWarnings("unchecked")
