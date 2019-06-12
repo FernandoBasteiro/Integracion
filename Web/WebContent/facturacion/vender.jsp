@@ -18,7 +18,8 @@
 	</div>
 	<div class="row">
 		<div class="col col-xs-12 menu-filtro">
-			<form method="post" action="?" id="formVenta">
+			<form method="post" action="/Web/Private" id="formVenta">
+			<input type="hidden" name="action" value="facturar"/>
 				<div class="form-row">
 					<div class="form-group col-sm-6">
 						<div class="input-group">
@@ -92,7 +93,7 @@
 							<tfoot>
 								<tr class="table-active">
 									<th colspan="6" class="text-right ">Total</th>
-									<th>$260.00</th>
+									<th id="totalVenta"></th>
 								</tr>
 							</tfoot>
 						</table>
@@ -271,7 +272,7 @@
 				</div>
 				<div class="form-row">
 					<div class="form-group col-sm-12 text-right">
-						<button class="btn btn-success">
+						<button class="btn btn-success" type="submit">
 							<i class="fas fa-file-invoice-dollar mr-2"></i>Generar Factura
 						</button>
 					</div>
