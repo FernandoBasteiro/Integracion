@@ -2,9 +2,12 @@ package remoto;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import controladores.ControladorEmpleados;
 import dto.EmpleadoDTO;
+import enumeraciones.EstadoEmpleado;
+import enumeraciones.Puesto;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
@@ -25,42 +28,69 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
 	}
-	/*
+	
 	@Override
 	public void modificacionEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException {
-		// TODO Auto-generated method stub
+		try {
+			ControladorEmpleados.getInstance().modificacionEmpleado(gerente, empleado);
+		} catch (UsuarioNoLogueado | UsuarioSinPermisos | ExcepcionProceso e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public void bajaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException {
-		// TODO Auto-generated method stub
+		try {
+			ControladorEmpleados.getInstance().eliminarEmpleado(gerente, empleado);
+		} catch (UsuarioNoLogueado | UsuarioSinPermisos | ExcepcionProceso e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public EmpleadoDTO mostrarFichaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException {
-		// TODO Auto-generated method stub
+		try {
+			ControladorEmpleados.getInstance().mostrarFichaEmpleado(gerente, empleado);
+		} catch (UsuarioSinPermisos | ExcepcionProceso | UsuarioNoLogueado e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI(EmpleadoDTO gerente, String dni) throws RemoteException {
-		// TODO Auto-generated method stub
+		try {
+			ControladorEmpleados.getInstance().listarEmpleadoPorDNI(gerente, dni);
+		} catch (ExcepcionProceso | UsuarioSinPermisos | UsuarioNoLogueado e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo(EmpleadoDTO gerente, Integer leg) throws RemoteException {
-		// TODO Auto-generated method stub
+		try {
+			ControladorEmpleados.getInstance().listarEmpleadoPorLegajo(gerente, leg);
+		} catch (ExcepcionProceso | UsuarioSinPermisos | UsuarioNoLogueado e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public ArrayList<EmpleadoDTO> listarEmpleados(EmpleadoDTO gerente, Puesto p, EstadoEmpleado e)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+			throws RemoteException, ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
+		
+		return ControladorEmpleados.getInstance().listarEmpleados(gerente, p, e);
+		
+	
 	}
 
 	@Override

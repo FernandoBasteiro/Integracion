@@ -35,7 +35,7 @@ public class testTomi {
 		
 		//ARMO EL EMPLEADO NUEVO PARA AGREGAR
 		EmpleadoDTO empleado = new EmpleadoDTO();
-		empleado.setApellido("AgregadoPorGerente2");
+		empleado.setApellido("AgregadoEnTestTomi");
 		empleado.setCbu("1234");
 		empleado.setDni("12333");
 		empleado.setDomicilio("BASSS");
@@ -63,10 +63,21 @@ public class testTomi {
 		gerente=BusinessDelegate.getInstance().iniciarSesion(gerente);
 	
 		//AGREGO EMPLEADO
-	//	BusinessDelegate.getInstance().altaEmpleado(gerente, empleado);
+		//BusinessDelegate.getInstance().altaEmpleado(gerente, empleado);
 		
 		
+		//Elimino EMPLEADO 
+		/**
+		EmpleadoDTO empleado2 = new EmpleadoDTO();
+		empleado2.setLegajo(4);
+		empleado2.setDni("12");
+		BusinessDelegate.getInstance().bajaEmpleado(gerente, empleado2);*/
 		
+		
+		for( EmpleadoDTO e : BusinessDelegate.getInstance().listarEmpleados(gerente, Puesto.GERENTE, EstadoEmpleado.ACTIVO))
+		{
+			System.out.println(e.getApellido());
+		}
 		
 		
 		
