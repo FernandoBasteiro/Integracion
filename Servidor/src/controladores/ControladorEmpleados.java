@@ -184,8 +184,8 @@ public class ControladorEmpleados {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(empleado.getLegajo());
 				if (emp != null) {
-					emp.setEstadoEmpleado(empleado.getEstadoEmpleado());
-					emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(empleado.getFechaEgreso()));
+					emp.setEstadoEmpleado(EstadoEmpleado.ANULADO);
+					emp.setFechaEgreso(LocalDate.now());
 					emp.guardar();
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
