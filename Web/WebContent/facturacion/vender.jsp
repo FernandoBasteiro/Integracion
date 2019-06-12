@@ -58,25 +58,24 @@
 					    </div>
 					    <input type="hidden" class="form-control" id="codigo-producto" name="codigoProductoAutocomplete" value="" type="number" readonly>
 				    </div>
-					<!-- items (codigo producto, cantidad) -->
 					<div class="form-group col-sm-4">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<label class="input-group-text" for="cantidadProducto">Cantidad</label>
 							</div>
-							<input type="number" min="0" name="cantidadProducto" value="1"
+							<input type="number" min="1" id="cantidad-producto" name="cantidadProducto" value="1"
 								class="form-control" />
 						</div>
 					</div>
 					<div class="form-group col-sm-2">
-						<button class="btn btn-success btn-block" type="button">
+						<button id="agregarProducto" class="btn btn-success btn-block" type="button">
 							<i class="fas fa-plus mr-2"></i>Agregar producto
 						</button>
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="col col-xs-12">
-						<table class="table">
+						<table class="table" id="listadoItemVenta">
 							<thead>
 								<tr>
 									<th scope="col">#</th>
@@ -89,36 +88,6 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>12345322</td>
-									<td>Coca-Cola</td>
-									<td>Botella 500ml</td>
-									<td>2</td>
-									<td>$40.00</td>
-									<td>$80.00</td>
-									<input type="hidden" name="items[]" value="[12345322,2]" />
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>23423424</td>
-									<td>Gatorade</td>
-									<td>Botella 1lt</td>
-									<td>1</td>
-									<td>$80.00</td>
-									<td>$80.00</td>
-									<input type="hidden" name="items[]" value="[23423424,1]" />
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>55454434</td>
-									<td>Tomate</td>
-									<td>Bolsa 5kg</td>
-									<td>1</td>
-									<td>$100.00</td>
-									<td>$100.00</td>
-									<input type="hidden" name="items[]" value="[55454434,1]" />
-								</tr>
 							</tbody>
 							<tfoot>
 								<tr class="table-active">

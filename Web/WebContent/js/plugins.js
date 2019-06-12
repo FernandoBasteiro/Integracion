@@ -75,7 +75,7 @@ if ($('#productoAutocomplete').length) {
 
 	(function() {
 		"use strict";
-		var cities = [ {
+		const productos = [ {
 			"id" : 1,
 			"nombreProducto" : "Amsterdam"
 		}, {
@@ -358,7 +358,7 @@ if ($('#productoAutocomplete').length) {
 														response) {
 													var _regexp = new RegExp(
 															request.term, 'i');
-													var data = cities
+													var data = productos
 															.filter(function(
 																	item) {
 																return item.nombreProducto
@@ -399,5 +399,21 @@ if ($('#productoAutocomplete').length) {
 							};
 							// end autocomplete
 						});
+		var listadoVenta = $('#listadoItemVenta');
+		var index = 1;
+
+		$('#agregarProducto').on('click', function(e){
+			e.preventDefault();
+			var codProd = parseInt($('#codigo-producto').val());
+			var cantProd = parseInt($('#cantidad-producto').val());
+			if (isNaN(codProd) || isNaN(cantProd)) return;
+			var prod = productos.find(producto => producto.id === codProd);
+			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.id+'</td><td>'+prod.id+'</td><td>Botella 500ml</td><td>'+cantProd+'</td><td>$40.00</td><td>$'+cantProd+'</td><input type="hidden" name="items[]" value="[12345322,2]" /></tr>')
+			listadoVenta.find('tbody').append(itemVta);
+			index++;
+			$('#codigo-producto, #buscarProducto').val('');
+			$('#cantidad-producto').val('1');
+			
+		})
 	})();
 }
