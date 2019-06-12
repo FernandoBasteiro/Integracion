@@ -15,6 +15,19 @@ import negocio.Venta;
 
 public class ControladorProductos {
 	
+	private static ControladorProductos instancia;
+	
+	private ControladorProductos() {}
+	
+	public static ControladorProductos getInstancia() {
+		if (instancia == null) {
+			instancia = new ControladorProductos();
+		}
+		return instancia;
+	}
+	
+	
+	
 	public void cargarProdtuco(EmpleadoDTO supervisor, ProductoDTO p) {
 		
 	}
