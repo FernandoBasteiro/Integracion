@@ -89,6 +89,9 @@ public class ControladorEmpleados {
 				if (emp != null) {
 					if (e.getFechaEgreso()!=null) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
+						//*************************************************************
+						//TODO informar a liquidacion de sueldos para liquidacion final
+						//************************************************************
 					}
 					if (e.getPassword()!=null) {
 						emp.setPassword(e.getPassword());
