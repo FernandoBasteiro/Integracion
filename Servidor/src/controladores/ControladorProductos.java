@@ -27,7 +27,7 @@ public class ControladorProductos {
 		
 	}
 	
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws UsuarioNoLogueado, UsuarioSinPermisos {
 		//TODO ProductoDTO puede ser null, se devuelve todos los productos. 
 		//Puede tener nombre, se devuelven todos los productos que coincidan con el nombre. 
 		//O puede tener un codigo, te devuelve un array con el producto de ese codigo.
@@ -44,15 +44,12 @@ public class ControladorProductos {
 				if (p.getCodigo() != null) {
 					prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
 				}
-								
-				if (prods != null) {
-					ArrayList<ProductoDTO> prodsDTO = new ArrayList<ProductoDTO> ();
-					for (Producto r: prods) {
-						prodsDTO.add(r.getDTO());
-					}
-					return prodsDTO;
-				}
-				else throw new ExcepcionProceso("No existen productos con esos criterios.");								
+
+				ArrayList<ProductoDTO> prodsDTO = new ArrayList<ProductoDTO> ();
+				for (Producto r: prods)
+					prodsDTO.add(r.getDTO());
+
+				return prodsDTO;		
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
