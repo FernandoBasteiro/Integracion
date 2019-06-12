@@ -150,7 +150,7 @@ public class EmpleadoDAO {
 		//Info de puesto
 		if (p != null) {
 			p1 = 0;
-			q1 = "where puesto = ?";	
+			q1 = " where puesto = ?";	
 		}
 		//info de estado empleado
 		if (e != null) {
@@ -163,15 +163,15 @@ public class EmpleadoDAO {
 			}
 		}
 		
-
-		Query q = session.createQuery(query + q1 + q2 );
+		query = query + q1 + q2;
+		Query q = session.createQuery(query);
 		//carga parametro de puesto
 		if (p1 >= 0) {
 			q.setParameter(p1,p);
 		}
 		//carga parametro de estado empleado
 		if (p2 >= 0) {
-			q.setParameter(p2,e.getNombre());
+			q.setParameter(p2,e);
 		}
 		
 		

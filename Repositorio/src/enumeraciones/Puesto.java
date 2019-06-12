@@ -1,6 +1,8 @@
 package enumeraciones;
 
-public enum Puesto {
+import java.io.Serializable;
+
+public enum Puesto{
 	REPOSITOR (1, "Repositor"),
 	SEGURIDAD (2, "Seguridad"),
 	CAJERO (3, "Cajero"),

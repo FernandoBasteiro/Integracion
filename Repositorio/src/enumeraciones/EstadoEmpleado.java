@@ -1,5 +1,7 @@
 package enumeraciones;
 
+import java.io.Serializable;
+
 public enum EstadoEmpleado {
 	ACTIVO (1, "Activo"),
 	LICENCIA_PAGA (2, "Licencia Paga"),
