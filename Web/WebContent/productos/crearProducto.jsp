@@ -1,7 +1,7 @@
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
 	<div class="container">
-		<form action="?" method="post" enctype="multipart/form-data">
+		<form action="?" method="post">
 			<input type="hidden" name="action" value="crearProducto"/>
 			<div class="form-row">
 				<div class="form-group col-sm-12 text-right">
