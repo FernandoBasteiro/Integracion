@@ -23,7 +23,7 @@ $(function(){
 					},
 					error: function(jqXHR,textStatus,errorThrown){
 						console.log(jqXHR,textStatus,errorThrown);
-						alert(errorThrown)
+						alert(jqXHR,textStatus,errorThrown)
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
