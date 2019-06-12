@@ -42,7 +42,7 @@ public class ControladorVentas {
 		return instance;
 	}
 	
-	public void generarVenta(EmpleadoDTO c, VentaDTO v) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+	public VentaDTO generarVenta(EmpleadoDTO c, VentaDTO v) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		if (ControladorEmpleados.getInstance().estaLogueado(c)) {
 			if (c.getPuesto().getId() >= Puesto.CAJERO.getId()) {
 				
@@ -62,47 +62,61 @@ public class ControladorVentas {
 				//Ver tipo de VENTA
 				switch (v.getMedioDePago()) {
 					case EFECTIVO:
-						generarVentaEfectivo(v, items, emp);
+						v = generarVentaEfectivo(v, items, emp);
 						break;
 					case TARJETA_DEBITO:
+						//TODO llamar al BANCO
+						v.setAprobada(true);
+						v.setNroOperacion(123456);
 						if (v.getAprobada()) {
-							generarVentaTD(v, items, emp);
+							v = generarVentaTD(v, items, emp);
 						}
 						else throw new ExcepcionProceso("Error TD. Venta no aprobada.");
 						break;
 					case TARJETA_CREDITO:
+						//TODO llamar a CREDITOS
+						v.setAprobada(true);
+						v.setNroOperacion(456789);
 						if (v.getAprobada()) {
-							generarVentaTC(v, items, emp);
+							v = generarVentaTC(v, items, emp);
 						}
 						else throw new ExcepcionProceso("Error TC. Venta no aprobada.");
 						break;
 					default: 
 						throw new ExcepcionProceso("Medio de pago inválido.");
 				}
+				return v;
 			}
 			else throw new ExcepcionProceso("Error al generar una venta.");
 		}
 		else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
 	}	
 	
-	private void generarVentaEfectivo(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {			
+	private VentaDTO generarVentaEfectivo(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {			
 		VentaEfectivo vta = new VentaEfectivo(LocalDate.now(), items, emp, EstadoVenta.COBRADA, vd.getTotal(), 
 				vd.getMontoRecibido(), vd.getVuelto(), vd.getTipoFact(), vd.getCuit(), LocalDate.now());
 		VentaDAO.getinstance().add(vta);
+		vd.setVuelto(vta.calcularVuelto());
+		vd.setTotal(vta.calcularTotal());
+		return vd;
 	}
 	
-	private void generarVentaTD(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {	
+	private VentaDTO generarVentaTD(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {	
 		VentaTarjetaDebito vta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, vd.getTotal(), vd.getNumeroTarjeta(),
 				vd.getCodigoSeguridad(), vd.getNombre(), vd.getDni(), vd.getFechaVto(), vd.getNroOperacion(), vd.getAprobada(),
 				vd.getPin(), vd.getTipoCuenta(), vd.getTipoFact(), vd.getCuit(), null);
 		VentaDAO.getinstance().add(vta);
+		vd.setTotal(vta.calcularTotal());
+		return vd;
 	}
 	
-	private void generarVentaTC(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {	
+	private VentaDTO generarVentaTC(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {	
 		VentaTarjetaCredito vta = new VentaTarjetaCredito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, vd.getTotal(), 
 				vd.getNumeroTarjeta(), 	vd.getCodigoSeguridad(), vd.getNombre(), vd.getDni(), vd.getFechaVto(), 
 				vd.getNroOperacion(), vd.getAprobada(), vd.getCantCuotas(), vd.getTipoFact(), vd.getCuit(), null);
 		VentaDAO.getinstance().add(vta);
+		vd.setTotal(vta.calcularTotal());
+		return vd;
 	}
 	
 	public void marcarFacturaCobrada(EmpleadoDTO g, VentaDTO v) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {

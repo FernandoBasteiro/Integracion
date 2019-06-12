@@ -125,6 +125,14 @@ public abstract class Venta {
 		return itemsDTO;
 	}
 	
+	public float calcularTotal () {
+		float sum = 0;
+		for (ItemVenta i : items) {
+			sum += i.getPrecio();
+		}
+		return sum;
+	}
+	
 	public abstract VentaDTO getDTO();
 	public abstract void grabar();
 }

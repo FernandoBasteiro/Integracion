@@ -121,9 +121,12 @@ public class VentaTarjetaDebito extends Venta {
 				this.tipoFact, this.cuit, ConversorFechas.convertJodaToJava(this.fechaCobro)); //Datos Factura
 	}
 
+<<<<<<< HEAD
 	@Override
 	public void grabar() {
 		VentaDAO.getinstance().add(this);
 	}
 	
+=======
+>>>>>>> refs/remotes/origin/Fede
 }
