@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
+import dto.ProductoDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Genero;
@@ -107,12 +108,23 @@ public class testTomi {
 		//ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
 		
 		
+/**
+ * 
+ * 
+ * 
+ * 
+ *    PRODUCTOS 
+ */
+		ProductoDTO prod = new ProductoDTO();
+		prod.setNombre("Tallar");
+		//prod.setCodigo(1234567);
+		ArrayList<ProductoDTO> productos = new ArrayList<ProductoDTO>();
+		productos=BusinessDelegate.getInstance().listarProductos(gerente, prod);
+		
+		for(ProductoDTO p : productos) {
+			System.out.println(p.getNombre());
 
-		
-		
-		
-		
-		
+		}
 		
 		System.out.println("Bien");
 

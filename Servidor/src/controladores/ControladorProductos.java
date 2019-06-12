@@ -51,13 +51,14 @@ public class ControladorProductos {
 				if (p == null) {
 					prods = ProductoDAO.getinstance().getProductos();
 				} 
-				if (p.getNombre() != null) {
-					prods = ProductoDAO.getinstance().getProductoByNombre(p.getNombre());
+				else {
+					if (p.getNombre() != null) {
+						prods = ProductoDAO.getinstance().getProductoByNombre(p.getNombre());
+					}
+					if (p.getCodigo() != null) {
+						prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
+					}
 				}
-				if (p.getCodigo() != null) {
-					prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
-				}
-
 				ArrayList<ProductoDTO> prodsDTO = new ArrayList<ProductoDTO> ();
 				for (Producto r: prods)
 					prodsDTO.add(r.getDTO());

@@ -94,7 +94,7 @@ public class Dummy {
 			
 			System.out.println("Empleado "+i+": "+e.getApellido()+" - Estado: "+e.getEstadoEmpleado().toString());
 			i++;
-		}*/
+		}
 		
 		
 		Empleado empleado = new Empleado();
@@ -139,8 +139,16 @@ public class Dummy {
 		//ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
 		
 		
-
-		
+		stock.setCantidadDisponible(11);
+		stock.setCantidadMinimo(44);
+		stock.setCantidadTotal(66);
+		producto.setCodigo(1010);
+		producto.setDescripcion("Tallarines Luchetti");
+		producto.setNombre("Tallarines");
+		producto.setPrecio((float)466.3);
+		producto.setPresentacion("Grandes");
+		producto.setStock(stock);
+		ProductoDAO.getinstance().add(producto);
 		
 		
 		

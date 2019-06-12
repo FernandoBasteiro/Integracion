@@ -66,7 +66,7 @@ public class StockDAO {
 		e.setCantidadMinimo(ee.getCantidadMinima());
 		e.setCantidadTotal(ee.getCantidadTotal());
 		e.setCantidadDisponible(ee.getCantidadDisponible());
-		return null;
+		return e;
 	}
 	
 }
