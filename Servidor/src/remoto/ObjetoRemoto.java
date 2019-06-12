@@ -5,7 +5,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import controladores.ControladorEmpleados;
+import controladores.ControladorProductos;
 import dto.EmpleadoDTO;
+import dto.ProductoDTO;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Puesto;
 import excepciones.ExcepcionProceso;
@@ -65,6 +67,11 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		// TODO Auto-generated method stub
 		
 	}
+
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos {
+		return ControladorProductos.getInstancia().listarProductos(cajero, p);
+	}
+
 /**
 	@Override
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) throws RemoteException {
@@ -130,11 +137,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public ProductoDTO mostrarProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException {
 		// TODO Auto-generated method stub

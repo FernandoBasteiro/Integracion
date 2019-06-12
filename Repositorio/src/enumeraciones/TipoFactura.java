@@ -17,4 +17,8 @@ public enum TipoFactura {
 	public String getNombre() {
 		return nombre;
 	}
+	public static TipoFactura fromId(Integer id) {
+		for (TipoFactura tf : TipoFactura.values()) if (tf.getId() == id) return tf;
+		return null;
+	}
 }

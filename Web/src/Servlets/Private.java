@@ -16,14 +16,12 @@ import javax.servlet.http.HttpSession;
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
 import dto.ProductoDTO;
-import dto.StockDTO;
-import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
-import enumeraciones.EstadoFactura;
 import enumeraciones.Genero;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
+import enumeraciones.TipoFactura;
 import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
@@ -89,6 +87,7 @@ public class Private extends HttpServlet {
 				Puesto puesto = (request.getParameter("puestoEmpleado") == null ? null : Puesto.fromId(Integer.valueOf(request.getParameter("puestoEmpleado"))));
 				Integer horas = (request.getParameter("horasEmpleado") == null ? null : Integer.valueOf(request.getParameter("horasEmpleado")));
 				LocalDate fechaIngreso = (request.getParameter("fechaIngresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaIngresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				LocalDate fechaEgreso = (request.getParameter("fechaEgresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaEgresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				Float sueldoBase = (request.getParameter("sueldoEmpleado") == null ? null : Float.valueOf(request.getParameter("sueldoEmpleado")));
 				String cbu = request.getParameter("cbuEmpleado");
 				String password = request.getParameter("passwordEmpleado");
@@ -106,6 +105,7 @@ public class Private extends HttpServlet {
 				nuevo.setPuesto(puesto);
 				nuevo.setHorasAsignadas(horas);
 				nuevo.setFechaIngreso(fechaIngreso);
+				nuevo.setFechaEgreso(fechaEgreso);
 				nuevo.setSueldoBase(sueldoBase);
 				nuevo.setCbu(cbu);
 				nuevo.setPassword(password);
@@ -266,13 +266,52 @@ public class Private extends HttpServlet {
 				medioPagoFactura
 				*/
 			/*
-			}
+			} */
 			else if (action.equals("vender")) {
-				//nada: todos los productos
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
+				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, new ProductoDTO());
+				request.setAttribute("listadoProductos", productos);
+				jspPage = "facturacion/vender.jsp";
 			}
 			else if (action.equals("facturar")) {
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
+				TipoFactura tf = TipoFactura.fromId(request.getParameter("tipoFactura") == null ? null : Integer.valueOf(request.getParameter("tipoFactura")));
+				String cuit = request.getParameter("cuitFactura");
+				//TODO
+				MedioDePago mdp = MedioDePago.fromId(request.getParameter("medioPago") == null ? null : Integer.valueOf(request.getParameter("medioPago")));
 				
-			}*/
+				Float montoPago = (request.getParameter("montoPago") == null ? null : Float.valueOf(request.getParameter("montoPago")));
+				
+				String numeroTarjetaDebito = request.getParameter("debitoTarjeta");
+				Integer legajo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
+				
+				
+				/*
+				tipoFactura (enum)
+				cuitFactura (String)
+				items (array de tuplas de codigo y cantidad)
+				medioPago
+				- Efectivo
+				montoPago
+				- Debito
+				debitoTarjeta
+				debitoCodigoSeguridad
+				debitoTitular
+				debitoDni
+				debitoVencimiento
+				debitoTipoCuenta
+				debitoPin
+				- Credito
+				creditoTarjeta
+				creditoCodigoSeguridad
+				creditoTitular
+				creditoDni
+				creditoVencimiento
+				creditoCuotas
+				 */
+			}
 		}
 		catch (UsuarioSinPermisos usp) {
 			jspPage = "index.jsp";

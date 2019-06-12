@@ -29,6 +29,8 @@ public interface InterfazRemota extends Remote {
 	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado;
 	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException;
 	
+	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;
+	
 	/**public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO v) throws RemoteException;
 	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws RemoteException;
 	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws RemoteException;
@@ -41,7 +43,6 @@ public interface InterfazRemota extends Remote {
 	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
-	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	*/
 }
