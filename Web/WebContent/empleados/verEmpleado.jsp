@@ -11,7 +11,7 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 	<div class="container">
 		<div class="row">
 			<div class="col col-xs-12 text-right">
-				<h2 class="d-inline float-left">Ver empleado</h2>
+				<h2 class="d-inline float-left"><i class="fas fa-user mr-3 text-primary"></i>Ver Empleado</h2>
 				<a href="/Web/Private?action=listarEmpleados" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 				<a href="/Web/Private?action=verEmpleado&modificar=true&legajo=<%=emp.getLegajo()%>" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
 				<hr/>
