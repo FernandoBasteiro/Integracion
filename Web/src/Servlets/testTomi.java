@@ -295,24 +295,28 @@ public class testTomi {
 		// PRODUCTOS -------------------------------------------------------------------------
 		
 		ProductoDTO p = new ProductoDTO();
-		p.setCodigo(1000);
+		p.setCodigo(1008);
+		p.setDescripcion("Cabellos grasos");
+		p.setNombre("Shampoo Dove");
+		p.setPrecio((float)67.9);
+		p.setPresentacion("Botella 1L");	
+		BusinessDelegate.getInstance().altaProducto(gerente, p);
+		
+		System.out.println("Producto Original:");
+
 		p=BusinessDelegate.getInstance().mostrarProducto(gerente, p);
-	
 		System.out.println(p.getNombre());
 		System.out.println(p.getPresentacion());
+		System.out.println(p.getPrecio());
+
+		p.setPrecio((float)51.4);
 		
+		BusinessDelegate.getInstance().modificacionProducto(gerente, p);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		System.out.println("Producto Nuevo:");
+		p=BusinessDelegate.getInstance().mostrarProducto(gerente, p);
+		System.out.println(p.getNombre());
+		System.out.println(p.getPresentacion());
 		
 		System.out.println("Bien");
 
