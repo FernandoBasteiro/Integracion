@@ -77,4 +77,26 @@
 	    <li class="breadcrumb-item active" aria-current="page">Nivel 2</li>
 	  </ol>
 	</nav>
-	<%} %>
+	<%}
+	String alertTitle="",message = "", className = "";
+	boolean showMessage = (request.getAttribute("success") != null || request.getAttribute("error") != null) ? true : false;
+	
+	if(request.getAttribute("success") != null){
+			alertTitle="Éxito!";
+			message = (String) request.getAttribute("success");
+			className = "alert-success";
+	}
+	if(request.getAttribute("error") != null){
+			alertTitle = "Error";
+			message = (String) request.getAttribute("error");
+			className = "alert-danger";
+	}
+	%>
+	<div class="container" id="notificationArea" <%=(!showMessage) ? "style='display:none'" : "" %>>
+		<div class="alert <%=className%> alert-dismissible fade <%=(showMessage) ? "show" : "" %>" role="alert">
+		  <strong><%=alertTitle%>!</strong> <%=message%>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+	</div>
