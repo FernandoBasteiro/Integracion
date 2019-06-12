@@ -28,13 +28,13 @@ public class ProductoEntity {
 	private Integer codigo;
 	
 
-	@Column (columnDefinition = "varchar()", nullable = true)
+	@Column (nullable = true)
 	private String nombre;
 	
-	@Column (columnDefinition = "varchar()", nullable = true)
+	@Column (nullable = true)
 	private String descripcion;
 	
-	@Column (columnDefinition = "varchar()", nullable = true)
+	@Column ( nullable = true)
 	private String presentacion;
 	
 	@Column(columnDefinition = "float", nullable=false)
