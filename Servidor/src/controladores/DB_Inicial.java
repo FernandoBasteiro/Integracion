@@ -17,7 +17,7 @@ public class DB_Inicial {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		empleados();
-		productos();
+		(productos();
 
 
 	}
@@ -153,6 +153,49 @@ public class DB_Inicial {
 		empleado.setNacionalidad("Argentino");
 		empleado.setPassword("1234");
 		empleado.setPuesto(Puesto.SUPERVISOR);
+		empleado.setSueldoBase((float)1000.3);
+		empleado.setTelefono("1567897665");
+		EmpleadoDAO.getinstance().add(empleado);
+		
+		//
+		empleado.setApellido("Juan");
+		empleado.setNombre("Segurola");
+		empleado.setCbu("12345678910");
+		empleado.setDni("32787333");
+		empleado.setDomicilio("Vicente Lopez");
+		empleado.setEstadoEmpleado(EstadoEmpleado.ACTIVO);
+		empleado.setEstadoCivil(EstadoCivil.SOLTERO);
+		empleado.setFechaIngreso(LocalDate.now());
+		empleado.setFechaEgreso(LocalDate.now());
+		empleado.setFechaNacimiento(LocalDate.now());
+		empleado.setGenero(Genero.MASCULINO);
+		empleado.setHorasAsignadas(10);
+		empleado.setEmail("j.segurola@uade");
+		empleado.setNacionalidad("Argentino");
+		empleado.setPassword("1234");
+		empleado.setPuesto(Puesto.SEGURIDAD);
+		empleado.setSueldoBase((float)1000.3);
+		empleado.setTelefono("1567897665");
+		EmpleadoDAO.getinstance().add(empleado);
+		
+		
+		//
+		empleado.setApellido("Ana");
+		empleado.setNombre("Repositovich");
+		empleado.setCbu("12345678910");
+		empleado.setDni("32787333");
+		empleado.setDomicilio("Capital Federal");
+		empleado.setEstadoEmpleado(EstadoEmpleado.ACTIVO);
+		empleado.setEstadoCivil(EstadoCivil.SOLTERO);
+		empleado.setFechaIngreso(LocalDate.now());
+		empleado.setFechaEgreso(LocalDate.now());
+		empleado.setFechaNacimiento(LocalDate.now());
+		empleado.setGenero(Genero.FEMENINO);
+		empleado.setHorasAsignadas(10);
+		empleado.setEmail("a.repo@uade");
+		empleado.setNacionalidad("Argentina");
+		empleado.setPassword("1234");
+		empleado.setPuesto(Puesto.REPOSITOR);
 		empleado.setSueldoBase((float)1000.3);
 		empleado.setTelefono("1567897665");
 		EmpleadoDAO.getinstance().add(empleado);
