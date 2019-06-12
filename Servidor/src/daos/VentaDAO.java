@@ -155,7 +155,7 @@ public class VentaDAO {
 		//Info de fecha
 		if (f != null) {
 			p1 = 0;
-			q1 = "where fechaVenta = ?";	
+			q1 = " where fechaVenta = ? ";	
 		}
 		//info de estado venta
 		if (e != null) {
@@ -180,24 +180,22 @@ public class VentaDAO {
 						p3 = 0;
 						q3 = " where medioDePago = ? " ;
 					}
-
 			}
 		}
-
-		Query q = session.createQuery(query + q1 + q2 + q3);
-		//carga parametro de fecha
+		query = query + q1 + q2 + q3;
+		Query q = session.createQuery(query);
+		//carga parametro de fecha de venta
 		if (p1 >= 0) {
 			q.setParameter(p1,f);
 		}
-		//carga parametro de estado empleado
+		//carga parametro de estado venta
 		if (p2 >= 0) {
-			q.setParameter(p2,e.getNombre());
+			q.setParameter(p2,e);
 		}
 		//carga parametro de medio de pago
 		if (p3 >= 0) {
-			q.setParameter(p3,m.getNombre());
+			q.setParameter(p3,m);
 		}
-		
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<VentaEntity> lista_entities = (ArrayList<VentaEntity>) q.list();		
