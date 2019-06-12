@@ -41,7 +41,7 @@
 	    		<a class="btn btn-outline-success" href="/Web/facturacion/vender.jsp">Vender</a>
 	    	</li>
 	    	<li class="nav-item">
-	    		<a class="nav-link" href="/Web/empleados/index.jsp">Empleados</a>
+	    		<a class="nav-link" href="/Web/Private?action=listarEmpleados">Empleados</a>
 	    	</li>
 	    	<li class="nav-item">
 	    		<a class="nav-link" href="/Web/productos/index.jsp">Productos</a>
