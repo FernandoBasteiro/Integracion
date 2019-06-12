@@ -77,259 +77,259 @@ if ($('#productoAutocomplete').length) {
 		"use strict";
 		var cities = [ {
 			"id" : 1,
-			"cityName" : "Amsterdam"
+			"nombreProducto" : "Amsterdam"
 		}, {
 			"id" : 2,
-			"cityName" : "Athens"
+			"nombreProducto" : "Athens"
 		}, {
 			"id" : 3,
-			"cityName" : "Baghdad"
+			"nombreProducto" : "Baghdad"
 		}, {
 			"id" : 4,
-			"cityName" : "Bangkok"
+			"nombreProducto" : "Bangkok"
 		}, {
 			"id" : 5,
-			"cityName" : "Barcelona"
+			"nombreProducto" : "Barcelona"
 		}, {
 			"id" : 6,
-			"cityName" : "Beijing"
+			"nombreProducto" : "Beijing"
 		}, {
 			"id" : 7,
-			"cityName" : "Belgrade"
+			"nombreProducto" : "Belgrade"
 		}, {
 			"id" : 8,
-			"cityName" : "Berlin"
+			"nombreProducto" : "Berlin"
 		}, {
 			"id" : 9,
-			"cityName" : "Bogota"
+			"nombreProducto" : "Bogota"
 		}, {
 			"id" : 10,
-			"cityName" : "Bratislava"
+			"nombreProducto" : "Bratislava"
 		}, {
 			"id" : 11,
-			"cityName" : "Brussels"
+			"nombreProducto" : "Brussels"
 		}, {
 			"id" : 12,
-			"cityName" : "Bucharest"
+			"nombreProducto" : "Bucharest"
 		}, {
 			"id" : 13,
-			"cityName" : "Budapest"
+			"nombreProducto" : "Budapest"
 		}, {
 			"id" : 14,
-			"cityName" : "Buenos Aires"
+			"nombreProducto" : "Buenos Aires"
 		}, {
 			"id" : 15,
-			"cityName" : "Cairo"
+			"nombreProducto" : "Cairo"
 		}, {
 			"id" : 16,
-			"cityName" : "CapeTown"
+			"nombreProducto" : "CapeTown"
 		}, {
 			"id" : 17,
-			"cityName" : "Caracas"
+			"nombreProducto" : "Caracas"
 		}, {
 			"id" : 18,
-			"cityName" : "Chicago"
+			"nombreProducto" : "Chicago"
 		}, {
 			"id" : 19,
-			"cityName" : "Copenhagen"
+			"nombreProducto" : "Copenhagen"
 		}, {
 			"id" : 20,
-			"cityName" : "Dhaka"
+			"nombreProducto" : "Dhaka"
 		}, {
 			"id" : 21,
-			"cityName" : "Dubai"
+			"nombreProducto" : "Dubai"
 		}, {
 			"id" : 22,
-			"cityName" : "Dublin"
+			"nombreProducto" : "Dublin"
 		}, {
 			"id" : 23,
-			"cityName" : "Frankfurt"
+			"nombreProducto" : "Frankfurt"
 		}, {
 			"id" : 24,
-			"cityName" : "Geneva"
+			"nombreProducto" : "Geneva"
 		}, {
 			"id" : 25,
-			"cityName" : "Hanoi"
+			"nombreProducto" : "Hanoi"
 		}, {
 			"id" : 26,
-			"cityName" : "Helsinki"
+			"nombreProducto" : "Helsinki"
 		}, {
 			"id" : 27,
-			"cityName" : "Hong Kong"
+			"nombreProducto" : "Hong Kong"
 		}, {
 			"id" : 28,
-			"cityName" : "Istanbul"
+			"nombreProducto" : "Istanbul"
 		}, {
 			"id" : 29,
-			"cityName" : "Jakarta"
+			"nombreProducto" : "Jakarta"
 		}, {
 			"id" : 30,
-			"cityName" : "Jerusalem"
+			"nombreProducto" : "Jerusalem"
 		}, {
 			"id" : 31,
-			"cityName" : "Johannesburg"
+			"nombreProducto" : "Johannesburg"
 		}, {
 			"id" : 32,
-			"cityName" : "Kabul"
+			"nombreProducto" : "Kabul"
 		}, {
 			"id" : 33,
-			"cityName" : "Karachi"
+			"nombreProducto" : "Karachi"
 		}, {
 			"id" : 34,
-			"cityName" : "Kiev"
+			"nombreProducto" : "Kiev"
 		}, {
 			"id" : 35,
-			"cityName" : "Kuala Lumpur"
+			"nombreProducto" : "Kuala Lumpur"
 		}, {
 			"id" : 36,
-			"cityName" : "Lagos"
+			"nombreProducto" : "Lagos"
 		}, {
 			"id" : 37,
-			"cityName" : "Lahore"
+			"nombreProducto" : "Lahore"
 		}, {
 			"id" : 38,
-			"cityName" : "Lima"
+			"nombreProducto" : "Lima"
 		}, {
 			"id" : 39,
-			"cityName" : "Lisbon"
+			"nombreProducto" : "Lisbon"
 		}, {
 			"id" : 40,
-			"cityName" : "Ljubljana"
+			"nombreProducto" : "Ljubljana"
 		}, {
 			"id" : 41,
-			"cityName" : "London"
+			"nombreProducto" : "London"
 		}, {
 			"id" : 42,
-			"cityName" : "Los Angeles"
+			"nombreProducto" : "Los Angeles"
 		}, {
 			"id" : 43,
-			"cityName" : "Luxembourg"
+			"nombreProducto" : "Luxembourg"
 		}, {
 			"id" : 44,
-			"cityName" : "Madrid"
+			"nombreProducto" : "Madrid"
 		}, {
 			"id" : 45,
-			"cityName" : "Manila"
+			"nombreProducto" : "Manila"
 		}, {
 			"id" : 46,
-			"cityName" : "Marrakesh"
+			"nombreProducto" : "Marrakesh"
 		}, {
 			"id" : 47,
-			"cityName" : "Melbourne"
+			"nombreProducto" : "Melbourne"
 		}, {
 			"id" : 48,
-			"cityName" : "Mexico City"
+			"nombreProducto" : "Mexico City"
 		}, {
 			"id" : 49,
-			"cityName" : "Montreal"
+			"nombreProducto" : "Montreal"
 		}, {
 			"id" : 50,
-			"cityName" : "Moscow"
+			"nombreProducto" : "Moscow"
 		}, {
 			"id" : 51,
-			"cityName" : "Mumbai"
+			"nombreProducto" : "Mumbai"
 		}, {
 			"id" : 52,
-			"cityName" : "Nairobi"
+			"nombreProducto" : "Nairobi"
 		}, {
 			"id" : 53,
-			"cityName" : "New Delhi"
+			"nombreProducto" : "New Delhi"
 		}, {
 			"id" : 54,
-			"cityName" : "NewYork"
+			"nombreProducto" : "NewYork"
 		}, {
 			"id" : 55,
-			"cityName" : "Nicosia"
+			"nombreProducto" : "Nicosia"
 		}, {
 			"id" : 56,
-			"cityName" : "Oslo"
+			"nombreProducto" : "Oslo"
 		}, {
 			"id" : 57,
-			"cityName" : "Ottawa"
+			"nombreProducto" : "Ottawa"
 		}, {
 			"id" : 58,
-			"cityName" : "Paris"
+			"nombreProducto" : "Paris"
 		}, {
 			"id" : 59,
-			"cityName" : "Prague"
+			"nombreProducto" : "Prague"
 		}, {
 			"id" : 60,
-			"cityName" : "Reykjavik"
+			"nombreProducto" : "Reykjavik"
 		}, {
 			"id" : 61,
-			"cityName" : "Riga"
+			"nombreProducto" : "Riga"
 		}, {
 			"id" : 62,
-			"cityName" : "Rio de Janeiro"
+			"nombreProducto" : "Rio de Janeiro"
 		}, {
 			"id" : 63,
-			"cityName" : "Rome"
+			"nombreProducto" : "Rome"
 		}, {
 			"id" : 64,
-			"cityName" : "Saint Petersburg"
+			"nombreProducto" : "Saint Petersburg"
 		}, {
 			"id" : 65,
-			"cityName" : "San Francisco"
+			"nombreProducto" : "San Francisco"
 		}, {
 			"id" : 66,
-			"cityName" : "Santiago de Chile"
+			"nombreProducto" : "Santiago de Chile"
 		}, {
 			"id" : 67,
-			"cityName" : "São Paulo"
+			"nombreProducto" : "São Paulo"
 		}, {
 			"id" : 68,
-			"cityName" : "Seoul"
+			"nombreProducto" : "Seoul"
 		}, {
 			"id" : 69,
-			"cityName" : "Shanghai"
+			"nombreProducto" : "Shanghai"
 		}, {
 			"id" : 70,
-			"cityName" : "Singapore"
+			"nombreProducto" : "Singapore"
 		}, {
 			"id" : 71,
-			"cityName" : "Sofia"
+			"nombreProducto" : "Sofia"
 		}, {
 			"id" : 72,
-			"cityName" : "Stockholm"
+			"nombreProducto" : "Stockholm"
 		}, {
 			"id" : 73,
-			"cityName" : "Sydney"
+			"nombreProducto" : "Sydney"
 		}, {
 			"id" : 74,
-			"cityName" : "Tallinn"
+			"nombreProducto" : "Tallinn"
 		}, {
 			"id" : 75,
-			"cityName" : "Tehran"
+			"nombreProducto" : "Tehran"
 		}, {
 			"id" : 76,
-			"cityName" : "The Hague"
+			"nombreProducto" : "The Hague"
 		}, {
 			"id" : 77,
-			"cityName" : "Tokyo"
+			"nombreProducto" : "Tokyo"
 		}, {
 			"id" : 78,
-			"cityName" : "Toronto"
+			"nombreProducto" : "Toronto"
 		}, {
 			"id" : 79,
-			"cityName" : "Venice"
+			"nombreProducto" : "Venice"
 		}, {
 			"id" : 80,
-			"cityName" : "Vienna"
+			"nombreProducto" : "Vienna"
 		}, {
 			"id" : 81,
-			"cityName" : "Vilnius"
+			"nombreProducto" : "Vilnius"
 		}, {
 			"id" : 82,
-			"cityName" : "Warsaw"
+			"nombreProducto" : "Warsaw"
 		}, {
 			"id" : 83,
-			"cityName" : "Washington D.C."
+			"nombreProducto" : "Washington D.C."
 		}, {
 			"id" : 84,
-			"cityName" : "Wellington"
+			"nombreProducto" : "Wellington"
 		}, {
 			"id" : 85,
-			"cityName" : "Zagreb"
+			"nombreProducto" : "Zagreb"
 		} ];
 
 		$('.bs-autocomplete')
@@ -340,7 +340,7 @@ if ($('#productoAutocomplete').length) {
 
 							_this
 									.after(
-											'<div class="bs-autocomplete-feedback form-control-feedback"><div class="loader">Loading...</div></div>')
+											'<div class="bs-autocomplete-feedback form-control-feedback"><div class="loader">Cargando...</div></div>')
 									.parent('.form-group').addClass(
 											'has-feedback');
 
@@ -361,7 +361,7 @@ if ($('#productoAutocomplete').length) {
 													var data = cities
 															.filter(function(
 																	item) {
-																return item.cityName
+																return item.nombreProducto
 																		.match(_regexp);
 															});
 													response(data);

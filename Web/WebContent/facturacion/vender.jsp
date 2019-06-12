@@ -54,7 +54,7 @@
 							<div class="input-group-prepend">
 						    	<label class="input-group-text control-label" for="buscarProducto">Buscar producto por código</label>
 							</div>				
-					        <input class="form-control bs-autocomplete" id="buscarProducto" value="" placeholder="Ingresar código producto..." type="text" data-source="/Web/Public?action=listadoProductos" data-hidden_field_id="codigo-producto" data-item_id="id" data-item_label="cityName" autocomplete="off">
+					        <input class="form-control bs-autocomplete" id="buscarProducto" value="" placeholder="Ingresar código producto..." type="text" data-source="/Web/Public?action=listadoProductos" data-hidden_field_id="codigo-producto" data-item_id="id" data-item_label="nombreProducto" autocomplete="off">
 					    </div>
 					    <input type="hidden" class="form-control" id="codigo-producto" name="codigoProductoAutocomplete" value="" type="number" readonly>
 				    </div>
