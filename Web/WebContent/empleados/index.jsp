@@ -29,7 +29,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 							      </div>
 								  <input name="buscarEmpleadoLegajo" type="search" class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
 								   <div class="input-group-append">
-								    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+								    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 								  </div>
 								</div>
 							</form>
@@ -42,7 +42,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 								      </div>
 									  <input name="buscarEmpleadoDni" type="search" class="form-control" placeholder="Ingrese dni..." aria-label="Ingrese dni" aria-describedby="buscarEmpleadoDni">
 									   <div class="input-group-append">
-									    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+									    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 									  </div>
 								</div>
 							</form>
@@ -104,6 +104,29 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 				  <%
 				  	int fila = 1;
 				  	for (EmpleadoDTO e : empleados) {
+				  	
+				  		String statusBadge = "";
+						switch(e.getEstadoEmpleado()){
+							case ACTIVO:
+								statusBadge = "badge-success";
+								break;
+							case LICENCIA_PAGA:
+								statusBadge = "badge-warning";
+								break;
+							case LICENCIA_NO_PAGA:
+								statusBadge = "badge-warning";
+								break;
+							case DESVINCULADO:
+								statusBadge = "badge-danger";
+								break;
+							case ANULADO:
+								statusBadge = "badge-danger";
+								break;
+							default:
+								statusBadge = "badge-info";
+								break;
+						}
+						
 				  %>
 				    <tr>
 				      <th scope="row"><%=fila++ %></th>
@@ -112,7 +135,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 				      <td><%=e.getNombre() %></td>
 				      <td><%=e.getDni() %></td>
 				      <td><%=e.getPuesto().getNombre() %></td>
-				      <td><span class="badge badge-pill badge-success"><%=e.getEstadoEmpleado().getNombre() %></span></td>
+				      <td><span class="badge badge-pill <%=statusBadge%>"><%=e.getEstadoEmpleado().getNombre() %></span></td>
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verEmpleado&legajo=<%=e.getLegajo() %>" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/Private?action=verEmpleado&modificar=true&legajo=<%=e.getLegajo() %>" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
