@@ -408,7 +408,7 @@ if ($('#productoAutocomplete').length) {
 			var cantProd = parseInt($('#cantidad-producto').val());
 			if (isNaN(codProd) || isNaN(cantProd)) return;
 			var prod = productos.find(producto => producto.id === codProd);
-			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.id+'</td><td>'+prod.id+'</td><td>Botella 500ml</td><td>'+cantProd+'</td><td>$40.00</td><td>$'+cantProd+'</td><input type="hidden" name="items[]" value="[12345322,2]" /></tr>')
+			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.id+'</td><td>'+prod.id+'</td><td>Botella 500ml</td><td>'+cantProd+'</td><td>$40.00</td><td>$'+cantProd+'</td><input type="hidden" name="items[]" value="['+prod.id+','+cantProd+']" /></tr>')
 			listadoVenta.find('tbody').append(itemVta);
 			index++;
 			$('#codigo-producto, #buscarProducto').val('');
