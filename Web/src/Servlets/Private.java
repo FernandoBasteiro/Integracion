@@ -281,7 +281,7 @@ public class Private extends HttpServlet {
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				TipoFactura tf = TipoFactura.fromId(request.getParameter("tipoFactura") == null ? null : Integer.valueOf(request.getParameter("tipoFactura")));
 				String cuit = request.getParameter("cuitFactura");
-				//TODO
+				String[] items = request.getParameterValues("items");
 				MedioDePago mdp = MedioDePago.fromId(request.getParameter("medioPago") == null ? null : Integer.valueOf(request.getParameter("medioPago")));
 				
 				Float montoPago = (request.getParameter("montoPago") == null ? null : Float.valueOf(request.getParameter("montoPago")));
