@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
+import dto.ItemVentaDTO;
 import dto.ProductoDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
@@ -268,20 +271,30 @@ public class Private extends HttpServlet {
 				medioPagoFactura
 				*/
 			/*
-			} */
+			} 
 			else if (action.equals("vender")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, null);
 				request.setAttribute("listadoProductos", productos);
 				jspPage = "facturacion/vender.jsp";
-			}
+			} */
 			else if (action.equals("facturar")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				TipoFactura tf = TipoFactura.fromId(request.getParameter("tipoFactura") == null ? null : Integer.valueOf(request.getParameter("tipoFactura")));
 				String cuit = request.getParameter("cuitFactura");
-				//TODO
+				String[] itemsStr = request.getParameterValues("items");
+				ArrayList<ItemVentaDTO> items = new ArrayList<ItemVentaDTO>();
+				for (String itemStr : itemsStr) {
+					List<String> listStrItems = Arrays.asList(itemStr.split(","));
+					ItemVentaDTO iv = new ItemVentaDTO();
+					ProductoDTO p = new ProductoDTO();
+					p.setCodigo(Integer.valueOf(listStrItems.get(0)));
+					iv.setCantidad(Integer.valueOf(listStrItems.get(1)));
+					iv.setProducto(p);
+					items.add(iv);
+				}
 				MedioDePago mdp = MedioDePago.fromId(request.getParameter("medioPago") == null ? null : Integer.valueOf(request.getParameter("medioPago")));
 				
 				Float montoPago = (request.getParameter("montoPago") == null ? null : Float.valueOf(request.getParameter("montoPago")));
@@ -310,6 +323,7 @@ public class Private extends HttpServlet {
 				v.setTipoCuenta(tc);
 				v.setPin(pin);
 				v.setCantCuotas(cuotas);
+				v.setItems(items);
 				if (mdp == MedioDePago.TARJETA_CREDITO) {
 					v.setNumeroTarjeta(numeroTarjetaCredito);
 					v.setCodigoSeguridad(codigoSeguridadCredito);
@@ -325,8 +339,15 @@ public class Private extends HttpServlet {
 					v.setFechaVto(vencimientoDebito);
 				}
 				
-				
-				
+				try {
+					bd.generarVenta(logged, v);
+					request.setAttribute("venta", v);
+					request.setAttribute("success", "Venta aprobada");
+				} catch (ExcepcionProceso e) {
+					request.setAttribute("venta", v);
+					request.setAttribute("error", e.getMessage());
+				}
+				jspPage = "facturacion/vender.jsp";
 				/*
 				tipoFactura (enum)
 				cuitFactura (String)

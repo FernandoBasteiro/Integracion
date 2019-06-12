@@ -5,6 +5,7 @@
 <%@ page import="dto.EmpleadoDTO"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
+EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
@@ -26,7 +27,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 			<div class="form-row">
 				<div class="form-group col-sm-6">
 					<label for="legajo">Legajo</label>
-					<input class="form-control" name="legajo" type="text" value="607104" disabled/>
+					<input class="form-control" name="legajo" type="text" value="<%=(emp != null) ? emp.getLegajo() : "" %>" disabled/>
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="estadoEmpleado">Estado</label>
@@ -142,7 +143,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="fechaEgresoEmpleado">Fecha de egreso</label>
-					<input type="date" name="fechaEgresoEmpleado" class="form-control" value=""/>
+					<input type="date" name="fechaEgresoEmpleado" class="form-control" <%=(emp==null) ? "disabled" : "" %> value=""/>
 				</div>
 			</div>
 			<div class="form-row">
