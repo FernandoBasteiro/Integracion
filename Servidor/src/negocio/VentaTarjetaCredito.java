@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.LocalDate;
 
 import controladores.ConversorFechas;
+import daos.VentaDAO;
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
@@ -108,6 +109,11 @@ public class VentaTarjetaCredito extends Venta {
 				this.cantCuotas, //Datos TC			
 				null, null, //Datos TD
 				this.tipoFact, this.cuit, ConversorFechas.convertJodaToJava(this.fechaCobro)); //Datos Factura
+	}
+
+	@Override
+	public void grabar() {
+		VentaDAO.getinstance().add(this);
 	}
 	
 }

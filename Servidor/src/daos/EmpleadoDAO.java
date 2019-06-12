@@ -171,7 +171,7 @@ public class EmpleadoDAO {
 		}
 		//carga parametro de estado empleado
 		if (p2 >= 0) {
-			q.setParameter(p2,e);
+			q.setParameter(p2,e); 
 		}
 			
 		@SuppressWarnings("unchecked")
@@ -180,29 +180,5 @@ public class EmpleadoDAO {
 		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
 		return lista;
 	}
-	
-	public ArrayList<Empleado> getEmpleadosByPuesto(Puesto puesto) {
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-		@SuppressWarnings("unchecked")
-		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where puesto = ?)")
-				.setParameter(0, puesto)
-				.list();
-		ArrayList<Empleado> lista = new ArrayList<Empleado>();
-		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
-		return lista;
-	}
-	
-	public ArrayList<Empleado> getEmpleadosByEstado(EstadoEmpleado estado) {
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-		@SuppressWarnings("unchecked")
-		ArrayList<EmpleadoEntity> lista_entities = (ArrayList<EmpleadoEntity>) session.createQuery("from EmpleadoEntity where estado = ?)")
-				.setParameter(0, estado)
-				.list();
-		ArrayList<Empleado> lista = new ArrayList<Empleado>();
-		for (EmpleadoEntity empleadoEntity : lista_entities) lista.add(EmpleadoDAO.getinstance().toNegocio(empleadoEntity));
-		return lista;
-	}
-	
+
 }

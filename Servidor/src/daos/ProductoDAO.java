@@ -85,7 +85,7 @@ public class ProductoDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
-		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity where nombre like %?%")
+		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity where nombre like  '%'||?||'%'")
 				.setParameter(0, nombre)
 				.list();
 		ArrayList<Producto> lista = new ArrayList<Producto>();
@@ -99,9 +99,10 @@ public class ProductoDAO {
 		@SuppressWarnings("unchecked")
 		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity where codigo = ?")
 					.setParameter(0, codigo)
-					.uniqueResult();
+					.list();
 		ArrayList<Producto> lista = new ArrayList<Producto>();
-		for (ProductoEntity productoEntity : lista_entities) lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
+		for (ProductoEntity productoEntity : lista_entities) {
+			lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));}
 		return lista;
 		
 	}
@@ -113,7 +114,9 @@ public class ProductoDAO {
 		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity ")
 				.list();
 		ArrayList<Producto> lista = new ArrayList<Producto>();
-		for (ProductoEntity productoEntity : lista_entities) lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
+		for (ProductoEntity productoEntity : lista_entities) {
+			lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
+		}
 		return lista;
 	}
 	

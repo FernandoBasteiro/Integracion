@@ -126,4 +126,5 @@ public abstract class Venta {
 	}
 	
 	public abstract VentaDTO getDTO();
+	public abstract void grabar();
 }

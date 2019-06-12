@@ -48,22 +48,48 @@ public class VentaDAO {
 			s.close();
 	}
 
-	public void add(Venta venta) {
+	public void add(VentaEfectivo venta) {
 		Transaction t = null;
 		s = this.getSession();
-
 		try {
 			t = s.beginTransaction();
 			s.saveOrUpdate(VentaDAO.getinstance().toEntity(venta));
 			t.commit();
-			//s.flush();
+			s.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void add(VentaTarjetaCredito venta) {
+		Transaction t = null;
+		s = this.getSession();
+		try {
+			t = s.beginTransaction();
+			s.saveOrUpdate(VentaDAO.getinstance().toEntity(venta));
+			t.commit();
+			s.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void add(VentaTarjetaDebito venta) {
+		Transaction t = null;
+		s = this.getSession();
+		try {
+			t = s.beginTransaction();
+			s.saveOrUpdate(VentaDAO.getinstance().toEntity(venta));
+			t.commit();
 			s.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private VentaEntity toEntity(Venta ee) {
+
+
+	private VentaEntity toEntity(VentaEfectivo ee) {
 		ArrayList<ItemVentaEntity> items = new ArrayList<ItemVentaEntity>();
 		VentaEntity e = new VentaEntity();
 		
@@ -80,19 +106,61 @@ public class VentaDAO {
 		e.setId(ee.getId());
 		e.setTipo(ee.getTipoFact());
 		e.setTotal(ee.getTotal());
-		if(ee instanceof VentaEfectivo) {
-			e.setMedioDePago(MedioDePago.EFECTIVO);
+		e.setMedioDePago(MedioDePago.EFECTIVO);
+			 			
+		return e;
+		
+	}
+	
+	private VentaEntity toEntity(VentaTarjetaDebito ee) {
+		ArrayList<ItemVentaEntity> items = new ArrayList<ItemVentaEntity>();
+		VentaEntity e = new VentaEntity();
+		
+		for (ItemVenta iv : ee.getItems()) {
+			items.add(ItemVentaDAO.getinstance().toEntity(iv));
 		}
-		if(ee instanceof VentaTarjetaCredito) {
-			e.setMedioDePago(MedioDePago.TARJETA_CREDITO);
-		}
-		if(ee instanceof VentaTarjetaDebito) {
-			e.setMedioDePago(MedioDePago.TARJETA_DEBITO);
-		}	 			
+		
+		e.setItemVentas(items);
+		e.setCuit(ee.getCuit());
+		e.setEmpleado(EmpleadoDAO.getinstance().toEntity(ee.getEmpleado()));	
+		e.setEstado(ee.getEstado());
+		e.setFechaCobro(ee.getFechaCobro());
+		e.setFechaVenta(ee.getFechaVenta());
+		e.setId(ee.getId());
+		e.setTipo(ee.getTipoFact());
+		e.setTotal(ee.getTotal());
+		e.setMedioDePago(MedioDePago.TARJETA_DEBITO);
+		e.setNroOperacion(ee.getNroOperacion());
+		e.setUltimos4DigitosTarjeta(Integer.parseInt(ee.getNumeroTarjeta().substring(ee.getNumeroTarjeta().length()-4,ee.getNumeroTarjeta().length())));
+		 		 			
 		return e;
 		
 	}
 
+	private VentaEntity toEntity(VentaTarjetaCredito ee) {
+		ArrayList<ItemVentaEntity> items = new ArrayList<ItemVentaEntity>();
+		VentaEntity e = new VentaEntity();
+		
+		for (ItemVenta iv : ee.getItems()) {
+			items.add(ItemVentaDAO.getinstance().toEntity(iv));
+		}
+		
+		e.setItemVentas(items);
+		e.setCuit(ee.getCuit());
+		e.setEmpleado(EmpleadoDAO.getinstance().toEntity(ee.getEmpleado()));	
+		e.setEstado(ee.getEstado());
+		e.setFechaCobro(ee.getFechaCobro());
+		e.setFechaVenta(ee.getFechaVenta());
+		e.setId(ee.getId());
+		e.setTipo(ee.getTipoFact());
+		e.setTotal(ee.getTotal());
+		e.setMedioDePago(MedioDePago.TARJETA_CREDITO);
+		e.setNroOperacion(ee.getNroOperacion());
+		e.setUltimos4DigitosTarjeta(Integer.parseInt(ee.getNumeroTarjeta().substring(13,16)));
+		 			
+		return e;
+		
+	}
 	public Venta toNegocio(VentaEntity ee) {
 		
 		ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();

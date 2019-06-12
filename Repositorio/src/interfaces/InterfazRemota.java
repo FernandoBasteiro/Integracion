@@ -36,9 +36,12 @@ public interface InterfazRemota extends Remote {
 	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws RemoteException;
 	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) throws RemoteException;
 	public VentaDTO mostrarFactura (EmpleadoDTO gerente, VentaDTO v) throws RemoteException;
-	
-	public void generarVenta(EmpleadoDTO cajero, VentaDTO v) throws RemoteException;
-	
+	 * @throws UsuarioSinPermisos 
+	 * @throws ExcepcionProceso 
+	 * @throws UsuarioNoLogueado 
+	*/
+	public void generarVenta(EmpleadoDTO cajero, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
+	/**
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;

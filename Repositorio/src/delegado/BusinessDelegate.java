@@ -151,15 +151,15 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	
-	public void generarVenta(EmpleadoDTO cajero, VentaDTO f) throws ComunicacionException {
+	*/
+	public void generarVenta(EmpleadoDTO cajero, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			ir.generarVenta(cajero, f);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	
+	/**
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
 		try {
 			ir.altaProducto(supervisor, p);
