@@ -152,12 +152,13 @@ public class BusinessDelegate {
 		}
 	}
 	*/
-	public void generarVenta(EmpleadoDTO cajero, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+	public VentaDTO generarVenta(EmpleadoDTO cajero, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
-			ir.generarVenta(cajero, f);
+			f=ir.generarVenta(cajero, f);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
+		return f;
 	}
 	/**
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {

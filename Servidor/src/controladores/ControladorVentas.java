@@ -63,6 +63,7 @@ public class ControladorVentas {
 				switch (v.getMedioDePago()) {
 					case EFECTIVO:
 						v = generarVentaEfectivo(v, items, emp);
+						
 						break;
 					case TARJETA_DEBITO:
 						//TODO llamar al BANCO
@@ -92,21 +93,29 @@ public class ControladorVentas {
 		else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
 	}	
 	
-	private VentaDTO generarVentaEfectivo(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {			
+	private VentaDTO generarVentaEfectivo(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) throws ExcepcionProceso {			
 		VentaEfectivo vta = new VentaEfectivo(LocalDate.now(), items, emp, EstadoVenta.COBRADA, vd.getTotal(), 
 				vd.getMontoRecibido(), vd.getVuelto(), vd.getTipoFact(), vd.getCuit(), LocalDate.now());
-		VentaDAO.getinstance().add(vta);
+		vta.setTotal(vta.calcularTotal());
+		
+		vd.setTotal(vta.getTotal());
 		vd.setVuelto(vta.calcularVuelto());
-		vd.setTotal(vta.calcularTotal());
-		return vd;
+		if(vd.getVuelto()>=(float)0) {
+			VentaDAO.getinstance().add(vta);
+			return vd;
+		} else throw new ExcepcionProceso("Monto Recibido menor al total a pagar.");
+		
 	}
 	
 	private VentaDTO generarVentaTD(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {	
 		VentaTarjetaDebito vta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, vd.getTotal(), vd.getNumeroTarjeta(),
 				vd.getCodigoSeguridad(), vd.getNombre(), vd.getDni(), vd.getFechaVto(), vd.getNroOperacion(), vd.getAprobada(),
 				vd.getPin(), vd.getTipoCuenta(), vd.getTipoFact(), vd.getCuit(), null);
+		vta.setTotal(vta.calcularTotal());
 		VentaDAO.getinstance().add(vta);
-		vd.setTotal(vta.calcularTotal());
+		vd.setTotal(vta.getTotal());
+		vd.setNroOperacion(vta.getNroOperacion());
+		vd.setAprobada(vta.getAprobada());
 		return vd;
 	}
 	
@@ -114,8 +123,12 @@ public class ControladorVentas {
 		VentaTarjetaCredito vta = new VentaTarjetaCredito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, vd.getTotal(), 
 				vd.getNumeroTarjeta(), 	vd.getCodigoSeguridad(), vd.getNombre(), vd.getDni(), vd.getFechaVto(), 
 				vd.getNroOperacion(), vd.getAprobada(), vd.getCantCuotas(), vd.getTipoFact(), vd.getCuit(), null);
+		
+		vta.setTotal(vta.calcularTotal());
 		VentaDAO.getinstance().add(vta);
-		vd.setTotal(vta.calcularTotal());
+		vd.setTotal(vta.getTotal());
+		vd.setNroOperacion(vta.getNroOperacion());
+		vd.setAprobada(vta.getAprobada());
 		return vd;
 	}
 	

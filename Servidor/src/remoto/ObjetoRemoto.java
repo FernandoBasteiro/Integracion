@@ -112,8 +112,8 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 */
 	@Override
-	public void generarVenta(EmpleadoDTO c, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
-		ControladorVentas.getInstance().generarVenta(c, v);
+	public VentaDTO generarVenta(EmpleadoDTO c, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+	 return	ControladorVentas.getInstance().generarVenta(c, v);
 		
 	}
 /**

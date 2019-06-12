@@ -40,7 +40,7 @@ public interface InterfazRemota extends Remote {
 	 * @throws ExcepcionProceso 
 	 * @throws UsuarioNoLogueado 
 	*/
-	public void generarVenta(EmpleadoDTO cajero, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
+	public VentaDTO generarVenta(EmpleadoDTO cajero, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	/**
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
 	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;

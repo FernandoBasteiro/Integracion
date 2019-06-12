@@ -65,7 +65,7 @@ public class VentaEfectivo extends Venta {
 	public void grabar() {
 		VentaDAO.getinstance().add(this);
 	}
-	public float calcularVuelto () {
+	public Float calcularVuelto () {
 		return this.montoRecibido - this.total;
 	}
 }
