@@ -3,6 +3,7 @@ package controladores;
 import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import daos.EmpleadoDAO;
 import daos.ProductoDAO;
@@ -14,7 +15,6 @@ import enumeraciones.EstadoFactura;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
-import enumeraciones.TipoCuenta;
 import enumeraciones.TipoFactura;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
@@ -119,24 +119,75 @@ public class ControladorVentas {
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
 	
-	public ArrayList<VentaDTO> listarFacturasPorNroFactura(EmpleadoDTO gerente, Integer nroFact) {
-		return null;
+	public ArrayList<VentaDTO> listarFacturasPorNroFactura(EmpleadoDTO g, Integer idVta) throws ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
+		
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(idVta);
+				if (ventas != null) {
+					ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
+					for (Venta v: ventas) {
+						vtas.add(v.getDTO());
+					}
+					return vtas;
+				}
+				else throw new ExcepcionProceso("No existe una venta con ese número de venta.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
 	
-	public ArrayList<VentaDTO> listarFacturasPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) {
-		return null;
+	public ArrayList<VentaDTO> listarFacturasPorNroOperacion(EmpleadoDTO g, Integer nroOper) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByNumeroDeOperacion(nroOper);
+				if (ventas != null) {
+					ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
+					for (Venta v: ventas) {
+						vtas.add(v.getDTO());
+					}
+					return vtas;
+				}
+				else throw new ExcepcionProceso("No existe una venta con ese número de operación.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
 
-	public ArrayList<VentaDTO> listarFacturas(EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) {
-		return null;
+	public ArrayList<VentaDTO> listarFacturas(EmpleadoDTO g, MedioDePago m, LocalDate fch, EstadoVenta e) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentasByEstadoFechaMedioDePago(fch, e, m);
+				if (ventas != null) {
+					ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
+					for (Venta v: ventas) {
+						vtas.add(v.getDTO());
+					}
+					return vtas;
+				}
+				else throw new ExcepcionProceso("No existen ventas con esos criterios.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");	
 	}
 		
-	public void generarFactura(Venta v, TipoFactura tipo, String cuit) {
-		
-	}
-	
-	public VentaDTO mostrarFactura(EmpleadoDTO gerente, VentaDTO v) {
+	public VentaDTO mostrarFactura(EmpleadoDTO g, VentaDTO v) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		//buscar por id de venta usando el metodo del DAO . tirar excepcion de procesos
-		return v;
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
+				if (ventas != null) {
+					return ventas.get(0).getDTO();
+				}
+				else throw new ExcepcionProceso("No existe una venta con ese número de venta.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 }
