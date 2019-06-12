@@ -54,17 +54,22 @@ public class ControladorProductos {
 	}
 	
 	public void modifcacionProducto(EmpleadoDTO supervisor, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
-	/*	if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
+		if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
 			if (supervisor.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
 				 ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
 				if (prods != null) {
-					prods.get(0).bajaProducto();
-					prods.get(0).guardarStock();
+					Producto act = prods.get(0);
+					act.setNombre(p.getNombre());
+					act.setDescripcion(p.getDescripcion());
+					act.setPresentacion(p.getPresentacion());
+					act.setPrecio(p.getPrecio());
+					act.getStock().actualizarStock(p.getStock().getCantidadTotal(),p.getStock().getCantidadDisponible(),p.getStock().getCantidadMinimo());
+					act.guardar();
 				} else
-					throw new ExcepcionProceso("Error al dar de baja el producto.");
+					throw new ExcepcionProceso("Error al modificar el producto.");
 			} else
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
-		}*/
+		}
 	}
 	
 	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
