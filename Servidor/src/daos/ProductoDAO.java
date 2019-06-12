@@ -93,13 +93,16 @@ public class ProductoDAO {
 		return lista;
 	}
 	
-	public Producto getProductoByCodigo(int codigo){
+	public ArrayList<Producto> getProductoByCodigo(int codigo){
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		ProductoEntity pe = (ProductoEntity) session.createQuery("from ProductoEntity where codigo = ?")
+		@SuppressWarnings("unchecked")
+		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity where codigo = ?")
 					.setParameter(0, codigo)
 					.uniqueResult();
-			return ProductoDAO.getinstance().toNegocio(pe);
+		ArrayList<Producto> lista = new ArrayList<Producto>();
+		for (ProductoEntity productoEntity : lista_entities) lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
+		return lista;
 		
 	}
 	

@@ -44,7 +44,7 @@ public class ControladorProductos {
 					prods = ProductoDAO.getinstance().getProductoByNombre(p.getNombre());
 				}
 				if (p.getCodigo() != null) {
-					prods = ProductoDAO.getinstance().getProductoByNombre(p.getNombre());
+					prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
 				}
 								
 				if (prods != null) {
