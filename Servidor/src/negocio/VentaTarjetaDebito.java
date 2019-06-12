@@ -119,5 +119,5 @@ public class VentaTarjetaDebito extends Venta {
 				this.pin, this.tipoCuenta, //Datos TD
 				this.tipoFact, this.cuit, ConversorFechas.convertJodaToJava(this.fechaCobro)); //Datos Factura
 	}
-	
+
 }

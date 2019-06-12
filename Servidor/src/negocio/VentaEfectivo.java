@@ -59,4 +59,8 @@ public class VentaEfectivo extends Venta {
 				null, null, //Datos TD
 				this.tipoFact, this.cuit, ConversorFechas.convertJodaToJava(this.fechaCobro)); //Datos Factura
 	}
+	
+	public float calcularVuelto () {
+		return this.montoRecibido - this.total;
+	}
 }
