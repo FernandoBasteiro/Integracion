@@ -59,7 +59,7 @@ public class BusinessDelegate {
 		}
 		
 	}
-	/*
+	
 	public void modificacionEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
 		try {
 			ir.modificacionEmpleado(gerente, empleado);
@@ -98,7 +98,7 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws ComunicacionException {
+	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws ComunicacionException, ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
 		try {
 			return ir.listarEmpleados(gerente, p, e);
 		} catch (RemoteException re) {
@@ -113,7 +113,7 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-
+	/*
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
 		try {
 			ir.marcarFacturaCobrada(gerente, f);

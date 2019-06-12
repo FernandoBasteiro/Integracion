@@ -83,7 +83,11 @@ public class EmpleadoDAO {
 		EmpleadoEntity pe = (EmpleadoEntity) session.createQuery("from EmpleadoEntity where legajoEmpleado = ?")
 					.setParameter(0, legajo)
 					.uniqueResult();
-			return EmpleadoDAO.getinstance().toNegocio(pe);
+			if(pe==null)
+				return null;
+			else
+				return EmpleadoDAO.getinstance().toNegocio(pe);
+
 		
 	}
 	
