@@ -16,4 +16,8 @@ public enum TipoCuenta {
 	public String getNombre() {
 		return nombre;
 	}
+	public static TipoCuenta fromId(Integer id) {
+		for (TipoCuenta tc : TipoCuenta.values()) if (tc.getId() == id) return tc;
+		return null;
+	}
 }

@@ -16,11 +16,13 @@ import javax.servlet.http.HttpSession;
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
 import dto.ProductoDTO;
+import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Genero;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
+import enumeraciones.TipoCuenta;
 import enumeraciones.TipoFactura;
 import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
@@ -270,7 +272,7 @@ public class Private extends HttpServlet {
 			else if (action.equals("vender")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, new ProductoDTO());
+				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, null);
 				request.setAttribute("listadoProductos", productos);
 				jspPage = "facturacion/vender.jsp";
 			}
@@ -285,7 +287,44 @@ public class Private extends HttpServlet {
 				Float montoPago = (request.getParameter("montoPago") == null ? null : Float.valueOf(request.getParameter("montoPago")));
 				
 				String numeroTarjetaDebito = request.getParameter("debitoTarjeta");
-				Integer legajo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
+				Integer codigoSeguridadDebito = (request.getParameter("debitoCodigoSeguridad") == null ? null : Integer.valueOf(request.getParameter("debitoCodigoSeguridad")));
+				String titularDebito = request.getParameter("debitoTitular");
+				String dniDebito = request.getParameter("debitoDni");
+				String vencimientoDebito = request.getParameter("debitoVencimiento");
+				TipoCuenta tc = TipoCuenta.fromId(request.getParameter("debitoTipoCuenta") == null ? null : Integer.valueOf(request.getParameter("debitoTipoCuenta")));
+				Integer pin = (request.getParameter("debitoPin") == null ? null : Integer.valueOf(request.getParameter("debitoPin")));
+				
+				String numeroTarjetaCredito = request.getParameter("creditoTarjeta");
+				Integer codigoSeguridadCredito = (request.getParameter("creditoCodigoSeguridad") == null ? null : Integer.valueOf(request.getParameter("creditoCodigoSeguridad")));
+				String titularCredito = request.getParameter("creditoTitular");
+				String dniCredito = request.getParameter("creditoDni");
+				String vencimientoCredito = request.getParameter("creditoVencimiento");
+				Integer cuotas = (request.getParameter("creditoCuotas") == null ? null : Integer.valueOf(request.getParameter("creditoCuotas")));
+				
+				VentaDTO v = new VentaDTO();
+				v.setEmpleado(logged);
+				v.setTipoFact(tf);
+				v.setCuit(cuit);
+				v.setMedioDePago(mdp);
+				v.setMontoRecibido(montoPago);
+				v.setTipoCuenta(tc);
+				v.setPin(pin);
+				v.setCantCuotas(cuotas);
+				if (mdp == MedioDePago.TARJETA_CREDITO) {
+					v.setNumeroTarjeta(numeroTarjetaCredito);
+					v.setCodigoSeguridad(codigoSeguridadCredito);
+					v.setNombre(titularCredito);
+					v.setDni(dniCredito);
+					v.setFechaVto(vencimientoCredito);
+				}
+				else if (mdp == MedioDePago.TARJETA_DEBITO) {
+					v.setNumeroTarjeta(numeroTarjetaDebito);
+					v.setCodigoSeguridad(codigoSeguridadDebito);
+					v.setNombre(titularDebito);
+					v.setDni(dniDebito);
+					v.setFechaVto(vencimientoDebito);
+				}
+				
 				
 				
 				/*
