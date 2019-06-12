@@ -124,16 +124,15 @@ public class ControladorEmpleados {
 	}
 
 	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI(EmpleadoDTO gerente, String dni)
-			throws ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
+			throws UsuarioSinPermisos, UsuarioNoLogueado {
 		if (estaLogueado(gerente)) {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByDni(dni);
+				ArrayList<EmpleadoDTO> list = new ArrayList<EmpleadoDTO>();
 				if (emp != null) {
-					ArrayList<EmpleadoDTO> list = new ArrayList<EmpleadoDTO>();
 					list.add(emp.getDTO());
-					return list;
-				} else
-					throw new ExcepcionProceso("No existe un empleado con ese número de dni.");
+				}
+				return list;
 			} else
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		} else
@@ -141,16 +140,15 @@ public class ControladorEmpleados {
 	}
 
 	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo(EmpleadoDTO gerente, Integer leg)
-			throws ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
+			throws UsuarioSinPermisos, UsuarioNoLogueado {
 		if (estaLogueado(gerente)) {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(leg);
+				ArrayList<EmpleadoDTO> list = new ArrayList<EmpleadoDTO>();
 				if (emp != null) {
-					ArrayList<EmpleadoDTO> list = new ArrayList<EmpleadoDTO>();
 					list.add(emp.getDTO());
-					return list;
-				} else
-					throw new ExcepcionProceso("No existe un empleado con ese número de dni.");
+				}
+				return list;
 			} else
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		} else
@@ -166,11 +164,9 @@ public class ControladorEmpleados {
 				ArrayList<EmpleadoDTO> listDTO = new ArrayList<EmpleadoDTO>();
 
 				list = EmpleadoDAO.getinstance().getEmpleadosByPuestoAndEstado(p, est);
-				if (list != null) {
-					for (Empleado e : list) {
-						listDTO.add(e.getDTO());
-					}
-				}
+				for (Empleado e : list)
+					listDTO.add(e.getDTO());
+
 				return listDTO;
 			} else
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");

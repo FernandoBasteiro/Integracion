@@ -91,6 +91,7 @@ public class Private extends HttpServlet {
 				LocalDate fechaIngreso = (request.getParameter("fechaIngresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaIngresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				Float sueldoBase = (request.getParameter("sueldoEmpleado") == null ? null : Float.valueOf(request.getParameter("sueldoEmpleado")));
 				String cbu = request.getParameter("cbuEmpleado");
+				String password = request.getParameter("passwordEmpleado");
 				nuevo.setLegajo(legajo);
 				nuevo.setNombre(nombre);
 				nuevo.setApellido(apellido);
@@ -107,6 +108,8 @@ public class Private extends HttpServlet {
 				nuevo.setFechaIngreso(fechaIngreso);
 				nuevo.setSueldoBase(sueldoBase);
 				nuevo.setCbu(cbu);
+				nuevo.setPassword(password);
+				nuevo.setEstadoEmpleado(estado);
 				try {
 					if (nuevo.getLegajo() == null) bd.altaEmpleado(logged, nuevo);
 					else bd.modificacionEmpleado(logged, nuevo);

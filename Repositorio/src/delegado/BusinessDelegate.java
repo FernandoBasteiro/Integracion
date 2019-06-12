@@ -84,14 +84,14 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI (EmpleadoDTO gerente, String dni) throws ComunicacionException {
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorDNI (EmpleadoDTO gerente, String dni) throws ComunicacionException, UsuarioSinPermisos, UsuarioNoLogueado {
 		try {
 			return ir.listarEmpleadoPorDNI(gerente, dni);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo (EmpleadoDTO gerente, Integer leg) throws ComunicacionException {
+	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo (EmpleadoDTO gerente, Integer leg) throws ComunicacionException, UsuarioSinPermisos, UsuarioNoLogueado {
 		try {
 			return ir.listarEmpleadoPorLegajo(gerente, leg);
 		} catch (RemoteException re) {
