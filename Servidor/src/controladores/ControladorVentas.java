@@ -50,10 +50,13 @@ public class ControladorVentas {
 				
 				ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();
 				for (ItemVentaDTO id : v.getItems()) {
-						Producto p = ProductoDAO.getinstance().getProductoByCodigo(id.getProducto().getCodigo());
-						p.getStock().descontarStock(id.getCantidad());
-						ItemVenta i = new ItemVenta(p, id.getPrecio(), id.getCantidad());
-						items.add(i);
+						ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(id.getProducto().getCodigo());
+						if (prods != null) {
+							Producto p = prods.get(0);
+							p.getStock().descontarStock(id.getCantidad());
+							ItemVenta i = new ItemVenta(p, id.getPrecio(), id.getCantidad());
+							items.add(i);
+						}
 				}
 				
 				//Ver tipo de VENTA
@@ -119,57 +122,50 @@ public class ControladorVentas {
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
 	
-	public ArrayList<VentaDTO> listarFacturasPorNroFactura(EmpleadoDTO g, Integer idVta) throws ExcepcionProceso, UsuarioSinPermisos, UsuarioNoLogueado {
+	public ArrayList<VentaDTO> listarFacturasPorNroFactura(EmpleadoDTO g, Integer idVta) throws UsuarioSinPermisos, UsuarioNoLogueado {
 		
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(idVta);
-				if (ventas != null) {
-					ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
-					for (Venta v: ventas) {
+				ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
+				
+				for (Venta v: ventas)
 						vtas.add(v.getDTO());
-					}
-					return vtas;
-				}
-				else throw new ExcepcionProceso("No existe una venta con ese número de venta.");								
+				return vtas;								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
 	
-	public ArrayList<VentaDTO> listarFacturasPorNroOperacion(EmpleadoDTO g, Integer nroOper) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+	public ArrayList<VentaDTO> listarFacturasPorNroOperacion(EmpleadoDTO g, Integer nroOper) throws UsuarioNoLogueado, UsuarioSinPermisos {
 		
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByNumeroDeOperacion(nroOper);
-				if (ventas != null) {
-					ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
-					for (Venta v: ventas) {
+				ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
+				
+				for (Venta v: ventas) 
 						vtas.add(v.getDTO());
-					}
-					return vtas;
-				}
-				else throw new ExcepcionProceso("No existe una venta con ese número de operación.");								
+				
+				return vtas;								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
 
-	public ArrayList<VentaDTO> listarFacturas(EmpleadoDTO g, MedioDePago m, LocalDate fch, EstadoVenta e) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+	public ArrayList<VentaDTO> listarFacturas(EmpleadoDTO g, MedioDePago m, LocalDate fch, EstadoVenta e) throws UsuarioNoLogueado, UsuarioSinPermisos {
 		
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentasByEstadoFechaMedioDePago(fch, e, m);
-				if (ventas != null) {
-					ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
-					for (Venta v: ventas) {
-						vtas.add(v.getDTO());
-					}
-					return vtas;
-				}
-				else throw new ExcepcionProceso("No existen ventas con esos criterios.");								
+				ArrayList<VentaDTO> vtas = new ArrayList<VentaDTO> ();
+				
+				for (Venta v: ventas)
+					vtas.add(v.getDTO());
+				
+				return vtas;							
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
