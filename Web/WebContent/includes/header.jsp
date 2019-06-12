@@ -82,7 +82,7 @@
 	boolean showMessage = (request.getAttribute("success") != null || request.getAttribute("error") != null) ? true : false;
 	
 	if(request.getAttribute("success") != null){
-			alertTitle="Éxito!";
+			alertTitle="Éxito";
 			message = (String) request.getAttribute("success");
 			className = "alert-success";
 	}
