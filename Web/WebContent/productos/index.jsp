@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline">Administrar Productos</h2>
-				<a href="/Web/productos/verProducto.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo producto</a>
+				<a href="/Web/productos/crearProducto.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo producto</a>
 				<hr/>
 			</div>
 		</div>
