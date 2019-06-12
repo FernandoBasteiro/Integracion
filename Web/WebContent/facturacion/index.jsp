@@ -8,7 +8,7 @@
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
 else {
-ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("ventas");
+ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("facturas");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
