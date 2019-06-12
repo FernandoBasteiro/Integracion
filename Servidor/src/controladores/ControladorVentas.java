@@ -30,15 +30,14 @@ public class ControladorVentas {
 	private String  cuit; // los usa el bco + liquidar sueldo
 	private Integer tc_id_establecimiento;	 //lo usa la entidad crediticia
 	private String  bco_cbu;          	     //lo usa la entidad bancaria
-	private String  bco_razonSocial;	 	//lo usa la entidad bancaria
+	private String  razonSocial;	 	//lo usa la entidad bancaria
 	
 	public ControladorVentas() {
-		super(); 
-		ParamGralesEntity pg = ParamGralesDAO.getinstance().getParamGralesDAO();
-		cuit = pg.getCuit();
-		tc_id_establecimiento = pg.getTc_id_establecimiento();
-		bco_cbu = pg.getBco_cbu();
-		bco_razonSocial = pg.getBco_razonSocial();	
+		this.cuit = ParamGralesDAO.getinstance().getValor("cuit");
+		String id_est_str = ParamGralesDAO.getinstance().getValor("tc_id_establecimiento");
+		this.tc_id_establecimiento = (id_est_str == null ? null : Integer.valueOf(id_est_str));
+		this.bco_cbu = ParamGralesDAO.getinstance().getValor("bco_cbu");
+		this.razonSocial = ParamGralesDAO.getinstance().getValor("razonSocial");
 	}
 
 	public static ControladorVentas getInstance(){
@@ -264,8 +263,8 @@ public class ControladorVentas {
 		return bco_cbu;
 	}
 
-	public String getBco_razonSocial() {
-		return bco_razonSocial;
+	public String getRazonSocial() {
+		return razonSocial;
 	}
 	
 	
