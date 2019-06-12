@@ -1,4 +1,6 @@
 <%@ page import="dto.EmpleadoDTO"%>
+<%@ page import="enumeraciones.EstadoEmpleado"%>
+<%@ page import="enumeraciones.Puesto"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
 %>
@@ -44,21 +46,25 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 							<div class="form-group col-sm-5">
 							    <select class="form-control" id="estadoEmpleado" name="estadoEmpleado">
 							      <option selected>- Estado -</option>
-							      <option>Activo</option>
-							      <option>Licencia Paga</option>
-							      <option>Licencia No Paga</option>
-							      <option>Desvinculado</option>
-							      <option>Baja</option>
+							      <%
+									for (EstadoEmpleado estadoEmp : EstadoEmpleado.values()) {
+									%>
+										<option value=<%=estadoEmp.getId() %>><%=estadoEmp.getNombre() %></option>
+									<%
+									}
+									%>
 							    </select>
 							 </div>			
 							<div class="form-group col-sm-5">
 							    <select class="form-control" id="puestoEmpleado" name="puestoEmpleado">
 							      <option selected>- Puesto -</option>
-							      <option>Cajero</option>
-							      <option>Repositor</option>
-							      <option>Seguridad</option>
-							      <option>Supervisor</option>
-							      <option>Gerente</option>
+							      <%
+									for (Puesto puesto : Puesto.values()) {
+									%>
+										<option value=<%=puesto.getId() %>><%=puesto.getNombre() %></option>
+									<%
+									}
+									%>
 							    </select>
 							  </div>
 							  <div class="form-group col-sm-2">
