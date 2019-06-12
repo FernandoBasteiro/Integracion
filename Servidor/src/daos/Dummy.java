@@ -49,7 +49,7 @@ public class Dummy {
 		Producto producto = new Producto();
 		ItemVenta itemVenta = new ItemVenta();
 		ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();
-		Venta venta = new Venta();
+		//Venta venta = new Venta();
 		/**stock.setCantidadDisponible(10);
 		stock.setCantidadMinimo(6);
 		stock.setCantidadTotal(12);

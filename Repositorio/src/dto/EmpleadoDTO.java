@@ -9,6 +9,8 @@ import enumeraciones.Genero;
 import enumeraciones.Puesto;
 
 public class EmpleadoDTO implements Serializable {
+
+	private static final long serialVersionUID = -8097458792383430362L;
 	private String nombre;
 	private String apellido;
 	private Integer legajo;
