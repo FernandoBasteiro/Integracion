@@ -15,9 +15,9 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 			<div class="form-row">
 				<div class="form-group col-sm-12 text-right">
 					<% if(emp == null){ %>
-					<h2 class="d-inline float-left">Crear empleado</h2>
+					<h2 class="d-inline float-left"><i class="fas fa-user-plus mr-3 text-primary"></i>Crear Empleado</h2>
 					<% }else{ %>
-					<h2 class="d-inline float-left">Editar empleado</h2>
+					<h2 class="d-inline float-left"><i class="fas fa-user-edit mr-3 text-primary"></i>Editar Empleado</h2>
 					<% } %>
 					<a href="/Web/Private?action=listarEmpleados" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 					<button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Guardar</button>
