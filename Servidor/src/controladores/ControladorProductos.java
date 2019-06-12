@@ -2,7 +2,6 @@ package controladores;
 
 import java.util.ArrayList;
 import daos.ProductoDAO;
-import daos.VentaDAO;
 import dto.EmpleadoDTO;
 import dto.ProductoDTO;
 import enumeraciones.Puesto;
@@ -10,8 +9,7 @@ import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Producto;
-import negocio.Venta;
-
+import negocio.Stock;
 
 public class ControladorProductos {
 	
@@ -26,18 +24,47 @@ public class ControladorProductos {
 		return instancia;
 	}
 	
-	
-	
-	public void cargarProdtuco(EmpleadoDTO supervisor, ProductoDTO p) {
-		
+	public void cargaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
+			if (supervisor.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
+				 ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
+				if (prods == null) {
+					Stock s = new Stock(p.getStock().getCantidadMinimo(), p.getStock().getCantidadTotal(), p.getStock().getCantidadDisponible());
+					Producto nuevo = new Producto(p.getCodigo(), p.getNombre(), p.getDescripcion(), p.getPresentacion(), p.getPrecio(), s);
+					nuevo.guardar();
+				} else
+					throw new ExcepcionProceso("Ya existe un producto con ese código.");
+			} else
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+		}
 	}
 
-	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) {
-		
+	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
+			if (supervisor.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
+				 ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
+				if (prods != null) {
+					prods.get(0).bajaStock();
+					prods.get(0).guardarStock();
+				} else
+					throw new ExcepcionProceso("Error al dar de baja el producto.");
+			} else
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+		}
 	}
 	
-	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) {
-		
+	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
+			if (supervisor.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
+				 ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
+				if (prods != null) {
+					prods.get(0).actualizarStock(p.getStock().getCantidadTotal(), p.getStock().getCantidadDisponible(), p.getStock().getCantidadMinimo());
+					prods.get(0).guardarStock();
+				} else
+					throw new ExcepcionProceso("Error al actualizar el producto.");
+			} else
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+		}
 	}
 	
 	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws UsuarioNoLogueado, UsuarioSinPermisos {
