@@ -1,12 +1,18 @@
 package dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Genero;
 import enumeraciones.Puesto;
 
-public class EmpleadoDTO {
+public class EmpleadoDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7329726688147628829L;
 	private String nombre;
 	private String apellido;
 	private Integer legajo;

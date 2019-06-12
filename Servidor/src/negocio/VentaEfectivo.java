@@ -21,6 +21,17 @@ public class VentaEfectivo extends Venta {
 		this.montoRecibido = montoRecibido;
 		this.vuelto = vuelto;
 	}
+	
+	public VentaEfectivo(LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
+			EstadoVenta estado, Float total, Float montoRecibido, Float vuelto, 
+			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
+		super(fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
+		this.montoRecibido = montoRecibido;
+		this.vuelto = vuelto;
+	}
+	
+	
+	
 	public Float getMontoRecibido() {
 		return montoRecibido;
 	}

@@ -7,7 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.joda.time.LocalDate;
 
+import controladores.ControladorEmpleados;
+import controladores.ConversorFechas;
 import controladores.HibernateUtil;
+import dto.EmpleadoDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.EstadoFactura;
@@ -15,6 +18,9 @@ import enumeraciones.EstadoVenta;
 import enumeraciones.Genero;
 import enumeraciones.Puesto;
 import enumeraciones.TipoFactura;
+import excepciones.ExcepcionProceso;
+import excepciones.UsuarioNoLogueado;
+import excepciones.UsuarioSinPermisos;
 import negocio.Empleado;
 import negocio.ItemVenta;
 import negocio.Producto;
@@ -24,41 +30,39 @@ import negocio.Venta;
 public class Dummy {
 	private static Dummy instancia;
 	
-	private Dummy( ) {
+	private Dummy( ) throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		this.probarBase();
 	}
 	
-	public static Dummy getInstancia() {
+	public static Dummy getInstancia() throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		if (instancia == null) {
 			instancia = new Dummy();
 		}
 		return instancia;
 	}
-	public static void main(String[] args)
+	public static void main(String[] args) throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso
 	{
 		Dummy.getInstancia();
 	}
-	public void probarBase() {
+	public void probarBase() throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		Stock stock = new Stock();
 		Producto producto = new Producto();
-		Empleado empleado = new Empleado();
 		ItemVenta itemVenta = new ItemVenta();
 		ArrayList<ItemVenta> items = new ArrayList<ItemVenta>();
-		Venta venta = new Venta();
-		stock.setCantidadDisponible(10);
+		/**stock.setCantidadDisponible(10);
 		stock.setCantidadMinimo(6);
 		stock.setCantidadTotal(12);
-		producto.setCodigo(1234);
+		producto.setCodigo(1234567);
 		producto.setDescripcion("Veneno");
-		producto.setNombre("CocaCola 2L");
+		producto.setNombre("Oreos");
 		producto.setPrecio((float)45.3);
 		producto.setPresentacion("2L");
 		producto.setStock(stock);
-		empleado.setApellido("Sarasa");
+		empleado.setApellido("Montero");
 		empleado.setCbu("1234");
-		empleado.setDni("33333");
+		empleado.setDni("33333444444");
 		empleado.setDomicilio("Mardel");
-		empleado.setEstadoEmpleado(EstadoEmpleado.LICENCIA_PAGA);
+		empleado.setEstadoEmpleado(EstadoEmpleado.ACTIVO);
 		empleado.setEstadoCivil(EstadoCivil.CASADO);
 		empleado.setFechaIngreso(LocalDate.now());
 		empleado.setFechaEgreso(LocalDate.now());
@@ -68,7 +72,7 @@ public class Dummy {
 		empleado.setEmail("mail@falso");
 		empleado.setNacionalidad("Argentino");
 		empleado.setPassword("1234");
-		empleado.setPuesto(Puesto.GERENTE);
+		empleado.setPuesto(Puesto.CAJERO);
 		empleado.setSueldoBase((float)100.3);
 		empleado.setTelefono("1234");
 		itemVenta.setCantidad(10);
@@ -82,12 +86,66 @@ public class Dummy {
 		
 		EmpleadoDAO.getinstance().add(empleado);
 		ProductoDAO.getinstance().add(producto);
-		StockDAO.getinstance().add(stock);
 		empleado.setLegajo(1);
-		ItemVentaDAO.getinstance().add(itemVenta);
 		VentaDAO.getinstance().add(venta);
 		
-	
+		 int i=0;
+		for( Empleado e : EmpleadoDAO.getinstance().getEmpleadosByEstado(EstadoEmpleado.DESVINCULADO)) {
+			
+			System.out.println("Empleado "+i+": "+e.getApellido()+" - Estado: "+e.getEstadoEmpleado().toString());
+			i++;
+		}*/
+		
+		
+		Empleado empleado = new Empleado();
+
+		empleado.setNombre("Fernando");
+		empleado.setApellido("Basteiro");
+		empleado.setCbu("1234");
+		empleado.setDni("12");
+		empleado.setDomicilio("BA");
+		empleado.setEstadoEmpleado(EstadoEmpleado.ACTIVO);
+		empleado.setEstadoCivil(EstadoCivil.CASADO);
+		empleado.setFechaIngreso(LocalDate.now());
+		empleado.setFechaEgreso(LocalDate.now());
+		empleado.setFechaNacimiento(LocalDate.now());
+		empleado.setGenero(Genero.FEMENINO);
+		empleado.setHorasAsignadas(10);
+		empleado.setEmail("mail@falso");
+		empleado.setNacionalidad("Argentino");
+		empleado.setPassword("1234");
+		empleado.setPuesto(Puesto.GERENTE);
+		empleado.setSueldoBase((float)100.3);
+		empleado.setTelefono("1234");
+		
+		EmpleadoDAO.getinstance().add(empleado);
+		
+		/*
+		EmpleadoDTO gerente = new EmpleadoDTO();
+		gerente.setLegajo(1);
+		gerente.setPassword("1234");
+		gerente.setSession("3");
+		gerente=ControladorEmpleados.getInstance().iniciarSesion(gerente);
+		System.out.println(gerente.getApellido());
+		ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
+		
+		*/
+		
+		
+		
+		
+		//ControladorEmpleados.getInstance().listarEmpleadoPorLegajo(gerente, leg)
+		
+		//ControladorEmpleados.getInstance().altaEmpleado(gerente, empleado);
+		
+		
+
+		
+		
+		
+		
+		
+		
 		System.out.println("Bien");
 
 	}

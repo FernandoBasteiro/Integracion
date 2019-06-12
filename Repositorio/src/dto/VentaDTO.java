@@ -1,5 +1,6 @@
 package dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import enumeraciones.MedioDePago;
 import enumeraciones.TipoCuenta;
 import enumeraciones.TipoFactura;
 
-public class VentaDTO {
+public class VentaDTO implements Serializable {
+
+	private static final long serialVersionUID = 7443701781909431163L;
 	private Integer id;
 	private LocalDate fechaVenta;
 	private List<ItemVentaDTO> items;

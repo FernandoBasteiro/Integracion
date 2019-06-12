@@ -62,8 +62,8 @@ public class Empleado {
 	
 	//FECHAS JAVA
 	public Empleado(String nombre, String apellido, String dni, String domicilio, String telefono, String email,
-			EstadoCivil estadoCivil, Genero genero, java.time.LocalDate fechaNacimiento, java.time.LocalDate fechaIngreso,
-			java.time.LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
+			EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
+			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
 			Float sueldoBase, Integer horasAsignadas, Puesto puesto, String cbu, String session) {
 		super();
 		this.nombre = nombre;
@@ -74,9 +74,9 @@ public class Empleado {
 		this.email = email;
 		this.estadoCivil = estadoCivil;
 		this.genero = genero;
-		this.fechaNacimiento = this.fechaNacimiento;
-		this.fechaIngreso = this.fechaIngreso;
-		this.fechaEgreso = this.fechaEgreso;
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaIngreso = fechaIngreso;
+		this.fechaEgreso = fechaEgreso;
 		this.estadoEmpleado = estadoEmpleado;
 		this.nacionalidad = nacionalidad;
 		this.password = password;

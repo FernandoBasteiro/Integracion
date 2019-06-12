@@ -1,6 +1,10 @@
 package dto;
 
-public class StockDTO {
+import java.io.Serializable;
+
+public class StockDTO implements Serializable {
+
+	private static final long serialVersionUID = 1013178992333396233L;
 	private Integer cantidadMinimo;
 	private Integer cantidadTotal;
 	private Integer cantidadDisponible;
@@ -28,7 +32,6 @@ public class StockDTO {
 		this.cantidadDisponible = cantidadDisponible;
 	}
 	public StockDTO() {
-	}
-	
+	}	
 	
 }

@@ -17,4 +17,9 @@ public enum MedioDePago {
 	public String getNombre() {
 		return nombre;
 	}
+	public static MedioDePago fromId(Integer id) {
+		for (MedioDePago mdp : MedioDePago.values()) if (mdp.getId() == id) return mdp;
+		return null;
+	}
+
 }
