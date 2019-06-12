@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import org.joda.time.LocalDate;
+
 import controladores.ControladorEmpleados;
 import controladores.ControladorProductos;
 import controladores.ControladorVentas;
@@ -11,6 +13,8 @@ import dto.EmpleadoDTO;
 import dto.ProductoDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoEmpleado;
+import enumeraciones.EstadoVenta;
+import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
@@ -74,43 +78,38 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		return ControladorProductos.getInstancia().listarProductos(cajero, p);
 	}
 
-/**
-	@throws UsuarioSinPermisos 
- * @throws ExcepcionProceso 
- * @throws UsuarioNoLogueado 
- * @Override
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, FacturaDTO f) throws RemoteException {
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws RemoteException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ArrayList<FacturaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact)
+	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<FacturaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper)
+	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	
 	@Override
-	public ArrayList<FacturaDTO> listarFacturas(EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e)
+	public ArrayList<VentaDTO> listarFacturas(EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoVenta e)
 			throws RemoteException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public FacturaDTO mostrarFactura(EmpleadoDTO gerente, FacturaDTO f) throws RemoteException {
+	public VentaDTO mostrarFactura(EmpleadoDTO gerente, VentaDTO f) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-*/
+
 	@Override
 	public VentaDTO generarVenta(EmpleadoDTO c, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 	 return	ControladorVentas.getInstance().generarVenta(c, v);

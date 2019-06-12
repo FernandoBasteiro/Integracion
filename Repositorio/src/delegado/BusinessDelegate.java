@@ -11,7 +11,7 @@ import dto.EmpleadoDTO;
 import dto.ProductoDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoEmpleado;
-import enumeraciones.EstadoFactura;
+import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
 import excepciones.ComunicacionException;
@@ -113,7 +113,7 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	/*
+	
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
 		try {
 			ir.marcarFacturaCobrada(gerente, f);
@@ -136,7 +136,7 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) throws ComunicacionException{
+	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoVenta e) throws ComunicacionException{
 		try {
 			return ir.listarFacturas(gerente, m, fch, e);
 		} catch (RemoteException re) {
@@ -151,7 +151,7 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	*/
+	
 	public VentaDTO generarVenta(EmpleadoDTO cajero, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			f=ir.generarVenta(cajero, f);
@@ -160,7 +160,7 @@ public class BusinessDelegate {
 		}
 		return f;
 	}
-	/**
+	
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
 		try {
 			ir.altaProducto(supervisor, p);
@@ -189,7 +189,7 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	*/
+	
 	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos {
 		try {
 			return ir.listarProductos(cajero, p);
@@ -197,7 +197,7 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	/*
+	
 	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
 		try {
 			return ir.mostrarProducto(supervisor, p);
@@ -205,5 +205,5 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	*/
+	
 }
