@@ -170,12 +170,12 @@ if ($('#productoAutocomplete').length) {
 			
 			var prod = productos.find(producto => producto.codigo === codProd);
 			totalVenta += prod.precio*cantProd;
-			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.codigo+'</td><td>'+prod.nombre+'</td><td>'+prod.presentacion+'</td><td>'+cantProd+'</td><td>$'+prod.precio+'</td><td>$'+prod.precio*cantProd+'</td><input type="hidden" name="items" value="'+prod.codigo+','+cantProd+'" /></tr>')
+			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.codigo+'</td><td>'+prod.nombre+'</td><td>'+prod.presentacion+'</td><td>'+cantProd+'</td><td>$'+prod.precio.toFixed(2)+'</td><td>$'+(prod.precio.toFixed(2)*cantProd).toFixed(2)+'</td><input type="hidden" name="items" value="'+prod.codigo+','+cantProd+'" /></tr>')
 			listadoVenta.find('tbody').append(itemVta);
 			index++;
 			$('#codigo-producto, #buscarProducto').val('');
 			$('#cantidad-producto').val('1');
-			$('#totalVenta').text('$'+ totalVenta);
+			$('#totalVenta').text('$'+ totalVenta.toFixed(2));
 			
 		})
 	})();
