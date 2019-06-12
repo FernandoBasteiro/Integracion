@@ -33,18 +33,18 @@ public interface InterfazRemota extends Remote {
 	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;
 	
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO v) throws RemoteException;
-	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws RemoteException;
-	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws RemoteException;
-	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoVenta e) throws RemoteException;
+	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado;
+	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;
+	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoVenta e) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;
 	
-	public VentaDTO mostrarFactura (EmpleadoDTO gerente, VentaDTO v) throws RemoteException;
+	public VentaDTO mostrarFactura (EmpleadoDTO gerente, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	  
 	public VentaDTO generarVenta(EmpleadoDTO cajero, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	
-	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
-	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
-	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
-	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
-	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException;
+	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
+	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
+	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
+	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
+	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	
 }

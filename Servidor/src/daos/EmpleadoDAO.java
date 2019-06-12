@@ -129,7 +129,10 @@ public class EmpleadoDAO {
 		e.setLegajo(ee.getLegajoEmpleado());
 		e.setNacionalidad(ee.getNacionalidad());
 		e.setNombre(ee.getNombre());
-		e.setPassword(ee.getPassword());
+		
+		if (ee.getPassword()!=null) {
+			e.setPassword(ee.getPassword());
+		}
 		e.setPuesto(ee.getPuesto());
 		e.setSueldoBase(ee.getSueldoBase());
 		e.setTelefono(ee.getTelefono());
