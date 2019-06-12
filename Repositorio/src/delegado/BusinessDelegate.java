@@ -112,7 +112,7 @@ public class BusinessDelegate {
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
-	}
+	} 
 	
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {

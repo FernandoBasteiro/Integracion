@@ -29,7 +29,7 @@ public interface InterfazRemota extends Remote {
 	public ArrayList<EmpleadoDTO> listarEmpleadoPorLegajo (EmpleadoDTO gerente, Integer leg) throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado;
 	public ArrayList<EmpleadoDTO> listarEmpleados (EmpleadoDTO gerente, Puesto p, EstadoEmpleado e) throws RemoteException, UsuarioSinPermisos, UsuarioNoLogueado;
 	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso;
-	
+	 
 	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos;
 	
 	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO v) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;

@@ -115,7 +115,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 		
 	}
 
-	@Override
+	@Override 
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		 ControladorProductos.getInstancia().modifcacionProducto(supervisor, p);
 		
