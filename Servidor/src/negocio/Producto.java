@@ -85,7 +85,7 @@ public class Producto {
 		this.stock.guardar();
 	}
 	
-	public void bajaStock() {
+	public void bajaProducto() {
 		this.stock.bajaStock();
 	}
 	

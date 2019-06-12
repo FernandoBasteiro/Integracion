@@ -11,7 +11,7 @@ import dto.EmpleadoDTO;
 import dto.ProductoDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoEmpleado;
-import enumeraciones.EstadoFactura;
+import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
 import excepciones.ComunicacionException;
@@ -106,15 +106,15 @@ public class BusinessDelegate {
 		}
 	}
 
-	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException {
+	public void eliminarEmpleado (EmpleadoDTO gerente, EmpleadoDTO empleado) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		try {
 			ir.eliminarEmpleado(gerente, empleado);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
-	}
-	/*
-	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
+	} 
+	
+	public void marcarFacturaCobrada(EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			ir.marcarFacturaCobrada(gerente, f);
 		} catch (RemoteException re) {
@@ -122,21 +122,21 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws ComunicacionException {
+	public ArrayList<VentaDTO> listarFacturaPorNroFactura(EmpleadoDTO gerente, Integer nroFact) throws ComunicacionException, UsuarioSinPermisos, UsuarioNoLogueado {
 		try {
 			return ir.listarFacturaPorNroFactura(gerente, nroFact);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws ComunicacionException{
+	public ArrayList<VentaDTO> listarFacturaPorNroOperacion(EmpleadoDTO gerente, Integer nroOper) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos{
 		try {
 			return ir.listarFacturaPorNroOperacion(gerente, nroOper);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoFactura e) throws ComunicacionException{
+	public ArrayList<VentaDTO> listarFacturas (EmpleadoDTO gerente, MedioDePago m, LocalDate fch, EstadoVenta e) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos{
 		try {
 			return ir.listarFacturas(gerente, m, fch, e);
 		} catch (RemoteException re) {
@@ -144,14 +144,14 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public VentaDTO mostrarFactura (EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException {
+	public VentaDTO mostrarFactura (EmpleadoDTO gerente, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			return ir.mostrarFactura(gerente, f);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	*/
+	
 	public VentaDTO generarVenta(EmpleadoDTO cajero, VentaDTO f) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			f=ir.generarVenta(cajero, f);
@@ -160,36 +160,36 @@ public class BusinessDelegate {
 		}
 		return f;
 	}
-	/**
-	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
+	
+	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			ir.altaProducto(supervisor, p);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
+	public void modificacionProducto (EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			ir.modificacionProducto(supervisor, p);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
+	public void bajaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			ir.bajaProducto(supervisor, p);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
+	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			ir.actualizarStock(supervisor, p);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	*/
+	
 	public ArrayList<ProductoDTO> listarProductos(EmpleadoDTO cajero, ProductoDTO p) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos {
 		try {
 			return ir.listarProductos(cajero, p);
@@ -197,13 +197,30 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	/*
-	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException {
+	
+	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws ComunicacionException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		try {
 			return ir.mostrarProducto(supervisor, p);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
-	*/
+	
+	public void anularFactura(EmpleadoDTO g, VentaDTO v) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos, ComunicacionException {
+		try {
+			ir.anularFactura(g, v);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+	
+	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos {
+		try {
+			ir.marcarFacturasCobradas(g, periodo);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+	
+	
 }

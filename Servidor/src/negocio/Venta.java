@@ -105,12 +105,7 @@ public abstract class Venta {
 		this.fechaCobro = fechaCobro;
 	}
 	
-	public void cancelarVenta() {
-		for (ItemVenta i : items) {
-			i.devolverProducto();
-		}	
-		this.setEstado(EstadoVenta.ANULADA);
-	}
+	public abstract void cancelarVenta();
 	
 	public void marcarFacturaCobrada() {
 		this.setFechaCobro(LocalDate.now());

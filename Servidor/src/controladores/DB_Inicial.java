@@ -142,7 +142,7 @@ public class DB_Inicial {
 		empleado.setCbu("12345678910");
 		empleado.setDni("32787333");
 		empleado.setDomicilio("Buenos Aires");
-		empleado.setEstadoEmpleado(EstadoEmpleado.LICENCIA_PAGA);
+		empleado.setEstadoEmpleado(EstadoEmpleado.ACTIVO);
 		empleado.setEstadoCivil(EstadoCivil.SOLTERO);
 		empleado.setFechaIngreso(LocalDate.now());
 		empleado.setFechaEgreso(LocalDate.now());
