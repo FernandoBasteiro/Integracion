@@ -157,7 +157,7 @@ public class VentaDAO {
 			p1 = 0;
 			q1 = "where fechaVenta = ?";	
 		}
-		//info de estado empleado
+		//info de estado venta
 		if (e != null) {
 			if (p1 >= 0 ) {
 				p2= 1;

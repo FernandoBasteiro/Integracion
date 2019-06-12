@@ -1,6 +1,8 @@
 package Servlets;
 
 
+import java.rmi.RemoteException;
+
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
 import enumeraciones.EstadoCivil;
@@ -16,21 +18,21 @@ import excepciones.UsuarioSinPermisos;
 public class testTomi {
 	private static testTomi instancia;
 	
-	private testTomi( ) throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso, ComunicacionException {
+	private testTomi( ) throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso, ComunicacionException, RemoteException {
 		this.probarBase();
 	}
 	
-	public static testTomi getInstancia() throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso, ComunicacionException {
+	public static testTomi getInstancia() throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso, ComunicacionException, RemoteException {
 		if (instancia == null) {
 			instancia = new testTomi();
 		}
 		return instancia;
 	}
-	public static void main(String[] args) throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso, ComunicacionException
+	public static void main(String[] args) throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso, ComunicacionException, RemoteException
 	{
 		testTomi.getInstancia();
 	}
-	public void probarBase() throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso, ComunicacionException {
+	public void probarBase() throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso, ComunicacionException, RemoteException {
 
 		
 		//ARMO EL EMPLEADO NUEVO PARA AGREGAR
@@ -71,14 +73,14 @@ public class testTomi {
 		EmpleadoDTO empleado2 = new EmpleadoDTO();
 		empleado2.setLegajo(4);
 		empleado2.setDni("12");
-		BusinessDelegate.getInstance().bajaEmpleado(gerente, empleado2);*/
+		BusinessDelegate.getInstance().bajaEmpleado(gerente, empleado2);
 		
+		*/
 		
 		for( EmpleadoDTO e : BusinessDelegate.getInstance().listarEmpleados(gerente, Puesto.GERENTE, EstadoEmpleado.ACTIVO))
 		{
 			System.out.println(e.getApellido());
 		}
-		
 		
 		
 		

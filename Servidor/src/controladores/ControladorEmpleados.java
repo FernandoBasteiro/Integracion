@@ -147,22 +147,14 @@ public class ControladorEmpleados {
 				ArrayList<Empleado> list = new ArrayList<Empleado> ();
 				ArrayList<EmpleadoDTO> listDTO = new ArrayList<EmpleadoDTO> ();
 				
-				if (p != null) {
-					list = EmpleadoDAO.getinstance().getEmpleadosByPuesto(p);
+				
+					list = EmpleadoDAO.getinstance().getEmpleadosByPuestoAndEstado(p, est);
 					if (list != null) {
 						for (Empleado e : list) {
 							listDTO.add(e.getDTO());
 						}
 					}
-				}
-				if (est != null) {
-					list = EmpleadoDAO.getinstance().getEmpleadosByEstado(est);
-					if (list != null) {
-						for (Empleado e : list) {
-							listDTO.add(e.getDTO());
-						}
-					}
-				}
+				
 				
 				if (listDTO != null) {
 					return listDTO;
