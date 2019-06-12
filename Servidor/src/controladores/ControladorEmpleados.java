@@ -81,6 +81,9 @@ public class ControladorEmpleados {
 					if (e.getFechaEgreso()!=null) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
 					}
+					if (e.getPassword()!=null) {
+						emp.setPassword(e.getPassword());
+					}
 					emp.setNombre(e.getNombre());
 					emp.setApellido(e.getApellido());
 					emp.setLegajo(e.getLegajo());
@@ -92,10 +95,8 @@ public class ControladorEmpleados {
 					emp.setGenero(e.getGenero());
 					emp.setFechaNacimiento(ConversorFechas.convertJavaToJoda(e.getFechaNacimiento()));
 					emp.setFechaIngreso(ConversorFechas.convertJavaToJoda(e.getFechaIngreso()));
-					
 					emp.setEstadoEmpleado(e.getEstadoEmpleado());
 					emp.setNacionalidad(e.getNacionalidad());
-					emp.setPassword(e.getPassword());
 					emp.setSueldoBase(e.getSueldoBase());
 					emp.setHorasAsignadas(e.getHorasAsignadas());
 					emp.setPuesto(e.getPuesto());
