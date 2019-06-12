@@ -213,4 +213,18 @@ public class ControladorVentas {
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
+	
+	public void anularFactura(EmpleadoDTO g, VentaDTO v) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
+				if (ventas != null) {
+					ventas.get(0).cancelarVenta();
+				}
+				else throw new ExcepcionProceso("Error al anular la factura.");								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");
+	}
 }

@@ -65,6 +65,16 @@ public class VentaEfectivo extends Venta {
 	public void grabar() {
 		VentaDAO.getinstance().add(this);
 	}
+	
+	@Override
+	public void cancelarVenta() {
+		for (ItemVenta i : items) {
+			i.devolverProducto();
+		}	
+		this.setEstado(EstadoVenta.ANULADA);
+		this.grabar();
+	}
+	
 	public Float calcularVuelto () {
 		return this.montoRecibido - this.total;
 	}
