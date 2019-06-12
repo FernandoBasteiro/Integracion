@@ -66,7 +66,7 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 			</div>
 			<div class="form-row">
 				<div class="form-group col-sm-6">
-					<label for="dniEmpleado">DNI</label>
+					<label for="dniEmpleado">CUIL</label>
 					<input type="text" required name="dniEmpleado" class="form-control" value="<%=(emp != null) ? emp.getDni() : "" %>"/>
 				</div>
 				<div class="form-group col-sm-6">

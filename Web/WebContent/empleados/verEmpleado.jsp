@@ -59,7 +59,7 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">DNI:</strong><%=emp.getDni()%></p>
+				<p><strong class="mr-2">CUIL:</strong><%=emp.getDni()%></p>
 			</div>
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Nacionalidad:</strong><%=emp.getNacionalidad()%></p>

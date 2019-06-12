@@ -40,7 +40,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 									<div class="input-group-prepend">
 								          <div class="input-group-text">Buscar</div>
 								      </div>
-									  <input name="buscarEmpleadoDni" type="search" class="form-control" placeholder="Ingrese dni..." aria-label="Ingrese dni" aria-describedby="buscarEmpleadoDni">
+									  <input name="buscarEmpleadoDni" type="search" class="form-control" placeholder="Ingrese CUIL..." aria-label="Ingrese CUIL" aria-describedby="buscarEmpleadoDni">
 									   <div class="input-group-append">
 									    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 									  </div>
@@ -94,7 +94,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 				      <th scope="col">Legajo</th>
 				      <th scope="col">Apellido</th>
 				      <th scope="col">Nombre</th>
-				      <th scope="col">DNI</th>
+				      <th scope="col">CUIL</th>
 				      <th scope="col">Puesto</th>
 				      <th scope="col">Estado</th>
 				      <th scope="col" class="text-center">Acciones</th>
@@ -140,6 +140,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 				      	<a href="/Web/Private?action=verEmpleado&legajo=<%=e.getLegajo() %>" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/Private?action=verEmpleado&modificar=true&legajo=<%=e.getLegajo() %>" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
 				      	<a href="/Web/empleados/index.jsp?action=eliminarEmpleado&legajo=<%=e.getLegajo() %>" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Web/Private/generarNovedad&legajo=<%=e.getLegajo() %>" class="news mx-1" title="Cargar novedad"><i class="fas fa-umbrella-beach text-info"></i></a>
 				      </td>
 				    </tr>
 				    <% } %>
