@@ -12,7 +12,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 	<div class="container">
 		<div class="row">
 			<div class="col col-xs-12">
-				<h2 class="d-inline">Administrar Empleados</h2>
+				<h2 class="d-inline"><i class="fas fa-users mr-3 text-primary"></i>Administrar Empleados</h2>
 				<a href="/Web/empleados/crearEmpleado.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo empleado</a>
 				<hr/>
 			</div>
