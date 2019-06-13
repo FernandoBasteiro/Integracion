@@ -22,20 +22,25 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form method="post" action="?" class="filter-tools">
 					<div class="form-row pb-2">
 						<div class="col-sm-6">
+						
+						
+						<form action="/Web/Private?action=listarVentas" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
 							  <input name="buscarFacturaNumero" type="search" class="form-control" placeholder="Ingrese número de factura..." aria-label="Ingrese número de factura" aria-describedby="buscarFacturaNumero">
 							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+							    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 							  </div>
 							</div>
-						</div>
+							</form>						
+						
+					</div>
 						<div class="col-sm-6">
+						<form action="/Web/Private?action=listarVentas" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
@@ -45,8 +50,11 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
 							  </div>
 							</div>
+							</form>
 						</div>
 					</div>
+				<form action="/Web/Private?action=listarVentas" method="post">
+					
 					<div class="form-row align-items-right">
 						<div class="form-group col-sm-3">
 							<div class="input-group">
@@ -74,9 +82,11 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 						  </div>
 						  <div class="form-group col-sm-3">
 					    		<button class="btn btn-secondary btn-block" type="button">Filtrar</button>
-						  </div>			
+						  </div>	
+						 	
 					</div>
-				</form>
+					 </form>	
+				
 				<hr/>
 			</div>
 		</div>
