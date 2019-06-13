@@ -44,8 +44,8 @@
 							<div class="input-group-prepend">
 								<label class="input-group-text" for="cuitFactura">CUIT</label>
 							</div>
-							<input placeholder="Ingrese CUIT..." type="text"
-								name="cuitFactura" class="form-control" value="" />
+							<input placeholder="Ingrese CUIT..." type="number"
+								name="cuitFactura" class="form-control" value="" min="0"/>
 						</div>
 					</div>
 				</div>

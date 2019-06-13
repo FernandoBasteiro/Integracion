@@ -190,7 +190,7 @@ public class Private extends HttpServlet {
 				producto.setCodigo(codigo);
 				try {
 					producto = bd.mostrarProducto(logged, producto);
-					request.setAttribute("producto", producto);					
+					request.setAttribute("producto", producto);
 				}
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
