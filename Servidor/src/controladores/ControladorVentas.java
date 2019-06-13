@@ -164,6 +164,7 @@ public class ControladorVentas {
 					//TODO TRAER LAS COBRANZAR DE TC DEL PERIORDO 
 					//********************************************
 					v.marcarFacturaCobrada();
+					v.grabar();
 				}								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
@@ -243,6 +244,7 @@ public class ControladorVentas {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
 				if (ventas.size() > 0) {
 					ventas.get(0).cancelarVenta();
+					ventas.get(0).grabar();
 				}
 				else throw new ExcepcionProceso("No existe una factura con ese n�mero de factura.");								
 			} 		
