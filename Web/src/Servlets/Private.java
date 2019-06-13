@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,15 +17,19 @@ import javax.servlet.http.HttpSession;
 
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
+import dto.ItemVentaDTO;
 import dto.ProductoDTO;
 import dto.StockDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.EstadoFactura;
+import enumeraciones.EstadoVenta;
 import enumeraciones.Genero;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
+import enumeraciones.TipoCuenta;
+import enumeraciones.TipoFactura;
 import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
@@ -68,7 +74,7 @@ public class Private extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.invalidate();
 				jspPage = "index.jsp";
-				request.setAttribute("error", "Usuario desconectado correctamente.");	
+				request.setAttribute("success", "Usuario desconectado correctamente.");	
 			}
 			else if (action.equals("crearEmpleado")) {
 				HttpSession session = request.getSession();
@@ -89,8 +95,10 @@ public class Private extends HttpServlet {
 				Puesto puesto = (request.getParameter("puestoEmpleado") == null ? null : Puesto.fromId(Integer.valueOf(request.getParameter("puestoEmpleado"))));
 				Integer horas = (request.getParameter("horasEmpleado") == null ? null : Integer.valueOf(request.getParameter("horasEmpleado")));
 				LocalDate fechaIngreso = (request.getParameter("fechaIngresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaIngresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				LocalDate fechaEgreso = (request.getParameter("fechaEgresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaEgresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				Float sueldoBase = (request.getParameter("sueldoEmpleado") == null ? null : Float.valueOf(request.getParameter("sueldoEmpleado")));
 				String cbu = request.getParameter("cbuEmpleado");
+				String password = request.getParameter("passwordEmpleado");
 				nuevo.setLegajo(legajo);
 				nuevo.setNombre(nombre);
 				nuevo.setApellido(apellido);
@@ -105,21 +113,26 @@ public class Private extends HttpServlet {
 				nuevo.setPuesto(puesto);
 				nuevo.setHorasAsignadas(horas);
 				nuevo.setFechaIngreso(fechaIngreso);
+				nuevo.setFechaEgreso(fechaEgreso);
 				nuevo.setSueldoBase(sueldoBase);
 				nuevo.setCbu(cbu);
+				if (! password.isEmpty()) nuevo.setPassword(password);
+				nuevo.setEstadoEmpleado(estado);
 				try {
 					if (nuevo.getLegajo() == null) bd.altaEmpleado(logged, nuevo);
-					//TODO else bd.modificacionEmpleado(logged, nuevo);
-					request.setAttribute("success", "Se creo el usuario");
+					else bd.modificacionEmpleado(logged, nuevo);
+					request.setAttribute("success", "Se guardo el usuario");
+					jspPage = "Private?action=listarEmpleados&todos=si";
 				}
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
 					request.setAttribute("empleado", nuevo);
+					jspPage = "empleados/crearEmpleado.jsp";
 				}
-				jspPage = "empleados/crearEmpleado.jsp";					
+									
 			}
-			/*
-			else if (action.equals("crearProducto")) {
+			
+			/**else if (action.equals("crearProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				String nombre = request.getParameter("nombreProducto");
@@ -141,9 +154,14 @@ public class Private extends HttpServlet {
 				stock.setCantidadMinimo(stockMin);
 				stock.setCantidadTotal(stockTot);
 				nuevo.setStock(stock);
-				bd.cargarProducto(logged, nuevo);
+				try {
+					bd.altaProducto(logged, nuevo);
+				} catch (ExcepcionProceso e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				jspPage = "productos/crearProducto.jsp";
-			}
+			} */
 			else if (action.equals("verEmpleado")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -157,8 +175,10 @@ public class Private extends HttpServlet {
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
 				}
-				jspPage = "empleados/verEmpleado.jsp";
-			}
+				if (request.getParameter("modificar") == null) jspPage = "empleados/verEmpleado.jsp";
+				else jspPage = "empleados/crearEmpleado.jsp";
+				
+			} 
 			else if (action.equals("verProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -172,8 +192,9 @@ public class Private extends HttpServlet {
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
 				}
-				jspPage = "productos/verProducto.jsp";
-			}
+				if (request.getParameter("modificar") == null) jspPage = "productos/verProducto.jsp";
+				else jspPage = "productos/crearProducto.jsp";
+			}/*
 			else if (action.equals("verVenta")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -188,14 +209,21 @@ public class Private extends HttpServlet {
 					request.setAttribute("error", e.getMessage());
 				}
 				jspPage = "facturacion/verFactura.jsp";
-			}
+			} */
 			else if (action.equals("listarEmpleados")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				Integer legajo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
-				String dni = request.getParameter("buscarEmpleadoDni");
-				EstadoEmpleado estado = EstadoEmpleado.fromId(request.getParameter("estadoEmpleado") == null ? null : Integer.valueOf(request.getParameter("estadoEmpleado")));
-				Puesto puesto = Puesto.fromId(request.getParameter("puestoEmpleado") == null ? null : Integer.valueOf(request.getParameter("puestoEmpleado")));
+				String todos = request.getParameter("todos");
+				Integer legajo = null;
+				String dni = null;
+				EstadoEmpleado estado = EstadoEmpleado.ACTIVO;
+				Puesto puesto = null;					
+				if (todos == null) {
+					legajo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
+					dni = request.getParameter("buscarEmpleadoDni");
+					estado = EstadoEmpleado.fromId(request.getParameter("estadoEmpleado") == null ? EstadoEmpleado.ACTIVO.getId() : Integer.valueOf(request.getParameter("estadoEmpleado")));
+					puesto = (request.getParameter("puestoEmpleado") == null ? null : Puesto.fromId(Integer.valueOf(request.getParameter("puestoEmpleado"))));					
+				}
 				ArrayList<EmpleadoDTO> empleados = new ArrayList<EmpleadoDTO>();
 				if (legajo != null) {
 					empleados = bd.listarEmpleadoPorLegajo(logged, legajo);
@@ -207,13 +235,13 @@ public class Private extends HttpServlet {
 					empleados = bd.listarEmpleados(logged, puesto, estado);
 				}
 				request.setAttribute("empleados", empleados);
-				jspPage = "facturacion/index.jsp";
-			}
+				jspPage = "empleados/index.jsp";
+			} 
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				Integer codigo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
-				String nombre = request.getParameter("buscarEmpleadoDni");
+				Integer codigo = (request.getParameter("buscarProductoCodigo") == null ? null : Integer.valueOf(request.getParameter("buscarProductoCodigo")));
+				String nombre = request.getParameter("buscarProductoNombre");
 				ProductoDTO p = null;
 				if (codigo != null || nombre != null) {
 					p = new ProductoDTO();
@@ -223,13 +251,16 @@ public class Private extends HttpServlet {
 				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, p);
 				request.setAttribute("productos", productos);
 				jspPage = "productos/index.jsp";
+				
+				
+			}
 				/*
 				nada: todos
 				buscarProductoNombre
 				buscarProductoCodigo
-				*/
-			/*
-			}
+				
+			
+			*/
 			else if (action.equals("listarVentas")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -238,8 +269,8 @@ public class Private extends HttpServlet {
 				
 				Integer numero = (request.getParameter("buscarFacturaNumero") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaNumero")));
 				Integer operacion = (request.getParameter("buscarFacturaOperacion") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaOperacion")));
-				EstadoFactura estado = EstadoFactura.fromId(request.getParameter("estadoFactura") == null ? null : Integer.valueOf(request.getParameter("estadoFactura")));
-				MedioDePago mdp = MedioDePago.fromId(request.getParameter("medioPagoFactura") == null ? null : Integer.valueOf(request.getParameter("medioPagoFactura")));
+				EstadoVenta estado = (request.getParameter("estadoFactura") == null ? null : EstadoVenta.fromId(Integer.valueOf(request.getParameter("estadoFactura"))));
+				MedioDePago mdp = (request.getParameter("medioPagoFactura") == null ? null : MedioDePago.fromId(Integer.valueOf(request.getParameter("medioPagoFactura"))));
 				
 				ArrayList<VentaDTO> ventas = null;
 				if (numero != null) {
@@ -253,7 +284,7 @@ public class Private extends HttpServlet {
 				}
 				request.setAttribute("facturas", ventas);
 				jspPage = "facturacion/index.jsp";
-				
+			}
 				/*
 				nada: las de hoy
 				buscarFacturaNumero
@@ -262,14 +293,99 @@ public class Private extends HttpServlet {
 				estadoFactura
 				medioPagoFactura
 				*/
-			/*
-			}
-			else if (action.equals("vender")) {
-				//nada: todos los productos
-			}
 			else if (action.equals("facturar")) {
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
+				TipoFactura tf = TipoFactura.fromId(request.getParameter("tipoFactura") == null ? null : Integer.valueOf(request.getParameter("tipoFactura")));
+				String cuit = request.getParameter("cuitFactura");
+				String[] itemsStr = request.getParameterValues("items");
+				ArrayList<ItemVentaDTO> items = new ArrayList<ItemVentaDTO>();
+				for (String itemStr : itemsStr) {
+					List<String> listStrItems = Arrays.asList(itemStr.split(","));
+					ItemVentaDTO iv = new ItemVentaDTO();
+					ProductoDTO p = new ProductoDTO();
+					p.setCodigo(Integer.valueOf(listStrItems.get(0)));
+					iv.setCantidad(Integer.valueOf(listStrItems.get(1)));
+					iv.setProducto(p);
+					items.add(iv);
+				}
+				MedioDePago mdp = MedioDePago.fromId(request.getParameter("medioPago") == null ? null : Integer.valueOf(request.getParameter("medioPago")));
 				
-			}*/
+				Float montoPago = (request.getParameter("montoPago").isEmpty() ? null : Float.valueOf(request.getParameter("montoPago")));
+				
+				String numeroTarjetaDebito = request.getParameter("debitoTarjeta");
+				Integer codigoSeguridadDebito = (request.getParameter("debitoCodigoSeguridad").isEmpty() ? null : Integer.valueOf(request.getParameter("debitoCodigoSeguridad")));
+				String titularDebito = request.getParameter("debitoTitular");
+				String dniDebito = request.getParameter("debitoDni");
+				String vencimientoDebito = request.getParameter("debitoVencimiento");
+				TipoCuenta tc = TipoCuenta.fromId(request.getParameter("debitoTipoCuenta").isEmpty() ? null : Integer.valueOf(request.getParameter("debitoTipoCuenta")));
+				Integer pin = (request.getParameter("debitoPin").isEmpty() ? null : Integer.valueOf(request.getParameter("debitoPin")));
+				
+				String numeroTarjetaCredito = request.getParameter("creditoTarjeta");
+				Integer codigoSeguridadCredito = (request.getParameter("creditoCodigoSeguridad").isEmpty() ? null : Integer.valueOf(request.getParameter("creditoCodigoSeguridad")));
+				String titularCredito = request.getParameter("creditoTitular");
+				String dniCredito = request.getParameter("creditoDni");
+				String vencimientoCredito = request.getParameter("creditoVencimiento");
+				Integer cuotas = (request.getParameter("creditoCuotas").isEmpty() ? null : Integer.valueOf(request.getParameter("creditoCuotas")));
+				
+				VentaDTO v = new VentaDTO();
+				v.setEmpleado(logged);
+				v.setTipoFact(tf);
+				v.setCuit(cuit);
+				v.setMedioDePago(mdp);
+				v.setMontoRecibido(montoPago);
+				v.setTipoCuenta(tc);
+				v.setPin(pin);
+				v.setCantCuotas(cuotas);
+				v.setItems(items);
+				if (mdp == MedioDePago.TARJETA_CREDITO) {
+					v.setNumeroTarjeta(numeroTarjetaCredito);
+					v.setCodigoSeguridad(codigoSeguridadCredito);
+					v.setNombre(titularCredito);
+					v.setDni(dniCredito);
+					v.setFechaVto(vencimientoCredito);
+				}
+				else if (mdp == MedioDePago.TARJETA_DEBITO) {
+					v.setNumeroTarjeta(numeroTarjetaDebito);
+					v.setCodigoSeguridad(codigoSeguridadDebito);
+					v.setNombre(titularDebito);
+					v.setDni(dniDebito);
+					v.setFechaVto(vencimientoDebito);
+				}
+				
+				try {
+					v = bd.generarVenta(logged, v);
+					request.setAttribute("venta", v);
+					request.setAttribute("success", "Venta aprobada");
+				} catch (ExcepcionProceso e) {
+					request.setAttribute("venta", v);
+					request.setAttribute("error", e.getMessage());
+				}
+				jspPage = "facturacion/vender.jsp";
+				/*
+				tipoFactura (enum)
+				cuitFactura (String)
+				items (array de tuplas de codigo y cantidad)
+				medioPago
+				- Efectivo
+				montoPago
+				- Debito
+				debitoTarjeta
+				debitoCodigoSeguridad
+				debitoTitular
+				debitoDni
+				debitoVencimiento
+				debitoTipoCuenta
+				debitoPin
+				- Credito
+				creditoTarjeta
+				creditoCodigoSeguridad
+				creditoTitular
+				creditoDni
+				creditoVencimiento
+				creditoCuotas
+				 */
+			}
 		}
 		catch (UsuarioSinPermisos usp) {
 			jspPage = "index.jsp";

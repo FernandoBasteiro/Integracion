@@ -5,6 +5,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 import entities.EmpleadoEntity;
 import entities.ItemVentaEntity;
+import entities.ParamGralesEntity;
 import entities.ProductoEntity;
 import entities.StockEntity;
 import entities.VentaEntity;
@@ -23,6 +24,7 @@ public class HibernateUtil
              config.addAnnotatedClass(ProductoEntity.class);
              config.addAnnotatedClass(StockEntity.class);
              config.addAnnotatedClass(VentaEntity.class);
+             config.addAnnotatedClass(ParamGralesEntity.class);
              sessionFactory = config.buildSessionFactory();
         }
         catch (Throwable ex)

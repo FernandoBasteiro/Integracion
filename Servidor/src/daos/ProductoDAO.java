@@ -63,7 +63,7 @@ public class ProductoDAO {
 		e.setCodigo(ee.getCodigo());
 		e.setNombre(ee.getNombre());
 		e.setDescripcion(ee.getDescripcion());
-		e.setPresentacion(ee.getDescripcion());
+		e.setPresentacion(ee.getPresentacion());
 		e.setPrecio(ee.getPrecio());
 		e.setStock(StockDAO.getinstance().toEntity(ee.getStock()));				
 		return e;	
@@ -74,7 +74,7 @@ public class ProductoDAO {
 		e.setCodigo(ee.getCodigo());
 		e.setNombre(ee.getNombre());
 		e.setDescripcion(ee.getDescripcion());
-		e.setPresentacion(ee.getDescripcion());
+		e.setPresentacion(ee.getPresentacion());
 		e.setPrecio(ee.getPrecio());
 		e.setStock(StockDAO.getinstance().toNegocio(ee.getStock()));				
 		return e;		
@@ -85,7 +85,7 @@ public class ProductoDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
-		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity where nombre like %?%")
+		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity where nombre like  '%'||?||'%'")
 				.setParameter(0, nombre)
 				.list();
 		ArrayList<Producto> lista = new ArrayList<Producto>();
@@ -93,13 +93,17 @@ public class ProductoDAO {
 		return lista;
 	}
 	
-	public Producto getProductoByCodigo(int codigo){
+	public ArrayList<Producto> getProductoByCodigo(int codigo){
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		ProductoEntity pe = (ProductoEntity) session.createQuery("from ProductoEntity where codigo = ?")
+		@SuppressWarnings("unchecked")
+		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity where codigo = ?")
 					.setParameter(0, codigo)
-					.uniqueResult();
-			return ProductoDAO.getinstance().toNegocio(pe);
+					.list();
+		ArrayList<Producto> lista = new ArrayList<Producto>();
+		for (ProductoEntity productoEntity : lista_entities) {
+			lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));}
+		return lista;
 		
 	}
 	
@@ -110,7 +114,9 @@ public class ProductoDAO {
 		ArrayList<ProductoEntity> lista_entities = (ArrayList<ProductoEntity>) session.createQuery("from ProductoEntity ")
 				.list();
 		ArrayList<Producto> lista = new ArrayList<Producto>();
-		for (ProductoEntity productoEntity : lista_entities) lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
+		for (ProductoEntity productoEntity : lista_entities) {
+			lista.add(ProductoDAO.getinstance().toNegocio(productoEntity));
+		}
 		return lista;
 	}
 	

@@ -1,7 +1,9 @@
 package negocio;
 
+import daos.ProductoDAO;
 import dto.ProductoDTO;
 import dto.StockDTO;
+import excepciones.ExcepcionProceso;
 
 public class Producto {
 	private Integer codigo;
@@ -75,9 +77,20 @@ public class Producto {
 		return new ProductoDTO(this.codigo, this.nombre, this.descripcion, this.presentacion, this.precio, this.stock.getDTO());
 	}
 	
+	public void guardar() {
+		ProductoDAO.getinstance().add(this);
+	}
 	
+	public void guardarStock() {
+		this.stock.guardar();
+	}
 	
+	public void bajaProducto() {
+		this.stock.bajaStock();
+	}
 	
-	
+	public void actualizarStock(Integer cTot, Integer cDisp, Integer cMin) {
+		this.stock.actualizarStock(cTot, cDisp, cMin);
+	}
 	
 }

@@ -105,12 +105,7 @@ public abstract class Venta {
 		this.fechaCobro = fechaCobro;
 	}
 	
-	public void cancelarVenta() {
-		for (ItemVenta i : items) {
-			i.devolverProducto();
-		}	
-		this.setEstado(EstadoVenta.ANULADA);
-	}
+	public abstract void cancelarVenta();
 	
 	public void marcarFacturaCobrada() {
 		this.setFechaCobro(LocalDate.now());
@@ -125,5 +120,15 @@ public abstract class Venta {
 		return itemsDTO;
 	}
 	
+	public Float calcularTotal () {
+		Float sum = (float) 0;
+		for (ItemVenta i : items) {
+			sum = sum+(i.getPrecio()*i.getCantidad());
+		}
+		this.total=sum;
+		return sum;
+	}
+	
 	public abstract VentaDTO getDTO();
+	public abstract void grabar();
 }

@@ -1,4 +1,5 @@
 <%@ page import="dto.EmpleadoDTO"%>
+<%@ page import="enumeraciones.Puesto"%>
 <jsp:include page="includes/header.jsp" />
 <main role="main"> <%
  	EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -31,53 +32,57 @@
 <div class="jumbotron">
 	<div class="container">
 		<h1 class="display-3">
-			Bienvenido
+			Bienvenid@
 			<%=empleado.getNombre()%>!
 		</h1>
-		<p>This is a template for a simple marketing or informational
-			website. It includes a large callout called a jumbotron and three
-			supporting pieces of content. Use it as a starting point to create
-			something more unique.</p>
-		<p>
-			<a class="btn btn-primary btn-lg" href="#" role="button">Learn
-				more &raquo;</a>
-		</p>
+		<p>Es un gran honor tenerte en nuestro equipo ¡Que tengas un excelente día!</p>
 	</div>
 </div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-4">
-			<h2>Heading</h2>
-			<p>Donec id elit non mi porta gravida at eget metus. Fusce
-				dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-				ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-				magna mollis euismod. Donec sed odio dui.</p>
+		<div class="col-md-3">
+			<h2><i class="fas fa-cash-register mr-3 text-success"></i>Vender</h2>
+			<p>Un módulo para dar soporte a nuestros cajer@s en sus trabajos diarios. Permite buscar productos existentes en stock, abonar en efectivo y calcular el vuelto para el cliente, o con tarjeta de crédito o débito.</p>
+			<% if (empleado.getPuesto().getId() >= Puesto.CAJERO.getId()) { %>
 			<p>
-				<a class="btn btn-secondary" href="#" role="button">View details
+				<a class="btn btn-success" href="/Web/facturacion/vender.jsp" role="button">Comenzar
 					&raquo;</a>
 			</p>
+			<%} %>
 		</div>
-		<div class="col-md-4">
-			<h2>Heading</h2>
-			<p>Donec id elit non mi porta gravida at eget metus. Fusce
-				dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-				ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-				magna mollis euismod. Donec sed odio dui.</p>
+		<div class="col-md-3">
+			<h2><i class="fas fa-users mr-3 text-primary"></i>Personas</h2>
+			<p>Diseñado para nuestros Gerentes. Permite administrar el personal de la empresa y visualizar la información de los empleados, facilitando el proceso de alta, modificación y/o baja de los mismos.</p>
+			<% if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {%>
 			<p>
-				<a class="btn btn-secondary" href="#" role="button">View details
+				<a class="btn btn-primary" href="/Web/Private?action=listarEmpleados" role="button">Administrar
 					&raquo;</a>
 			</p>
+			<%}%>
 		</div>
-		<div class="col-md-4">
-			<h2>Heading</h2>
-			<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-				egestas eget quam. Vestibulum id ligula porta felis euismod semper.
-				Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-				nibh, ut fermentum massa justo sit amet risus.</p>
+		<div class="col-md-3">
+			<h2><i class="fas fa-boxes mr-3 text-warning"></i>Productos</h2>
+			<p>Si sos Supervisor o Gerente podés administrar todos nuestros productos desde este módulo. Permite visualizar y gestionar el stock, indicando la cantidad mínima, total y disponible de cada producto.</p>
+			<% 
+	    	if (empleado.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
+	    	%>
 			<p>
-				<a class="btn btn-secondary" href="#" role="button">View details
+				<a class="btn btn-warning" href="/Web/Private?action=listarProductos" role="button">Administrar
 					&raquo;</a>
 			</p>
+			<%}%>
+		</div>
+		<div class="col-md-3">
+			<h2><i class="fas fa-file-invoice-dollar mr-3 text-info"></i>Facturación</h2>
+			<p>Accedé a toda la información de ventas y facturación de nuestra empresa a través de este módulo para Gerentes que te permitirá consultar las facturas emitidas, verificar sus estados e imputar sus cobros.</p>
+			<% 
+	    	if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+	    	%>
+			<p>
+				<a class="btn btn-info" href="/Web/Private?action=listarVentas" role="button">Ingresar
+					&raquo;</a>
+			</p>
+			<%}%>
 		</div>
 	</div>
 	<hr>

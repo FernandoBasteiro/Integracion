@@ -44,137 +44,139 @@ if ($('#formVenta').length) {
 	}, {
 		hide : true
 	});
+	$('#formVenta #cuitFactura').dependsOn({
+		'#formVenta #tipoFactura' : {
+			values : [ '1', '2' ]
+		}
+	}, {
+		hide : true
+	});
 }
 
-/*** autocomplete ***/
+/** * autocomplete ** */
 if ($('#productoAutocomplete').length) {
-    $.widget( "#productoAutocomplete", {
-      _create: function() {
-        this.wrapper = $( "<span>" )
-          .addClass( "custom-combobox" )
-          .insertAfter( this.element );
- 
-        this.element.hide();
-        this._createAutocomplete();
-        this._createShowAllButton();
-      },
- 
-      _createAutocomplete: function() {
-        var selected = this.element.children( ":selected" ),
-          value = selected.val() ? selected.text() : "";
- 
-        this.input = $( "<input>" )
-          .appendTo( this.wrapper )
-          .val( value )
-          .attr( "title", "" )
-          .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
-          .autocomplete({
-            delay: 0,
-            minLength: 0,
-            source: $.proxy( this, "_source" )
-          })
-          .tooltip({
-            classes: {
-              "ui-tooltip": "ui-state-highlight"
-            }
-          });
- 
-        this._on( this.input, {
-          autocompleteselect: function( event, ui ) {
-            ui.item.option.selected = true;
-            this._trigger( "select", event, {
-              item: ui.item.option
-            });
-          },
- 
-          autocompletechange: "_removeIfInvalid"
-        });
-      },
- 
-      _createShowAllButton: function() {
-        var input = this.input,
-          wasOpen = false;
- 
-        $( "<a>" )
-          .attr( "tabIndex", -1 )
-          .attr( "title", "Mostrar todos los productos" )
-          .tooltip()
-          .appendTo( this.wrapper )
-          .button({
-            icons: {
-              primary: "ui-icon-triangle-1-s"
-            },
-            text: false
-          })
-          .removeClass( "ui-corner-all" )
-          .addClass( "custom-combobox-toggle ui-corner-right" )
-          .on( "mousedown", function() {
-            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-          })
-          .on( "click", function() {
-            input.trigger( "focus" );
- 
-            // Close if already visible
-            if ( wasOpen ) {
-              return;
-            }
- 
-            // Pass empty string as value to search for, displaying all results
-            input.autocomplete( "search", "" );
-          });
-      },
- 
-      _source: function( request, response ) {
-        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-        response( this.element.children( "option" ).map(function() {
-          var text = $( this ).text();
-          if ( this.value && ( !request.term || matcher.test(text) ) )
-            return {
-              label: text,
-              value: text,
-              option: this
-            };
-        }) );
-      },
- 
-      _removeIfInvalid: function( event, ui ) {
- 
-        // Selected an item, nothing to do
-        if ( ui.item ) {
-          return;
-        }
- 
-        // Search for a match (case-insensitive)
-        var value = this.input.val(),
-          valueLowerCase = value.toLowerCase(),
-          valid = false;
-        this.element.children( "option" ).each(function() {
-          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
-            this.selected = valid = true;
-            return false;
-          }
-        });
- 
-        // Found a match, nothing to do
-        if ( valid ) {
-          return;
-        }
- 
-        // Remove invalid value
-        this.input
-          .val( "" )
-          .attr( "title", value + " no se encontraron coincidencias" )
-          .tooltip( "open" );
-        this.element.val( "" );
-        this._delay(function() {
-          this.input.tooltip( "close" ).attr( "title", "" );
-        }, 2500 );
-        this.input.autocomplete( "instance" ).term = "";
-      },
- 
-      _destroy: function() {
-        this.wrapper.remove();
-        this.element.show();
-      }
-    });
+	$.widget("ui.autocomplete", $.ui.autocomplete, {
+		_renderMenu : function(ul, items) {
+			var that = this;
+			ul.attr("class", "nav flex-column nav-pills bs-autocomplete-menu");
+			$.each(items, function(index, item) {
+				that._renderItemData(ul, item);
+			});
+		},
+		_resizeMenu : function() {
+			var ul = this.menu.element;
+			ul.outerWidth(Math.min(
+			// Firefox wraps long text (possibly a rounding bug)
+			// so we add 1px to avoid the wrapping (#7513)
+			ul.width("").outerWidth() + 1, this.element.outerWidth()));
+		}
+
+	});
+
+	(function() {
+		"use strict";
+		
+		var productos = [];
+
+		$.ajax({
+			url: '/Web/Private/listarProductos',
+			dataType: 'json',
+			success: function(data){
+				productos = [data];
+				productos = productos[0].productos;
+			},
+			error: function(jqXHR,textStatus,errorThrown){
+				console.log(jqXHR,textStatus,errorThrown);
+			}
+			
+		})
+		
+		$('.bs-autocomplete')
+				.each(
+						function() {
+							var _this = $(this), _data = _this.data(), _hidden_field = $('#'
+									+ _data.hidden_field_id);
+
+							_this
+									.after(
+											'<div class="bs-autocomplete-feedback form-control-feedback"><div class="loader">Cargando...</div></div>')
+									.parent('.form-group').addClass(
+											'has-feedback');
+
+							var feedback_icon = _this
+									.next('.bs-autocomplete-feedback');
+							feedback_icon.hide();
+
+							_this
+									.autocomplete(
+											{
+												minLength : 2,
+												autoFocus : true,
+												source : function(request,
+														response) {
+													var _regexp = new RegExp(
+															request.term, 'i');
+													var data = productos
+															.filter(function(
+																	item) {
+																return item.codigo
+																		.match(_regexp);
+															});
+													response(data);
+												},
+
+												search : function() {
+													feedback_icon.show();
+													_hidden_field.val('');
+												},
+
+												response : function() {
+													feedback_icon.hide();
+												},
+
+												focus : function(event, ui) {
+													_this
+															.val(ui.item[_data.item_label]);
+													event.preventDefault();
+												},
+
+												select : function(event, ui) {
+													_this
+															.val(ui.item[_data.item_label]);
+													_hidden_field
+															.val(ui.item[_data.item_id]);
+													event.preventDefault();
+												}
+											}).data('ui-autocomplete')._renderItem = function(
+									ul, item) {
+								return $('<li class="nav-item"></li>').data(
+										"item.autocomplete", item).append(
+										'<a class="nav-link">'
+												+ item[_data.item_label]
+												+ ' (' + item[_data.item_sublabel] + ')'
+												+ '</a>').appendTo(ul);
+							};
+							// end autocomplete
+						});
+		var listadoVenta = $('#listadoItemVenta');
+		var index = 1;
+		var totalVenta = 0;
+
+		$('#agregarProducto').on('click', function(e){
+			e.preventDefault();
+			var codProd = $('#codigo-producto').val();
+			var cantProd = parseInt($('#cantidad-producto').val());
+			if (isNaN(codProd) || isNaN(cantProd)) return;
+			
+			var prod = productos.find(producto => producto.codigo === codProd);
+			totalVenta += prod.precio*cantProd;
+			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.codigo+'</td><td>'+prod.nombre+'</td><td>'+prod.presentacion+'</td><td>'+cantProd+'</td><td>$'+prod.precio.toFixed(2)+'</td><td>$'+(prod.precio.toFixed(2)*cantProd).toFixed(2)+'</td><input type="hidden" name="items" value="'+prod.codigo+','+cantProd+'" /></tr>')
+			listadoVenta.find('tbody').append(itemVta);
+			index++;
+			$('#codigo-producto, #buscarProducto').val('');
+			$('#cantidad-producto').val('1');
+			$('#totalVenta').text('$'+ totalVenta.toFixed(2));
+			
+		})
+	})();
 }

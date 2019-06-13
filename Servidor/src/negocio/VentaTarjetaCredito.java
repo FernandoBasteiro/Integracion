@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.LocalDate;
 
 import controladores.ConversorFechas;
+import daos.VentaDAO;
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
@@ -14,14 +15,14 @@ public class VentaTarjetaCredito extends Venta {
 	private String numeroTarjeta;
 	private Integer codigoSeguridad;
 	private String nombre;
-	private Integer dni;
+	private String dni;
 	private String fechaVto;
 	private Integer nroOperacion;
 	private Boolean aprobada;
 	private Integer cantCuotas;
 	
 	public VentaTarjetaCredito(Integer id, LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
-			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
+			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, String dni,
 			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer cantCuotas, 
 			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
 		super(id, fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
@@ -36,7 +37,7 @@ public class VentaTarjetaCredito extends Venta {
 	}
 	
 	public VentaTarjetaCredito(LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
-			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, Integer dni,
+			EstadoVenta estado, Float total, String numeroTarjeta, Integer codigoSeguridad, String nombre, String dni,
 			String fechaVto, Integer nroOperacion, Boolean aprobada, Integer cantCuotas, 
 			TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
 		super(fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
@@ -67,10 +68,10 @@ public class VentaTarjetaCredito extends Venta {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Integer getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(Integer dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	public String getFechaVto() {
@@ -108,6 +109,20 @@ public class VentaTarjetaCredito extends Venta {
 				this.cantCuotas, //Datos TC			
 				null, null, //Datos TD
 				this.tipoFact, this.cuit, ConversorFechas.convertJodaToJava(this.fechaCobro)); //Datos Factura
+	}
+
+	@Override
+	public void grabar() {
+		VentaDAO.getinstance().add(this);
+	}
+	
+	@Override
+	public void cancelarVenta() {
+		for (ItemVenta i : items) {
+			i.devolverProducto();
+		}	
+		this.setEstado(EstadoVenta.ANULADA);
+		this.grabar();
 	}
 	
 }
