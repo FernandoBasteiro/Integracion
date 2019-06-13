@@ -153,5 +153,11 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos {
 		ControladorVentas.getInstance().marcarFacturasCobradas(g, periodo);
 	}
+
+	@Override
+	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado, Boolean lic_paga, Integer dias)
+			throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
+		ControladorEmpleados.getInstance().generarNovedad(gerente, empleado, lic_paga, dias);
+	}
 	
 }
