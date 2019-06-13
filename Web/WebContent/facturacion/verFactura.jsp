@@ -18,7 +18,9 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 				<%if(factura.getEstado() != EstadoVenta.COBRADA){%>
 					<a href="/Web/Private?action=marcarCobrado" data-factura="<%=factura.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
 				<%} %>
-				<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
+				<%if(factura.getEstado() != EstadoVenta.ANULADA){%>
+				<a href="/Web/Private/anularFactura" data-factura="<%=factura.getId()%>" data-action="anularFactura" data-toggle="modal" data-target="#modal" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
+				<% } %>
 				<hr/>
 			</div>
 		</div>

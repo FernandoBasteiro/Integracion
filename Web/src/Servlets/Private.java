@@ -267,9 +267,9 @@ public class Private extends HttpServlet {
 			else if (action.equals("listarVentas")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				LocalDate fecha = (request.getParameter("fechaFactura") == null ? null : LocalDate.parse(request.getParameter("fechaFactura"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-				if (fecha == null) fecha = LocalDate.now();
-				
+				String fechaFactura = request.getParameter("fechaFactura");
+				LocalDate fecha = (fechaFactura == null ? null : LocalDate.parse(request.getParameter("fechaFactura"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				if (fecha == null) fecha = LocalDate.now();				
 				Integer numero = (request.getParameter("buscarFacturaNumero") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaNumero")));
 				Integer operacion = (request.getParameter("buscarFacturaOperacion") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaOperacion")));
 				EstadoVenta estado = (request.getParameter("estadoFactura") == null ? null : EstadoVenta.fromId(Integer.valueOf(request.getParameter("estadoFactura"))));
