@@ -243,5 +243,11 @@ public class ControladorEmpleados {
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
+	
+	public EmpleadoDTO listarNovedades(EmpleadoDTO empleado) throws ExcepcionProceso {
+		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByDni(empleado.getDni());
+		if (emp != null) return emp.getDTO();
+		else throw new ExcepcionProceso("No existe el empleado");
+	}
 
 }

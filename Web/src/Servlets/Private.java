@@ -267,13 +267,17 @@ public class Private extends HttpServlet {
 			else if (action.equals("listarVentas")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				String fechaFactura = request.getParameter("fechaFactura");
-				LocalDate fecha = (fechaFactura == null ? null : LocalDate.parse(request.getParameter("fechaFactura"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-				if (fecha == null) fecha = LocalDate.now();				
+				
 				Integer numero = (request.getParameter("buscarFacturaNumero") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaNumero")));
 				Integer operacion = (request.getParameter("buscarFacturaOperacion") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaOperacion")));
 				EstadoVenta estado = (request.getParameter("estadoFactura") == null ? null : EstadoVenta.fromId(Integer.valueOf(request.getParameter("estadoFactura"))));
 				MedioDePago mdp = (request.getParameter("medioPagoFactura") == null ? null : MedioDePago.fromId(Integer.valueOf(request.getParameter("medioPagoFactura"))));
+				
+				String fechaFactura = request.getParameter("fechaFactura");
+				LocalDate fecha = LocalDate.now();
+				if (fechaFactura != null && fechaFactura.isEmpty() && (estado != null || mdp != null)) fecha = null;
+				else if (fechaFactura != null && ! fechaFactura.isEmpty())
+					fecha = LocalDate.parse(request.getParameter("fechaFactura"),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 				
 				ArrayList<VentaDTO> ventas = null;
 				if (numero != null) {

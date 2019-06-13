@@ -13,7 +13,14 @@ import javax.json.JsonObjectBuilder;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-		pegarleAlBanco();
+		Integer asd = 13;
+		Integer dsa = 13;
+		if (asd == dsa) {
+			System.out.println("WTF");
+		}
+		else {
+			System.err.println("WTF x 2");
+		}
 
 	}
 
