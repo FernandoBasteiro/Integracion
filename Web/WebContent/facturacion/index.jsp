@@ -121,10 +121,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 						}
 						
 				  %>
-				  
-				  
-				  
-				  
+
 				    <tr>
 				      <th scope="row"><%=fila++ %></th>
 				       <td><%=v.getId() %></td>
