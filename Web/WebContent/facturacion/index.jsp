@@ -25,9 +25,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
 					<div class="form-row pb-2">
-						<div class="col-sm-6">
-						
-						
+						<div class="col-sm-6">						
 						<form action="/Web/Private?action=listarVentas" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
