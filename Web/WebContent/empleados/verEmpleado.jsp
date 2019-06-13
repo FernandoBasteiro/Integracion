@@ -1,4 +1,5 @@
 <%@ page import="dto.EmpleadoDTO"%>
+<%@ page import="dto.NovedadDTO"%>
 <%@ page import="enumeraciones.EstadoEmpleado"%>
 <%@ page import="java.time.format.DateTimeFormatter"%>
 <% 
@@ -113,6 +114,43 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 				<p><strong class="mr-2">CBU:</strong><%=emp.getCbu()%></p>
 			</div>
 		</div>
+		<% if(emp.getNovedades().size() > 0){ 
+		int listaNov = 1;
+		%>
+		<h3 class="mb-3 mt-4">Novedades</h3>
+		<div class="row">
+			<div class="col col-xs-12">
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">ID</th>
+				      <th scope="col">Fecha</th>
+				      <th scope="col">Paga</th>
+				      <th scope="col">Cant. Días</th>
+				      <th scope="col">Mes</th>
+				      <th scope="col">Año</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  <% for(NovedadDTO novedad : emp.getNovedades()){ %>
+				    <tr>
+				      <th scope="row"><%=listaNov%></th>
+				      <td><%=novedad.getId()%></td>
+				      <td><%=novedad.getFechaCreacion()%></td>
+				      <td><%=(novedad.getEsPaga())?"Si":"No"%></td>
+				      <td><%=novedad.getCantDias() %></td>
+				      <td><%=novedad.getMes()%></td>
+				      <td><%=novedad.getAnio()%></td>
+				    </tr>
+				    <% 
+				  listaNov++;  
+				  } %>
+				  </tbody>
+				</table>
+			</div>
+		</div>
+		<%} %>
 		<hr/>
 	</div><!-- container -->
 </main>
