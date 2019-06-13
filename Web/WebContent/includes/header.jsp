@@ -41,40 +41,39 @@
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-
-		<div class="collapse navbar-collapse" id="navegacion">
-			<ul class="navbar-nav mr-auto">
-				<%
-					if (empleado.getPuesto().getId() >= Puesto.CAJERO.getId()) {
-				%>
-				<li class="nav-item"><a class="btn btn-outline-success"
-					href="/Web/facturacion/vender.jsp">Vender</a></li>
-				<%
-					}
-						if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
-				%>
-				<li class="nav-item"><a class="nav-link"
-					href="/Web/Private?action=listarEmpleados">Empleados</a></li>
-				<%
-					}
-						if (empleado.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
-				%>
-				<li class="nav-item"><a class="nav-link"
-					href="/Web/Private?action=listarProductos">Productos</a></li>
-				<%
-					}
-						if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
-				%>
-				<li class="nav-item"><a class="nav-link"
-					href="/Web/facturacion/index.jsp">Facturación</a></li>
-				<%
-					}
-				%>
-			</ul>
-			<a class="btn btn-outline-info" href="/Web/Private?action=logout">Cerrar
-				sesión</a>
-		</div>
-
+	  <div class="collapse navbar-collapse" id="navegacion">
+	    <ul class="navbar-nav mr-auto">
+	    	<% if (empleado.getPuesto().getId() >= Puesto.CAJERO.getId()) { %>
+	    	<li class="nav-item">
+	    		<a class="btn btn-outline-success" href="/Web/facturacion/vender.jsp">Vender</a>
+	    	</li>
+	    	<% 
+	    	}
+	    	if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+	    	%>
+	    	<li class="nav-item">
+	    		<a class="nav-link" href="/Web/Private?action=listarEmpleados">Empleados</a>
+	    	</li>
+	    	<% 
+	    	}
+	    	if (empleado.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
+	    	%>
+	    	<li class="nav-item">
+	    		<a class="nav-link" href="/Web/Private?action=listarProductos">Productos</a>
+	    	</li>
+	    	<% 
+	    	}
+	    	if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+	    	%>
+	    	<li class="nav-item">
+	    		<a class="nav-link" href="/Web/Private?action=listarVentas">Facturación</a>
+	    	</li>
+	    	<% 
+	    	}
+	    	%>
+		</ul>
+	    <a class="btn btn-outline-info" href="/Web/Private?action=logout">Cerrar sesión</a>
+	  </div>
 	</nav>
 	<%
 		String bread = (String) request.getServletPath();

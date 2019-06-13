@@ -1,12 +1,14 @@
 package daos;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import controladores.HibernateUtil;
 import entities.ItemVentaEntity;
@@ -255,7 +257,8 @@ public class VentaDAO {
 		Query q = session.createQuery(query);
 		//carga parametro de fecha de venta
 		if (p1 >= 0) {
-			q.setParameter(p1,f);
+			
+			q.setParameter(p1,f.toDateTime(LocalTime.MIDNIGHT).toCalendar(Locale.getDefault()));
 		}
 		//carga parametro de estado venta
 		if (p2 >= 0) {
