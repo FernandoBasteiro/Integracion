@@ -1,5 +1,13 @@
 $(function(){
 	$('a.disabled').on('click',function(e){e.preventDefault()})
+	$('#estadoEmpleadoCombo').on('change', function(e){
+		var $this = $(this), $egreso = $('#fechaEgresoEmpleado');
+		if ($this.val() == "2"){
+			$egreso.attr("required", "required");
+		}else{
+			$egreso.removeAttr("required");
+		}
+	});
 	
 	$('#modal').on('show.bs.modal', function (event) {		
 		var $modal = $(this), $title = $modal.find(".modal-title"), $body = $modal.find(".modal-body"), $footer = $modal.find(".modal-footer");
