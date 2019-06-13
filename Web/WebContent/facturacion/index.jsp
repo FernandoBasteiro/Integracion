@@ -135,8 +135,8 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				      
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verFactura&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=cobrar&factura=nro" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?action=marcarCobrado&factura=<%=v.getId() %>" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
+				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=<%=v.getId() %>" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <% } %>
