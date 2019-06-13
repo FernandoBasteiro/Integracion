@@ -70,6 +70,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 			<hr/>
 			</div>
 		</form>
+		<hr/>
 	</div><!-- container -->
 </main>
 <jsp:include page="../includes/footer.jsp"/>
