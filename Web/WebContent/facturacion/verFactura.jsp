@@ -1,6 +1,7 @@
 <%@ page import="dto.EmpleadoDTO"%>
 <%@ page import="dto.VentaDTO"%>
 <%@ page import="dto.ItemVentaDTO"%>
+<%@ page import="enumeraciones.EstadoVenta"%>
 <%@ page import="java.text.DecimalFormat" %>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
@@ -14,7 +15,9 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-receipt mr-3 text-info"></i>Ver factura</h2>
 				<a href="/Web/Private?action=listarVentas" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
-				<a href="/Web/Private?action=marcarCobrado" data-factura="<%=factura.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
+				<%if(factura.getEstado() != EstadoVenta.COBRADA){%>
+					<a href="/Web/Private?action=marcarCobrado" data-factura="<%=factura.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
+				<%} %>
 				<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
 				<hr/>
 			</div>

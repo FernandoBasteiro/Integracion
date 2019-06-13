@@ -1,4 +1,5 @@
 $(function(){
+	$('a.disabled').on('click',function(e){e.preventDefault()})
 	
 	$('#modal').on('show.bs.modal', function (event) {		
 		var $modal = $(this), $title = $modal.find(".modal-title"), $body = $modal.find(".modal-body"), $footer = $modal.find(".modal-footer");
