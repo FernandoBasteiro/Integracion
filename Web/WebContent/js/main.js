@@ -30,7 +30,27 @@ $(function(){
 			});
 		}else if($action == "cargarNovedad"){
 			$title.text("Cargar Novedad");
-			//$body.html('')
+			$body.html('<form id="cargarNovedad" method="post" action="?"><div class="form-row"><div class="col-sm-6"><fieldset class="form-group "><legend class="col-form-label pt-0">Es una licencia paga?</legend><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="esPago"value="true" checked> <label class="form-check-label"for="gridRadios1">Si</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="esPago"value="false"> <label class="form-check-label"for="gridRadios2">No</label></div></fieldset></div><div class="col-sm-6"><label>Cantidad de d&iacute;as</label> <input type="number" min="1" name="cantDias" value="1" class="form-control" /></div></div></form>')
+			$footer.find(".btn-primary").text("Guardar Novedad").on('click', function(e){
+				e.preventDefault();
+				$btn = $(this);
+
+				$.ajax({
+					url: '/Web/Private/generarNovedad',
+					data:$('#cargarNovedad').serialize()+ "&legajo="+$trigger.data('legajo'),
+					dataType: 'json',
+					success: function(data){
+						showAlert("success", "Exito!", data.success);
+					},
+					error: function(data){
+						showAlert("danger", "Error!", data.error);
+					},
+					complete: function(){
+						$btn.removeAttr("disabled");
+						$modal.modal('hide');
+					}
+				})
+			})
 		}
 		//cargarNovedad
 		
