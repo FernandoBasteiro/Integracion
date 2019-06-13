@@ -32,8 +32,16 @@ public class ControladorProductos {
 					Stock s = new Stock(p.getStock().getCantidadMinimo(), p.getStock().getCantidadTotal(), p.getStock().getCantidadDisponible());
 					Producto nuevo = new Producto(p.getCodigo(), p.getNombre(), p.getDescripcion(), p.getPresentacion(), p.getPrecio(), s);
 					nuevo.guardar();
-				} else
-					throw new ExcepcionProceso("Ya existe un producto con ese código.");
+				} else {
+					Producto act = prods.get(0);
+					act.setNombre(p.getNombre());
+					act.setDescripcion(p.getDescripcion());
+					act.setPresentacion(p.getPresentacion());
+					act.setPrecio(p.getPrecio());
+					act.getStock().actualizarStock(p.getStock().getCantidadTotal(),p.getStock().getCantidadDisponible(),p.getStock().getCantidadMinimo());
+					act.guardar();
+					//throw new ExcepcionProceso("Ya existe un producto con ese código.");
+				}
 			} else
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
 		}
