@@ -38,6 +38,9 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="estadoEmpleado">Estado</label>
+					<%
+					if (emp != null) {
+					%>
 					<select name="estadoEmpleado" class="form-control">
 						<%
 						for (EstadoEmpleado estadoEmp : EstadoEmpleado.values()) {
@@ -47,6 +50,12 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 						}
 						%>
 					</select>
+					<%}else{%>
+						<select class="form-control">
+							<option selected disabled>Activo</option>
+						</select>
+						<input type="hidden" name="estadoEmpleado" value="<%=EstadoEmpleado.ACTIVO.getId()%>"/>
+					<%} %>
 				</div>
 			</div>
 			<div class="form-row">
