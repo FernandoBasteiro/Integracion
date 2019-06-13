@@ -20,32 +20,34 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form action="?" method="post" class="filter-tools">
 					<div class="form-row pb-2">
 						<div class="col-sm-6">
+						<form action="/Web/Private?action=listarProductos" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
 							  <input name="buscarProductoNombre" type="search" class="form-control" placeholder="Ingrese nombre del producto..." aria-label="Ingrese nombre del producto" aria-describedby="buscarProductoNombre">
 							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+							    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 							  </div>
 							</div>
+							</form>
 						</div>	
 						<div class="col-sm-6">
+							<form action="/Web/Private?action=listarProductos" method="post">
 							<div class="input-group">
 							<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
 							  <input name="buscarProductoCodigo" type="search" class="form-control" placeholder="Ingrese código..." aria-label="Ingrese código" aria-describedby="buscarProductoCodigo">
 							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+							    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 							  </div>
 							</div>
+							</form>
 						</div>	
 					</div>
-				</form>
 				<hr/>
 			</div>
 		</div>
@@ -80,8 +82,8 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				     
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verProducto&codigo=<%=p.getCodigo() %>" class="view mx-1" title="Ver producto"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/productos/crearProducto.jsp?id=0" class="edit mx-1" title="Editar producto"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/productos/index.jsp?action=eliminarProducto&codigo=0" class="delete mx-1" title="Eliminar producto" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Web/Private?action=verProducto&modificar=true&codigo=<%=p.getCodigo() %>" class="edit mx-1" title="Editar producto"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="#" data-action="eliminarProducto" data-codigo="<%=p.getCodigo()%>" data-nombre="<%=p.getNombre()%>" class="delete mx-1" title="Eliminar producto" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>      
 				      <% } %>
