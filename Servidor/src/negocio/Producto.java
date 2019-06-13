@@ -6,13 +6,13 @@ import dto.StockDTO;
 import excepciones.ExcepcionProceso;
 
 public class Producto {
-	private Integer codigo;
+	private Long codigo;
 	private String nombre;
 	private String descripcion;
 	private String presentacion;
 	private Float precio;
 	private Stock stock;
-	public Producto(Integer codigo, String nombre, String descripcion, String presentacion, Float precio, Stock stock) {
+	public Producto(Long codigo, String nombre, String descripcion, String presentacion, Float precio, Stock stock) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -29,10 +29,10 @@ public class Producto {
 		this.precio = precio;
 		this.stock = stock;
 	}
-	public Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 	public String getNombre() {

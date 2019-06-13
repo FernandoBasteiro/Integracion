@@ -1,10 +1,11 @@
 package negocio;
 
 import org.joda.time.LocalDate;
-
+import java.util.ArrayList;
 import controladores.ConversorFechas;
 import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
+import dto.NovedadDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Genero;
@@ -31,6 +32,7 @@ public class Empleado {
 	private Puesto puesto;
 	private String cbu;
 	private String session;
+	private ArrayList<Novedad> novedades;
 	
 	//FECHAS JODA
 	public Empleado(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
@@ -58,6 +60,7 @@ public class Empleado {
 		this.puesto = puesto;
 		this.cbu = cbu;
 		this.session = session;
+		this.novedades = new ArrayList<Novedad>();
 	}
 	
 	//FECHAS JAVA
@@ -85,7 +88,16 @@ public class Empleado {
 		this.puesto = puesto;
 		this.cbu = cbu;
 		this.session = session;
+		this.novedades = new ArrayList<Novedad>();
 	}
+	public ArrayList<Novedad> getNovedades() {
+		return novedades;
+	}
+
+	public void setNovedades(ArrayList<Novedad> novedades) {
+		this.novedades = novedades;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -218,10 +230,12 @@ public class Empleado {
 	}
 	
 	public EmpleadoDTO getDTO () {
+		ArrayList<NovedadDTO> novedades = new ArrayList<NovedadDTO>();
+		for (Novedad n : this.novedades) novedades.add(n.getDTO()); 
 		return new EmpleadoDTO (this.nombre, this.apellido, this.legajo, this.dni, this.domicilio, this.telefono,
 				this.email, this.estadoCivil, this.genero, ConversorFechas.convertJodaToJava(this.fechaNacimiento), ConversorFechas.convertJodaToJava(this.fechaIngreso),
 				ConversorFechas.convertJodaToJava(this.fechaEgreso), this.estadoEmpleado, this.nacionalidad, null,
-				this.sueldoBase, this.horasAsignadas, this.puesto, this.cbu, this.session);
+				this.sueldoBase, this.horasAsignadas, this.puesto, this.cbu, this.session, novedades);
 	}
 	public void guardar() {
 		EmpleadoDAO.getinstance().add(this);

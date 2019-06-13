@@ -2,6 +2,7 @@ package dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
@@ -33,11 +34,12 @@ public class EmpleadoDTO implements Serializable {
 	private Puesto puesto;
 	private String cbu;
 	private String session;
+	private ArrayList<NovedadDTO> novedades;
 	
 	public EmpleadoDTO(String nombre, String apellido, Integer legajo, String dni, String domicilio, String telefono,
 			String email, EstadoCivil estadoCivil, Genero genero, LocalDate fechaNacimiento, LocalDate fechaIngreso,
 			LocalDate fechaEgreso, EstadoEmpleado estadoEmpleado, String nacionalidad, String password,
-			Float sueldoBase, Integer horasAsignadas, Puesto puesto, String cbu, String session) {
+			Float sueldoBase, Integer horasAsignadas, Puesto puesto, String cbu, String session, ArrayList<NovedadDTO> novedades) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.legajo = legajo;
@@ -58,8 +60,10 @@ public class EmpleadoDTO implements Serializable {
 		this.puesto = puesto;
 		this.cbu = cbu;
 		this.session = session;
+		this.novedades = novedades;
 	}
 	public EmpleadoDTO() {
+		this.novedades = new ArrayList<NovedadDTO>();
 	}
 	public String getNombre() {
 		return nombre;
@@ -180,6 +184,12 @@ public class EmpleadoDTO implements Serializable {
 	}
 	public void setSession(String session) {
 		this.session = session;
+	}
+	public ArrayList<NovedadDTO> getNovedades() {
+		return novedades;
+	}
+	public void setNovedades(ArrayList<NovedadDTO> novedades) {
+		this.novedades = novedades;
 	}
 	
 	

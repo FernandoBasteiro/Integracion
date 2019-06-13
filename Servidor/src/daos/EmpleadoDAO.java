@@ -1,22 +1,21 @@
 package daos;
 
-import controladores.HibernateUtil;
-import entities.EmpleadoEntity;
-import entities.VentaEntity;
-import enumeraciones.EstadoEmpleado;
-import enumeraciones.EstadoVenta;
-import enumeraciones.MedioDePago;
-import enumeraciones.Puesto;
-import negocio.Empleado;
-import negocio.Venta;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.joda.time.LocalDate;
+
+import controladores.HibernateUtil;
+import entities.EmpleadoEntity;
+import entities.NovedadEntity;
+import enumeraciones.EstadoEmpleado;
+import enumeraciones.Puesto;
+import negocio.Empleado;
+import negocio.Novedad;
 
 public class EmpleadoDAO {
 	
@@ -50,8 +49,8 @@ public class EmpleadoDAO {
 		s = this.getSession();
 		try {
 			t = s.beginTransaction();
-			s.saveOrUpdate(EmpleadoDAO.getinstance().toEntity(empleado));
-			s.flush();
+			s.merge(EmpleadoDAO.getinstance().toEntity(empleado));
+			//s.flush();
 			t.commit();
 			s.close();
 		} catch (Exception e) {
@@ -82,6 +81,11 @@ public class EmpleadoDAO {
 		e.setSueldoBase(ee.getSueldoBase());
 		e.setTelefono(ee.getTelefono());
 		e.setSession(ee.getSession());
+		List<NovedadEntity> novedades = new ArrayList<NovedadEntity>();
+		for (Novedad n : ee.getNovedades()) {
+			novedades.add(new NovedadEntity(n.getId(), n.getFechaCreacion(), n.getEsPaga(), n.getCantDias(), n.getMes(), n.getAnio()));
+		}
+		e.setNovedades(novedades);
 		return e;		
 	}
 
@@ -129,14 +133,16 @@ public class EmpleadoDAO {
 		e.setLegajo(ee.getLegajoEmpleado());
 		e.setNacionalidad(ee.getNacionalidad());
 		e.setNombre(ee.getNombre());
-		
-		if (ee.getPassword()!=null) {
-			e.setPassword(ee.getPassword());
-		}
+		e.setPassword(ee.getPassword());
 		e.setPuesto(ee.getPuesto());
 		e.setSueldoBase(ee.getSueldoBase());
 		e.setTelefono(ee.getTelefono());
 		e.setSession(ee.getSession());
+		ArrayList<Novedad> novedades = new ArrayList<Novedad>();
+		for (NovedadEntity ne : ee.getNovedades()) {
+			novedades.add(new Novedad(ne.getId(), ne.getFechaCreacion(), ne.getEsPaga(), ne.getCantDias(), ne.getMes(), ne.getAnio()));
+		}
+		e.setNovedades(novedades);
 		return e;		
 	}	
 	

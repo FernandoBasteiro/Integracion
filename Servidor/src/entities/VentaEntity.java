@@ -44,6 +44,7 @@ public class VentaEntity {
 	private Calendar fechaVenta;
 	
 	@OneToMany (cascade = CascadeType.ALL) 
+	@JoinColumn (name = "id_venta")
 	private List<ItemVentaEntity> items; 
 	@OneToOne  
 	private EmpleadoEntity empleado;
