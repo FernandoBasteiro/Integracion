@@ -20,32 +20,34 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 		</div>
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
-				<form action="?" method="post" class="filter-tools">
 					<div class="form-row pb-2">
 						<div class="col-sm-6">
+						<form action="/Web/Private?action=listarProductos" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
 							  <input name="buscarProductoNombre" type="search" class="form-control" placeholder="Ingrese nombre del producto..." aria-label="Ingrese nombre del producto" aria-describedby="buscarProductoNombre">
 							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+							    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 							  </div>
 							</div>
+							</form>
 						</div>	
 						<div class="col-sm-6">
+							<form action="/Web/Private?action=listarProductos" method="post">
 							<div class="input-group">
 							<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
 							  <input name="buscarProductoCodigo" type="search" class="form-control" placeholder="Ingrese código..." aria-label="Ingrese código" aria-describedby="buscarProductoCodigo">
 							   <div class="input-group-append">
-							    <button class="btn btn-secondary" type="button"><i class="fas fa-search"></i></button>
+							    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 							  </div>
 							</div>
+							</form>
 						</div>	
 					</div>
-				</form>
 				<hr/>
 			</div>
 		</div>
