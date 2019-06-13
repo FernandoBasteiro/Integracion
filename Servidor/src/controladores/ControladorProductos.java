@@ -28,11 +28,11 @@ public class ControladorProductos {
 		if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
 			if (supervisor.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
 				 ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
-				if (prods == null) {
+				//if (prods.size() == 0) {
 					Stock s = new Stock(p.getStock().getCantidadMinimo(), p.getStock().getCantidadTotal(), p.getStock().getCantidadDisponible());
 					Producto nuevo = new Producto(p.getCodigo(), p.getNombre(), p.getDescripcion(), p.getPresentacion(), p.getPrecio(), s);
 					nuevo.guardar();
-				} else {
+				/*} else {
 					Producto act = prods.get(0);
 					act.setNombre(p.getNombre());
 					act.setDescripcion(p.getDescripcion());
@@ -40,10 +40,10 @@ public class ControladorProductos {
 					act.setPrecio(p.getPrecio());
 					act.getStock().actualizarStock(p.getStock().getCantidadTotal(),p.getStock().getCantidadDisponible(),p.getStock().getCantidadMinimo());
 					act.guardar();
-					//throw new ExcepcionProceso("Ya existe un producto con ese código.");
-				}
+					//throw new ExcepcionProceso("Ya existe un producto con ese cï¿½digo.");
+				}*/
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n.");
 		}
 	}
 
@@ -57,7 +57,7 @@ public class ControladorProductos {
 				} else
 					throw new ExcepcionProceso("Error al dar de baja el producto.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n.");
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class ControladorProductos {
 				} else
 					throw new ExcepcionProceso("Error al modificar el producto.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n.");
 		}
 	}
 	
@@ -90,7 +90,7 @@ public class ControladorProductos {
 				} else
 					throw new ExcepcionProceso("Error al actualizar el producto.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n.");
 		}
 	}
 	
@@ -119,7 +119,7 @@ public class ControladorProductos {
 
 				return prodsDTO;		
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -133,7 +133,7 @@ public class ControladorProductos {
 				}
 				else throw new ExcepcionProceso("No existen productos con esos criterios.");								
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
 		}
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}

@@ -131,8 +131,7 @@ public class Private extends HttpServlet {
 				}
 									
 			}
-			
-			/**else if (action.equals("crearProducto")) {
+			else if (action.equals("crearProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				String nombre = request.getParameter("nombreProducto");
@@ -156,12 +155,15 @@ public class Private extends HttpServlet {
 				nuevo.setStock(stock);
 				try {
 					bd.altaProducto(logged, nuevo);
+					request.setAttribute("success", "Se guardó el producto.");
+					jspPage = "Private?action=listarProductos";
 				} catch (ExcepcionProceso e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					request.setAttribute("error", e.getMessage());
+					request.setAttribute("producto", nuevo);
+					jspPage = "productos/crearProducto.jsp";
 				}
-				jspPage = "productos/crearProducto.jsp";
-			} */
+				
+			} 
 			else if (action.equals("verEmpleado")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
