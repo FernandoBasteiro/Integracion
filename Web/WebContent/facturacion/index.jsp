@@ -16,6 +16,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline"><i class="fas fa-file-invoice-dollar mr-3 text-info"></i>Facturación</h2>
+				<a href="/Web/Private/marcarCobrado" data-action="imputarCobros" class="btn btn-primary float-right"><i class="fas fa-hand-holding-usd mr-2"></i>Imputar Cobros</a>
 				<hr/>
 			</div>
 		</div>
