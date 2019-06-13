@@ -19,8 +19,9 @@ $(function(){
 					success: function(data){
 						showAlert("success", "Exito!", data.success);
 					},
-					error: function(data){
-						showAlert("danger", "Error!", data.error);
+					error: function(jqXHR,textStatus,errorThrown ){
+						console.log(jqXHR)
+						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -42,8 +43,9 @@ $(function(){
 					success: function(data){
 						showAlert("success", "Exito!", data.success);
 					},
-					error: function(data){
-						showAlert("danger", "Error!", data.error);
+					error: function(jqXHR,textStatus,errorThrown ){
+						console.log(jqXHR)
+						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -65,8 +67,9 @@ $(function(){
 					success: function(data){
 						showAlert("success", "Exito!", data.success);
 					},
-					error: function(data){
-						showAlert("danger", "Error!", data.error);
+					error: function(jqXHR,textStatus,errorThrown ){
+						console.log(jqXHR)
+						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -74,6 +77,31 @@ $(function(){
 					}
 				})
 			})
+		} else if( $action == "imputarCobros"){
+			$title.text("Imputar Cobros");
+			$body.html('<form id="imputarCobrosTc" method="post" action="?"><div class="form-row pb-3"><div class="col-sm-6"><label for="periodoMes">Mes</label><input class="form-control" type="number" min="1" max="12" name="periodoMes" value="1"/></div><div class="col-sm-6"><label for="periodoAnio">A&ntilde;o</label><input class="form-control" type="number" min="2019" max="2030" name="periodoAnio" value="2019"/></div></div></form>')
+			$footer.find(".btn-primary").text("Imputar Cobros").on('click', function(e){
+				e.preventDefault();
+				$btn = $(this);
+
+				$.ajax({
+					url: '/Web/Private/imputarCobros',
+					data:$('#imputarCobrosTc').serialize(),
+					dataType: 'json',
+					success: function(data){
+						showAlert("success", "Exito!", data.success);
+					},
+					error: function(jqXHR,textStatus,errorThrown ){
+						console.log(jqXHR)
+						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+					},
+					complete: function(){
+						$btn.removeAttr("disabled");
+						$modal.modal('hide');
+					}
+				})
+			})
+			
 		}
 	})
 	
