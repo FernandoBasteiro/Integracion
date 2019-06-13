@@ -93,7 +93,7 @@ public class ProductoDAO {
 		return lista;
 	}
 	
-	public ArrayList<Producto> getProductoByCodigo(int codigo){
+	public ArrayList<Producto> getProductoByCodigo(Long codigo){
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")

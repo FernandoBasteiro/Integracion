@@ -25,7 +25,7 @@ public class ProductoEntity {
 
 	@Id
 	@Column(columnDefinition = "int", nullable=false)
-	private Integer codigo;
+	private Long codigo;
 	
 
 	@Column (nullable = true)
@@ -43,11 +43,11 @@ public class ProductoEntity {
 	@OneToOne (cascade = CascadeType.ALL)
 	private StockEntity stock;
 
-	public Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 

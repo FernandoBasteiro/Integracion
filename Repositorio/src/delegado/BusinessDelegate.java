@@ -222,10 +222,10 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado, Boolean lic_paga, Integer dias)
+	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado)
 			throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		try {
-			ir.generarNovedad(gerente, empleado, lic_paga, dias);
+			ir.generarNovedad(gerente, empleado);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}

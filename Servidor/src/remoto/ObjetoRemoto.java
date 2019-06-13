@@ -155,9 +155,9 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado, Boolean lic_paga, Integer dias)
+	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado)
 			throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
-		ControladorEmpleados.getInstance().generarNovedad(gerente, empleado, lic_paga, dias);
+		ControladorEmpleados.getInstance().generarNovedad(gerente, empleado);
 	}
 	
 }
