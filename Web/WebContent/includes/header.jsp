@@ -60,7 +60,7 @@
 						if (empleado.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
 				%>
 				<li class="nav-item"><a class="nav-link"
-					href="/Web/productos/index.jsp">Productos</a></li>
+					href="/Web/Private?action=listarProductos">Productos</a></li>
 				<%
 					}
 						if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
