@@ -5,7 +5,7 @@
 <%@ page import="enumeraciones.MedioDePago"%>
 <%@ page import="java.text.DecimalFormat" %>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
-if (empleado == null) response.sendRedirect("/Web/index.jsp");
+if (empleado == null) response.sendRedirect("/index.jsp");
 VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 %>
@@ -15,12 +15,12 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 		<div class="row">
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-receipt mr-3 text-info"></i>Ver factura</h2>
-				<a href="/Web/Private?action=listarVentas" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
+				<a href="/Private?action=listarVentas" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 				<%if(factura.getEstado() != EstadoVenta.COBRADA){%>
-					<a href="/Web/Private?action=marcarCobrado" data-factura="<%=factura.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
+					<a href="/Private?action=marcarCobrado" data-factura="<%=factura.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
 				<%} %>
 				<%if(factura.getEstado() != EstadoVenta.ANULADA){%>
-				<a href="/Web/Private/anularFactura" data-factura="<%=factura.getId()%>" data-action="anularFactura" data-toggle="modal" data-target="#modal" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
+				<a href="/Private/anularFactura" data-factura="<%=factura.getId()%>" data-action="anularFactura" data-toggle="modal" data-target="#modal" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
 				<% } %>
 				<hr/>
 			</div>

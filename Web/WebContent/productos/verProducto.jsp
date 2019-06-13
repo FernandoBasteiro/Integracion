@@ -3,7 +3,7 @@
 <%
 ProductoDTO prod = (ProductoDTO) request.getAttribute("producto"); 
 EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
-if (empleado == null) response.sendRedirect("/Web/index.jsp");
+if (empleado == null) response.sendRedirect("/index.jsp");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
@@ -11,8 +11,8 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 		<div class="row">
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-box mr-3 text-warning"></i>Ver producto</h2>
-				<a href="/Web/Private?action=listarProductos" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
-				<a href="/Web/Private?action=verProducto&modificar=true&codigo=<%=prod.getCodigoStr()%>" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
+				<a href="/Private?action=listarProductos" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
+				<a href="/Private?action=verProducto&modificar=true&codigo=<%=prod.getCodigoStr()%>" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
 				<hr/>
 			</div>
 		</div>

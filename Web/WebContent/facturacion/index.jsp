@@ -8,7 +8,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.text.DecimalFormat" %>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
-if (empleado == null) response.sendRedirect("/Web/index.jsp");
+if (empleado == null) response.sendRedirect("/index.jsp");
 else {
 ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("facturas");
 %>
@@ -26,7 +26,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 			<div class="col col-xs-12 menu-filtro">
 					<div class="form-row pb-2">
 						<div class="col-sm-6">						
-						<form action="/Web/Private?action=listarVentas" method="post">
+						<form action="/Private?action=listarVentas" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
@@ -40,7 +40,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 						
 					</div>
 						<div class="col-sm-6">
-						<form action="/Web/Private?action=listarVentas" method="post">
+						<form action="/Private?action=listarVentas" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
@@ -53,7 +53,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 							</form>
 						</div>
 					</div>
-				<form action="/Web/Private?action=listarVentas" method="post">
+				<form action="/Private?action=listarVentas" method="post">
 					
 					<div class="form-row align-items-right">
 						<div class="form-group col-sm-3">
@@ -153,9 +153,9 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				       <td><%=priceFormatter.format(v.getTotal())%></td>
 				      
 				      <td class="actions text-center">
-				      	<a href="/Web/Private?action=verFactura&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/Private?action=marcarCobrado" data-factura="<%=v.getId()%>" data-action="marcarCobrado" <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="edit mx-1 <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "disabled" : "" %>" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "text-muted" : "text-primary" %>"></i></a>
-				      	<a href="/Web/Private/anularFactura" data-factura="<%=v.getId()%>" data-action="anularFactura" <%=(v.getEstado() == EstadoVenta.ANULADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="delete mx-1 <%=(v.getEstado() == EstadoVenta.ANULADA) ? "disabled" : "" %>" title="Anular factura"><i class="fas fa-times text-danger <%=(v.getEstado() == EstadoVenta.ANULADA) ? "text-muted" : "text-primary" %>"></i></a>
+				      	<a href="/Private?action=verFactura&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Private?action=marcarCobrado" data-factura="<%=v.getId()%>" data-action="marcarCobrado" <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="edit mx-1 <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "disabled" : "" %>" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "text-muted" : "text-primary" %>"></i></a>
+				      	<a href="/Private/anularFactura" data-factura="<%=v.getId()%>" data-action="anularFactura" <%=(v.getEstado() == EstadoVenta.ANULADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="delete mx-1 <%=(v.getEstado() == EstadoVenta.ANULADA) ? "disabled" : "" %>" title="Anular factura"><i class="fas fa-times text-danger <%=(v.getEstado() == EstadoVenta.ANULADA) ? "text-muted" : "text-primary" %>"></i></a>
 				      </td>
 				    </tr>
 				    <% } %>

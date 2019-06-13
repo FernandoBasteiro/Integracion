@@ -7,9 +7,9 @@
  %>
 <div class="container">
 	<form method="post" class="form-signin text-center"
-		action="/Web/Private">
+		action="/Private">
 		<input type="hidden" name="action" value="login" /> <img class="mb-4"
-			src="/Web/img/logo_transparent.png" alt="Logo Sarasa IAPP"
+			src="/img/logo_transparent.png" alt="Logo Sarasa IAPP"
 			width="150" height="114">
 		<h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
 		<div class="form-group">
@@ -45,7 +45,7 @@
 			<p>Un módulo para dar soporte a nuestros cajer@s en sus trabajos diarios. Permite buscar productos existentes en stock, abonar en efectivo y calcular el vuelto para el cliente, o con tarjeta de crédito o débito.</p>
 			<% if (empleado.getPuesto().getId() >= Puesto.CAJERO.getId()) { %>
 			<p>
-				<a class="btn btn-success" href="/Web/facturacion/vender.jsp" role="button">Comenzar
+				<a class="btn btn-success" href="/facturacion/vender.jsp" role="button">Comenzar
 					&raquo;</a>
 			</p>
 			<%} %>
@@ -55,7 +55,7 @@
 			<p>Diseñado para nuestros Gerentes. Permite administrar el personal de la empresa y visualizar la información de los empleados, facilitando el proceso de alta, modificación y/o baja de los mismos.</p>
 			<% if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {%>
 			<p>
-				<a class="btn btn-primary" href="/Web/Private?action=listarEmpleados" role="button">Administrar
+				<a class="btn btn-primary" href="/Private?action=listarEmpleados" role="button">Administrar
 					&raquo;</a>
 			</p>
 			<%}%>
@@ -67,7 +67,7 @@
 	    	if (empleado.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
 	    	%>
 			<p>
-				<a class="btn btn-warning" href="/Web/Private?action=listarProductos" role="button">Administrar
+				<a class="btn btn-warning" href="/Private?action=listarProductos" role="button">Administrar
 					&raquo;</a>
 			</p>
 			<%}%>
@@ -79,7 +79,7 @@
 	    	if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 	    	%>
 			<p>
-				<a class="btn btn-info" href="/Web/Private?action=listarVentas" role="button">Ingresar
+				<a class="btn btn-info" href="/Private?action=listarVentas" role="button">Ingresar
 					&raquo;</a>
 			</p>
 			<%}%>

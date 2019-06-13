@@ -4,7 +4,7 @@
 <%
 	EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 	if (empleado == null)
-		response.sendRedirect("/Web/index.jsp");
+		response.sendRedirect("/index.jsp");
 %>
 <jsp:include page="../includes/header.jsp" />
 <%@ page import="enumeraciones.MedioDePago"%>
@@ -18,7 +18,7 @@
 	</div>
 	<div class="row">
 		<div class="col col-xs-12 menu-filtro">
-			<form method="post" action="/Web/Private" id="formVenta">
+			<form method="post" action="/Private" id="formVenta">
 			<input type="hidden" name="action" value="facturar"/>
 				<div class="form-row">
 					<div class="form-group col-sm-6">
@@ -55,7 +55,7 @@
 							<div class="input-group-prepend">
 						    	<label class="input-group-text control-label" for="buscarProducto">Buscar producto por código</label>
 							</div>				
-					        <input class="form-control bs-autocomplete" id="buscarProducto" value="" placeholder="Ingresar código producto..." type="text" data-source="/Web/Private/listarProductos" data-hidden_field_id="codigo-producto" data-item_id="codigo" data-item_label="nombre" data-item_sublabel="presentacion" autocomplete="off">
+					        <input class="form-control bs-autocomplete" id="buscarProducto" value="" placeholder="Ingresar código producto..." type="text" data-source="/Private/listarProductos" data-hidden_field_id="codigo-producto" data-item_id="codigo" data-item_label="nombre" data-item_sublabel="presentacion" autocomplete="off">
 					    </div>
 					    <input type="hidden" class="form-control" id="codigo-producto" name="codigoProductoAutocomplete" value="" type="number" readonly>
 				    </div>

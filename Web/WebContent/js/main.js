@@ -22,7 +22,7 @@ $(function(){
 				$btn.attr("disabled","disabled");
 				
 				$.ajax({
-					url: '/Web/Private/eliminarEmpleado',
+					url: '/Private/eliminarEmpleado',
 					data:{legajo: $trigger.data('legajo')},
 					dataType: 'json',
 					success: function(data){
@@ -49,7 +49,7 @@ $(function(){
 				$btn = $(this);
 
 				$.ajax({
-					url: '/Web/Private/generarNovedad',
+					url: '/Private/generarNovedad',
 					data:$('#cargarNovedad').serialize()+ "&legajo="+$trigger.data('legajo'),
 					dataType: 'json',
 					success: function(data){
@@ -76,7 +76,7 @@ $(function(){
 				$btn.attr("disabled","disabled");
 				
 				$.ajax({
-					url: '/Web/Private/eliminarProducto',
+					url: '/Private/eliminarProducto',
 					data:{codigo: $trigger.data('codigo')},
 					dataType: 'json',
 					success: function(data){
@@ -103,7 +103,7 @@ $(function(){
 				$btn = $(this);
 
 				$.ajax({
-					url: '/Web/Private?action=imputarCobros',
+					url: '/Private?action=imputarCobros',
 					data:$('#imputarCobrosTc').serialize(),
 					dataType: 'json',
 					success: function(data){
@@ -130,7 +130,7 @@ $(function(){
 				e.preventDefault();
 				$btn = $(this);
 				$.ajax({
-					url: '/Web/Private/marcarCobrado',
+					url: '/Private/marcarCobrado',
 					data: {factura: $trigger.data('factura')},
 					dataType: 'json',
 					success: function(data){
@@ -156,7 +156,7 @@ $(function(){
 				e.preventDefault();
 				$btn = $(this);
 				$.ajax({
-					url: '/Web/Private/anularFactura',
+					url: '/Private/anularFactura',
 					data: {factura: $trigger.data('factura')},
 					dataType: 'json',
 					success: function(data){

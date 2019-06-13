@@ -7,12 +7,12 @@
 <%
 ProductoDTO prod = (ProductoDTO) request.getAttribute("producto"); 
 EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
-if (empleado == null) response.sendRedirect("/Web/index.jsp");
+if (empleado == null) response.sendRedirect("/index.jsp");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
 	<div class="container">
-		<form action="/Web/Private" method="post">
+		<form action="/Private" method="post">
 			<input type="hidden" name="action" value="crearProducto"/>
 			<div class="form-row">
 				<div class="form-group col-sm-12 text-right">
@@ -21,7 +21,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 					<% }else{ %>
 					<h2 class="d-inline float-left"><i class="fas fa-box-open mr-3 text-warning"></i>Editar Producto</h2>
 					<% } %>
-					<a href="/Web/Private?action=listarProductos" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
+					<a href="/Private?action=listarProductos" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 					<button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Guardar</button>
 					<hr/>
 				</div>
