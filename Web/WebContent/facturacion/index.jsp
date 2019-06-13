@@ -3,6 +3,7 @@
 <%@ page import="dto.VentaDTO"%>
 <%@ page import="enumeraciones.EstadoEmpleado"%>
 <%@ page import="enumeraciones.EstadoVenta"%>
+<%@ page import="enumeraciones.MedioDePago"%>
 <%@ page import="enumeraciones.Puesto"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.text.DecimalFormat" %>
@@ -67,22 +68,30 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 						 </div>			
 						<div class="form-group col-sm-3">
 						    <select class="form-control" id="estadoFactura" name="estadoFactura">
-						      <option selected>- Estado -</option>
-						      <option>Pendiente</option>
-						      <option>Cobrada</option>
-						      <option>Anulada</option>
+						      <option selected disabled>- Estado -</option>
+						      <%
+						for (EstadoVenta estadoVta : EstadoVenta.values()) {
+						%>
+							<option value="<%=estadoVta.getId() %>"><%=estadoVta.getNombre() %></option>
+						<%
+						}
+						%>
 						    </select>
 						  </div>
 						<div class="form-group col-sm-3">
 						    <select class="form-control" id="medioPagoFactura" name="medioPagoFactura">
-						      <option selected>- Medio de pago -</option>
-						      <option>Efectivo</option>
-						      <option>Tarjeta de débito</option>
-						      <option>Tarjeta de crédito</option>
+						      <option selected disabled>- Medio de pago -</option>
+						      <%
+						      for (MedioDePago mdp : MedioDePago.values()) {
+								%>
+									<option value="<%=mdp.getId() %>"><%=mdp.getNombre() %></option>
+								<%
+								}
+								%>
 						    </select>
 						  </div>
 						  <div class="form-group col-sm-3">
-					    		<button class="btn btn-secondary btn-block" type="button">Filtrar</button>
+					    		<button class="btn btn-secondary btn-block" type="submit">Filtrar</button>
 						  </div>	
 						 	
 					</div>
