@@ -174,15 +174,15 @@ public class VentaDAO {
 		Venta v = null;
 		switch(ee.getMedioDePago()) {
 		case EFECTIVO:
-			v = new VentaEfectivo(ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
+			v = new VentaEfectivo(ee.getId(),  ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
 					ee.getEstado(), ee.getTotal(), null, null, ee.getTipo(), 
 					ee.getCuit(), ee.getFechaCobro());
 		case TARJETA_DEBITO:
-			v = new VentaTarjetaDebito(ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
+			v = new VentaTarjetaDebito(ee.getId(),ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
 					ee.getEstado(), ee.getTotal(), null, null, null, null, null, ee.getNroOperacion(), 
 					ee.isAprobada(), null, null, ee.getTipo(), ee.getCuit(), ee.getFechaCobro());			
 		case TARJETA_CREDITO:
-			v = new VentaTarjetaCredito(ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
+			v = new VentaTarjetaCredito(ee.getId(),ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
 					ee.getEstado(), ee.getTotal(), null, null, null, null, null, ee.getNroOperacion(), 
 					ee.isAprobada(), ee.getCantCuotas(), ee.getTipo(), ee.getCuit(), ee.getFechaCobro());
 		}
