@@ -18,7 +18,7 @@ $(function(){
 					data:{legajo: $trigger.data('legajo')},
 					dataType: 'json',
 					success: function(data){
-						showAlert("success", "Exito!", data.success);
+						showAlert("warning", "Alerta!", data.warning);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
 						if(typeof jqXHR.responseJSON != "undefined"){
