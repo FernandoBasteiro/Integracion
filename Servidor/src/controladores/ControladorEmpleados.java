@@ -87,12 +87,18 @@ public class ControladorEmpleados {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
 				if (emp != null) {
+					
 					if (e.getFechaEgreso()!=null) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
 						//*************************************************************
 						//TODO informar a liquidacion de sueldos para liquidacion final
 						//************************************************************
+					} else {
+						//*************************************************************
+						//TODO informar a liquidacion de sueldos para moddifcacion si corresponde
+						//************************************************************
 					}
+					
 					if (e.getPassword()!=null) {
 						emp.setPassword(e.getPassword());
 					}
@@ -112,7 +118,8 @@ public class ControladorEmpleados {
 					emp.setSueldoBase(e.getSueldoBase());
 					emp.setHorasAsignadas(e.getHorasAsignadas());
 					emp.setPuesto(e.getPuesto());
-					emp.setCbu(e.getCbu());
+					emp.setCbu(e.getCbu());	
+					
 
 					emp.guardar();
 				} else
@@ -197,7 +204,14 @@ public class ControladorEmpleados {
 				if (emp != null) {
 					emp.setEstadoEmpleado(EstadoEmpleado.ANULADO);
 					emp.setFechaEgreso(LocalDate.now());
-					emp.guardar();					
+					emp.guardar();
+					//**************************************
+					//TODO llamar a LiqSueldo con baja
+					//***************************************
+					
+					//**************************************
+					//TODO llamar a Banco con baja
+					//***************************************
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
 			} else
