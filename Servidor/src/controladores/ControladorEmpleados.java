@@ -113,6 +113,10 @@ public class ControladorEmpleados {
 					emp.setHorasAsignadas(e.getHorasAsignadas());
 					emp.setPuesto(e.getPuesto());
 					emp.setCbu(e.getCbu());
+					
+					//*************************************************************
+					//TODO informar a liquidacion de sueldos para moddifcacion si corresponde
+					//************************************************************
 
 					emp.guardar();
 				} else
@@ -197,7 +201,14 @@ public class ControladorEmpleados {
 				if (emp != null) {
 					emp.setEstadoEmpleado(EstadoEmpleado.ANULADO);
 					emp.setFechaEgreso(LocalDate.now());
-					emp.guardar();					
+					emp.guardar();
+					//**************************************
+					//TODO llamar a LiqSueldo con baja
+					//***************************************
+					
+					//**************************************
+					//TODO llamar a Banco con baja
+					//***************************************
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
 			} else

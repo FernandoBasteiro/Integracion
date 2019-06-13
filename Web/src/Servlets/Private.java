@@ -192,7 +192,8 @@ public class Private extends HttpServlet {
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
 				}
-				jspPage = "productos/verProducto.jsp";
+				if (request.getParameter("modificar") == null) jspPage = "productos/verProducto.jsp";
+				else jspPage = "productos/crearProducto.jsp";
 			}/*
 			else if (action.equals("verVenta")) {
 				HttpSession session = request.getSession();
@@ -292,15 +293,6 @@ public class Private extends HttpServlet {
 				estadoFactura
 				medioPagoFactura
 				*/
-			/*
-			 
-			else if (action.equals("vender")) {
-				HttpSession session = request.getSession();
-				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, null);
-				request.setAttribute("listadoProductos", productos);
-				jspPage = "facturacion/vender.jsp";
-			} */
 			else if (action.equals("facturar")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
