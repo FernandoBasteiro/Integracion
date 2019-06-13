@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class ProductoDTO implements Serializable {
 
 	private static final long serialVersionUID = -3210096887067507740L;
-	private Integer codigo;
+	private Long codigo;
 	private String nombre;
 	private String descripcion;
 	private String presentacion;
 	private Float precio;
 	private StockDTO stock;
-	public Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 	public String getNombre() {
@@ -47,9 +47,9 @@ public class ProductoDTO implements Serializable {
 	public void setStock(StockDTO stock) {
 		this.stock = stock;
 	}
-	public ProductoDTO(Integer codigo, String nombre, String descripcion, String presentacion, Float precio,
+	public ProductoDTO(Long codigo2, String nombre, String descripcion, String presentacion, Float precio,
 			StockDTO stock) {
-		this.codigo = codigo;
+		this.codigo = codigo2;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.presentacion = presentacion;

@@ -135,7 +135,7 @@ public class Private extends HttpServlet {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				String nombre = request.getParameter("nombreProducto");
-				Integer codigo = (request.getParameter("codigoProducto") == null ? null : Integer.valueOf(request.getParameter("codigoProducto")));
+				Long codigo = (request.getParameter("codigoProducto") == null ? null : Long.valueOf(request.getParameter("codigoProducto")));
 				String descripcion = request.getParameter("descripcionProducto");
 				Float precio = (request.getParameter("precioProducto") == null ? null : Float.valueOf(request.getParameter("precioProducto")));
 				String presentacion = request.getParameter("presentacionProducto");
@@ -184,7 +184,7 @@ public class Private extends HttpServlet {
 			else if (action.equals("verProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				Integer codigo = (request.getParameter("codigo") == null ? null : Integer.valueOf(request.getParameter("codigo")));
+				Long codigo = (request.getParameter("codigo") == null ? null : Long.valueOf(request.getParameter("codigo")));
 				ProductoDTO producto = new ProductoDTO();
 				producto.setCodigo(codigo);
 				try {
@@ -242,7 +242,7 @@ public class Private extends HttpServlet {
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				Integer codigo = (request.getParameter("buscarProductoCodigo") == null ? null : Integer.valueOf(request.getParameter("buscarProductoCodigo")));
+				Long codigo = (request.getParameter("buscarProductoCodigo") == null ? null : Long.valueOf(request.getParameter("buscarProductoCodigo")));
 				String nombre = request.getParameter("buscarProductoNombre");
 				ProductoDTO p = null;
 				if (codigo != null || nombre != null) {
@@ -306,7 +306,7 @@ public class Private extends HttpServlet {
 					List<String> listStrItems = Arrays.asList(itemStr.split(","));
 					ItemVentaDTO iv = new ItemVentaDTO();
 					ProductoDTO p = new ProductoDTO();
-					p.setCodigo(Integer.valueOf(listStrItems.get(0)));
+					p.setCodigo(Long.valueOf(listStrItems.get(0)));
 					iv.setCantidad(Integer.valueOf(listStrItems.get(1)));
 					iv.setProducto(p);
 					items.add(iv);

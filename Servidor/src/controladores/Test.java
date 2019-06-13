@@ -47,7 +47,7 @@ public class Test {
 	private static void pegarleAlBanco() throws Exception {
 		URL url = new URL("https://bank-back.herokuapp.com/api/v1/usuario");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("POST");
+		con.setRequestMethod("PUT");
 		con.setRequestProperty("Content-Type", "application/json; utf-8");
 		con.setRequestProperty("Accept", "application/json");
 		con.setDoOutput(true);
@@ -69,12 +69,14 @@ public class Test {
 	
 	public static String crearJson() {
 		JsonObjectBuilder json = Json.createObjectBuilder();
-		Long idUsuario = Long.parseLong("20123412346");
-		String pwd = "1234";
-		String nombre = "Paula";
-		String apellido = "Sarasa";
-		JsonObjectBuilder idRol = Json.createObjectBuilder().add("id", 2);
-		JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", 4);
+		Long idUsuario = Long.parseLong("20332419006");
+		String pwd = "password";
+		String nombre = "Fernando"; //Fisica
+		String apellido = "Basteiro"; //Juridica
+		String razonSocial = "Super Sarasa";
+		JsonObjectBuilder idRol = Json.createObjectBuilder().add("id", 1);
+		JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", 5); //Fisica
+		//JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", 6); //Juridica
 		json.add("idUsuario", idUsuario);
 		json.add("contrasena", pwd);
 		json.add("nombre", nombre);

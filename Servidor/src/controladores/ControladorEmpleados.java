@@ -1,17 +1,19 @@
 package controladores;
 
 import java.util.ArrayList;
-import java.util.Vector;
+
 import org.joda.time.LocalDate;
+
 import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
+import dto.NovedadDTO;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Puesto;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Empleado;
-import negocio.ItemVenta;
+import negocio.Novedad;
 
 public class ControladorEmpleados {
 
@@ -221,18 +223,19 @@ public class ControladorEmpleados {
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 	
-	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado, Boolean lic_paga, Integer dias)
+	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado)
 			throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		if (estaLogueado(gerente)) {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(empleado.getLegajo());
 				if (emp != null) {
-					//**************************************
-					//TODO llamar a LiqSueldo con Novedad
-					//***************************************
-					ControladorVentas.getInstance().getCuit();
-					emp.getDni(); //es el CUIL del empleado			
-					
+					ArrayList<Novedad> novedades = emp.getNovedades();
+					for (NovedadDTO nd : empleado.getNovedades()) {
+						Novedad n = new Novedad(LocalDate.now(), nd.getEsPaga(), nd.getCantDias(), nd.getMes(), nd.getAnio());
+						novedades.add(n);
+					}
+					emp.setNovedades(novedades);
+					emp.guardar();
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
 			} else

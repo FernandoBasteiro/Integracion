@@ -30,8 +30,8 @@ public class eliminarProducto extends HttpServlet {
 			HttpSession session = request.getSession();
 			EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 			String codigoStr = request.getParameter("codigo");
-			Integer codigo = null;
-			if (codigoStr != null) codigo = Integer.valueOf(codigoStr);
+			Long codigo = null;
+			if (codigoStr != null) codigo = Long.valueOf(codigoStr);
 			ProductoDTO p = new ProductoDTO();
 			p.setCodigo(codigo);
 			bd.bajaProducto(logged, p);

@@ -16,12 +16,12 @@ public class DB_Inicial {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		empleados();
-		productos();
+		//empleados();
+		//productos();
 
 
 	}
-
+	/*
 	public static void productos() {
 		
 		Stock stock = new Stock();
@@ -202,6 +202,7 @@ public class DB_Inicial {
 	
 		
 	}
+	*/
 }
 
 
