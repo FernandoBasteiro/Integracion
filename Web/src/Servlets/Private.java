@@ -194,8 +194,8 @@ public class Private extends HttpServlet {
 				}
 				if (request.getParameter("modificar") == null) jspPage = "productos/verProducto.jsp";
 				else jspPage = "productos/crearProducto.jsp";
-			}/*
-			else if (action.equals("verVenta")) {
+			}
+			else if (action.equals("verFactura")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				Integer nroVenta = (request.getParameter("factura") == null ? null : Integer.valueOf(request.getParameter("factura")));
@@ -209,7 +209,7 @@ public class Private extends HttpServlet {
 					request.setAttribute("error", e.getMessage());
 				}
 				jspPage = "facturacion/verFactura.jsp";
-			} */
+			} 
 			else if (action.equals("listarEmpleados")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
