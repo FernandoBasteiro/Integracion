@@ -20,7 +20,11 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -43,7 +47,11 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -66,7 +74,11 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -88,8 +100,12 @@ $(function(){
 					success: function(data){
 						showAlert("success", "Exito!", data.success);
 					},
-					error: function(jqXHR,textStatus,errorThrown ){
-						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+					error: function(data){
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");

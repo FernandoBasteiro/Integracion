@@ -34,7 +34,8 @@ public class marcarCobrado extends HttpServlet {
 			json.add("success", "Se actualizaron los cobros.");			
 		}
 		catch (ComunicacionException ce) {
-			json.add("error", ce.getMessage());			
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			json.add("error", ce.getMessage());		
 		} */
 	}
 
