@@ -41,7 +41,15 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 		<div class="row">
 			<div class="col col-xs-12">
 				<ul class="list-group list-group-horizontal">
-				  <li class="list-group-item flex-fill"><strong class="mr-2">Disponible:</strong><span class="badge badge-pill badge-success"><%=prod.getStock().getCantidadDisponible()%></span></li>
+				<% String badgeDisponible = "";
+					if(prod.getStock().getCantidadDisponible() < prod.getStock().getCantidadMinimo() || prod.getStock().getCantidadDisponible() == 0){
+						badgeDisponible = "danger";
+					}else if(prod.getStock().getCantidadDisponible() > prod.getStock().getCantidadTotal()){
+						badgeDisponible ="warning";
+					}else{
+						badgeDisponible = "success";
+					}%>
+				  <li class="list-group-item flex-fill"><strong class="mr-2">Disponible:</strong><span class="badge badge-pill badge-<%=badgeDisponible%>"><%=prod.getStock().getCantidadDisponible()%></span></li>
 				  <li class="list-group-item flex-fill"><strong class="mr-2">Mínimo</strong><span class="badge badge-pill badge-info"><%=prod.getStock().getCantidadMinimo()%></span></li>
 				  <li class="list-group-item flex-fill"><strong class="mr-2">Total:</strong><span class="badge badge-pill badge-info"><%=prod.getStock().getCantidadTotal()%></span></li>
 				</ul>

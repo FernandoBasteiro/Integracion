@@ -63,7 +63,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				      <th scope="col">Descripción</th>
 				      <th scope="col">Presentación</th>
 				      <th scope="col">Precio</th>
-				      <th scope="col">Stock</th>
+				      <th scope="col" class="text-center">Stock Disponible</th>
 				      <th scope="col" class="text-center">Acciones</th>
 				    </tr>
 				  </thead>
@@ -73,6 +73,15 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				  	DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 
 				  	for (ProductoDTO p : productos) {
+				  		
+				  		String badgeDisponible = "";
+						if(p.getStock().getCantidadDisponible() < p.getStock().getCantidadMinimo() || p.getStock().getCantidadDisponible() == 0){
+							badgeDisponible = "danger";
+						}else if(p.getStock().getCantidadDisponible() > p.getStock().getCantidadTotal()){
+							badgeDisponible ="warning";
+						}else{
+							badgeDisponible = "success";
+						}
 				  	%>
 				    <tr class="<%=(p.getStock().getCantidadDisponible() == 0) ? "text-muted" : "" %>">
 				      <th scope="row"><%=fila++ %></th>
@@ -81,7 +90,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				       <td><%=p.getDescripcion() %></td>
 				       <td><%=p.getPresentacion() %></td>
 				       <td><%=priceFormatter.format(p.getPrecio())%></td>
-				       <td><%=p.getStock().getCantidadDisponible()+"u" %></td>
+				       <td class="text-center"><span class="badge badge-pill badge-<%=badgeDisponible%>"><%=p.getStock().getCantidadDisponible()+"u" %></span></td>
 				     
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verProducto&codigo=<%=p.getCodigo() %>" class="view mx-1" title="Ver producto"><i class="fas fa-eye text-success"></i></a>

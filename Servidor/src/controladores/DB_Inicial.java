@@ -116,8 +116,8 @@ public class DB_Inicial {
 		EmpleadoDAO.getinstance().add(empleado);
 		
 		//
-		empleado.setApellido("Marcelo");
-		empleado.setNombre("Gallardo");
+		empleado.setApellido("Gallardo");
+		empleado.setNombre("Marcelo");
 		empleado.setCbu("12345678");
 		empleado.setDni("31787333");
 		empleado.setDomicilio("Buenos Aires");

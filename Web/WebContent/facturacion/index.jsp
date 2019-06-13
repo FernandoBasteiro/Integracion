@@ -5,6 +5,7 @@
 <%@ page import="enumeraciones.EstadoVenta"%>
 <%@ page import="enumeraciones.Puesto"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.text.DecimalFormat" %>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
 else {
@@ -16,7 +17,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline"><i class="fas fa-file-invoice-dollar mr-3 text-info"></i>Facturación</h2>
-				<a href="/Web/Private/marcarCobrado" data-action="imputarCobros" class="btn btn-primary float-right"><i class="fas fa-hand-holding-usd mr-2"></i>Imputar Cobros</a>
+				<a href="#" data-action="imputarCobros" data-toggle="modal" data-target="#modal" class="btn btn-primary float-right"><i class="fas fa-hand-holding-usd mr-2"></i>Imputar Cobros</a>
 				<hr/>
 			</div>
 		</div>
@@ -99,6 +100,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				  <tbody>
 				  <%
 				  	int fila = 1;
+				  	DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 				  	for (VentaDTO v : ventas) {
 				  	
 				  		String statusBadge = "";
@@ -130,17 +132,13 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				       <td><%=v.getCuit() %></td>
 				       <td><span class="badge badge-pill <%=statusBadge%>"><%=v.getEstado().getNombre() %></span></td>
 				       <td><%=v.getMedioDePago().getNombre() %></td>
-				       <td><%=v.getNroOperacion() %></td>
-				       <td><%=v.getTotal() %></td>
+				       <td><%=(v.getNroOperacion()==null) ? "-" : v.getNroOperacion() %></td>
+				       <td><%=priceFormatter.format(v.getTotal())%></td>
 				      
 				      <td class="actions text-center">
-<<<<<<< HEAD
 				      	<a href="/Web/Private?action=verFactura&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-=======
-				      	<a href="/Web/Private?action=verVenta&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
->>>>>>> refs/remotes/origin/integracion-frontend
-				      	<a href="/Web/facturacion/index.jsp?action=cobrar&factura=nro" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
+				      	<a href="/Web/Private?action=marcarCobrado" data-factura="<%=v.getId()%>" data-action="marcarCobrado" <%=(v.getEstado() == EstadoVenta.COBRADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="edit mx-1 <%=(v.getEstado() == EstadoVenta.COBRADA) ? "disabled" : "" %>" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd <%=(v.getEstado() == EstadoVenta.COBRADA) ? "text-muted" : "text-primary" %>"></i></a>
+				      	<a href="/Web/Private?action=anularFactura&factura=<%=v.getId() %>" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <% } %>

@@ -50,16 +50,20 @@ public class listarProductos extends HttpServlet {
 			json.add("productos", productosJson);
 		}
 		catch (UsuarioNoLogueado unl) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", unl.getMessage());
 		}
 		catch (UsuarioSinPermisos usp) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", usp.getMessage());
 		}
 		catch (ComunicacionException ce) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", ce.getMessage());
 		}
 		catch (Exception e) {
-			json.add("error", "Otro error");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			json.add("error", "Error desconocido :(");
 		}
 		response.setContentType("application/json");
 		response.getWriter().write(json.build().toString());

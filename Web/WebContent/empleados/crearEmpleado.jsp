@@ -150,7 +150,7 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="fechaEgresoEmpleado">Fecha de egreso</label>
-					<input type="date" name="fechaEgresoEmpleado" class="form-control" <%=(emp==null) ? "disabled" : "" %> value="<%=(emp != null) ? emp.getFechaEgreso() : "" %>"/>
+					<input type="date" name="fechaEgresoEmpleado" class="form-control" <%=(emp==null) ? "disabled" : "" %> value="<%=(emp != null && emp.getFechaEgreso() !=null) ? emp.getFechaEgreso() : "" %>"/>
 				</div>
 			</div>
 			<div class="form-row">

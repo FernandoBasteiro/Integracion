@@ -41,6 +41,7 @@ public class anularFactura extends HttpServlet {
 			json.add("success", "La factura fue anulada correctamente.");
 		}
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos e) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", e.getMessage());
 		}
 		response.setContentType("application/json");

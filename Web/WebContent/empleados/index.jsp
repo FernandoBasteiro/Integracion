@@ -134,7 +134,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 				      	<a href="/Web/Private?action=verEmpleado&legajo=<%=e.getLegajo() %>" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Web/Private?action=verEmpleado&modificar=true&legajo=<%=e.getLegajo() %>" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
 				      	<a href="#" data-legajo="<%=e.getLegajo()%>" data-nombre="<%=e.getNombre()%>" data-apellido="<%=e.getApellido()%>" data-action="eliminarEmpleado" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
-				      	<a href="#" data-legajo="<%=e.getLegajo()%>" data-action="cargarNovedad"  class="news mx-1" title="Cargar novedad" data-toggle="modal" data-target="#modal"><i class="fas fa-umbrella-beach text-info"></i></a>
+				      	<a href="#" data-legajo="<%=e.getLegajo()%>" data-nombre="<%=e.getNombre()%>" data-apellido="<%=e.getApellido()%>" data-action="cargarNovedad"  class="news mx-1" title="Cargar novedad" data-toggle="modal" data-target="#modal"><i class="fas fa-umbrella-beach text-info"></i></a>
 				      </td>
 				    </tr>
 				    <% } %>
