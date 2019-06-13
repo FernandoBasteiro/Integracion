@@ -142,7 +142,7 @@ public class ControladorVentas {
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
-				if (ventas != null) {
+				if (ventas.size() == 0) {
 					Venta vta = ventas.get(0);
 					vta.marcarFacturaCobrada();
 					vta.grabar();
@@ -227,7 +227,7 @@ public class ControladorVentas {
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
-				if (ventas != null) {
+				if (ventas.size() == 0) {
 					return ventas.get(0).getDTO();
 				}
 				else throw new ExcepcionProceso("No existe una venta con ese número de venta.");								
@@ -241,10 +241,10 @@ public class ControladorVentas {
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
-				if (ventas != null) {
+				if (ventas.size() == 0) {
 					ventas.get(0).cancelarVenta();
 				}
-				else throw new ExcepcionProceso("Error al anular la factura.");								
+				else throw new ExcepcionProceso("No existe una factura con ese número de factura.");								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
