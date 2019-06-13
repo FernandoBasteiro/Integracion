@@ -235,10 +235,10 @@ public class VentaDAO {
 		if (e != null) {
 			if (p1 >= 0 ) {
 				p2= 1;
-				q2 = " and estadoVenta = ? ";
+				q2 = " and estado = ? ";
 			}else {
 				p2 = 0;
-				q2 = " where estadoVenta = ? ";
+				q2 = " where estado = ? ";
 			}
 		}
 		//info de medio de pago
