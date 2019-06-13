@@ -42,7 +42,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 			<div class="col col-xs-12">
 				<ul class="list-group list-group-horizontal">
 				<% String badgeDisponible = "";
-					if(prod.getStock().getCantidadDisponible() < prod.getStock().getCantidadMinimo()){
+					if(prod.getStock().getCantidadDisponible() < prod.getStock().getCantidadMinimo() || prod.getStock().getCantidadDisponible() == 0){
 						badgeDisponible = "danger";
 					}else if(prod.getStock().getCantidadDisponible() > prod.getStock().getCantidadTotal()){
 						badgeDisponible ="warning";

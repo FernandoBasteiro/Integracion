@@ -20,7 +20,6 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						console.log(jqXHR)
 						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
 					},
 					complete: function(){
@@ -44,7 +43,6 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						console.log(jqXHR)
 						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
 					},
 					complete: function(){
@@ -68,7 +66,6 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						console.log(jqXHR)
 						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
 					},
 					complete: function(){
@@ -92,7 +89,6 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						console.log(jqXHR)
 						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
 					},
 					complete: function(){
@@ -102,6 +98,8 @@ $(function(){
 				})
 			})
 			
+		} else if($action=="marcarCobrado"){
+			$title.text("Imputar Cobro en Factura");
 		}
 	})
 	
