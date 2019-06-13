@@ -16,7 +16,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline"><i class="fas fa-file-invoice-dollar mr-3 text-info"></i>Facturación</h2>
-				<a href="/Web/Private/marcarCobrado" data-action="imputarCobros" class="btn btn-primary float-right"><i class="fas fa-hand-holding-usd mr-2"></i>Imputar Cobros</a>
+				<a href="#" data-action="imputarCobros" data-toggle="modal" data-target="#modal" class="btn btn-primary float-right"><i class="fas fa-hand-holding-usd mr-2"></i>Imputar Cobros</a>
 				<hr/>
 			</div>
 		</div>
@@ -135,8 +135,8 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				      
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verFactura&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=marcarCobrado&factura=<%=v.getId() %>" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=<%=v.getId() %>" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
+				      	<a href="/Web/Private?action=marcarCobrado&factura=<%=v.getId() %>" data-toggle="modal" data-target="#modal" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
+				      	<a href="/Web/Private?action=anularFactura&factura=<%=v.getId() %>" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
 				    <% } %>

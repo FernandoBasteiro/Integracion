@@ -387,6 +387,10 @@ public class Private extends HttpServlet {
 				creditoVencimiento
 				creditoCuotas
 				 */
+			}else if (action.equals("imputarCobros")) {
+				// EJEMPLO: 
+				// Le pega a: Web/Private?action=imputarCobros
+				// Envia: periodoMes=1&periodoAnio=2019
 			}
 		}
 		catch (UsuarioSinPermisos usp) {
