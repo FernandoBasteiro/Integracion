@@ -11,6 +11,11 @@ public class ProductoDTO implements Serializable {
 	private String presentacion;
 	private Float precio;
 	private StockDTO stock;
+	
+	public String getCodigoStr() {
+		return codigo.toString();
+	}
+	
 	public Long getCodigo() {
 		return codigo;
 	}

@@ -12,7 +12,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-box mr-3 text-warning"></i>Ver producto</h2>
 				<a href="/Web/Private?action=listarProductos" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
-				<a href="/Web/Private?action=verProducto&modificar=true&codigo=<%=prod.getCodigo()%>" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
+				<a href="/Web/Private?action=verProducto&modificar=true&codigo=<%=prod.getCodigoStr()%>" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
 				<hr/>
 			</div>
 		</div>
@@ -21,7 +21,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 				<p><strong class="mr-2">Nombre:</strong><%=prod.getNombre()%></p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Código:</strong><span class="badge badge-pill badge-info"><%=prod.getCodigo()%></span></p>
+				<p><strong class="mr-2">Código:</strong><span class="badge badge-pill badge-info"><%=prod.getCodigoStr()%></span></p>
 			</div>
 		</div>
 		<div class="row">

@@ -85,7 +85,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				  	%>
 				    <tr class="<%=(p.getStock().getCantidadDisponible() == 0) ? "text-muted" : "" %>">
 				      <th scope="row"><%=fila++ %></th>
-				       <td><%=p.getCodigo() %></td>
+				       <td><%=p.getCodigoStr() %></td>
 				       <td><%=p.getNombre() %></td>
 				       <td><%=p.getDescripcion() %></td>
 				       <td><%=p.getPresentacion() %></td>
