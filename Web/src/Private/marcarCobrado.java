@@ -15,13 +15,16 @@ import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
 import dto.VentaDTO;
 import excepciones.ComunicacionException;
+import excepciones.ExcepcionProceso;
+import excepciones.UsuarioNoLogueado;
+import excepciones.UsuarioSinPermisos;
 
 @WebServlet("/Private/marcarCobrado")
 public class marcarCobrado extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/*		JsonObjectBuilder json = Json.createObjectBuilder();
+		JsonObjectBuilder json = Json.createObjectBuilder();
 		try {
 			BusinessDelegate bd = BusinessDelegate.getInstance();
 			HttpSession session = request.getSession();
@@ -33,10 +36,10 @@ public class marcarCobrado extends HttpServlet {
 			bd.marcarFacturaCobrada(logged, f);
 			json.add("success", "Se actualizaron los cobros.");			
 		}
-		catch (ComunicacionException ce) {
+		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos ce) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", ce.getMessage());		
-		} */
+		} 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

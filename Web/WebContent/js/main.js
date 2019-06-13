@@ -116,6 +116,30 @@ $(function(){
 			
 		} else if($action=="marcarCobrado"){
 			$title.text("Imputar Cobro en Factura");
+			$body.html("<p>La factura n&uacute;mero <strong>"+$trigger.data('factura')+"</strong> ser&aacute; marcada como cobrada.<br/>Desea continuar?</p>");
+			$footer.find(".btn-primary").text("Imputar Cobro").on('click', function(e){
+				e.preventDefault();
+				$btn = $(this);
+				$.ajax({
+					url: '/Web/Private/marcarCobrado',
+					data: {factura: $trigger.data('factura')},
+					dataType: 'json',
+					success: function(data){
+						showAlert("success", "Exito!", data.success);
+					},
+					error: function(jqXHR,textStatus,errorThrown){
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
+					},
+					complete: function(){
+						$btn.removeAttr("disabled");
+						$modal.modal('hide');
+					}
+				})
+			})
 		}
 	})
 	

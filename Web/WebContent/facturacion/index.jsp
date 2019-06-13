@@ -130,12 +130,12 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				       <td><%=v.getCuit() %></td>
 				       <td><span class="badge badge-pill <%=statusBadge%>"><%=v.getEstado().getNombre() %></span></td>
 				       <td><%=v.getMedioDePago().getNombre() %></td>
-				       <td><%=v.getNroOperacion() %></td>
+				       <td><%=(v.getNroOperacion()==null)?"-":v.getNroOperacion() %></td>
 				       <td><%=v.getTotal() %></td>
 				      
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verFactura&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/Private?action=marcarCobrado&factura=<%=v.getId() %>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
+				      	<a href="/Web/Private?action=marcarCobrado" data-factura="<%=v.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
 				      	<a href="/Web/Private?action=anularFactura&factura=<%=v.getId() %>" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
 				      </td>
 				    </tr>
