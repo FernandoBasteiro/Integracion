@@ -128,7 +128,7 @@ public class ControladorProductos {
 		if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
 			if (supervisor.getPuesto().getId() >= Puesto.CAJERO.getId()) {
 				ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
-				if (prods.size() == 0) {
+				if (prods.size() > 0) {
 					return prods.get(0).getDTO();
 				}
 				else throw new ExcepcionProceso("No existen productos con esos criterios.");								
