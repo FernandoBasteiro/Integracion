@@ -159,5 +159,10 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 			throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		ControladorEmpleados.getInstance().generarNovedad(gerente, empleado);
 	}
+
+	@Override
+	public EmpleadoDTO listarNovedades(EmpleadoDTO empleado) throws RemoteException, ExcepcionProceso {
+		return ControladorEmpleados.getInstance().listarNovedades(empleado);
+	}
 	
 }

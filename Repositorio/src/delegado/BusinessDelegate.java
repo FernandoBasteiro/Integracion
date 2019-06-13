@@ -37,7 +37,7 @@ public class BusinessDelegate {
 		} catch (MalformedURLException e) {
 			throw new ComunicacionException("La direccion especificada no es correcta");
 		} catch (RemoteException e) {
-
+			throw new ComunicacionException("Fijate si corriste el server, che");
 		} catch (NotBoundException e) {
 			throw new ComunicacionException("El servidor no esta disponible");		
 		}
@@ -231,4 +231,11 @@ public class BusinessDelegate {
 		}
 	}
 	
+	public EmpleadoDTO listarNovedades(EmpleadoDTO empleado) throws ComunicacionException, ExcepcionProceso {
+		try {
+			return ir.listarNovedades(empleado);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
 }

@@ -89,13 +89,13 @@ public class ControladorVentas {
 						else throw new ExcepcionProceso("Error TC. Venta no aprobada.");
 						break;
 					default: 
-						throw new ExcepcionProceso("Medio de pago invï¿½lido.");
+						throw new ExcepcionProceso("Medio de pago invólido.");
 				}
 				return v;
 			}
 			else throw new ExcepcionProceso("Error al generar una venta.");
 		}
-		else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n.");
+		else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
 	}	
 	
 	private VentaDTO generarVentaEfectivo(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) throws ExcepcionProceso {			
@@ -147,9 +147,9 @@ public class ControladorVentas {
 					vta.marcarFacturaCobrada();
 					vta.grabar();
 				}
-				else throw new ExcepcionProceso("No existe una venta con ese nï¿½mero de venta.");								
+				else throw new ExcepcionProceso("No existe una venta con ese nómero de venta.");								
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
@@ -167,7 +167,7 @@ public class ControladorVentas {
 					v.grabar();
 				}								
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
@@ -184,7 +184,7 @@ public class ControladorVentas {
 						vtas.add(v.getDTO());
 				return vtas;								
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
@@ -201,7 +201,7 @@ public class ControladorVentas {
 				
 				return vtas;								
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
@@ -218,7 +218,7 @@ public class ControladorVentas {
 				
 				return vtas;							
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");	
 	}
@@ -231,9 +231,9 @@ public class ControladorVentas {
 				if (ventas.size() > 0) {
 					return ventas.get(0).getDTO();
 				}
-				else throw new ExcepcionProceso("No existe una venta con ese nï¿½mero de venta.");								
+				else throw new ExcepcionProceso("No existe una venta con ese nómero de venta.");								
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -246,9 +246,9 @@ public class ControladorVentas {
 					ventas.get(0).cancelarVenta();
 					ventas.get(0).grabar();
 				}
-				else throw new ExcepcionProceso("No existe una factura con ese nï¿½mero de factura.");								
+				else throw new ExcepcionProceso("No existe una factura con ese nómero de factura.");								
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
