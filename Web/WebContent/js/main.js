@@ -51,9 +51,30 @@ $(function(){
 					}
 				})
 			})
+		}else if( $action=="eliminarProducto" ){
+			$title.text("Eliminar Producto");
+			$body.html("<p>El producto <strong>"+$trigger.data('nombre')+"</strong> con c&oacute;digo <strong>#"+$trigger.data('codigo')+"</strong> ser&aacute; eliminado.<br/>Desea continuar?</p>");
+			$footer.find(".btn-primary").text("Eliminar Producto").on('click', function(e){
+				$btn = $(this);
+				$btn.attr("disabled","disabled");
+				
+				$.ajax({
+					url: '/Web/Private/eliminarProducto',
+					data:{codigo: $trigger.data('codigo')},
+					dataType: 'json',
+					success: function(data){
+						showAlert("success", "Exito!", data.success);
+					},
+					error: function(data){
+						showAlert("danger", "Error!", data.error);
+					},
+					complete: function(){
+						$btn.removeAttr("disabled");
+						$modal.modal('hide');
+					}
+				})
+			})
 		}
-		//cargarNovedad
-		
 	})
 	
 });
