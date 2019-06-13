@@ -17,10 +17,10 @@ $(function(){
 					data:{legajo: $trigger.data('legajo')},
 					dataType: 'json',
 					success: function(data){
-						alert(data.success);
+						showAlert("success", "Exito!", data.success);
 					},
 					error: function(data){
-						alert(data.error);
+						showAlert("danger", "Error!", data.error);
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -37,3 +37,19 @@ $(function(){
 	})
 	
 });
+
+function showAlert(type, title, body){
+	var alert = null;
+	
+	if($('.alert').length == 0){
+		alert = $('<div class="alert alert-'+type+' alert-dismissible fade show" role="alert"><strong class="mr-2">'+title+'</strong><span class="alert-title">'+body+'</span><button type="button" class="close" data-dismiss="alert"aria-label="Cerrar"><span aria-hidden="true">&times;</span></button></div>');
+		$('#notificationArea').append(alert);
+		
+	}else{
+		$('.alert').addClass("show alert-"+type).find('strong').text(title);
+		$('.alert').find('.alert-title').text(body);
+	}
+	$("#notificationArea").show();
+	
+	
+}
