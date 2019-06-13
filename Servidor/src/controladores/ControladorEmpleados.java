@@ -87,12 +87,18 @@ public class ControladorEmpleados {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
 				if (emp != null) {
+					
 					if (e.getFechaEgreso()!=null) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
 						//*************************************************************
 						//TODO informar a liquidacion de sueldos para liquidacion final
 						//************************************************************
+					} else {
+						//*************************************************************
+						//TODO informar a liquidacion de sueldos para moddifcacion si corresponde
+						//************************************************************
 					}
+					
 					if (e.getPassword()!=null) {
 						emp.setPassword(e.getPassword());
 					}
@@ -112,11 +118,8 @@ public class ControladorEmpleados {
 					emp.setSueldoBase(e.getSueldoBase());
 					emp.setHorasAsignadas(e.getHorasAsignadas());
 					emp.setPuesto(e.getPuesto());
-					emp.setCbu(e.getCbu());
+					emp.setCbu(e.getCbu());	
 					
-					//*************************************************************
-					//TODO informar a liquidacion de sueldos para moddifcacion si corresponde
-					//************************************************************
 
 					emp.guardar();
 				} else
