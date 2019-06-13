@@ -38,6 +38,7 @@ public class eliminarProducto extends HttpServlet {
 			json.add("success", "El producto fue dado de baja.");
 		}
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos e) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", e.getMessage());
 		}
 		response.setContentType("application/json");
