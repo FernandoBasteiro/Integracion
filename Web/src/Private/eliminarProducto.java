@@ -42,8 +42,8 @@ public class eliminarProducto extends HttpServlet {
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos e) {
 			json.add("error", e.getMessage());
 		}
-
-
+		response.setContentType("application/json");
+		response.getWriter().write(json.build().toString());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
