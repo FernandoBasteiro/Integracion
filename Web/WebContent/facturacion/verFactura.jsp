@@ -2,6 +2,7 @@
 <%@ page import="dto.VentaDTO"%>
 <%@ page import="dto.ItemVentaDTO"%>
 <%@ page import="enumeraciones.EstadoVenta"%>
+<%@ page import="enumeraciones.MedioDePago"%>
 <%@ page import="java.text.DecimalFormat" %>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
@@ -79,6 +80,17 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Medio de pago:</strong><%=factura.getMedioDePago().getNombre()  %></p>
 			</div>
+			<% if(factura.getMedioDePago().getNombre() == MedioDePago.TARJETA_DEBITO.getNombre()){ %>
+			<div class="col col-xs-6">
+				<p><strong class="mr-2">Tarjeta:</strong>xxxx xxxx xxxx <%=factura.getNumeroTarjeta()%></p>
+			</div>
+			<% } else if(factura.getMedioDePago().getNombre() == MedioDePago.TARJETA_CREDITO.getNombre()){ %>
+			<div class="col col-xs-6">
+				<p><strong class="mr-2">Tarjeta:</strong>xxxx xxxx xxxx <%=factura.getNumeroTarjeta()%></p>
+			</div>
+			<% } %>
+		</div>
+		<div class="row">
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Cajero:</strong><%=factura.getEmpleado().getNombre()+" "+factura.getEmpleado().getApellido()   %></p>
 			</div>

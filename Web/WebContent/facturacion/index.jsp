@@ -25,9 +25,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
 					<div class="form-row pb-2">
-						<div class="col-sm-6">
-						
-						
+						<div class="col-sm-6">						
 						<form action="/Web/Private?action=listarVentas" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -156,7 +154,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				      
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verFactura&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/Private?action=marcarCobrado" data-factura="<%=v.getId()%>" data-action="marcarCobrado" <%=(v.getEstado() == EstadoVenta.COBRADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="edit mx-1 <%=(v.getEstado() == EstadoVenta.COBRADA) ? "disabled" : "" %>" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd <%=(v.getEstado() == EstadoVenta.COBRADA) ? "text-muted" : "text-primary" %>"></i></a>
+				      	<a href="/Web/Private?action=marcarCobrado" data-factura="<%=v.getId()%>" data-action="marcarCobrado" <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="edit mx-1 <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "disabled" : "" %>" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd <%=(v.getEstado() == EstadoVenta.COBRADA || v.getEstado() == EstadoVenta.ANULADA) ? "text-muted" : "text-primary" %>"></i></a>
 				      	<a href="/Web/Private/anularFactura" data-factura="<%=v.getId()%>" data-action="anularFactura" <%=(v.getEstado() == EstadoVenta.ANULADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="delete mx-1 <%=(v.getEstado() == EstadoVenta.ANULADA) ? "disabled" : "" %>" title="Anular factura"><i class="fas fa-times text-danger <%=(v.getEstado() == EstadoVenta.ANULADA) ? "text-muted" : "text-primary" %>"></i></a>
 				      </td>
 				    </tr>

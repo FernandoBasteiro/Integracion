@@ -31,7 +31,12 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 			</div>
 			<div class="form-group col-sm-6">
 				<label for="codigoProducto">Código</label>
-				<input type="number" required name="codigoProducto" class="form-control" value="<%=(prod != null)?prod.getCodigo().toString():""%>"/>
+				<% if (prod == null){ %>
+				<input type="number" required name="codigoProducto" class="form-control" value="<%=(prod != null)?prod.getCodigoStr().toString():""%>"/>
+				<% }else{ %>
+				<input type="number" disabled class="form-control" value="<%=(prod != null)?prod.getCodigoStr().toString():""%>"/>
+				<input type="hidden" name="codigoProducto" value="<%=prod.getCodigoStr().toString()%>"/>
+				<% } %>
 			</div>
 			<div class="form-group col-sm-12">
 				<label for="descripcionProducto">Descripción</label>
