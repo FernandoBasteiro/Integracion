@@ -21,7 +21,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 					<% }else{ %>
 					<h2 class="d-inline float-left"><i class="fas fa-box-open mr-3 text-warning"></i>Editar producto</h2>
 					<% } %>
-					<a href="/Web/productos/index.jsp" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
+					<a href="/Web/Private?action=listarProductos" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 					<button class="btn btn-primary"><i class="fas fa-save mr-2"></i>Guardar</button>
 					<hr/>
 				</div>
