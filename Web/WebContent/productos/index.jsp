@@ -75,7 +75,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				  	for (ProductoDTO p : productos) {
 				  		
 				  		String badgeDisponible = "";
-						if(p.getStock().getCantidadDisponible() < p.getStock().getCantidadMinimo()){
+						if(p.getStock().getCantidadDisponible() < p.getStock().getCantidadMinimo() || p.getStock().getCantidadDisponible() == 0){
 							badgeDisponible = "danger";
 						}else if(p.getStock().getCantidadDisponible() > p.getStock().getCantidadTotal()){
 							badgeDisponible ="warning";
