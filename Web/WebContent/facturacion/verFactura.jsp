@@ -33,9 +33,31 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 			<% }else{   %>
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Fecha de cobro:</strong> - </p>
-			</div> <%} %>
+			</div> <%}
+		
+		String statusBadge = "";
+		switch(factura.getEstado()){
+			case COBRADA:
+				statusBadge = "badge-success";
+				break;
+			case FACTURADA:
+				statusBadge = "badge-warning";
+				break;
+			case ABIERTA:
+				statusBadge = "badge-info";
+				break;
+			case ANULADA:
+				statusBadge = "badge-danger";
+				break;
+			default:
+				statusBadge = "badge-info";
+				break;
+			}
+		%>
+			
+			
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Estado:</strong><span class="badge badge-pill badge-success"><%=factura.getEstado().getNombre() %></span></p>
+				<p><strong class="mr-2">Estado:</strong><span class="badge badge-pill <%=statusBadge%>"><%=factura.getEstado().getNombre() %></span></p>
 			</div>
 		</div>
 		<div class="row">
