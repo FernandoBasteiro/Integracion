@@ -1,9 +1,12 @@
 <%@ page import="dto.EmpleadoDTO"%>
 <%@ page import="dto.VentaDTO"%>
 <%@ page import="dto.ItemVentaDTO"%>
+<%@ page import="enumeraciones.EstadoVenta"%>
+<%@ page import="java.text.DecimalFormat" %>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
 VentaDTO factura = (VentaDTO) request.getAttribute("factura");
+DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
@@ -12,8 +15,12 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-receipt mr-3 text-info"></i>Ver factura</h2>
 				<a href="/Web/Private?action=listarVentas" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
-				<a href="/Web/facturacion/index.jsp?action=cobrar&factura=nro" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
-				<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
+				<%if(factura.getEstado() != EstadoVenta.COBRADA){%>
+					<a href="/Web/Private?action=marcarCobrado" data-factura="<%=factura.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
+				<%} %>
+				<%if(factura.getEstado() != EstadoVenta.ANULADA){%>
+				<a href="/Web/Private/anularFactura" data-factura="<%=factura.getId()%>" data-action="anularFactura" data-toggle="modal" data-target="#modal" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
+				<% } %>
 				<hr/>
 			</div>
 		</div>
@@ -94,16 +101,16 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 				  <% 
 				  int item_num = 1;
 				  for (ItemVentaDTO item : factura.getItems()){ 
-				  Float subtotal = item.getPrecio()*item.getCantidad();
+				  String subtotal = priceFormatter.format(item.getPrecio()*item.getCantidad());
 				  %>
 				    <tr>
 				      <th scope="row"><%=item_num%></th>
 				      <td><%=item.getProducto().getCodigo()%></td>
 				      <td><%=item.getProducto().getNombre()%></td>
 				      <td><%=item.getProducto().getPresentacion()%></td>
-				      <td>$<%=item.getPrecio()%></td>
+				      <td><%=priceFormatter.format(item.getPrecio())%></td>
 				      <td><%=item.getCantidad()%></td>
-				      <td>$<%=subtotal%></td>
+				      <td><%=subtotal%></td>
 				    </tr>
 				    <%
 				  item_num++;  
@@ -112,7 +119,7 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 				  <tfoot>
 				    <tr class="table-active">
 				      <th colspan="6" class="text-right ">Total</th>
-				      <th><%=factura.getTotal()%></th>
+				      <th><%=priceFormatter.format(factura.getTotal())%></th>
 				    </tr>
 				  </tfoot>
 				</table>

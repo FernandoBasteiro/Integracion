@@ -40,6 +40,7 @@ public class eliminarEmpleado extends HttpServlet {
 			json.add("success", "El empleado fue dado de baja.");
 		}
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos e) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", e.getMessage());
 		}
 		response.setContentType("application/json");

@@ -5,6 +5,7 @@
 <%@ page import="enumeraciones.EstadoVenta"%>
 <%@ page import="enumeraciones.Puesto"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.text.DecimalFormat" %>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
 else {
@@ -109,6 +110,7 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				  <tbody>
 				  <%
 				  	int fila = 1;
+				  	DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 				  	for (VentaDTO v : ventas) {
 				  	
 				  		String statusBadge = "";
@@ -140,13 +142,13 @@ ArrayList<VentaDTO> ventas = (ArrayList<VentaDTO>) request.getAttribute("factura
 				       <td><%=v.getCuit() %></td>
 				       <td><span class="badge badge-pill <%=statusBadge%>"><%=v.getEstado().getNombre() %></span></td>
 				       <td><%=v.getMedioDePago().getNombre() %></td>
-				       <td><%=v.getNroOperacion() %></td>
-				       <td><%=v.getTotal() %></td>
+				       <td><%=(v.getNroOperacion()==null) ? "-" : v.getNroOperacion() %></td>
+				       <td><%=priceFormatter.format(v.getTotal())%></td>
 				      
 				      <td class="actions text-center">
 				      	<a href="/Web/Private?action=verFactura&factura=<%=v.getId() %>" class="view mx-1" title="Ver factura"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/Private?action=marcarCobrado&factura=<%=v.getId() %>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="edit mx-1" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd text-primary"></i></a>
-				      	<a href="/Web/Private?action=anularFactura&factura=<%=v.getId() %>" class="delete mx-1" title="Anular factura"><i class="fas fa-times text-danger"></i></a>
+				      	<a href="/Web/Private?action=marcarCobrado" data-factura="<%=v.getId()%>" data-action="marcarCobrado" <%=(v.getEstado() == EstadoVenta.COBRADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="edit mx-1 <%=(v.getEstado() == EstadoVenta.COBRADA) ? "disabled" : "" %>" title="Ingresar cobranza"><i class="fas fa-hand-holding-usd <%=(v.getEstado() == EstadoVenta.COBRADA) ? "text-muted" : "text-primary" %>"></i></a>
+				      	<a href="/Web/Private/anularFactura" data-factura="<%=v.getId()%>" data-action="anularFactura" <%=(v.getEstado() == EstadoVenta.ANULADA) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'" %> class="delete mx-1 <%=(v.getEstado() == EstadoVenta.ANULADA) ? "disabled" : "" %>" title="Anular factura"><i class="fas fa-times text-danger <%=(v.getEstado() == EstadoVenta.ANULADA) ? "text-muted" : "text-primary" %>"></i></a>
 				      </td>
 				    </tr>
 				    <% } %>

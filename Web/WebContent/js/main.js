@@ -1,4 +1,5 @@
 $(function(){
+	$('a.disabled').on('click',function(e){e.preventDefault()})
 	
 	$('#modal').on('show.bs.modal', function (event) {		
 		var $modal = $(this), $title = $modal.find(".modal-title"), $body = $modal.find(".modal-body"), $footer = $modal.find(".modal-footer");
@@ -20,7 +21,11 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -43,7 +48,11 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -66,7 +75,11 @@ $(function(){
 						showAlert("success", "Exito!", data.success);
 					},
 					error: function(jqXHR,textStatus,errorThrown ){
-						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -88,8 +101,12 @@ $(function(){
 					success: function(data){
 						showAlert("success", "Exito!", data.success);
 					},
-					error: function(jqXHR,textStatus,errorThrown ){
-						showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+					error: function(jqXHR,textStatus,errorThrown){
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
@@ -100,6 +117,56 @@ $(function(){
 			
 		} else if($action=="marcarCobrado"){
 			$title.text("Imputar Cobro en Factura");
+			$body.html("<p>La factura n&uacute;mero <strong>"+$trigger.data('factura')+"</strong> ser&aacute; marcada como cobrada.<br/>Desea continuar?</p>");
+			$footer.find(".btn-primary").text("Imputar Cobro").on('click', function(e){
+				e.preventDefault();
+				$btn = $(this);
+				$.ajax({
+					url: '/Web/Private/marcarCobrado',
+					data: {factura: $trigger.data('factura')},
+					dataType: 'json',
+					success: function(data){
+						showAlert("success", "Exito!", data.success);
+					},
+					error: function(jqXHR,textStatus,errorThrown){
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
+					},
+					complete: function(){
+						$btn.removeAttr("disabled");
+						$modal.modal('hide');
+					}
+				})
+			})
+		}else if($action=="anularFactura"){
+			$title.text("Anular Factura");
+			$body.html("<p>La factura n&uacute;mero <strong>"+$trigger.data('factura')+"</strong> ser&aacute; anulada.<br/>Desea continuar?</p>");
+			$footer.find(".btn-primary").text("Anular").on('click', function(e){
+				e.preventDefault();
+				$btn = $(this);
+				$.ajax({
+					url: '/Web/Private/anularFactura',
+					data: {factura: $trigger.data('factura')},
+					dataType: 'json',
+					success: function(data){
+						showAlert("success", "Exito!", data.success);
+					},
+					error: function(jqXHR,textStatus,errorThrown){
+						if(typeof jqXHR.responseJSON != "undefined"){
+							showAlert("danger", "Error!", jqXHR.responseJSON.error);
+						}else{							
+							showAlert("danger", "Error!", textStatus + " (status: "+jqXHR.status+")");
+						}
+					},
+					complete: function(){
+						$btn.removeAttr("disabled");
+						$modal.modal('hide');
+					}
+				})
+			})
 		}
 	})
 	
@@ -107,15 +174,20 @@ $(function(){
 
 function showAlert(type, title, body){
 	var alert = null;
+	var refresh = $('<a href="#" class="btn btn-warning btn-sm ml-3"><i class="fas fa-sync mr-2"></i>Actualizar vista</a>')
+	
+	refresh.on('click', function(e){e.preventDefault;location.reload()})
 	
 	if($('.alert').length == 0){
 		alert = $('<div class="alert alert-'+type+' alert-dismissible fade show" role="alert"><strong class="mr-2">'+title+'</strong><span class="alert-title">'+body+'</span><button type="button" class="close" data-dismiss="alert"aria-label="Cerrar"><span aria-hidden="true">&times;</span></button></div>');
+		alert.find('.alert-title').append(refresh);
 		$('#notificationArea').append(alert);
 		
 	}else{
 		$('.alert').addClass("show alert-"+type).find('strong').text(title);
-		$('.alert').find('.alert-title').text(body);
+		$('.alert').find('.alert-title').text(body).append(refresh);
 	}
+	
 	$("#notificationArea").show();
 	
 	

@@ -95,7 +95,8 @@ public class Private extends HttpServlet {
 				Puesto puesto = (request.getParameter("puestoEmpleado") == null ? null : Puesto.fromId(Integer.valueOf(request.getParameter("puestoEmpleado"))));
 				Integer horas = (request.getParameter("horasEmpleado") == null ? null : Integer.valueOf(request.getParameter("horasEmpleado")));
 				LocalDate fechaIngreso = (request.getParameter("fechaIngresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaIngresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-				LocalDate fechaEgreso = (request.getParameter("fechaEgresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaEgresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				LocalDate fechaEgreso = null;
+				if (legajo != null) fechaEgreso = (request.getParameter("fechaEgresoEmpleado").isEmpty() ? null : LocalDate.parse(request.getParameter("fechaEgresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				Float sueldoBase = (request.getParameter("sueldoEmpleado") == null ? null : Float.valueOf(request.getParameter("sueldoEmpleado")));
 				String cbu = request.getParameter("cbuEmpleado");
 				String password = request.getParameter("passwordEmpleado");
