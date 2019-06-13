@@ -65,9 +65,9 @@ public class ControladorEmpleados {
 							empleado.getHorasAsignadas(), empleado.getPuesto(), empleado.getCbu(),
 							empleado.getSession());
 					
-					//***********************************************
-					//TODO Alta caja de ahorro en la entidad bancaria
-					//***********************************************
+					//*************************************************************
+					//TODO Alta caja de ahorro en la entidad bancaria si cbu vacio
+					//*************************************************************
 					
 					//***********************************************
 					//TODO Infomar CBU a liquidacion sueldos
@@ -95,7 +95,7 @@ public class ControladorEmpleados {
 						//************************************************************
 					} else {
 						//*************************************************************
-						//TODO informar a liquidacion de sueldos para moddifcacion si corresponde
+						//TODO informar a liquidacion de sueldos para que modifiquen si corresponde
 						//************************************************************
 					}
 					
@@ -210,8 +210,9 @@ public class ControladorEmpleados {
 					//***************************************
 					
 					//**************************************
-					//TODO llamar a Banco con baja
+					//TODO llamar a Banco con baja?????
 					//***************************************
+					
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
 			} else

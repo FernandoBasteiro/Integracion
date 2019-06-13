@@ -2,6 +2,7 @@
 <%@ page import="dto.ProductoDTO"%>
 <%@ page import="enumeraciones.EstadoEmpleado"%>
 <%@ page import="enumeraciones.Puesto"%>
+<%@page import="java.text.DecimalFormat" %>
 <%@ page import="java.util.ArrayList"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/Web/index.jsp");
@@ -69,15 +70,17 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				  <tbody>
 				  <%
 				  	int fila = 1;
+				  	DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
+
 				  	for (ProductoDTO p : productos) {
 				  	%>
-				    <tr>
+				    <tr class="<%=(p.getStock().getCantidadDisponible() == 0) ? "text-muted" : "" %>">
 				      <th scope="row"><%=fila++ %></th>
 				       <td><%=p.getCodigo() %></td>
 				       <td><%=p.getNombre() %></td>
 				       <td><%=p.getDescripcion() %></td>
 				       <td><%=p.getPresentacion() %></td>
-				       <td><%=p.getPrecio() %></td>
+				       <td><%=priceFormatter.format(p.getPrecio())%></td>
 				       <td><%=p.getStock().getCantidadDisponible()+"u" %></td>
 				     
 				      <td class="actions text-center">
