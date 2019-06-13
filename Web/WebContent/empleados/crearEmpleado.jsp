@@ -158,10 +158,6 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 					<label for="sueldoEmpleado">Sueldo base</label>
 					<input type="number" required name="sueldoEmpleado" step="0.01" min="0" class="form-control" value="<%=(emp != null) ? emp.getSueldoBase() : "" %>"/>
 				</div>
-				<div class="form-group col-sm-6">
-					<label for="cbuEmpleado">C.B.U.</label>
-					<input type="text" required name="cbuEmpleado" class="form-control" value="<%=(emp != null) ? emp.getCbu() : "" %>"/>
-				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-sm-6">
