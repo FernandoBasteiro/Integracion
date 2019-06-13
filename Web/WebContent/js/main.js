@@ -7,7 +7,7 @@ $(function(){
 		//eliminarEmpleado
 		if($action == "eliminarEmpleado"){
 			$title.text("Eliminar Empleado");
-			$body.html("<p>El empleado <strong>"+$trigger.data('nombre')+" "+$trigger.data('apellido')+"</strong>, con legajo <strong>#"+$trigger.data('legajo')+"</strong> ser&aacute; eliminado.<br/><span class='text-danger'>Esta operaci&oacute;n no se puede deshacer.</span><br/>Desea continuar?</p>")
+			$body.html("<p>El empleado <strong>"+$trigger.data('nombre')+" "+$trigger.data('apellido')+"</strong>, con legajo <strong>#"+$trigger.data('legajo')+"</strong> ser&aacute; eliminado.<br/>Desea continuar?</p>")
 			$footer.find(".btn-primary").text("Eliminar Empleado").on('click', function(e){
 				$btn = $(this);
 				$btn.attr("disabled","disabled");
@@ -17,13 +17,10 @@ $(function(){
 					data:{legajo: $trigger.data('legajo')},
 					dataType: 'json',
 					success: function(data){
-						console.log(data);
-						alert("El empleado ha sido eliminado");
-						
+						alert(data.success);
 					},
-					error: function(jqXHR,textStatus,errorThrown){
-						console.log(jqXHR,textStatus,errorThrown);
-						alert(jqXHR,textStatus,errorThrown)
+					error: function(data){
+						alert(data.error);
 					},
 					complete: function(){
 						$btn.removeAttr("disabled");
