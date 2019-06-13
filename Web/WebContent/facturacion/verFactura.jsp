@@ -12,7 +12,7 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-receipt mr-3 text-info"></i>Ver factura</h2>
 				<a href="/Web/Private?action=listarVentas" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
-				<a href="/Web/facturacion/index.jsp?action=cobrar&factura=nro" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
+				<a href="/Web/Private?action=marcarCobrado" data-factura="<%=factura.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
 				<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
 				<hr/>
 			</div>

@@ -30,16 +30,19 @@ public class marcarCobrado extends HttpServlet {
 			HttpSession session = request.getSession();
 			EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 			String facturaStr = request.getParameter("factura");
-			Integer factura;
+			Integer factura = null;
 			if (facturaStr != null) factura = Integer.valueOf(facturaStr);
 			VentaDTO f = new VentaDTO();
+			f.setId(factura);
 			bd.marcarFacturaCobrada(logged, f);
 			json.add("success", "Se actualizaron los cobros.");			
 		}
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos ce) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", ce.getMessage());		
-		} 
+		}
+		response.setContentType("application/json");
+		response.getWriter().write(json.build().toString());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
