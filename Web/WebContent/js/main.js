@@ -85,7 +85,7 @@ $(function(){
 				$btn = $(this);
 
 				$.ajax({
-					url: '/Web/Private/imputarCobros',
+					url: '/Web/Private?action=imputarCobros',
 					data:$('#imputarCobrosTc').serialize(),
 					dataType: 'json',
 					success: function(data){
