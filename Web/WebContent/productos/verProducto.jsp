@@ -10,7 +10,7 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 	<div class="container">
 		<div class="row">
 			<div class="col col-xs-12 text-right">
-				<h2 class="d-inline float-left">Ver producto</h2>
+				<h2 class="d-inline float-left"><i class="fas fa-box mr-3 text-warning"></i>Ver producto</h2>
 				<a href="/Web/productos/index.jsp" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 				<a href="/Web/Private?action=crearProducto&codigo=<%=prod.getCodigo()%>" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
 				<hr/>

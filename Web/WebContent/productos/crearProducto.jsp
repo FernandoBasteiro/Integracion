@@ -10,9 +10,9 @@ if (empleado == null) response.sendRedirect("/Web/index.jsp");
 			<div class="form-row">
 				<div class="form-group col-sm-12 text-right">
 					<% if(request.getParameter("id") == null){ %>
-					<h2 class="d-inline float-left">Crear producto</h2>
+					<h2 class="d-inline float-left"><i class="fas fa-gift mr-3 text-warning"></i>Crear producto</h2>
 					<% }else{ %>
-					<h2 class="d-inline float-left">Editar producto</h2>
+					<h2 class="d-inline float-left"><i class="fas fa-box-open mr-3 text-warning"></i>Editar producto</h2>
 					<% } %>
 					<a href="/Web/productos/index.jsp" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 					<button class="btn btn-primary"><i class="fas fa-save mr-2"></i>Guardar</button>
