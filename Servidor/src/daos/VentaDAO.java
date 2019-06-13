@@ -133,7 +133,7 @@ public class VentaDAO {
 		e.setTotal(ee.getTotal());
 		e.setMedioDePago(MedioDePago.TARJETA_DEBITO);
 		e.setNroOperacion(ee.getNroOperacion());
-		e.setUltimos4DigitosTarjeta(Integer.parseInt(ee.getNumeroTarjeta().substring(ee.getNumeroTarjeta().length()-4,ee.getNumeroTarjeta().length())));
+		e.setUltimos4DigitosTarjeta(ee.getNumeroTarjeta().substring(ee.getNumeroTarjeta().length()-4,ee.getNumeroTarjeta().length()));
 		 		 			
 		return e;
 		
@@ -158,7 +158,7 @@ public class VentaDAO {
 		e.setTotal(ee.getTotal());
 		e.setMedioDePago(MedioDePago.TARJETA_CREDITO);
 		e.setNroOperacion(ee.getNroOperacion());
-		e.setUltimos4DigitosTarjeta(Integer.parseInt(ee.getNumeroTarjeta().substring(13,16)));
+		e.setUltimos4DigitosTarjeta(ee.getNumeroTarjeta().substring(ee.getNumeroTarjeta().length()-4,ee.getNumeroTarjeta().length()));
 		e.setCantCuotas(ee.getCantCuotas());
 		 			
 		return e;
@@ -174,17 +174,20 @@ public class VentaDAO {
 		Venta v = null;
 		switch(ee.getMedioDePago()) {
 		case EFECTIVO:
-			v = new VentaEfectivo(ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
+			v = new VentaEfectivo(ee.getId(),  ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
 					ee.getEstado(), ee.getTotal(), null, null, ee.getTipo(), 
 					ee.getCuit(), ee.getFechaCobro());
+			break;
 		case TARJETA_DEBITO:
-			v = new VentaTarjetaDebito(ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
-					ee.getEstado(), ee.getTotal(), null, null, null, null, null, ee.getNroOperacion(), 
+			v = new VentaTarjetaDebito(ee.getId(),ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
+					ee.getEstado(), ee.getTotal(), ee.getUltimos4DigitosTarjeta(), null, null, null, null, ee.getNroOperacion(), 
 					ee.isAprobada(), null, null, ee.getTipo(), ee.getCuit(), ee.getFechaCobro());			
+			break;
 		case TARJETA_CREDITO:
-			v = new VentaTarjetaCredito(ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
-					ee.getEstado(), ee.getTotal(), null, null, null, null, null, ee.getNroOperacion(), 
+			v = new VentaTarjetaCredito(ee.getId(),ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
+					ee.getEstado(), ee.getTotal(), ee.getUltimos4DigitosTarjeta(), null, null, null, null, ee.getNroOperacion(), 
 					ee.isAprobada(), ee.getCantCuotas(), ee.getTipo(), ee.getCuit(), ee.getFechaCobro());
+			break;
 		}
 		return v;
 		
@@ -232,10 +235,10 @@ public class VentaDAO {
 		if (e != null) {
 			if (p1 >= 0 ) {
 				p2= 1;
-				q2 = " and estadoVenta = ? ";
+				q2 = " and estado = ? ";
 			}else {
 				p2 = 0;
-				q2 = " where estadoVenta = ? ";
+				q2 = " where estado = ? ";
 			}
 		}
 		//info de medio de pago

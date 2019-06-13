@@ -2,9 +2,10 @@
 <%@ page import="dto.ProductoDTO"%>
 <%@ page import="enumeraciones.EstadoEmpleado"%>
 <%@ page import="enumeraciones.Puesto"%>
+<%@page import="java.text.DecimalFormat" %>
 <%@ page import="java.util.ArrayList"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
-if (empleado == null) response.sendRedirect("/Web/index.jsp");
+if (empleado == null) response.sendRedirect("/index.jsp");
 else {
 ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute("productos");
 %>
@@ -14,7 +15,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 		<div class="row">
 			<div class="col col-xs-12">
 				<h2 class="d-inline"><i class="fas fa-boxes mr-3 text-warning"></i>Administrar Productos</h2>
-				<a href="/Web/productos/crearProducto.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo producto</a>
+				<a href="/productos/crearProducto.jsp" class="btn btn-primary float-right"><i class="fas fa-plus mr-2"></i>Nuevo producto</a>
 				<hr/>
 			</div>
 		</div>
@@ -22,7 +23,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 			<div class="col col-xs-12 menu-filtro">
 					<div class="form-row pb-2">
 						<div class="col-sm-6">
-						<form action="/Web/Private?action=listarProductos" method="post">
+						<form action="/Private?action=listarProductos" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
@@ -35,7 +36,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 							</form>
 						</div>	
 						<div class="col-sm-6">
-							<form action="/Web/Private?action=listarProductos" method="post">
+							<form action="/Private?action=listarProductos" method="post">
 							<div class="input-group">
 							<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
@@ -62,28 +63,39 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				      <th scope="col">Descripción</th>
 				      <th scope="col">Presentación</th>
 				      <th scope="col">Precio</th>
-				      <th scope="col">Stock</th>
+				      <th scope="col" class="text-center">Stock Disponible</th>
 				      <th scope="col" class="text-center">Acciones</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				  <%
 				  	int fila = 1;
+				  	DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
+
 				  	for (ProductoDTO p : productos) {
+				  		
+				  		String badgeDisponible = "";
+						if(p.getStock().getCantidadDisponible() < p.getStock().getCantidadMinimo() || p.getStock().getCantidadDisponible() == 0){
+							badgeDisponible = "danger";
+						}else if(p.getStock().getCantidadDisponible() > p.getStock().getCantidadTotal()){
+							badgeDisponible ="warning";
+						}else{
+							badgeDisponible = "success";
+						}
 				  	%>
-				    <tr>
+				    <tr class="<%=(p.getStock().getCantidadDisponible() == 0) ? "text-muted" : "" %>">
 				      <th scope="row"><%=fila++ %></th>
-				       <td><%=p.getCodigo() %></td>
+				       <td><%=p.getCodigoStr() %></td>
 				       <td><%=p.getNombre() %></td>
 				       <td><%=p.getDescripcion() %></td>
 				       <td><%=p.getPresentacion() %></td>
-				       <td><%=p.getPrecio() %></td>
-				       <td><%=p.getStock().getCantidadDisponible()+"u" %></td>
+				       <td><%=priceFormatter.format(p.getPrecio())%></td>
+				       <td class="text-center"><span class="badge badge-pill badge-<%=badgeDisponible%>"><%=p.getStock().getCantidadDisponible()+"u" %></span></td>
 				     
 				      <td class="actions text-center">
-				      	<a href="/Web/Private?action=verProducto&codigo=<%=p.getCodigo() %>" class="view mx-1" title="Ver producto"><i class="fas fa-eye text-success"></i></a>
-				      	<a href="/Web/Private?action=verProducto&modificar=true&codigo=<%=p.getCodigo() %>" class="edit mx-1" title="Editar producto"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="/Web/productos/index.jsp?action=eliminarProducto&codigo=<%=p.getCodigo() %>" class="delete mx-1" title="Eliminar producto" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="/Private?action=verProducto&codigo=<%=p.getCodigo() %>" class="view mx-1" title="Ver producto"><i class="fas fa-eye text-success"></i></a>
+				      	<a href="/Private?action=verProducto&modificar=true&codigo=<%=p.getCodigo() %>" class="edit mx-1" title="Editar producto"><i class="fas fa-pencil-alt text-primary"></i></a>
+				      	<a href="#" data-action="eliminarProducto" data-codigo="<%=p.getCodigo()%>" data-nombre="<%=p.getNombre()%>" class="delete mx-1" title="Eliminar producto" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
 				      </td>
 				    </tr>      
 				      <% } %>

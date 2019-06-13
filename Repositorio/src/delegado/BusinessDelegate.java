@@ -37,7 +37,7 @@ public class BusinessDelegate {
 		} catch (MalformedURLException e) {
 			throw new ComunicacionException("La direccion especificada no es correcta");
 		} catch (RemoteException e) {
-
+			throw new ComunicacionException("Fijate si corriste el server, che");
 		} catch (NotBoundException e) {
 			throw new ComunicacionException("El servidor no esta disponible");		
 		}
@@ -222,13 +222,20 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado, Boolean lic_paga, Integer dias)
+	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado)
 			throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		try {
-			ir.generarNovedad(gerente, empleado, lic_paga, dias);
+			ir.generarNovedad(gerente, empleado);
 		} catch (RemoteException re) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
 	
+	public EmpleadoDTO listarNovedades(EmpleadoDTO empleado) throws ComunicacionException, ExcepcionProceso {
+		try {
+			return ir.listarNovedades(empleado);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
 }

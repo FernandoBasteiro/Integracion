@@ -15,27 +15,34 @@ import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
 import dto.VentaDTO;
 import excepciones.ComunicacionException;
+import excepciones.ExcepcionProceso;
+import excepciones.UsuarioNoLogueado;
+import excepciones.UsuarioSinPermisos;
 
 @WebServlet("/Private/marcarCobrado")
 public class marcarCobrado extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/*		JsonObjectBuilder json = Json.createObjectBuilder();
+		JsonObjectBuilder json = Json.createObjectBuilder();
 		try {
 			BusinessDelegate bd = BusinessDelegate.getInstance();
 			HttpSession session = request.getSession();
 			EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 			String facturaStr = request.getParameter("factura");
-			Integer factura;
+			Integer factura = null;
 			if (facturaStr != null) factura = Integer.valueOf(facturaStr);
 			VentaDTO f = new VentaDTO();
+			f.setId(factura);
 			bd.marcarFacturaCobrada(logged, f);
 			json.add("success", "Se actualizaron los cobros.");			
 		}
-		catch (ComunicacionException ce) {
-			json.add("error", ce.getMessage());			
-		} */
+		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos ce) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			json.add("error", ce.getMessage());		
+		}
+		response.setContentType("application/json");
+		response.getWriter().write(json.build().toString());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

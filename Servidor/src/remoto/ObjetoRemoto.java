@@ -117,7 +117,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 
 	@Override 
 	public void altaProducto(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
-		 ControladorProductos.getInstancia().modifcacionProducto(supervisor, p);
+		 ControladorProductos.getInstancia().altaProducto(supervisor, p);
 		
 	}
 
@@ -155,9 +155,14 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado, Boolean lic_paga, Integer dias)
+	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado)
 			throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
-		ControladorEmpleados.getInstance().generarNovedad(gerente, empleado, lic_paga, dias);
+		ControladorEmpleados.getInstance().generarNovedad(gerente, empleado);
+	}
+
+	@Override
+	public EmpleadoDTO listarNovedades(EmpleadoDTO empleado) throws RemoteException, ExcepcionProceso {
+		return ControladorEmpleados.getInstance().listarNovedades(empleado);
 	}
 	
 }

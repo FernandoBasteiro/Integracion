@@ -95,7 +95,8 @@ public class Private extends HttpServlet {
 				Puesto puesto = (request.getParameter("puestoEmpleado") == null ? null : Puesto.fromId(Integer.valueOf(request.getParameter("puestoEmpleado"))));
 				Integer horas = (request.getParameter("horasEmpleado") == null ? null : Integer.valueOf(request.getParameter("horasEmpleado")));
 				LocalDate fechaIngreso = (request.getParameter("fechaIngresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaIngresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-				LocalDate fechaEgreso = (request.getParameter("fechaEgresoEmpleado") == null ? null : LocalDate.parse(request.getParameter("fechaEgresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				LocalDate fechaEgreso = null;
+				if (legajo != null) fechaEgreso = (request.getParameter("fechaEgresoEmpleado").isEmpty() ? null : LocalDate.parse(request.getParameter("fechaEgresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				Float sueldoBase = (request.getParameter("sueldoEmpleado") == null ? null : Float.valueOf(request.getParameter("sueldoEmpleado")));
 				String cbu = request.getParameter("cbuEmpleado");
 				String password = request.getParameter("passwordEmpleado");
@@ -131,12 +132,11 @@ public class Private extends HttpServlet {
 				}
 									
 			}
-			
-			/**else if (action.equals("crearProducto")) {
+			else if (action.equals("crearProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				String nombre = request.getParameter("nombreProducto");
-				Integer codigo = (request.getParameter("codigoProducto") == null ? null : Integer.valueOf(request.getParameter("codigoProducto")));
+				Long codigo = (request.getParameter("codigoProducto") == null ? null : Long.valueOf(request.getParameter("codigoProducto")));
 				String descripcion = request.getParameter("descripcionProducto");
 				Float precio = (request.getParameter("precioProducto") == null ? null : Float.valueOf(request.getParameter("precioProducto")));
 				String presentacion = request.getParameter("presentacionProducto");
@@ -156,12 +156,15 @@ public class Private extends HttpServlet {
 				nuevo.setStock(stock);
 				try {
 					bd.altaProducto(logged, nuevo);
+					request.setAttribute("success", "Se guardó el producto.");
+					jspPage = "Private?action=listarProductos";
 				} catch (ExcepcionProceso e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					request.setAttribute("error", e.getMessage());
+					request.setAttribute("producto", nuevo);
+					jspPage = "productos/crearProducto.jsp";
 				}
-				jspPage = "productos/crearProducto.jsp";
-			} */
+				
+			} 
 			else if (action.equals("verEmpleado")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -182,20 +185,20 @@ public class Private extends HttpServlet {
 			else if (action.equals("verProducto")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				Integer codigo = (request.getParameter("codigo") == null ? null : Integer.valueOf(request.getParameter("codigo")));
+				Long codigo = (request.getParameter("codigo") == null ? null : Long.valueOf(request.getParameter("codigo")));
 				ProductoDTO producto = new ProductoDTO();
 				producto.setCodigo(codigo);
 				try {
 					producto = bd.mostrarProducto(logged, producto);
-					request.setAttribute("producto", producto);					
+					request.setAttribute("producto", producto);
 				}
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
 				}
 				if (request.getParameter("modificar") == null) jspPage = "productos/verProducto.jsp";
 				else jspPage = "productos/crearProducto.jsp";
-			}/*
-			else if (action.equals("verVenta")) {
+			}
+			else if (action.equals("verFactura")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				Integer nroVenta = (request.getParameter("factura") == null ? null : Integer.valueOf(request.getParameter("factura")));
@@ -209,7 +212,7 @@ public class Private extends HttpServlet {
 					request.setAttribute("error", e.getMessage());
 				}
 				jspPage = "facturacion/verFactura.jsp";
-			} */
+			} 
 			else if (action.equals("listarEmpleados")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
@@ -240,7 +243,7 @@ public class Private extends HttpServlet {
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				Integer codigo = (request.getParameter("buscarProductoCodigo") == null ? null : Integer.valueOf(request.getParameter("buscarProductoCodigo")));
+				Long codigo = (request.getParameter("buscarProductoCodigo") == null ? null : Long.valueOf(request.getParameter("buscarProductoCodigo")));
 				String nombre = request.getParameter("buscarProductoNombre");
 				ProductoDTO p = null;
 				if (codigo != null || nombre != null) {
@@ -264,13 +267,17 @@ public class Private extends HttpServlet {
 			else if (action.equals("listarVentas")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				LocalDate fecha = (request.getParameter("fechaFactura") == null ? null : LocalDate.parse(request.getParameter("fechaFactura"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-				if (fecha == null) fecha = LocalDate.now();
 				
 				Integer numero = (request.getParameter("buscarFacturaNumero") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaNumero")));
 				Integer operacion = (request.getParameter("buscarFacturaOperacion") == null ? null : Integer.valueOf(request.getParameter("buscarFacturaOperacion")));
 				EstadoVenta estado = (request.getParameter("estadoFactura") == null ? null : EstadoVenta.fromId(Integer.valueOf(request.getParameter("estadoFactura"))));
 				MedioDePago mdp = (request.getParameter("medioPagoFactura") == null ? null : MedioDePago.fromId(Integer.valueOf(request.getParameter("medioPagoFactura"))));
+				
+				String fechaFactura = request.getParameter("fechaFactura");
+				LocalDate fecha = LocalDate.now();
+				if (fechaFactura != null && fechaFactura.isEmpty() && (estado != null || mdp != null)) fecha = null;
+				else if (fechaFactura != null && ! fechaFactura.isEmpty())
+					fecha = LocalDate.parse(request.getParameter("fechaFactura"),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 				
 				ArrayList<VentaDTO> ventas = null;
 				if (numero != null) {
@@ -304,7 +311,7 @@ public class Private extends HttpServlet {
 					List<String> listStrItems = Arrays.asList(itemStr.split(","));
 					ItemVentaDTO iv = new ItemVentaDTO();
 					ProductoDTO p = new ProductoDTO();
-					p.setCodigo(Integer.valueOf(listStrItems.get(0)));
+					p.setCodigo(Long.valueOf(listStrItems.get(0)));
 					iv.setCantidad(Integer.valueOf(listStrItems.get(1)));
 					iv.setProducto(p);
 					items.add(iv);
@@ -385,6 +392,10 @@ public class Private extends HttpServlet {
 				creditoVencimiento
 				creditoCuotas
 				 */
+			}else if (action.equals("imputarCobros")) {
+				// EJEMPLO: 
+				// Le pega a: Web/Private?action=imputarCobros
+				// Envia: periodoMes=1&periodoAnio=2019
 			}
 		}
 		catch (UsuarioSinPermisos usp) {

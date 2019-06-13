@@ -82,14 +82,14 @@ public class ControladorVentas {
 					case TARJETA_CREDITO:
 						//TODO llamar a CREDITOS COD 200 + STRING
 						v.setAprobada(true);
-						v.setNroOperacion(456789);
+						v.setNroOperacion(456789); //TODO
 						if (v.getAprobada()) {
 							v = generarVentaTC(v, items, emp);
 						}
 						else throw new ExcepcionProceso("Error TC. Venta no aprobada.");
 						break;
 					default: 
-						throw new ExcepcionProceso("Medio de pago inválido.");
+						throw new ExcepcionProceso("Medio de pago invólido.");
 				}
 				return v;
 			}
@@ -142,12 +142,12 @@ public class ControladorVentas {
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
-				if (ventas != null) {
+				if (ventas.size() > 0) {
 					Venta vta = ventas.get(0);
 					vta.marcarFacturaCobrada();
 					vta.grabar();
 				}
-				else throw new ExcepcionProceso("No existe una venta con ese número de venta.");								
+				else throw new ExcepcionProceso("No existe una venta con ese nómero de venta.");								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
@@ -164,6 +164,7 @@ public class ControladorVentas {
 					//TODO TRAER LAS COBRANZAR DE TC DEL PERIORDO 
 					//********************************************
 					v.marcarFacturaCobrada();
+					v.grabar();
 				}								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
@@ -227,10 +228,10 @@ public class ControladorVentas {
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
-				if (ventas != null) {
+				if (ventas.size() > 0) {
 					return ventas.get(0).getDTO();
 				}
-				else throw new ExcepcionProceso("No existe una venta con ese número de venta.");								
+				else throw new ExcepcionProceso("No existe una venta con ese nómero de venta.");								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		
@@ -241,10 +242,11 @@ public class ControladorVentas {
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentaByIdVenta(v.getId());
-				if (ventas != null) {
+				if (ventas.size() > 0) {
 					ventas.get(0).cancelarVenta();
+					ventas.get(0).grabar();
 				}
-				else throw new ExcepcionProceso("Error al anular la factura.");								
+				else throw new ExcepcionProceso("No existe una factura con ese nómero de factura.");								
 			} 		
 			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		}		

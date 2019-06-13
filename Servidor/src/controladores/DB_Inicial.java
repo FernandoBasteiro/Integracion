@@ -16,12 +16,12 @@ public class DB_Inicial {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		empleados();
-		productos();
+		//empleados();
+		//productos();
 
 
 	}
-
+	/*
 	public static void productos() {
 		
 		Stock stock = new Stock();
@@ -116,8 +116,8 @@ public class DB_Inicial {
 		EmpleadoDAO.getinstance().add(empleado);
 		
 		//
-		empleado.setApellido("Marcelo");
-		empleado.setNombre("Gallardo");
+		empleado.setApellido("Gallardo");
+		empleado.setNombre("Marcelo");
 		empleado.setCbu("12345678");
 		empleado.setDni("31787333");
 		empleado.setDomicilio("Buenos Aires");
@@ -202,6 +202,7 @@ public class DB_Inicial {
 	
 		
 	}
+	*/
 }
 
 

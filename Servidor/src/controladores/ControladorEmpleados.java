@@ -1,17 +1,19 @@
 package controladores;
 
 import java.util.ArrayList;
-import java.util.Vector;
+
 import org.joda.time.LocalDate;
+
 import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
+import dto.NovedadDTO;
 import enumeraciones.EstadoEmpleado;
 import enumeraciones.Puesto;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Empleado;
-import negocio.ItemVenta;
+import negocio.Novedad;
 
 public class ControladorEmpleados {
 
@@ -65,9 +67,9 @@ public class ControladorEmpleados {
 							empleado.getHorasAsignadas(), empleado.getPuesto(), empleado.getCbu(),
 							empleado.getSession());
 					
-					//***********************************************
-					//TODO Alta caja de ahorro en la entidad bancaria
-					//***********************************************
+					//*************************************************************
+					//TODO Alta caja de ahorro en la entidad bancaria si cbu vacio
+					//*************************************************************
 					
 					//***********************************************
 					//TODO Infomar CBU a liquidacion sueldos
@@ -87,12 +89,18 @@ public class ControladorEmpleados {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
 				if (emp != null) {
+					
 					if (e.getFechaEgreso()!=null) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
 						//*************************************************************
 						//TODO informar a liquidacion de sueldos para liquidacion final
 						//************************************************************
+					} else {
+						//*************************************************************
+						//TODO informar a liquidacion de sueldos para que modifiquen si corresponde
+						//************************************************************
 					}
+					
 					if (e.getPassword()!=null) {
 						emp.setPassword(e.getPassword());
 					}
@@ -112,11 +120,8 @@ public class ControladorEmpleados {
 					emp.setSueldoBase(e.getSueldoBase());
 					emp.setHorasAsignadas(e.getHorasAsignadas());
 					emp.setPuesto(e.getPuesto());
-					emp.setCbu(e.getCbu());
+					emp.setCbu(e.getCbu());	
 					
-					//*************************************************************
-					//TODO informar a liquidacion de sueldos para moddifcacion si corresponde
-					//************************************************************
 
 					emp.guardar();
 				} else
@@ -207,8 +212,9 @@ public class ControladorEmpleados {
 					//***************************************
 					
 					//**************************************
-					//TODO llamar a Banco con baja
+					//TODO llamar a Banco con baja?????
 					//***************************************
+					
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
 			} else
@@ -217,24 +223,31 @@ public class ControladorEmpleados {
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 	
-	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado, Boolean lic_paga, Integer dias)
+	public void generarNovedad(EmpleadoDTO gerente, EmpleadoDTO empleado)
 			throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		if (estaLogueado(gerente)) {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(empleado.getLegajo());
 				if (emp != null) {
-					//**************************************
-					//TODO llamar a LiqSueldo con Novedad
-					//***************************************
-					ControladorVentas.getInstance().getCuit();
-					emp.getDni(); //es el CUIL del empleado			
-					
+					ArrayList<Novedad> novedades = emp.getNovedades();
+					for (NovedadDTO nd : empleado.getNovedades()) {
+						Novedad n = new Novedad(LocalDate.now(), nd.getEsPaga(), nd.getCantDias(), nd.getMes(), nd.getAnio());
+						novedades.add(n);
+					}
+					emp.setNovedades(novedades);
+					emp.guardar();
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
 			} else
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
+	}
+	
+	public EmpleadoDTO listarNovedades(EmpleadoDTO empleado) throws ExcepcionProceso {
+		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByDni(empleado.getDni());
+		if (emp != null) return emp.getDTO();
+		else throw new ExcepcionProceso("No existe el empleado");
 	}
 
 }

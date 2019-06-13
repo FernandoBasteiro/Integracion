@@ -79,7 +79,7 @@ if ($('#productoAutocomplete').length) {
 		var productos = [];
 
 		$.ajax({
-			url: '/Web/Private/listarProductos',
+			url: '/Private/listarProductos',
 			dataType: 'json',
 			success: function(data){
 				productos = [data];

@@ -30,14 +30,15 @@ public class eliminarProducto extends HttpServlet {
 			HttpSession session = request.getSession();
 			EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 			String codigoStr = request.getParameter("codigo");
-			Integer codigo = null;
-			if (codigoStr != null) codigo = Integer.valueOf(codigoStr);
+			Long codigo = null;
+			if (codigoStr != null) codigo = Long.valueOf(codigoStr);
 			ProductoDTO p = new ProductoDTO();
 			p.setCodigo(codigo);
 			bd.bajaProducto(logged, p);
 			json.add("success", "El producto fue dado de baja.");
 		}
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos e) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", e.getMessage());
 		}
 		response.setContentType("application/json");

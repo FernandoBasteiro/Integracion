@@ -4,13 +4,13 @@
 <%@ page import="enumeraciones.Puesto"%>
 <%@ page import="dto.EmpleadoDTO"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
-if (empleado == null) response.sendRedirect("/Web/index.jsp");
+if (empleado == null) response.sendRedirect("/index.jsp");
 EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 %>
 <jsp:include page="../includes/header.jsp"/>
 <main role="main">
 	<div class="container">
-		<form action="/Web/Private" method="post">
+		<form action="/Private" method="post">
 			<input id="action" name="action" type="hidden" value="crearEmpleado"/>
 			<div class="form-row">
 				<div class="form-group col-sm-12 text-right">
@@ -19,7 +19,7 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 					<% }else{ %>
 					<h2 class="d-inline float-left"><i class="fas fa-user-edit mr-3 text-primary"></i>Editar Empleado</h2>
 					<% } %>
-					<a href="/Web/Private?action=listarEmpleados" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
+					<a href="/Private?action=listarEmpleados" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 					<button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Guardar</button>
 					<hr/>
 				</div>
@@ -38,7 +38,10 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="estadoEmpleado">Estado</label>
-					<select name="estadoEmpleado" class="form-control">
+					<%
+					if (emp != null) {
+					%>
+					<select name="estadoEmpleado" class="form-control" id="estadoEmpleadoCombo">
 						<%
 						for (EstadoEmpleado estadoEmp : EstadoEmpleado.values()) {
 						%>
@@ -47,6 +50,12 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 						}
 						%>
 					</select>
+					<%}else{%>
+						<select class="form-control">
+							<option selected disabled>Activo</option>
+						</select>
+						<input type="hidden" name="estadoEmpleado" value="<%=EstadoEmpleado.ACTIVO.getId()%>"/>
+					<%} %>
 				</div>
 			</div>
 			<div class="form-row">
@@ -150,17 +159,13 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="fechaEgresoEmpleado">Fecha de egreso</label>
-					<input type="date" name="fechaEgresoEmpleado" class="form-control" <%=(emp==null) ? "disabled" : "" %> value="<%=(emp != null) ? emp.getFechaEgreso() : "" %>"/>
+					<input type="date" id="fechaEgresoEmpleado" name="fechaEgresoEmpleado" class="form-control" <%=(emp==null) ? "disabled" : "" %> value="<%=(emp != null && emp.getFechaEgreso() !=null) ? emp.getFechaEgreso() : "" %>"/>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-sm-6">
 					<label for="sueldoEmpleado">Sueldo base</label>
 					<input type="number" required name="sueldoEmpleado" step="0.01" min="0" class="form-control" value="<%=(emp != null) ? emp.getSueldoBase() : "" %>"/>
-				</div>
-				<div class="form-group col-sm-6">
-					<label for="cbuEmpleado">C.B.U.</label>
-					<input type="text" required name="cbuEmpleado" class="form-control" value="<%=(emp != null) ? emp.getCbu() : "" %>"/>
 				</div>
 			</div>
 			<div class="form-row">

@@ -295,7 +295,7 @@ public class testTomi {
 		// PRODUCTOS -------------------------------------------------------------------------
 		
 		ProductoDTO p = new ProductoDTO();
-		p.setCodigo(1008);
+		p.setCodigo(Long.valueOf("1008"));
 		p.setDescripcion("Cabellos grasos");
 		p.setNombre("Shampoo Dove");
 		p.setPrecio((float)67.9);

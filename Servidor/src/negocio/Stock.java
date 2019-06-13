@@ -58,7 +58,7 @@ public class Stock {
 	public void bajaStock() {
 		this.cantidadMinimo = 0;
 		this.cantidadTotal = 0;
-		this.cantidadTotal = 0;
+		this.cantidadDisponible = 0;
 	}
 	
 	public void descontarStock(Integer cant) throws ExcepcionProceso {

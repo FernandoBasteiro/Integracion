@@ -12,13 +12,13 @@
 	content="Supermercado Sarasa de IAPP Pinamar 1er Cuatrimestre">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="manifest" href="/Web/site.webmanifest">
-<link rel="apple-touch-icon" href="/Web/icon.png">
-<link rel="shortcut icon" href="/Web/favicon.ico" />
-<link rel="stylesheet" href="/Web/css/normalize.css">
-<link rel="stylesheet" href="/Web/css/vendor/bootstrap.min.css">
-<link rel="stylesheet" href="/Web/css/vendor/fontawesome/css/all.css">
-<link rel="stylesheet" href="/Web/css/main.css">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="apple-touch-icon" href="/icon.png">
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="/css/vendor/fontawesome/css/all.css">
+<link rel="stylesheet" href="/css/main.css">
 
 <meta name="theme-color" content="#fafafa">
 </head>
@@ -32,9 +32,9 @@
 		if (empleado != null) {
 	%>
 	<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
-		<a class="navbar-brand" href="/Web/index.jsp"><img
+		<a class="navbar-brand" href="/index.jsp"><img
 			alt="Super Sarasa IAPP logo"
-			src="/Web/img/logo_transparent_nowords.png" height="40" width="70" /><span
+			src="/img/logo_transparent_nowords.png" height="40" width="70" /><span
 			class="pl-1">SARASA IAPP</span></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navegacion" aria-controls="navbarsExampleDefault"
@@ -46,34 +46,34 @@
 	    <ul class="navbar-nav mr-auto">
 	    	<% if (empleado.getPuesto().getId() >= Puesto.CAJERO.getId()) { %>
 	    	<li class="nav-item">
-	    		<a class="btn btn-outline-success" href="/Web/facturacion/vender.jsp">Vender</a>
+	    		<a class="btn btn-outline-success" href="/facturacion/vender.jsp">Vender</a>
 	    	</li>
 	    	<% 
 	    	}
 	    	if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 	    	%>
 	    	<li class="nav-item">
-	    		<a class="nav-link" href="/Web/Private?action=listarEmpleados">Empleados</a>
+	    		<a class="nav-link" href="/Private?action=listarEmpleados">Empleados</a>
 	    	</li>
 	    	<% 
 	    	}
 	    	if (empleado.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
 	    	%>
 	    	<li class="nav-item">
-	    		<a class="nav-link" href="/Web/Private?action=listarProductos">Productos</a>
+	    		<a class="nav-link" href="/Private?action=listarProductos">Productos</a>
 	    	</li>
 	    	<% 
 	    	}
 	    	if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 	    	%>
 	    	<li class="nav-item">
-	    		<a class="nav-link" href="/Web/Private?action=listarVentas">Facturación</a>
+	    		<a class="nav-link" href="/Private?action=listarVentas">Facturación</a>
 	    	</li>
 	    	<% 
 	    	}
 	    	%>
 		</ul>
-	    <a class="btn btn-outline-info" href="/Web/Private?action=logout">Cerrar sesión</a>
+	    <a class="btn btn-outline-info" href="/Private?action=logout">Cerrar sesión</a>
 	  </div>
 	</nav>
 	<%
@@ -121,12 +121,12 @@
 				} else if (i == 0 && crumbs.length > 1) {
 			%>
 			<li class="breadcrumb-item text-capitalize"><a
-				href="/Web/index.jsp">Inicio</a></li>
+				href="/index.jsp">Inicio</a></li>
 			<%
 				} else {
 			%>
 			<li class="breadcrumb-item text-capitalize"><a
-				href="/Web/<%=crumbs[i]%>/index.jsp"><%=crumbs[i]%></a></li>
+				href="/<%=crumbs[i]%>/index.jsp"><%=crumbs[i]%></a></li>
 			<%
 				}
 			%>

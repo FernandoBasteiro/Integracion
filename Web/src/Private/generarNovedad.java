@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
-import dto.ProductoDTO;
+import dto.NovedadDTO;
 import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
@@ -32,12 +32,17 @@ public class generarNovedad extends HttpServlet {
 			Integer legajo = Integer.valueOf(request.getParameter("legajo"));
 			EmpleadoDTO empleado = new EmpleadoDTO();
 			empleado.setLegajo(legajo);
+			Integer mes = Integer.valueOf(request.getParameter("novedadMes"));
+			Integer anio = Integer.valueOf(request.getParameter("novedadAnio"));
 			Boolean esPago = Boolean.valueOf(request.getParameter("esPago"));
 			Integer cantDias = Integer.valueOf(request.getParameter("cantDias"));
-			bd.generarNovedad(logged, empleado, esPago, cantDias);
+			NovedadDTO novedad = new NovedadDTO(esPago, cantDias, mes, anio);
+			empleado.getNovedades().add(novedad);
+			bd.generarNovedad(logged, empleado);
 			json.add("success", "Novedad reportada.");
 		}
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos e) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			json.add("error", e.getMessage());
 		}
 		response.setContentType("application/json");

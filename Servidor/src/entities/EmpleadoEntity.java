@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import javax.persistence.CascadeType;
@@ -12,13 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
 import enumeraciones.EstadoCivil;
@@ -64,8 +64,6 @@ public class EmpleadoEntity {
 	@Column (columnDefinition = "varchar(40)", nullable = true)
 	private String mail;
 
-	
-
 	private EstadoCivil estadoCivil;
 	
 
@@ -104,7 +102,17 @@ public class EmpleadoEntity {
 	private String cbu;
 	private String session;
 	
-	
+	@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn(name = "legajo_empleado")
+	private List<NovedadEntity> novedades;
+
+	public List<NovedadEntity> getNovedades() {
+		return novedades;
+	}
+
+	public void setNovedades(List<NovedadEntity> novedades) {
+		this.novedades = novedades;
+	}
 
 	public String getSession() {
 		return session;
