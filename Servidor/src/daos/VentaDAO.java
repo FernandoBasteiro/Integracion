@@ -177,14 +177,17 @@ public class VentaDAO {
 			v = new VentaEfectivo(ee.getId(),  ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
 					ee.getEstado(), ee.getTotal(), null, null, ee.getTipo(), 
 					ee.getCuit(), ee.getFechaCobro());
+			break;
 		case TARJETA_DEBITO:
 			v = new VentaTarjetaDebito(ee.getId(),ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
 					ee.getEstado(), ee.getTotal(), null, null, null, null, null, ee.getNroOperacion(), 
 					ee.isAprobada(), null, null, ee.getTipo(), ee.getCuit(), ee.getFechaCobro());			
+			break;
 		case TARJETA_CREDITO:
 			v = new VentaTarjetaCredito(ee.getId(),ee.getFechaVenta(), items,  EmpleadoDAO.getinstance().toNegocio(ee.getEmpleado()),
 					ee.getEstado(), ee.getTotal(), null, null, null, null, null, ee.getNroOperacion(), 
 					ee.isAprobada(), ee.getCantCuotas(), ee.getTipo(), ee.getCuit(), ee.getFechaCobro());
+			break;
 		}
 		return v;
 		

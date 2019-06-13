@@ -82,7 +82,7 @@ public class ControladorVentas {
 					case TARJETA_CREDITO:
 						//TODO llamar a CREDITOS COD 200 + STRING
 						v.setAprobada(true);
-						v.setNroOperacion(456789);
+						v.setNroOperacion(456789); //TODO
 						if (v.getAprobada()) {
 							v = generarVentaTC(v, items, emp);
 						}
