@@ -4,10 +4,8 @@ import java.io.Serializable;
 
 public enum EstadoEmpleado {
 	ACTIVO (1, "Activo"),
-	LICENCIA_PAGA (2, "Licencia Paga"),
-	LICENCIA_NO_PAGA (3, "Licencia No Paga"),
-	DESVINCULADO (4, "Desvinculado"),
-	ANULADO (5, "Anulado");
+	DESVINCULADO (2, "Desvinculado"),
+	ANULADO (3, "Anulado");
 	
 	private final int id;
 	private final String nombre;

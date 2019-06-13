@@ -192,7 +192,8 @@ public class Private extends HttpServlet {
 				catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
 				}
-				jspPage = "productos/verProducto.jsp";
+				if (request.getParameter("modificar") == null) jspPage = "productos/verProducto.jsp";
+				else jspPage = "productos/crearProducto.jsp";
 			}/*
 			else if (action.equals("verVenta")) {
 				HttpSession session = request.getSession();
@@ -239,8 +240,8 @@ public class Private extends HttpServlet {
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				Integer codigo = (request.getParameter("buscarEmpleadoLegajo") == null ? null : Integer.valueOf(request.getParameter("buscarEmpleadoLegajo")));
-				String nombre = request.getParameter("buscarEmpleadoDni");
+				Integer codigo = (request.getParameter("buscarProductoCodigo") == null ? null : Integer.valueOf(request.getParameter("buscarProductoCodigo")));
+				String nombre = request.getParameter("buscarProductoNombre");
 				ProductoDTO p = null;
 				if (codigo != null || nombre != null) {
 					p = new ProductoDTO();
@@ -292,15 +293,6 @@ public class Private extends HttpServlet {
 				estadoFactura
 				medioPagoFactura
 				*/
-			/*
-			 
-			else if (action.equals("vender")) {
-				HttpSession session = request.getSession();
-				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
-				ArrayList<ProductoDTO> productos = bd.listarProductos(logged, null);
-				request.setAttribute("listadoProductos", productos);
-				jspPage = "facturacion/vender.jsp";
-			} */
 			else if (action.equals("facturar")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");

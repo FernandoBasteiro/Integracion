@@ -3,9 +3,7 @@ package Private;
 import java.io.IOException;
 
 import javax.json.Json;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,8 +40,8 @@ public class eliminarProducto extends HttpServlet {
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos e) {
 			json.add("error", e.getMessage());
 		}
-
-
+		response.setContentType("application/json");
+		response.getWriter().write(json.build().toString());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

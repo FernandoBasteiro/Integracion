@@ -28,12 +28,6 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 				case ACTIVO:
 					statusBadge = "badge-success";
 					break;
-				case LICENCIA_PAGA:
-					statusBadge = "badge-warning";
-					break;
-				case LICENCIA_NO_PAGA:
-					statusBadge = "badge-warning";
-					break;
 				case DESVINCULADO:
 					statusBadge = "badge-danger";
 					break;

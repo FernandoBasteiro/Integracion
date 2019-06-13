@@ -110,12 +110,6 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 							case ACTIVO:
 								statusBadge = "badge-success";
 								break;
-							case LICENCIA_PAGA:
-								statusBadge = "badge-warning";
-								break;
-							case LICENCIA_NO_PAGA:
-								statusBadge = "badge-warning";
-								break;
 							case DESVINCULADO:
 								statusBadge = "badge-danger";
 								break;
