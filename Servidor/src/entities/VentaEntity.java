@@ -73,7 +73,7 @@ public class VentaEntity {
 	private Integer cantCuotas;
 	
 	//@Column (columnDefinition = "int", nullable = true) //Aca vamos a tener que agarrar los ultimos 4 digitos en algun momento
-	private Integer ultimos4DigitosTarjeta;
+	private String ultimos4DigitosTarjeta;
 	
 	private MedioDePago medioDePago;
 
@@ -200,11 +200,11 @@ public class VentaEntity {
 		this.cantCuotas = cantCuotas;
 	}
 
-	public Integer getUltimos4DigitosTarjeta() {
+	public String getUltimos4DigitosTarjeta() {
 		return ultimos4DigitosTarjeta;
 	}
 
-	public void setUltimos4DigitosTarjeta(Integer ultimos4DigitosTarjeta) {
+	public void setUltimos4DigitosTarjeta(String ultimos4DigitosTarjeta) {
 		this.ultimos4DigitosTarjeta = ultimos4DigitosTarjeta;
 	}
 	
