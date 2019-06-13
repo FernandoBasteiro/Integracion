@@ -49,8 +49,8 @@ public class EmpleadoDAO {
 		s = this.getSession();
 		try {
 			t = s.beginTransaction();
-			s.saveOrUpdate(EmpleadoDAO.getinstance().toEntity(empleado));
-			s.flush();
+			s.merge(EmpleadoDAO.getinstance().toEntity(empleado));
+			//s.flush();
 			t.commit();
 			s.close();
 		} catch (Exception e) {

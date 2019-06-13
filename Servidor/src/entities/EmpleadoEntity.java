@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -102,6 +103,7 @@ public class EmpleadoEntity {
 	private String session;
 	
 	@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn(name = "legajo_empleado")
 	private List<NovedadEntity> novedades;
 
 	public List<NovedadEntity> getNovedades() {

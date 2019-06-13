@@ -1,8 +1,9 @@
 package dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class NovedadDTO {
+public class NovedadDTO implements Serializable {
 	private Integer id;
 	private LocalDate fechaCreacion;
 	private Boolean esPaga;
