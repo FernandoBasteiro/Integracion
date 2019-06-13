@@ -11,7 +11,7 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 		<div class="row">
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-receipt mr-3 text-info"></i>Ver factura</h2>
-				<a href="/Web/facturacion/index.jsp" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
+				<a href="/Web/Private?action=listarVentas" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
 				<a href="/Web/facturacion/index.jsp?action=cobrar&factura=nro" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
 				<a href="/Web/facturacion/index.jsp?action=anularFactura&factura=nro" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Anular</a>
 				<hr/>
@@ -26,11 +26,16 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 			</div>
 		</div>
 		<div class="row">
+		<% if(factura.getFechaCobro()!=null ){   %>
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Fecha de cobro:</strong><%=factura.getFechaCobro()%></p>
 			</div>
+			<% }else{   %>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Estado:</strong><span class="badge badge-pill badge-success"><%=factura.getEstado()%></span></p>
+				<p><strong class="mr-2">Fecha de cobro:</strong> - </p>
+			</div> <%} %>
+			<div class="col col-xs-6">
+				<p><strong class="mr-2">Estado:</strong><span class="badge badge-pill badge-success"><%=factura.getEstado().getNombre() %></span></p>
 			</div>
 		</div>
 		<div class="row">
@@ -43,10 +48,10 @@ VentaDTO factura = (VentaDTO) request.getAttribute("factura");
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Medio de pago:</strong><%=factura.getMedioDePago()%></p>
+				<p><strong class="mr-2">Medio de pago:</strong><%=factura.getMedioDePago().getNombre()  %></p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Cajero:</strong><%=factura.getEmpleado()%></p>
+				<p><strong class="mr-2">Cajero:</strong><%=factura.getEmpleado().getNombre()+" "+factura.getEmpleado().getApellido()   %></p>
 			</div>
 		</div>
 		<div class="row">
