@@ -100,7 +100,7 @@ $(function(){
 					success: function(data){
 						showAlert("success", "Exito!", data.success);
 					},
-					error: function(data){
+					error: function(jqXHR,textStatus,errorThrown){
 						if(typeof jqXHR.responseJSON != "undefined"){
 							showAlert("danger", "Error!", jqXHR.responseJSON.error);
 						}else{							
