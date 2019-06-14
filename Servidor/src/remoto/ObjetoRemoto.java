@@ -17,6 +17,7 @@ import enumeraciones.EstadoEmpleado;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
+import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
@@ -168,6 +169,10 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	
 	public ArrayList<ParamGralesDTO> listarParamGrales(EmpleadoDTO empleado) throws RemoteException, ExcepcionProceso, UsuarioNoLogueado, UsuarioSinPermisos{
 		return ControladorVentas.getInstance().listarParamGrales(empleado);
+	}
+	
+	public void guardarParamGrales(EmpleadoDTO empleado, ParamGralesDTO pg) throws RemoteException, ExcepcionProceso, UsuarioNoLogueado, UsuarioSinPermisos, ComunicacionException{
+		ControladorVentas.getInstance().guardarParamGrales(empleado, pg);
 	}
 	
 }

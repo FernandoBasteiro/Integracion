@@ -4,6 +4,7 @@
 <%@ page import="enumeraciones.EstadoVenta"%>
 <%@ page import="enumeraciones.MedioDePago"%>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/index.jsp");
 VentaDTO factura = (VentaDTO) request.getAttribute("factura");
@@ -16,7 +17,7 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-receipt mr-3 text-info"></i>Ver factura</h2>
 				<a href="/Private?action=listarVentas" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>
-				<%if(factura.getEstado() != EstadoVenta.COBRADA){%>
+				<%if(factura.getEstado() != EstadoVenta.COBRADA && factura.getEstado() != EstadoVenta.ANULADA){%>
 					<a href="/Private?action=marcarCobrado" data-factura="<%=factura.getId()%>" data-action="marcarCobrado" data-toggle="modal" data-target="#modal" class="btn btn-success"><i class="fas fa-hand-holding-usd mr-2"></i>Cobrar</a>
 				<%} %>
 				<%if(factura.getEstado() != EstadoVenta.ANULADA){%>
@@ -27,7 +28,7 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Fecha de facturación:</strong><%=factura.getFechaVenta()%></p>
+				<p><strong class="mr-2">Fecha de facturación:</strong><%=factura.getFechaVenta().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))%></p>
 			</div>
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Número:</strong><span class="badge badge-pill badge-info"><%=factura.getId()%></span></p>
@@ -36,7 +37,7 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 		<div class="row">
 		<% if(factura.getFechaCobro()!=null ){   %>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Fecha de cobro:</strong><%=factura.getFechaCobro()%></p>
+				<p><strong class="mr-2">Fecha de cobro:</strong><%=factura.getFechaCobro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))%></p>
 			</div>
 			<% }else{   %>
 			<div class="col col-xs-6">
@@ -90,6 +91,13 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 			</div>
 			<% } %>
 		</div>
+		<% if(factura.getMedioDePago().getNombre() == MedioDePago.TARJETA_CREDITO.getNombre()){ %>
+		<div class="row">
+			<div class="col col-xs-6">
+				<p><strong class="mr-2">Cuotas:</strong><%=factura.getCantCuotas() %></p>
+			</div>
+		</div>
+		<% } %>
 		<div class="row">
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Cajero:</strong><%=factura.getEmpleado().getNombre()+" "+factura.getEmpleado().getApellido()   %></p>

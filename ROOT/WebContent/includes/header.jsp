@@ -75,26 +75,14 @@
 		</ul>
 	    <a class="btn btn-outline-info" href="/Private?action=logout">Cerrar sesión</a>
 	    <% if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) { %>
-	    <a class="btn btn-dark ml-2" href="/config.jsp"><i class="fas fa-tools"></i></a>
+	    <a class="btn btn-dark ml-2" href="/Private?action=listarParams"><i class="fas fa-tools"></i></a>
 	    <% } %>
 	  </div>
 	</nav>
 	<%
 		String bread = (String) request.getServletPath();
-			String[] crumbs = bread.split("/");
-			/*
-			/index.jsp  => active
-			/empleados/index.jsp => Empleados / Administrar
-			/empleados/crearEmpleado.jsp => Empleados / Crear
-			/empleados/verEmpleado.jsp => Empleados / Ver
-			/facturacion/index.jsp => Facturación / Administrar
-			/facturacion/verFactura.jsp => Facturación / Ver
-			/facturacion/vender.jsp => Facturación / Vender
-			/productos/index.jsp => Productos / Administrar
-			/productos/crearProducto.jsp => Productos / Crear
-			/productos/verProducto.jsp => Productos / Ver
-			
-			*/
+		String[] crumbs = bread.split("/");
+		String crumbUrl = "";
 	%>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
@@ -105,7 +93,6 @@
 				if (crumbs[i].contains(".jsp")) {
 							String[] endCrumb = crumbs[i].split(".jsp");
 							String txtCrumb = "";
-
 							if (endCrumb[0].contains("index") && crumbs.length == 1) {
 								txtCrumb = "Inicio";
 							} else if (endCrumb[0].contains("index") && crumbs.length > 1) {
@@ -124,12 +111,20 @@
 				} else if (i == 0 && crumbs.length > 1) {
 			%>
 			<li class="breadcrumb-item text-capitalize"><a
-				href="/index.jsp">Inicio</a></li>
+				href="/index.jsp"><i class="fas fa-home"></i></a></li>
 			<%
 				} else {
+					if(crumbs[i].equals("empleados")){
+						crumbUrl = "/Private?action=listarEmpleados";
+					}else if(crumbs[i].equals("facturacion")){
+						crumbUrl = "/Private?action=listarVentas";
+					}else if(crumbs[i].equals("productos")){
+						crumbUrl = "/Private?action=listarProductos";
+					} else {
+						crumbUrl = "/"+crumbs[i]+"/index.jsp";
+					}
 			%>
-			<li class="breadcrumb-item text-capitalize"><a
-				href="/<%=crumbs[i]%>/index.jsp"><%=crumbs[i]%></a></li>
+			<li class="breadcrumb-item text-capitalize"><a href="<%=crumbUrl%>"><%=crumbs[i]%></a></li>
 			<%
 				}
 			%>

@@ -14,6 +14,7 @@ import enumeraciones.EstadoFactura;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
+import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
@@ -53,5 +54,6 @@ public interface InterfazRemota extends Remote {
 	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	
 	public ArrayList<ParamGralesDTO> listarParamGrales(EmpleadoDTO empleado) throws RemoteException, ExcepcionProceso, UsuarioNoLogueado, UsuarioSinPermisos;
+	public void guardarParamGrales(EmpleadoDTO empleado, ParamGralesDTO pg) throws RemoteException, ExcepcionProceso, UsuarioNoLogueado, UsuarioSinPermisos, ComunicacionException;
 
 }

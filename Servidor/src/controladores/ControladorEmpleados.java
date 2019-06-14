@@ -51,7 +51,7 @@ public class ControladorEmpleados {
 	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws UsuarioNoLogueado {
 		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
 		if (emp == null || !emp.getPassword().equals(e.getPassword()))
-			throw new UsuarioNoLogueado("Legajo o password inválido.");
+			throw new UsuarioNoLogueado("Legajo o password invï¿½lido.");
 		else {
 			emp.setSession(e.getSession());
 			emp.guardar();
@@ -98,9 +98,9 @@ public class ControladorEmpleados {
 					
 					nuevo.guardar();
 				} else
-					throw new ExcepcionProceso("Ya existe un empleado con ese número de DNI.");
+					throw new ExcepcionProceso("Ya existe un empleado con ese nï¿½mero de DNI.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n.");
 		}
 	}
 
@@ -109,16 +109,19 @@ public class ControladorEmpleados {
 		if (estaLogueado(gerente)) {
 			if (gerente.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
-				if (emp != null) {
+				
+				if (emp != null) {	
 					
-					if (e.getFechaEgreso()!=null) {
+					// Si tenia egreso, estaba desvinculado y nuevo es desvinculado >> no cambio egreso
+					// Si tenia egreso, estaba desvinculado y nuevo no es desvinculado >> cambio egreso
+					// Si no tenia egreso y nuevo es desvinculado >> cambio egreso
+					// Si no tenia egreso y nuevo no es desvinculado >> no cambio egreso
+					
+					if ((emp.getFechaEgreso()!=null && emp.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO && e.getEstadoEmpleado() != EstadoEmpleado.DESVINCULADO) || 
+							(emp.getFechaEgreso() == null && e.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO)) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
 						//*************************************************************
 						//TODO informar a liquidacion de sueldos para liquidacion final
-						//************************************************************
-					} else {
-						//*************************************************************
-						//TODO informar a liquidacion de sueldos para que modifiquen si corresponde
 						//************************************************************
 					}
 					
@@ -145,10 +148,10 @@ public class ControladorEmpleados {
 
 					emp.guardar();
 				} else
-					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
+					throw new ExcepcionProceso("No existe un empleado con ese nï¿½mero de legajo.");
 
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n.");
 		}
 	}
 
@@ -161,9 +164,9 @@ public class ControladorEmpleados {
 				if (emp != null) {
 					return emp.getDTO();
 				} else
-					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
+					throw new ExcepcionProceso("No existe un empleado con ese nï¿½mero de legajo.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -179,7 +182,7 @@ public class ControladorEmpleados {
 				}
 				return list;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -195,7 +198,7 @@ public class ControladorEmpleados {
 				}
 				return list;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -213,7 +216,7 @@ public class ControladorEmpleados {
 					listDTO.add(e.getDTO());
 				return listDTO;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -236,9 +239,9 @@ public class ControladorEmpleados {
 					//***************************************
 					
 				} else
-					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
+					throw new ExcepcionProceso("No existe un empleado con ese nï¿½mero de legajo.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -257,9 +260,9 @@ public class ControladorEmpleados {
 					emp.setNovedades(novedades);
 					emp.guardar();
 				} else
-					throw new ExcepcionProceso("No existe un empleado con ese número de legajo.");
+					throw new ExcepcionProceso("No existe un empleado con ese nï¿½mero de legajo.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acciï¿½n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
