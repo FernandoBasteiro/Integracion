@@ -18,12 +18,12 @@ import javax.servlet.http.HttpSession;
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
 import dto.ItemVentaDTO;
+import dto.ParamGralesDTO;
 import dto.ProductoDTO;
 import dto.StockDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
-import enumeraciones.EstadoFactura;
 import enumeraciones.EstadoVenta;
 import enumeraciones.Genero;
 import enumeraciones.MedioDePago;
@@ -260,7 +260,23 @@ public class Private extends HttpServlet {
 				}
 				request.setAttribute("empleados", empleados);
 				jspPage = "empleados/index.jsp";
-			} else if (action.equals("listarProductos")) {
+			}else if (action.equals("editParams")) {
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
+				ArrayList<ParamGralesDTO> params = new ArrayList<ParamGralesDTO>();
+			
+				try {
+					params = bd.listarParamGrales(logged);
+				} catch (ExcepcionProceso e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				request.setAttribute("params", params);
+				jspPage = "config.jsp";
+			}
+			
+			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				Long codigo = (request.getParameter("buscarProductoCodigo") == null ? null

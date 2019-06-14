@@ -5,7 +5,7 @@
 	EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 	if (empleado == null)
 		response.sendRedirect("/index.jsp");
-	ArrayList<ParamGralesDTO> params = (ArrayList<ParamGralesDTO>) session.getAttribute("params");
+	ArrayList<ParamGralesDTO> params = (ArrayList<ParamGralesDTO>) request.getAttribute("params");
 	boolean isParams = (params != null) ? true : false;
 %>
 <jsp:include page="includes/header.jsp" />
