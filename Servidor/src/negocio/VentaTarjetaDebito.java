@@ -1,9 +1,16 @@
 package negocio;
 
+import java.io.StringReader;
 import java.util.List;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 
 import org.joda.time.LocalDate;
 
+import controladores.ControladorVentas;
 import controladores.ConversorFechas;
 import daos.VentaDAO;
 import dto.VentaDTO;
@@ -12,6 +19,10 @@ import enumeraciones.MedioDePago;
 import enumeraciones.TipoCuenta;
 import enumeraciones.TipoFactura;
 import excepciones.ExcepcionProceso;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class VentaTarjetaDebito extends Venta {
 	private String numeroTarjeta;
@@ -136,9 +147,93 @@ public class VentaTarjetaDebito extends Venta {
 		this.grabar();
 	}
 
+
+	
+	
 	@Override
 	public void confirmar() throws ExcepcionProceso {
-		// TODO Auto-generated method stub
 		
+		JsonReader reader;
+		try {
+			
+	        if (compraDebito().equals(200)) {
+	        	this.aprobada = true;
+	        }      
+		} catch (Exception e) {
+			throw new ExcepcionProceso("No se pudo confirmar la Tarjeta de Debito");
+		}
+		if (this.aprobada == null	) {
+			throw new ExcepcionProceso ("La tarjeta fue rechazada.");
+		}
+			
 	}
+
+	public VentaTarjetaDebito(Integer id, LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
+			EstadoVenta estado, Float total, TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
+		super(id, fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
+	}
+
+	public VentaTarjetaDebito() {
+		// TODO Auto-generated constructor stub
+	}
+	private Integer compraDebito() throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		byte[] input = crearJsonDebito().getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("https://bank-back.herokuapp.com/api/v1/public/debitar/")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("User-Agent", "PostmanRuntime/7.15.0")
+		  .addHeader("Accept", "*/*")
+		  .addHeader("Cache-Control", "no-cache")
+		  .addHeader("Host", "bank-back.herokuapp.com")
+		  .build();
+		Response response = client.newCall(request).execute();
+		return response.code() ;
+	}
+
+
+
+	public String crearJsonDebito() {
+		String cbuEstablecimiento = ControladorVentas.getInstance().getParamGral("ca_cbu");
+		Integer codigoSeguridad = this.getCodigoSeguridad();
+		String descripcion = ControladorVentas.getInstance().getParamGral("razonSocial");
+		Float monto = this.getTotal();
+		String numeroTarjeta = this.getNumeroTarjeta();
+		
+		String fechaVtoParaPasar = "20"+this.getFechaVto().substring(2, 4)+"-"+this.getFechaVto().substring(0, 2)
+				+"-01T00:00:00.000";
+		         
+		JsonObjectBuilder json = Json.createObjectBuilder()
+				.add("cbuEstablecimiento", cbuEstablecimiento)
+				.add("codigoSeguridad",codigoSeguridad)
+				.add("descripcion",descripcion)
+				.add("fechaVencimiento",fechaVtoParaPasar)
+				.add("monto", monto)
+				.add("numeroTarjeta", numeroTarjeta);
+		return json.build().toString();
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
