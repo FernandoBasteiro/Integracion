@@ -22,7 +22,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
 					<div class="form-row pb-2">
-						<div class="col-sm-6">
+						<div class="col-sm-5">
 						<form action="/Private?action=listarProductos" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -35,19 +35,22 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 							</div>
 							</form>
 						</div>	
-						<div class="col-sm-6">
+						<div class="col-sm-5">
 							<form action="/Private?action=listarProductos" method="post">
 							<div class="input-group">
 							<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
-							  <input name="buscarProductoCodigo" type="search" class="form-control" placeholder="Ingrese código..." aria-label="Ingrese código" aria-describedby="buscarProductoCodigo">
+							  <input name="buscarProductoCodigo" type="search" required class="form-control" placeholder="Ingrese código..." aria-label="Ingrese código" aria-describedby="buscarProductoCodigo">
 							   <div class="input-group-append">
 							    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 							  </div>
 							</div>
 							</form>
 						</div>	
+						<div class="form-group col-sm-2">
+							<a href="/Private?action=listarProductos" title="Limpiar Filtros" class="btn btn-outline-secondary btn-block" role="button"><i class="fas fa-eraser mr-2"></i>Limpiar</a>
+						</div>
 					</div>
 				<hr/>
 			</div>
@@ -95,7 +98,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				      <td class="actions text-center">
 				      	<a href="/Private?action=verProducto&codigo=<%=p.getCodigo() %>" class="view mx-1" title="Ver producto"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Private?action=verProducto&modificar=true&codigo=<%=p.getCodigo() %>" class="edit mx-1" title="Editar producto"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="#" data-action="eliminarProducto" data-codigo="<%=p.getCodigo()%>" data-nombre="<%=p.getNombre()%>" class="delete mx-1" title="Eliminar producto" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="#" data-action="eliminarProducto" data-codigo="<%=p.getCodigo()%>" data-nombre="<%=p.getNombre()%>" class="delete mx-1 <%=(p.getStock().getCantidadDisponible() == 0) ? "disabled" : ""%>" title="Eliminar producto" <%=(p.getStock().getCantidadDisponible() == 0) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'"%>><i class="fas fa-trash <%=(p.getStock().getCantidadDisponible() == 0) ? "text-muted" : "text-danger"%>"></i></a>
 				      </td>
 				    </tr>      
 				      <% } %>

@@ -1,6 +1,7 @@
 package negocio;
 
 import java.io.StringReader;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.json.Json;
@@ -151,13 +152,14 @@ public class VentaTarjetaDebito extends Venta {
 	
 	
 	@Override
-	public void confirmar() throws ExcepcionProceso {
+	public void confirmar(Integer nroProxFactura) throws ExcepcionProceso {
 		
 		JsonReader reader;
 		try {
 			
-	        if (compraDebito().equals(200)) {
+	        if (compraDebito(nroProxFactura).equals(200)) {
 	        	this.aprobada = true;
+	        	this.nroOperacion=this.getId();
 	        }      
 		} catch (Exception e) {
 			throw new ExcepcionProceso("No se pudo confirmar la Tarjeta de Debito");
@@ -176,9 +178,9 @@ public class VentaTarjetaDebito extends Venta {
 	public VentaTarjetaDebito() {
 		// TODO Auto-generated constructor stub
 	}
-	private Integer compraDebito() throws Exception {
+	private Integer compraDebito(Integer nroProxFactura) throws Exception {
 		OkHttpClient client = new OkHttpClient();
-		byte[] input = crearJsonDebito().getBytes("utf-8");
+		byte[] input = crearJsonDebito(nroProxFactura).getBytes("utf-8");
 		RequestBody body = RequestBody.create(input);
 		Request request = new Request.Builder()
 		  .url("https://bank-back.herokuapp.com/api/v1/public/debitar/")
@@ -195,15 +197,17 @@ public class VentaTarjetaDebito extends Venta {
 
 
 
-	public String crearJsonDebito() {
+	public String crearJsonDebito(Integer nroProxFactura) {
 		String cbuEstablecimiento = ControladorVentas.getInstance().getParamGral("ca_cbu");
-		Integer codigoSeguridad = this.getCodigoSeguridad();
+		Integer codigoSeguridad = nroProxFactura;
 		String descripcion = ControladorVentas.getInstance().getParamGral("razonSocial");
 		Float monto = this.getTotal();
 		String numeroTarjeta = this.getNumeroTarjeta();
 		
 		String fechaVtoParaPasar = "20"+this.getFechaVto().substring(2, 4)+"-"+this.getFechaVto().substring(0, 2)
 				+"-01T00:00:00.000";
+		
+		DecimalFormat priceFormatter = new DecimalFormat("#0.00");		
 		         
 		JsonObjectBuilder json = Json.createObjectBuilder()
 				.add("cbuEstablecimiento", cbuEstablecimiento)

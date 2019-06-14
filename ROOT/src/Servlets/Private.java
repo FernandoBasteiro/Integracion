@@ -1,6 +1,7 @@
 package Servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -256,7 +257,7 @@ public class Private extends HttpServlet {
 					empleados = bd.listarEmpleadoPorLegajo(logged, legajo);
 				} else if (dni != null) {
 					empleados = bd.listarEmpleadoPorDNI(logged, dni);
-				} else {
+				} else {					
 					empleados = bd.listarEmpleados(logged, puesto, estado);
 				}
 				request.setAttribute("empleados", empleados);
@@ -440,9 +441,11 @@ public class Private extends HttpServlet {
 					}
 					request.setAttribute("venta", v);
 					request.setAttribute("success", "\u00A1Venta aprobada! "+resp+".");
+					request.setAttribute("script", "true");
 				} catch (ExcepcionProceso e) {
 					request.setAttribute("venta", v);
 					request.setAttribute("error", e.getMessage());
+					request.setAttribute("script", "false");
 				}
 				jspPage = "facturacion/vender.jsp";
 				/*
@@ -453,6 +456,24 @@ public class Private extends HttpServlet {
 				 * creditoTitular creditoDni creditoVencimiento creditoCuotas
 				 */
 			} else if (action.equals("imputarCobros")) {
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
+				//String anioNovedadStr = String.format("%04d", anioNovedad);
+				//String mesNovedadStr = String.format("%02d", mesNovedad);
+				
+				String anio = String.format("%04d", Integer.valueOf(request.getParameter("periodoAnio")));
+				String mes = String.format("%04d", Integer.valueOf(request.getParameter("periodoMes")));
+				
+				try {
+					bd.marcarFacturasCobradas(logged, anio+mes);
+					request.setAttribute("success", "Se actualizaron las ventas cobradas.");
+				} catch (ExcepcionProceso e) {
+					request.setAttribute("error", e.getMessage());
+				}
+				ArrayList<VentaDTO> ventas = bd.listarFacturas(logged, null, LocalDate.now(), null);
+				request.setAttribute("facturas", ventas);
+				jspPage = "facturacion/index.jsp";
+
 				// EJEMPLO:
 				// Le pega a: Web/Private?action=imputarCobros
 				// Envia: periodoMes=1&periodoAnio=2019

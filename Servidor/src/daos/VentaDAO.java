@@ -3,10 +3,12 @@ package daos;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -277,5 +279,14 @@ public class VentaDAO {
 		ArrayList<Venta> lista = new ArrayList<Venta>();
 		for (VentaEntity ventaEntity : lista_entities) lista.add(VentaDAO.getinstance().toNegocio(ventaEntity));
 		return lista;
+	}
+	
+	public static Integer getProxVenta() {
+		Session session = sf.openSession();
+		Criteria c = session.createCriteria(VentaEntity.class);
+		c.addOrder(Order.desc("id"));
+		c.setMaxResults(1);
+		VentaEntity ve = (VentaEntity)c.uniqueResult();
+		return ve.getId() + 1;
 	}
 }

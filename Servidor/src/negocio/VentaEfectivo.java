@@ -34,6 +34,10 @@ public class VentaEfectivo extends Venta {
 	
 	
 	
+	public VentaEfectivo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Float getMontoRecibido() {
 		return montoRecibido;
 	}
@@ -81,8 +85,6 @@ public class VentaEfectivo extends Venta {
 	}
 
 	@Override
-	public void confirmar() throws ExcepcionProceso {
-		// TODO Auto-generated method stub
-		
+	public void confirmar(Integer nroProxFactura) throws ExcepcionProceso {	
 	}
 }

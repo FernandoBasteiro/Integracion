@@ -21,6 +21,8 @@ import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
@@ -32,6 +34,10 @@ import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Empleado;
 import negocio.Novedad;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ControladorEmpleados {
 
@@ -87,15 +93,19 @@ public class ControladorEmpleados {
 					
 					try {
 						this.crearCuentaBanco(this.crearJsonAltaEmpleado(nuevo));
-						String cbu = this.averiguarCBUEmpleado(emp.getDni());
-					} catch (IOException e) {
+						String cbu = this.averiguarCBUEmpleado(nuevo.getDni());
+						nuevo.setCbu(cbu);
+					} catch (Exception e) {
 						throw new ExcepcionProceso("No se pudo crear la cuenta bancaria.");
 					}
 					
-					//***********************************************
-					//TODO Infomar CBU a liquidacion sueldos
-					//***********************************************
-					
+					try {
+						if (this.crearCuentaLiquidaciones(this.crearJsonAltaLiquidacion(nuevo)) != 200) {
+							throw new ExcepcionProceso("No se pudo crear la cuenta liquidacion.");
+						}
+					} catch (Exception e) {
+						throw new ExcepcionProceso("No se pudo crear la cuenta liquidacion.");
+					}
 					nuevo.guardar();
 				} else
 					throw new ExcepcionProceso("Ya existe un empleado con ese n�mero de DNI.");
@@ -120,9 +130,14 @@ public class ControladorEmpleados {
 					if ((emp.getFechaEgreso()!=null && emp.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO && e.getEstadoEmpleado() != EstadoEmpleado.DESVINCULADO) || 
 							(emp.getFechaEgreso() == null && e.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO)) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
-						//*************************************************************
-						//TODO informar a liquidacion de sueldos para liquidacion final
-						//************************************************************
+
+						try {
+							if (this.bajaCuentaLiquidaciones(emp) != 200) {
+								throw new ExcepcionProceso("Hubo un error al dar de baja del sistema de liquidaciones. Contacte a Liquid Salary para m\u00E1s informaci\u00F3n.");
+							}							
+						} catch (Exception ex) {
+							throw new ExcepcionProceso("Hubo un error al dar de baja del sistema de liquidaciones. Contacte a Liquid Salary para m\u00E1s informaci\u00F3n.");
+						}
 					}
 					
 					if (e.getPassword()!=null) {
@@ -229,15 +244,7 @@ public class ControladorEmpleados {
 				if (emp != null) {
 					emp.setEstadoEmpleado(EstadoEmpleado.ANULADO);
 					emp.setFechaEgreso(LocalDate.now());
-					emp.guardar();
-					//**************************************
-					//TODO llamar a LiqSueldo con baja
-					//***************************************
-					
-					//**************************************
-					//TODO llamar a Banco con baja?????
-					//***************************************
-					
+					emp.guardar();					
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese n�mero de legajo.");
 			} else
@@ -290,46 +297,91 @@ public class ControladorEmpleados {
 		return json.build().toString();
 	}
 	
-	private int crearCuentaBanco(String json) throws IOException {
-		URL url = new URL("https://bank-back.herokuapp.com/api/v1/usuario");
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("PUT");
-		con.setRequestProperty("Content-Type", "application/json; utf-8");
-		con.setRequestProperty("Accept", "application/json");
-		con.setDoOutput(true);
-		
-		 try (OutputStream os = con.getOutputStream()) {
-			byte[] input = json.getBytes("utf-8");
-			os.write(input, 0, input.length);
-		}
-		 
-		return con.getResponseCode();
+	private int crearCuentaBanco(String json) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		byte[] input = json.getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("https://bank-back.herokuapp.com/api/v1/usuario")
+		  .put(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("Postman-Token", "c17b7809-88f5-4b43-a848-93ac24536b41")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		return response.code();
 	}
 	
-	private String averiguarCBUEmpleado(String cuit) throws IOException, ExcepcionProceso {
-		URL url = new URL("https://bank-back.herokuapp.com/api/v1/cuentas/" + cuit);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		conn.setDoOutput(true);
-		Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
-			StringBuilder response = new StringBuilder();
-			String responseLine = null;
-			while ((responseLine = br.readLine()) != null) {
-				response.append(responseLine.trim());
-			}
-			//return response.toString();
-			
-			JsonReader reader = Json.createReader(new StringReader(response.toString()));
-			JsonArray cuentasArr = reader.readArray();
-	        reader.close();
-	        List<JsonObject> cuentas = cuentasArr.getValuesAs(JsonObject.class);
-			for (JsonObject cuenta : cuentas) {
-				if (cuenta.getString("tipoCuenta").equals(ControladorVentas.getInstance().getParamGral("banco_tipoCuenta_deposito"))) return cuenta.getString("cbu");
-			}
-			throw new ExcepcionProceso("Caja de ahorro no encontrada.");
+	private String averiguarCBUEmpleado(String cuit) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url("https://bank-back.herokuapp.com/api/v1/cuentas/" + cuit).get().build();
+		Response response = client.newCall(request).execute();
+		JsonReader reader = Json.createReader(new StringReader(response.body().string()));
+		JsonArray cuentasArr = reader.readArray();
+        reader.close();
+        List<JsonObject> cuentas = cuentasArr.getValuesAs(JsonObject.class);
+		for (JsonObject cuenta : cuentas) {
+			if (cuenta.getString("tipoCuenta").equals(ControladorVentas.getInstance().getParamGral("banco_tipoCuenta_deposito"))) 
+				return cuenta.getString("cbu");
 		}
+		return null;
+	}
+	
+	private Integer crearCuentaLiquidaciones(String json) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		byte[] input = json.getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("http://appdistflix.herokuapp.com/api/empleado/insert")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .build();
 
+		Response response = client.newCall(request).execute();
+		return response.code();
+	}
+	
+	private Integer bajaCuentaLiquidaciones(Empleado empleado) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		String json = "{ \"cuil\" : \"" + empleado.getDni() + "\"}";
+		byte[] input = json.getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("http://appdistflix.herokuapp.com/api/empleado/delete")
+		  .delete(body)
+		  .addHeader("Content-Type", "application/json")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		return response.code();
+	}
+
+	
+	private String crearJsonAltaLiquidacion(Empleado empleado) {
+		JsonObjectBuilder json = Json.createObjectBuilder();
+		String cuit = ControladorVentas.getInstance().getParamGral("cuit");
+		String cuil = empleado.getDni();
+		String fechaIngreso = empleado.getFechaIngreso().toString(DateTimeFormat.forPattern("yyyy-MM-dd"));
+		String cbu = empleado.getCbu();
+		Boolean convenio = Boolean.valueOf(ControladorVentas.getInstance().getParamGral("liquidacion_hayConvenio")); //TODO
+		String rubro = ControladorVentas.getInstance().getParamGral("liquidacion_rubro");
+		String categoria = ControladorVentas.getInstance().getParamGral("liquidacion_categoria");
+		String tipoLiquidacion = ControladorVentas.getInstance().getParamGral("liquidacion_tipoLiquidacion");
+		Integer vacacionesDisp = Integer.valueOf(ControladorVentas.getInstance().getParamGral("liquidacion_vacacionesDisp"));
+		Integer diasEstudioDisp = Integer.valueOf(ControladorVentas.getInstance().getParamGral("liquidacion_diasEstudioDisp"));
+		Float sueldo = empleado.getSueldoBase();
+		json.add("cuit", cuit);
+		json.add("cuil", cuil);
+		json.add("fechaIngreso", fechaIngreso);
+		json.add("cbu", cbu);
+		json.add("convenio", convenio);
+		json.add("rubro", rubro);
+		json.add("categoria", categoria);
+		json.add("tipoLiquidacion", tipoLiquidacion);
+		json.add("vacacionesDisp", vacacionesDisp);
+		json.add("diasEstudioDisp", diasEstudioDisp);
+		json.add("sueldo", sueldo);
+		return json.build().toString();
 	}
 }

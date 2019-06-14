@@ -7,21 +7,23 @@
 		response.sendRedirect("/index.jsp");
 	//boolean autocomplete = (session.getAttribute("error") != null) ? true: false;
 	//VentaDTO venta = (session.getAttribute("venta") != null) ? (VentaDTO) session.getAttribute("venta") : null;
-	%>
+%>
 <jsp:include page="../includes/header.jsp" />
 <%@ page import="enumeraciones.MedioDePago"%>
 <main role="main">
 <div class="container">
 	<div class="row">
 		<div class="col col-xs-12">
-			<h2 class="d-inline"><i class="fas fa-cash-register mr-3 text-success"></i>Vender</h2>
+			<h2 class="d-inline">
+				<i class="fas fa-cash-register mr-3 text-success"></i>Vender
+			</h2>
 			<hr />
 		</div>
 	</div>
 	<div class="row">
 		<div class="col col-xs-12 menu-filtro">
 			<form method="post" action="/Private" id="formVenta">
-			<input type="hidden" name="action" value="facturar"/>
+				<input type="hidden" name="action" value="facturar" />
 				<div class="form-row">
 					<div class="form-group col-sm-6">
 						<div class="input-group">
@@ -47,7 +49,7 @@
 								<label class="input-group-text" for="cuitFactura">CUIT</label>
 							</div>
 							<input placeholder="Ingrese CUIT..." type="number"
-								name="cuitFactura" class="form-control" value="" min="0"/>
+								name="cuitFactura" id="cuitFactura" class="form-control" value="" min="0" required/>
 						</div>
 					</div>
 				</div>
@@ -55,23 +57,31 @@
 					<div class="form-group col-sm-6" id="productoAutocomplete">
 						<div class="input-group">
 							<div class="input-group-prepend">
-						    	<label class="input-group-text control-label" for="buscarProducto">Buscar producto por código</label>
-							</div>				
-					        <input class="form-control bs-autocomplete" id="buscarProducto" value="" placeholder="Ingresar código producto..." type="text" data-source="/Private/listarProductos" data-hidden_field_id="codigo-producto" data-item_id="codigo" data-item_label="nombre" data-item_sublabel="presentacion" autocomplete="off">
-					    </div>
-					    <input type="hidden" class="form-control" id="codigo-producto" name="codigoProductoAutocomplete" value="" type="number" readonly>
-				    </div>
+								<label class="input-group-text control-label"
+									for="buscarProducto">Buscar producto por código</label>
+							</div>
+							<input class="form-control bs-autocomplete" id="buscarProducto"
+								value="" placeholder="Ingresar código producto..." type="text"
+								data-source="/Private/listarProductos"
+								data-hidden_field_id="codigo-producto" data-item_id="codigo"
+								data-item_label="nombre" data-item_sublabel="presentacion"
+								autocomplete="off">
+						</div>
+						<input type="hidden" class="form-control" id="codigo-producto"
+							name="codigoProductoAutocomplete" value="" type="number" readonly>
+					</div>
 					<div class="form-group col-sm-4">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<label class="input-group-text" for="cantidadProducto">Cantidad</label>
 							</div>
-							<input type="number" min="1" id="cantidad-producto" name="cantidadProducto" value="1"
-								class="form-control" />
+							<input type="number" min="1" id="cantidad-producto"
+								name="cantidadProducto" value="1" class="form-control" />
 						</div>
 					</div>
 					<div class="form-group col-sm-2">
-						<button id="agregarProducto" class="btn btn-success btn-block" type="button">
+						<button id="agregarProducto" class="btn btn-success btn-block"
+							type="button">
 							<i class="fas fa-plus mr-2"></i>Agregar producto
 						</button>
 					</div>
@@ -88,14 +98,15 @@
 									<th scope="col">Cantidad</th>
 									<th scope="col">Precio</th>
 									<th scope="col">Subtotal</th>
+									<th scope="col">Eliminar</th>
 								</tr>
 							</thead>
 							<tbody>
 							</tbody>
 							<tfoot>
 								<tr class="table-active">
-									<th colspan="6" class="text-right ">Total</th>
-									<th id="totalVenta"></th>
+									<th colspan="7" class="text-right ">Total</th>
+									<th>$<span id="totalVenta"></span></th>
 								</tr>
 							</tfoot>
 						</table>
@@ -108,7 +119,7 @@
 					<div class="form-group col-sm-6">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<label class="input-group-text" for="buscarProducto">Seleccionar
+								<label class="input-group-text" for="medioPago">Seleccionar
 									medio de pago</label>
 							</div>
 							<select id="medioPago" name="medioPago" class="form-control">
@@ -130,7 +141,7 @@
 							</div>
 							<input type="number" min="0" step="0,01" name="montoPago"
 								id="montoPago" class="form-control"
-								placeholder="Ingrese monto con el que abona" />
+								placeholder="Ingrese monto con el que abona" required/>
 						</div>
 					</div>
 				</div>
@@ -231,7 +242,7 @@
 							</div>
 							<input type="number" min="0" name="creditoCodigoSeguridad"
 								id="creditoCodigoSeguridad" class="form-control"
-								placeholder="000" autocomplete="off"/>
+								placeholder="000" autocomplete="off" />
 						</div>
 					</div>
 					<div class="form-group col-sm-8">
@@ -267,8 +278,8 @@
 							<div class="input-group-prepend">
 								<label class="input-group-text" for="creditoCuotas">Cuotas</label>
 							</div>
-							<input type="number" min="0" max="12" name="creditoCuotas"
-								id="creditoCodigoSeguridad" class="form-control" />
+							<input type="number" value="1" min="1" max="12" name="creditoCuotas"
+								id="creditoCuotas" class="form-control" />
 						</div>
 					</div>
 				</div>

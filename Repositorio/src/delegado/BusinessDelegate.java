@@ -215,7 +215,7 @@ public class BusinessDelegate {
 		}
 	}
 	
-	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos {
+	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws ComunicacionException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		try {
 			ir.marcarFacturasCobradas(g, periodo);
 		} catch (RemoteException re) {

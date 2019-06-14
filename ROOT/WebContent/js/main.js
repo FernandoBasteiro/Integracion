@@ -28,6 +28,35 @@ $(function() {
 			$egreso.removeAttr("required").val('');
 		}
 	});
+	$('#medioPago').on('change', function(e) {
+		var $this = $(this), $monto = $('#montoPago'), $reqCred = $('#creditoCodigoSeguridad, #creditoTarjeta, #creditoTitular, #creditoVencimiento, #creditoCuotas'), $reqDeb = $('#debitoTarjeta, #debitoCodigoSeguridad, #debitoTitular, #debitoVencimiento');
+		//efectivo
+		if ($this.val() == "1") {
+			$monto.attr("required", "required");
+		} else {
+			$monto.removeAttr("required").val('');
+		}
+		//tarjeta de credito
+		if ($this.val() == "2") {
+			$reqCred.attr("required", "required");
+		} else {
+			$reqCred.removeAttr("required").val('');
+		}
+		//tarjeta de debito
+		if ($this.val() == "3") {
+			$reqDeb.attr("required", "required");
+		} else {
+			$reqDeb.removeAttr("required").val('');
+		}
+	});
+	$('#tipoFactura').on('change', function(e) {
+		var $this = $(this), $cuit = $('#cuitFactura');
+		if ($this.val() == "1" || $this.val() == "2" ) {
+			$cuit.attr("required", "required");
+		} else {
+			$cuit.removeAttr("required").val('');
+		}
+	});
 
 	$('#modal')
 			.on(
@@ -228,14 +257,18 @@ $(function() {
 						} else if ($action == "imputarCobros") {
 							$title.text("Imputar Cobros");
 							$body
-									.html('<form id="imputarCobrosTc" method="post" action="?"><div class="form-row pb-3"><div class="col-sm-6"><label for="periodoMes">Mes</label><input class="form-control" type="number" min="1" max="12" name="periodoMes" value="1"/></div><div class="col-sm-6"><label for="periodoAnio">A&ntilde;o</label><input class="form-control" type="number" min="2019" max="2030" name="periodoAnio" value="2019"/></div></div></form>')
-							$footer
+									.html('<form id="imputarCobrosTc" method="post" action="?"><div class="form-row pb-3"><div class="col-sm-6"><label for="periodoMes">Mes</label><input class="form-control" type="number" min="1" max="12" name="periodoMes" required value="1"/></div><div class="col-sm-6"><label for="periodoAnio">A&ntilde;o</label><input class="form-control" type="number" min="2019" max="2030" required name="periodoAnio" value="2019"/></div></div></form>')
+									$footer
 									.find(".btn-primary")
 									.text("Imputar Cobros")
 									.on(
 											'click',
 											function(e) {
 												e.preventDefault();
+												if(!$('#imputarCobrosTc')[0].checkValidity()){
+													$('#imputarCobrosTc').find( ":invalid" ).first().focus();
+													return;
+												};
 												$btn = $(this);
 
 												$

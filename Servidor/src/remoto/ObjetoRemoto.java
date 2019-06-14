@@ -152,7 +152,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	}
 
 	@Override
-	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos {
+	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws RemoteException, UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 		ControladorVentas.getInstance().marcarFacturasCobradas(g, periodo);
 	}
 

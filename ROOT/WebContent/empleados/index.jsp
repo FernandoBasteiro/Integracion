@@ -27,7 +27,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 									<div class="input-group-prepend">
 							          <div class="input-group-text">Buscar</div>
 							      </div>
-								  <input name="buscarEmpleadoLegajo" type="search" class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
+								  <input name="buscarEmpleadoLegajo" type="search" required class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
 								   <div class="input-group-append">
 								    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 								  </div>
@@ -75,8 +75,11 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 									%>
 							    </select>
 							  </div>
-							  <div class="form-group col-sm-2">
+							  <div class="form-group col-sm-1">
 						    		<button class="btn btn-secondary btn-block" type="submit">Filtrar</button>
+							  </div>
+							  <div class="form-group col-sm-1">
+						    		<a href="/Private?action=listarEmpleados" title="Limpiar Filtros" class="btn btn-outline-secondary btn-block" role="button"><i class="fas fa-eraser"></i></a>
 							  </div>
 							  </div>
 						</form>			
@@ -133,8 +136,8 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 				      <td class="actions text-center">
 				      	<a href="/Private?action=verEmpleado&legajo=<%=e.getLegajo() %>" class="view mx-1" title="Ver empleado"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Private?action=verEmpleado&modificar=true&legajo=<%=e.getLegajo() %>" class="edit mx-1" title="Editar empleado"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="#" data-legajo="<%=e.getLegajo()%>" data-nombre="<%=e.getNombre()%>" data-apellido="<%=e.getApellido()%>" data-action="eliminarEmpleado" class="delete mx-1" title="Eliminar empleado" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
-				      	<a href="#" data-legajo="<%=e.getLegajo()%>" data-nombre="<%=e.getNombre()%>" data-apellido="<%=e.getApellido()%>" data-action="cargarNovedad"  class="news mx-1" title="Cargar novedad" data-toggle="modal" data-target="#modal"><i class="fas fa-umbrella-beach text-info"></i></a>
+				      	<a href="#" data-legajo="<%=e.getLegajo()%>" data-nombre="<%=e.getNombre()%>" data-apellido="<%=e.getApellido()%>" data-action="eliminarEmpleado" class="delete mx-1 <%=(e.getEstadoEmpleado() == EstadoEmpleado.ANULADO) ? "disabled" : ""%>" title="Eliminar empleado" <%=(e.getEstadoEmpleado() == EstadoEmpleado.ANULADO) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'"%>><i class="fas fa-trash <%=(e.getEstadoEmpleado() == EstadoEmpleado.ANULADO) ? "text-muted" : "text-danger"%>"></i></a>
+				      	<a href="#" data-legajo="<%=e.getLegajo()%>" data-nombre="<%=e.getNombre()%>" data-apellido="<%=e.getApellido()%>" data-action="cargarNovedad"  class="news mx-1 <%=(e.getEstadoEmpleado() == EstadoEmpleado.ANULADO || e.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO) ? "disabled" : ""%>" title="Cargar novedad" <%=(e.getEstadoEmpleado() == EstadoEmpleado.ANULADO || e.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'"%>><i class="fas fa-umbrella-beach <%=(e.getEstadoEmpleado() == EstadoEmpleado.ANULADO || e.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO) ? "text-muted" : "text-info"%>"></i></a>
 				      </td>
 				    </tr>
 				    <% } %>

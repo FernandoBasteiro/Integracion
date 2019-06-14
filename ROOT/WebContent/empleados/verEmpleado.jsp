@@ -14,7 +14,9 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 			<div class="col col-xs-12 text-right">
 				<h2 class="d-inline float-left"><i class="fas fa-user mr-3 text-primary"></i>Ver Empleado</h2>
 				<a href="/Private?action=listarEmpleados" class="btn btn-secondary"><i class="fas fa-chevron-left mr-2"></i>Volver al listado</a>				
-				<a href="#" data-legajo="<%=emp.getLegajo()%>" data-nombre="<%=emp.getNombre()%>" data-apellido="<%=emp.getApellido()%>" data-action="cargarNovedad"  class="btn btn-info" data-toggle="modal" data-target="#modal"><i class="fas fa-umbrella-beach mr-2"></i>Cargar Novedad</a>
+				<% if(emp.getEstadoEmpleado() == EstadoEmpleado.ACTIVO){%>
+					<a href="#" data-legajo="<%=emp.getLegajo()%>" data-nombre="<%=emp.getNombre()%>" data-apellido="<%=emp.getApellido()%>" data-action="cargarNovedad"  class="btn btn-info" data-toggle="modal" data-target="#modal"><i class="fas fa-umbrella-beach mr-2"></i>Cargar Novedad</a>
+				<% }%>
 				<a href="/Private?action=verEmpleado&modificar=true&legajo=<%=emp.getLegajo()%>" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Editar</a>
 				<hr/>
 			</div>
