@@ -4,6 +4,7 @@
 <%@ page import="enumeraciones.EstadoVenta"%>
 <%@ page import="enumeraciones.MedioDePago"%>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <% EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/index.jsp");
 VentaDTO factura = (VentaDTO) request.getAttribute("factura");
@@ -27,7 +28,7 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 		</div>
 		<div class="row">
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Fecha de facturación:</strong><%=factura.getFechaVenta()%></p>
+				<p><strong class="mr-2">Fecha de facturación:</strong><%=factura.getFechaVenta().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))%></p>
 			</div>
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Número:</strong><span class="badge badge-pill badge-info"><%=factura.getId()%></span></p>
@@ -36,7 +37,7 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 		<div class="row">
 		<% if(factura.getFechaCobro()!=null ){   %>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Fecha de cobro:</strong><%=factura.getFechaCobro()%></p>
+				<p><strong class="mr-2">Fecha de cobro:</strong><%=factura.getFechaCobro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))%></p>
 			</div>
 			<% }else{   %>
 			<div class="col col-xs-6">

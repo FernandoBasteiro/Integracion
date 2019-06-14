@@ -339,7 +339,7 @@ public class Private extends HttpServlet {
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				TipoFactura tf = TipoFactura.fromId(request.getParameter("tipoFactura") == null ? null
 						: Integer.valueOf(request.getParameter("tipoFactura")));
-				String cuit = request.getParameter("cuitFactura");
+				String cuit = (tf == TipoFactura.C) ? "Consumidor Final" : request.getParameter("cuitFactura");
 				String[] itemsStr = request.getParameterValues("items");
 				ArrayList<ItemVentaDTO> items = new ArrayList<ItemVentaDTO>();
 				for (String itemStr : itemsStr) {
