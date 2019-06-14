@@ -27,17 +27,27 @@ import negocio.VentaTarjetaDebito;
 public class ControladorVentas {
 	
 	private static ControladorVentas instance;
-	private String  cuit; // los usa el bco + liquidar sueldo
+	private String cuit; // los usa el bco + liquidar sueldo
 	private Integer tc_id_establecimiento;	 //lo usa la entidad crediticia
-	private String  bco_cbu;          	     //lo usa la entidad bancaria
-	private String  razonSocial;	 	//lo usa la entidad bancaria
+	private String cc_cbu;          	     //lo usa la entidad bancaria
+	private String ca_cbu;
+	private String razonSocial;	 	//lo usa la entidad bancaria
+	private String default_password_banco;
+	private Integer banco_idRol;
+	private Integer banco_idProducto;
 	
 	public ControladorVentas() {
 		this.cuit = ParamGralesDAO.getinstance().getValor("cuit");
 		String id_est_str = ParamGralesDAO.getinstance().getValor("tc_id_establecimiento");
 		this.tc_id_establecimiento = (id_est_str == null ? null : Integer.valueOf(id_est_str));
-		this.bco_cbu = ParamGralesDAO.getinstance().getValor("bco_cbu");
+		this.cc_cbu = ParamGralesDAO.getinstance().getValor("cc_cbu");
+		this.ca_cbu = ParamGralesDAO.getinstance().getValor("ca_cbu");
 		this.razonSocial = ParamGralesDAO.getinstance().getValor("razonSocial");
+		this.default_password_banco = ParamGralesDAO.getinstance().getValor("default_password_banco");
+		String banco_idRolStr = ParamGralesDAO.getinstance().getValor("banco_idRol");
+		this.banco_idRol = (banco_idRolStr == null ? null : Integer.valueOf(banco_idRolStr));
+		String banco_idProductoStr = ParamGralesDAO.getinstance().getValor("banco_idProducto");
+		this.banco_idProducto = (banco_idProductoStr == null ? null : Integer.valueOf(banco_idProductoStr));
 	}
 
 	public static ControladorVentas getInstance(){
@@ -261,12 +271,28 @@ public class ControladorVentas {
 		return tc_id_establecimiento;
 	}
 
-	public String getBco_cbu() {
-		return bco_cbu;
+	public String getCc_cbu() {
+		return cc_cbu;
+	}
+
+	public String getCa_cbu() {
+		return ca_cbu;
 	}
 
 	public String getRazonSocial() {
 		return razonSocial;
+	}
+
+	public String getDefault_password_banco() {
+		return default_password_banco;
+	}
+
+	public Integer getBanco_idRol() {
+		return banco_idRol;
+	}
+
+	public Integer getBanco_idProducto() {
+		return banco_idProducto;
 	}
 	
 	

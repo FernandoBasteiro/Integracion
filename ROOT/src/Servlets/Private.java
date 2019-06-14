@@ -98,7 +98,6 @@ public class Private extends HttpServlet {
 				LocalDate fechaEgreso = null;
 				if (legajo != null) fechaEgreso = (request.getParameter("fechaEgresoEmpleado").isEmpty() ? null : LocalDate.parse(request.getParameter("fechaEgresoEmpleado"),DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 				Float sueldoBase = (request.getParameter("sueldoEmpleado") == null ? null : Float.valueOf(request.getParameter("sueldoEmpleado")));
-				String cbu = request.getParameter("cbuEmpleado");
 				String password = request.getParameter("passwordEmpleado");
 				nuevo.setLegajo(legajo);
 				nuevo.setNombre(nombre);
@@ -116,7 +115,6 @@ public class Private extends HttpServlet {
 				nuevo.setFechaIngreso(fechaIngreso);
 				nuevo.setFechaEgreso(fechaEgreso);
 				nuevo.setSueldoBase(sueldoBase);
-				nuevo.setCbu(cbu);
 				if (! password.isEmpty()) nuevo.setPassword(password);
 				nuevo.setEstadoEmpleado(estado);
 				try {
@@ -304,7 +302,9 @@ public class Private extends HttpServlet {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				TipoFactura tf = TipoFactura.fromId(request.getParameter("tipoFactura") == null ? null : Integer.valueOf(request.getParameter("tipoFactura")));
-				String cuit = request.getParameter("cuitFactura");
+				String cuit;
+				if (tf == TipoFactura.C) cuit = "Consumidor Final";
+				else cuit = request.getParameter("cuitFactura");
 				String[] itemsStr = request.getParameterValues("items");
 				ArrayList<ItemVentaDTO> items = new ArrayList<ItemVentaDTO>();
 				for (String itemStr : itemsStr) {
