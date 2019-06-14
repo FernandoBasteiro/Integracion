@@ -29,7 +29,7 @@ $(function() {
 		}
 	});
 	$('#medioPago').on('change', function(e) {
-		var $this = $(this), $monto = $('#montoPago'), $codCred = $('#creditoCodigoSeguridad, #creditoTarjeta, #creditoTitular, #creditoVencimiento, #creditoCuotas'), $codDeb = $('#debitoCodigoSeguridad');
+		var $this = $(this), $monto = $('#montoPago'), $reqCred = $('#creditoCodigoSeguridad, #creditoTarjeta, #creditoTitular, #creditoVencimiento, #creditoCuotas'), $reqDeb = $('#debitoTarjeta, #debitoCodigoSeguridad, #debitoTitular, #debitoVencimiento');
 		//efectivo
 		if ($this.val() == "1") {
 			$monto.attr("required", "required");
@@ -38,15 +38,15 @@ $(function() {
 		}
 		//tarjeta de credito
 		if ($this.val() == "2") {
-			$codCred.attr("required", "required");
+			$reqCred.attr("required", "required");
 		} else {
-			$codCred.removeAttr("required").val('');
+			$reqCred.removeAttr("required").val('');
 		}
 		//tarjeta de debito
 		if ($this.val() == "3") {
-			$codDeb.attr("required", "required");
+			$reqDeb.attr("required", "required");
 		} else {
-			$codDeb.removeAttr("required").val('');
+			$reqDeb.removeAttr("required").val('');
 		}
 	});
 	$('#tipoFactura').on('change', function(e) {
