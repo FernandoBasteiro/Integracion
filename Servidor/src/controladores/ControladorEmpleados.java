@@ -4,15 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 
 import org.joda.time.LocalDate;
 
@@ -78,14 +84,14 @@ public class ControladorEmpleados {
 					empleado.getNacionalidad(), empleado.getPassword(), empleado.getSueldoBase(),
 					empleado.getHorasAsignadas(), empleado.getPuesto(), null,
 					empleado.getSession());
-					/*
+					
 					try {
 						this.crearCuentaBanco(this.crearJsonAltaEmpleado(nuevo));
+						String cbu = this.averiguarCBUEmpleado(emp.getDni());
 					} catch (IOException e) {
 						throw new ExcepcionProceso("No se pudo crear la cuenta bancaria.");
 					}
-					*/
-					//TODO Traer CBU
+					
 					//***********************************************
 					//TODO Infomar CBU a liquidacion sueldos
 					//***********************************************
@@ -270,7 +276,7 @@ public class ControladorEmpleados {
 	private String crearJsonAltaEmpleado(Empleado empleado) {
 		JsonObjectBuilder json = Json.createObjectBuilder();
 		Long idUsuario = Long.parseLong(empleado.getDni());
-		String pwd = ControladorVentas.getInstance().getParamGral("default_password_banco");
+		String pwd = ControladorVentas.getInstance().getParamGral("banco_default_password");
 		String nombre = empleado.getNombre();
 		String apellido = empleado.getApellido();
 		JsonObjectBuilder idRol = Json.createObjectBuilder().add("id", Integer.valueOf(ControladorVentas.getInstance().getParamGral("banco_idRol")));
@@ -298,5 +304,32 @@ public class ControladorEmpleados {
 		}
 		 
 		return con.getResponseCode();
+	}
+	
+	private String averiguarCBUEmpleado(String cuit) throws IOException, ExcepcionProceso {
+		URL url = new URL("https://bank-back.herokuapp.com/api/v1/cuentas/" + cuit);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		conn.setDoOutput(true);
+		Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
+			StringBuilder response = new StringBuilder();
+			String responseLine = null;
+			while ((responseLine = br.readLine()) != null) {
+				response.append(responseLine.trim());
+			}
+			//return response.toString();
+			
+			JsonReader reader = Json.createReader(new StringReader(response.toString()));
+			JsonArray cuentasArr = reader.readArray();
+	        reader.close();
+	        List<JsonObject> cuentas = cuentasArr.getValuesAs(JsonObject.class);
+			for (JsonObject cuenta : cuentas) {
+				if (cuenta.getString("tipoCuenta").equals(ControladorVentas.getInstance().getParamGral("banco_tipoCuenta_deposito"))) return cuenta.getString("cbu");
+			}
+			throw new ExcepcionProceso("Caja de ahorro no encontrada.");
+		}
+
 	}
 }

@@ -10,6 +10,7 @@ import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.TipoFactura;
+import excepciones.ExcepcionProceso;
 
 public class VentaEfectivo extends Venta {
 	private Float montoRecibido;
@@ -77,5 +78,11 @@ public class VentaEfectivo extends Venta {
 	
 	public Float calcularVuelto () {
 		return this.montoRecibido - this.total;
+	}
+
+	@Override
+	public void confirmar() throws ExcepcionProceso {
+		// TODO Auto-generated method stub
+		
 	}
 }

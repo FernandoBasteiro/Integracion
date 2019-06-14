@@ -2,6 +2,9 @@ package controladores;
 
 import java.util.ArrayList;
 
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
+
 import org.joda.time.LocalDate;
 
 import daos.EmpleadoDAO;
@@ -26,6 +29,10 @@ import negocio.Venta;
 import negocio.VentaEfectivo;
 import negocio.VentaTarjetaCredito;
 import negocio.VentaTarjetaDebito;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ControladorVentas {
 	
@@ -82,7 +89,7 @@ public class ControladorVentas {
 							items.add(i);
 						}
 				}
-				
+				Venta venta;
 				//Ver tipo de VENTA
 				switch (v.getMedioDePago()) {
 					case EFECTIVO:
@@ -90,25 +97,40 @@ public class ControladorVentas {
 						
 						break;
 					case TARJETA_DEBITO:
-						//TODO llamar al BANCO
-						v.setAprobada(true);
+						venta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, v.getTotal(), v.getNumeroTarjeta(),
+								v.getCodigoSeguridad(), v.getNombre(), v.getDni(), v.getFechaVto(), v.getNroOperacion(), v.getAprobada(),
+								v.getPin(), v.getTipoCuenta(), v.getTipoFact(), v.getCuit(), null);
+						venta.setTotal(venta.calcularTotal());
+						
+						venta.confirmar();
+						venta.grabar();		
+						
+						v.setTotal(venta.getTotal());
+						v.setNroOperacion(((VentaTarjetaDebito) venta).getNroOperacion());
+						v.setAprobada(((VentaTarjetaDebito) venta).getAprobada());
+						
+						/*v.setAprobada(true);
 						v.setNroOperacion(123456);
 						if (v.getAprobada()) {
 							v = generarVentaTD(v, items, emp);
 						}
-						else throw new ExcepcionProceso("Error TD. Venta no aprobada.");
+						else throw new ExcepcionProceso("Error TD. Venta no aprobada.");*/
 						break;
 					case TARJETA_CREDITO:
-						//TODO llamar a CREDITOS COD 200 + STRING
+						venta = new VentaTarjetaCredito();
+						venta.confirmar();
+						venta.grabar();
+						/*
 						v.setAprobada(true);
 						v.setNroOperacion(456789); //TODO
 						if (v.getAprobada()) {
 							v = generarVentaTC(v, items, emp);
 						}
 						else throw new ExcepcionProceso("Error TC. Venta no aprobada.");
+						*/
 						break;
 					default: 
-						throw new ExcepcionProceso("Medio de pago invólido.");
+						throw new ExcepcionProceso("Medio de pago inválido.");
 				}
 				return v;
 			}
@@ -143,12 +165,15 @@ public class ControladorVentas {
 		return vd;
 	}
 	
-	private VentaDTO generarVentaTC(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {	
+	private VentaDTO generarVentaTC(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) throws ExcepcionProceso {	
 		VentaTarjetaCredito vta = new VentaTarjetaCredito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, vd.getTotal(), 
 				vd.getNumeroTarjeta(), 	vd.getCodigoSeguridad(), vd.getNombre(), vd.getDni(), vd.getFechaVto(), 
 				vd.getNroOperacion(), vd.getAprobada(), vd.getCantCuotas(), vd.getTipoFact(), vd.getCuit(), null);
 		
 		vta.setTotal(vta.calcularTotal());
+		//TODO Controlar
+		vta.confirmar();
+		
 		VentaDAO.getinstance().add(vta);
 		vd.setTotal(vta.getTotal());
 		vd.setNroOperacion(vta.getNroOperacion());
@@ -307,4 +332,6 @@ public void guardarParamGrales(EmpleadoDTO g, ParamGralesDTO pgDTO) throws Usuar
 	else throw new UsuarioNoLogueado("Usuario no logueado.");		
 }
 	
+
+
 }
