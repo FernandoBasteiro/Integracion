@@ -5,49 +5,50 @@
 	EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 	if (empleado == null)
 		response.sendRedirect("/index.jsp");
-	ArrayList<ParamGralesDTO> params = (ArrayList<ParamGralesDTO>) session.getAttribute("params");
+	ArrayList<ParamGralesDTO> params = (ArrayList<ParamGralesDTO>) request.getAttribute("params");
 	boolean isParams = (params != null) ? true : false;
 %>
 <jsp:include page="includes/header.jsp" />
 <main role="main">
 <div class="container">
-	<form action="/Private" method="post">
-		<div class="form-row">
-			<div class="form-group col-sm-12 text-right">
-				<h2 class="d-inline float-left">
-					<i class="fas fa-tools mr-3 text-danger"></i>Configuración General
-				</h2>
-				<button type="submit" class="btn btn-primary">
-					<i class="fas fa-save mr-2"></i>Guardar
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="d-inline">
+				<i class="fas fa-tools mr-3 text-danger"></i>Configuración General
+			</h2>
+			<hr />
+		</div>
+	</div>
+	<%
+		if (isParams) {
+			for (ParamGralesDTO p : params) {
+	%>
+	<form method="post" action="/Private?action=editParams" class="mb-3 border-bottom" id="editParam-<%=p.getId()%>">
+		<input type="hidden" name="params" value="<%=p.getId()%>" /> 
+		<div class="row">
+			<div class="col col-5">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">Clave</label>
+					<input class="col-sm-10 form-control" name="params" value="<%=p.getClave()%>" />
+				</div>
+			</div>
+			<div class="col col-5">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">Valor</label> 
+					<input class="col-sm-10 form-control" name="params" value="<%=p.getValor()%>" />
+				</div>
+			</div>
+			<div class="col col-2">
+				<button class="btn btn-outline-primary btn-block" type="submit">
+					<i class="fas fa-save mr-2"></i>Grabar
 				</button>
-				<hr />
 			</div>
 		</div>
-		<%
-			if (isParams) {
-				for (ParamGralesDTO p : params) {
-		%>
-		<div class="form-row">
-			<form method="post" action="/Private?action=editParams" id="editParam-<%=p.getId()%>">
-				<div class="form-row" class="col-sm-12">
-					<div class="col-sm-6">
-						<input type="hidden" name="params" value="<%=p.getId()%>" /> <label>Clave</label>
-						<input class="form-control" name="params" value="<%=p.getClave()%>" />
-					</div>
-					<div class="col-sm-6">
-						<label>Valor</label> 
-						<input class="form-control" name="params" value="<%=p.getValor()%>" />
-						<button class="btn btn-primary" type="submit"><i class="fas fa-save"></i></button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<%
-			}
-			}
-		%>
-
 	</form>
+	<%
+		}
+		}
+	%>
 	<hr />
 </div>
 <!-- container --> </main>

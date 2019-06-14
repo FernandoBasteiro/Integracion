@@ -293,5 +293,18 @@ public ArrayList<ParamGralesDTO> listarParamGrales(EmpleadoDTO g) throws Usuario
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
+
+public void guardarParamGrales(EmpleadoDTO g, ParamGralesDTO pgDTO) throws UsuarioNoLogueado, UsuarioSinPermisos {
+	
+	
+	if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+		if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+			ParamGrales pg = new ParamGrales(pgDTO.getId(),pgDTO.getClave(),pgDTO.getValor());
+			ParamGralesDAO.getinstance().add(pg);
+		} 		
+		else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+	}		
+	else throw new UsuarioNoLogueado("Usuario no logueado.");		
+}
 	
 }

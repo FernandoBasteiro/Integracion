@@ -18,12 +18,12 @@ import javax.servlet.http.HttpSession;
 import delegado.BusinessDelegate;
 import dto.EmpleadoDTO;
 import dto.ItemVentaDTO;
+import dto.ParamGralesDTO;
 import dto.ProductoDTO;
 import dto.StockDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoCivil;
 import enumeraciones.EstadoEmpleado;
-import enumeraciones.EstadoFactura;
 import enumeraciones.EstadoVenta;
 import enumeraciones.Genero;
 import enumeraciones.MedioDePago;
@@ -34,6 +34,7 @@ import excepciones.ComunicacionException;
 import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
+
 
 /**
  * Servlet implementation class Private
@@ -260,7 +261,46 @@ public class Private extends HttpServlet {
 				}
 				request.setAttribute("empleados", empleados);
 				jspPage = "empleados/index.jsp";
-			} else if (action.equals("listarProductos")) {
+				
+			}else if (action.equals("listParams")) {
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
+				ArrayList<ParamGralesDTO> params = new ArrayList<ParamGralesDTO>();
+			
+				try {
+					params = bd.listarParamGrales(logged);
+				} catch (ExcepcionProceso e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				request.setAttribute("params", params);
+				jspPage = "config.jsp";
+				
+				
+			}else if (action.equals("editParams")) {
+					
+			String[] cadenaParams = request.getParameterValues("params");
+			ParamGralesDTO pg = new ParamGralesDTO();
+			for (String item : cadenaParams) {
+				List<String> listStrItems = Arrays.asList(item.split(","));
+				pg.setId(Integer.parseInt(listStrItems.get(0)));
+				pg.setClave(listStrItems.get(1));
+				pg.setValor(listStrItems.get(2));
+			}
+		
+
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				Long codigo = (request.getParameter("buscarProductoCodigo") == null ? null
@@ -323,7 +363,7 @@ public class Private extends HttpServlet {
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				TipoFactura tf = TipoFactura.fromId(request.getParameter("tipoFactura") == null ? null
 						: Integer.valueOf(request.getParameter("tipoFactura")));
-				String cuit = request.getParameter("cuitFactura");
+				String cuit = (tf == TipoFactura.C) ? "Consumidor Final" : request.getParameter("cuitFactura");
 				String[] itemsStr = request.getParameterValues("items");
 				ArrayList<ItemVentaDTO> items = new ArrayList<ItemVentaDTO>();
 				for (String itemStr : itemsStr) {

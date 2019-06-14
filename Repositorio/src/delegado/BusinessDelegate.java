@@ -249,6 +249,14 @@ public class BusinessDelegate {
 			}
 		}
 	
+	public void guardarParamGrales(EmpleadoDTO empleado, ParamGralesDTO pg) throws RemoteException, ExcepcionProceso, UsuarioNoLogueado, UsuarioSinPermisos, ComunicacionException{
+		try {
+			 ir.guardarParamGrales(empleado,pg);
+		} catch (RemoteException re) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
+	}
+
 	
 	
 	
