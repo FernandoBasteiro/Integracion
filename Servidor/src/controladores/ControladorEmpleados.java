@@ -267,11 +267,11 @@ public class ControladorEmpleados {
 	private String crearJsonAltaEmpleado(Empleado empleado) {
 		JsonObjectBuilder json = Json.createObjectBuilder();
 		Long idUsuario = Long.parseLong(empleado.getDni());
-		String pwd = ControladorVentas.getInstance().getDefault_password_banco();
+		String pwd = ControladorVentas.getInstance().getParamGral("default_password_banco");
 		String nombre = empleado.getNombre();
 		String apellido = empleado.getApellido();
-		JsonObjectBuilder idRol = Json.createObjectBuilder().add("id", ControladorVentas.getInstance().getBanco_idRol());
-		JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", ControladorVentas.getInstance().getBanco_idProducto()); //Juridica
+		JsonObjectBuilder idRol = Json.createObjectBuilder().add("id", Integer.valueOf(ControladorVentas.getInstance().getParamGral("banco_idRol")));
+		JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", Integer.valueOf(ControladorVentas.getInstance().getParamGral("banco_idProducto")));
 		json.add("idUsuario", idUsuario);
 		json.add("contrasena", pwd);
 		json.add("nombre", nombre);
