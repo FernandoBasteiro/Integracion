@@ -34,6 +34,10 @@ public class VentaEfectivo extends Venta {
 	
 	
 	
+	public VentaEfectivo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Float getMontoRecibido() {
 		return montoRecibido;
 	}
