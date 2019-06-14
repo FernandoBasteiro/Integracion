@@ -74,6 +74,9 @@
 	    	%>
 		</ul>
 	    <a class="btn btn-outline-info" href="/Private?action=logout">Cerrar sesión</a>
+	    <% if (empleado.getPuesto().getId() >= Puesto.GERENTE.getId()) { %>
+	    <a class="btn btn-dark ml-2" href="/config.jsp"><i class="fas fa-tools"></i></a>
+	    <% } %>
 	  </div>
 	</nav>
 	<%
