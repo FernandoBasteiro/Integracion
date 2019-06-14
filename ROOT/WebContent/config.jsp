@@ -11,30 +11,44 @@
 <jsp:include page="includes/header.jsp" />
 <main role="main">
 <div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="d-inline">
+				<i class="fas fa-tools mr-3 text-danger"></i>Configuración General
+			</h2>
+			<hr />
+		</div>
+	</div>
+	<%
+		if (isParams) {
+			for (ParamGralesDTO p : params) {
+	%>
+	<form method="post" action="/Private?action=editParams" class="mb-2" id="editParam-<%=p.getId()%>">
+		<input type="hidden" name="params" value="<%=p.getId()%>" /> 
 		<div class="row">
-			<div class="col-sm-12">
-				<h2 class="d-inline">
-					<i class="fas fa-tools mr-3 text-danger"></i>Configuración General
-				</h2>
-				<hr />
+			<div class="col col-5">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">Clave</label>
+					<input class="col-sm-10 form-control" name="params" value="<%=p.getClave()%>" />
+				</div>
+			</div>
+			<div class="col col-5">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">Valor</label> 
+					<input class="col-sm-10 form-control" name="params" value="<%=p.getValor()%>" />
+				</div>
+			</div>
+			<div class="col col-2">
+				<button class="btn btn-primary btn-block" type="submit">
+					<i class="fas fa-save mr-2"></i>Grabar
+				</button>
 			</div>
 		</div>
-		<%
-			if (isParams) {
-				for (ParamGralesDTO p : params) {
-		%>
-		<form class="form-inline" method="post" action="/Private?action=editParams" id="editParam-<%=p.getId()%>">
-			<input type="hidden" name="params" value="<%=p.getId()%>" /> 
-			<label>Clave</label>
-			<input class="form-control" name="params" value="<%=p.getClave()%>" />
-			<label>Valor</label> 
-			<input class="form-control" name="params" value="<%=p.getValor()%>" />
-				<button class="btn btn-primary" type="submit"><i class="fas fa-save"></i></button>
-		</form>
-		<%
-			}
-			}
-		%>
+	</form>
+	<%
+		}
+		}
+	%>
 	<hr />
 </div>
 <!-- container --> </main>
