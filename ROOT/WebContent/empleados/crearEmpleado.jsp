@@ -171,11 +171,11 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 			<div class="form-row">
 				<div class="form-group col-sm-6">
 					<label for="passwordEmpleado">Contraseña</label>
-					<input type="password" <%=(emp == null) ? "required" : "" %> placeholder="Ingrese una contraseña para el empleado..." name="passwordEmpleado" class="form-control" value=""/>
+					<input type="password" <%=(emp == null) ? "required" : "" %> placeholder="Ingrese una contraseña para el empleado..." name="passwordEmpleado" id="passwordEmpleado" class="form-control" value=""/>
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="passwordEmpleado2">Confirmar contraseña</label>
-					<input type="password" <%=(emp == null) ? "required" : "" %> placeholder="Repita la contraseña..." name="passwordEmpleado2" class="form-control" value=""/>
+					<input type="password" <%=(emp == null) ? "required" : "" %> placeholder="Repita la contraseña..." name="passwordEmpleado2" id="passwordEmpleado2" class="form-control" value=""/>
 				</div>
 			</div>
 			<div class="form-row">

@@ -13,14 +13,7 @@ import javax.json.JsonObjectBuilder;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-		Integer asd = 13;
-		Integer dsa = 13;
-		if (asd == dsa) {
-			System.out.println("WTF");
-		}
-		else {
-			System.err.println("WTF x 2");
-		}
+		pegarleAlBanco();
 
 	}
 
@@ -72,25 +65,37 @@ public class Test {
 			}
 			System.out.println(response.toString());
 		}
+		con.getResponseCode();
 	}
 	
 	public static String crearJson() {
 		JsonObjectBuilder json = Json.createObjectBuilder();
-		Long idUsuario = Long.parseLong("20332419006");
+		Long idUsuario = Long.parseLong("30313231344");
 		String pwd = "password";
 		String nombre = "Fernando"; //Fisica
 		String apellido = "Basteiro"; //Juridica
-		String razonSocial = "Super Sarasa";
+		//String razonSocial = "Super Sarasa S.R.L.";
 		JsonObjectBuilder idRol = Json.createObjectBuilder().add("id", 1);
-		JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", 5); //Fisica
-		//JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", 6); //Juridica
+		//JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", 5); //Fisica
+		JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", 6); //Juridica
 		json.add("idUsuario", idUsuario);
 		json.add("contrasena", pwd);
 		json.add("nombre", nombre);
 		json.add("apellido", apellido);
+		//json.add("razonSocial", razonSocial);
 		json.add("idRol", idRol);
 		json.add("idProducto", idProducto);
 		
 		return json.build().toString();
+	}
+	
+	private String averiguarCBUEmpleado() {
+		URL url = new URL("https://bank-back.herokuapp.com/api/v1/cuentas/1231231231");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		conn.setDoOutput(true);
+		Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
 	}
 }
