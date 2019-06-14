@@ -1,6 +1,7 @@
 package Servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -440,6 +441,7 @@ public class Private extends HttpServlet {
 					}
 					request.setAttribute("venta", v);
 					request.setAttribute("success", "\u00A1Venta aprobada! "+resp+".");
+					request.setAttribute("script", true);
 				} catch (ExcepcionProceso e) {
 					request.setAttribute("venta", v);
 					request.setAttribute("error", e.getMessage());
