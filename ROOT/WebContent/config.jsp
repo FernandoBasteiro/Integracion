@@ -3,7 +3,7 @@
 <%
 EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/index.jsp");
-ParamGralesDTO params = (ParamGralesDTO) session.getAttribute("params");
+ArrayList<ParamGralesDTO> params = (ParamGralesDTO) session.getAttribute("params");
 boolean isParams = (params != null) ? true : false;
 %>
 <jsp:include page="includes/header.jsp"/>
@@ -16,6 +16,11 @@ boolean isParams = (params != null) ? true : false;
 					<button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Guardar</button>
 					<hr/>
 				</div>
+				<% if(isParams){ 
+
+				%>
+					
+				<% } %>
 			</div>
 		</form>
 		<hr/>
