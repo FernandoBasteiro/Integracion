@@ -88,13 +88,14 @@
 									<th scope="col">Cantidad</th>
 									<th scope="col">Precio</th>
 									<th scope="col">Subtotal</th>
+									<th scope="col">Eliminar</th>
 								</tr>
 							</thead>
 							<tbody>
 							</tbody>
 							<tfoot>
 								<tr class="table-active">
-									<th colspan="6" class="text-right ">Total</th>
+									<th colspan="7" class="text-right ">Total</th>
 									<th id="totalVenta"></th>
 								</tr>
 							</tfoot>
