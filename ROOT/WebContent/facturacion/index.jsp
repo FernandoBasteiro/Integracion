@@ -37,7 +37,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">Buscar</div>
 							</div>
-							<input name="buscarFacturaNumero" type="search"
+							<input name="buscarFacturaNumero" type="search" required
 								class="form-control" placeholder="Ingrese número de factura..."
 								aria-label="Ingrese número de factura"
 								aria-describedby="buscarFacturaNumero">
@@ -56,7 +56,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">Buscar</div>
 							</div>
-							<input name="buscarFacturaOperacion" type="search"
+							<input name="buscarFacturaOperacion" type="search" required
 								class="form-control"
 								placeholder="Ingrese número de operación..."
 								aria-label="Ingrese número de operación"
@@ -108,10 +108,12 @@
 							%>
 						</select>
 					</div>
-					<div class="form-group col-sm-3">
+					<div class="form-group col-sm-2">
 						<button class="btn btn-secondary btn-block" type="submit">Filtrar</button>
 					</div>
-
+					<div class="form-group col-sm-1">
+							<a href="/Private?action=listarVentas" title="Limpiar Filtros" class="btn btn-outline-secondary btn-block" role="button"><i class="fas fa-eraser"></i></a>
+					</div>
 				</div>
 			</form>
 
