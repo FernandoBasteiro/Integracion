@@ -13,7 +13,7 @@ import javax.json.JsonObjectBuilder;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-		pegarleAlBanco();
+		System.out.println(averiguarCBUEmpleado());
 
 	}
 
@@ -89,13 +89,21 @@ public class Test {
 		return json.build().toString();
 	}
 	
-	private String averiguarCBUEmpleado() {
-		URL url = new URL("https://bank-back.herokuapp.com/api/v1/cuentas/1231231231");
+	private static String averiguarCBUEmpleado() throws Exception {
+		URL url = new URL("https://bank-back.herokuapp.com/api/v1/cuentas/23308334589");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		conn.setDoOutput(true);
 		Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
+			StringBuilder response = new StringBuilder();
+			String responseLine = null;
+			while ((responseLine = br.readLine()) != null) {
+				response.append(responseLine.trim());
+			}
+			return response.toString();
+		}
 
 	}
 }
