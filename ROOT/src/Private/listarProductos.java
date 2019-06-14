@@ -45,7 +45,8 @@ public class listarProductos extends HttpServlet {
 						.add("descripcion", p.getDescripcion())
 						.add("presentacion", p.getPresentacion())
 						.add("precio", p.getPrecio());
-				productosJson.add(productoJson);
+				if(p.getStock().getCantidadDisponible()>0)
+					productosJson.add(productoJson);
 			}
 			json.add("productos", productosJson);
 		}
