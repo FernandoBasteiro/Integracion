@@ -231,7 +231,7 @@ if ($('#productoAutocomplete').length) {
 					creditoDni: $('input[name=creditoDni]').val(),
 					creditoVencimiento: $('input[name=creditoVencimiento]').val(),
 					creditoCuotas: $('input[name=creditoCuotas]').val(),
-					total : $()
+					total : $('#totalVenta').text()
 			}
 			//#	Código	Nombre	Presentación	Cantidad	Precio	Subtotal
 			$.each($('input[name=items]'), function(){
