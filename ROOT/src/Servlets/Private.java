@@ -390,8 +390,10 @@ public class Private extends HttpServlet {
 					String resp = "";
 					if(v.getMedioDePago() == MedioDePago.EFECTIVO) {
 						resp = "Su vuelto es $" + v.getVuelto().toString();
-					}else {
+					}else if(v.getMedioDePago() == MedioDePago.TARJETA_CREDITO) {
 						resp = "El nro. de operación es " + v.getNroOperacion();
+					}else {
+						resp = "Su pago ha sido debitado";
 					}
 					request.setAttribute("venta", v);
 					request.setAttribute("success", "¡Venta aprobada! "+resp+".");
