@@ -37,7 +37,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">Buscar</div>
 							</div>
-							<input name="buscarFacturaNumero" type="search"
+							<input name="buscarFacturaNumero" type="search" required
 								class="form-control" placeholder="Ingrese número de factura..."
 								aria-label="Ingrese número de factura"
 								aria-describedby="buscarFacturaNumero">
@@ -56,7 +56,7 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">Buscar</div>
 							</div>
-							<input name="buscarFacturaOperacion" type="search"
+							<input name="buscarFacturaOperacion" type="search" required
 								class="form-control"
 								placeholder="Ingrese número de operación..."
 								aria-label="Ingrese número de operación"

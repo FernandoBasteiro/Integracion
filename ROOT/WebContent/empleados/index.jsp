@@ -27,7 +27,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 									<div class="input-group-prepend">
 							          <div class="input-group-text">Buscar</div>
 							      </div>
-								  <input name="buscarEmpleadoLegajo" type="search" class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
+								  <input name="buscarEmpleadoLegajo" type="search" required class="form-control" placeholder="Ingrese legajo..." aria-label="Ingrese legajo" aria-describedby="buscarEmpleadoLegajo">
 								   <div class="input-group-append">
 								    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 								  </div>

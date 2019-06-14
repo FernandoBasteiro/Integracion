@@ -257,7 +257,7 @@ public class Private extends HttpServlet {
 					empleados = bd.listarEmpleadoPorLegajo(logged, legajo);
 				} else if (dni != null) {
 					empleados = bd.listarEmpleadoPorDNI(logged, dni);
-				} else {
+				} else {					
 					empleados = bd.listarEmpleados(logged, puesto, estado);
 				}
 				request.setAttribute("empleados", empleados);
