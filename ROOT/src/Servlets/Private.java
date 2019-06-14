@@ -441,10 +441,11 @@ public class Private extends HttpServlet {
 					}
 					request.setAttribute("venta", v);
 					request.setAttribute("success", "\u00A1Venta aprobada! "+resp+".");
-					request.setAttribute("script", true);
+					request.setAttribute("script", "true");
 				} catch (ExcepcionProceso e) {
 					request.setAttribute("venta", v);
 					request.setAttribute("error", e.getMessage());
+					request.setAttribute("script", "false");
 				}
 				jspPage = "facturacion/vender.jsp";
 				/*
