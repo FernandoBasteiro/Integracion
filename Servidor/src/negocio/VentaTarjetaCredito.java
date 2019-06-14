@@ -139,11 +139,11 @@ public class VentaTarjetaCredito extends Venta {
 	}
 
 	@Override
-	public void confirmar() throws ExcepcionProceso {
+	public void confirmar(Integer nroProxFactura) throws ExcepcionProceso {
 		
 		JsonReader reader;
 		try {
-			reader = Json.createReader(new StringReader(compraCredito()));
+			reader = Json.createReader(new StringReader(compraCredito(nroProxFactura)));
 			JsonObject cuentasArr = reader.readObject();
 	        reader.close();	
 	        if (cuentasArr.getInt("code") == 200) {
@@ -165,9 +165,9 @@ public class VentaTarjetaCredito extends Venta {
 	public VentaTarjetaCredito() {
 		// TODO Auto-generated constructor stub
 	}
-	private String compraCredito() throws Exception {
+	private String compraCredito(Integer nroProxFactura) throws Exception {
 		OkHttpClient client = new OkHttpClient();
-		byte[] input = crearJsonCredito().getBytes("utf-8");
+		byte[] input = crearJsonCredito(nroProxFactura).getBytes("utf-8");
 		RequestBody body = RequestBody.create(input);
 		Request request = new Request.Builder()
 		  .url("http://paypauli.herokuapp.com/api/txn/")
@@ -188,7 +188,7 @@ public class VentaTarjetaCredito extends Venta {
 
 
 
-	public String crearJsonCredito() {
+	public String crearJsonCredito(Integer nroProxFactura) {
 		String numeroTarjeta = this.getNumeroTarjeta();
 		String idEstablecimiento = ControladorVentas.getInstance().getParamGral("tc_id_establecimiento");
 		//String nroComprobante = this.getId().toString();
@@ -204,7 +204,7 @@ public class VentaTarjetaCredito extends Venta {
 		JsonObjectBuilder json = Json.createObjectBuilder()
 				.add("tarjeta", numeroTarjeta)
 				.add("idEstablecimiento",idEstablecimiento)
-				.add("nroComprobante","2")
+				.add("nroComprobante",nroProxFactura.toString())
 				.add("detalleTransaccion",detalleTransaccion)
 				.add("importeTotal", priceFormatter.format(importeTotal).toString())
 				.add("cuotas",cuotas)

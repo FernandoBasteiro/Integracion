@@ -93,7 +93,7 @@ public class ControladorVentas {
 						items.add(i);
 					}
 				}
-				Venta venta = new VentaEfectivo();
+				Venta venta = null;
 				// Ver tipo de VENTA
 				switch (v.getMedioDePago()) {
 				case EFECTIVO:
@@ -115,7 +115,7 @@ public class ControladorVentas {
 							v.getCuit(), null);
 					venta.setTotal(venta.calcularTotal());
 
-					venta.confirmar();
+					venta.confirmar(VentaDAO.getProxVenta());
 					venta.grabar();
 
 					v.setTotal(venta.getTotal());
@@ -134,7 +134,7 @@ public class ControladorVentas {
 							v.getNroOperacion(), v.getAprobada(), v.getCantCuotas(), v.getTipoFact(), v.getCuit(),
 							null);
 					venta.setTotal(venta.calcularTotal());
-					venta.confirmar();
+					venta.confirmar(VentaDAO.getProxVenta());
 					venta.grabar();
 
 					v.setTotal(venta.getTotal());
@@ -149,10 +149,12 @@ public class ControladorVentas {
 				default:
 					throw new ExcepcionProceso("Medio de pago inválido.");	
 				}
-				for (ItemVenta iv : venta.getItems()) {
-					iv.getProducto().getStock().descontarStock(iv.getCantidad());
-					ControladorProductos.getInstancia().actualizarStock(c, iv.getProducto().getDTO());
-					
+				if (venta != null) {
+					for (ItemVenta iv : venta.getItems()) {
+						iv.getProducto().getStock().descontarStock(iv.getCantidad());
+						ControladorProductos.getInstancia().actualizarStock(c, iv.getProducto().getDTO());
+						
+					}					
 				}
 				return v;
 			} else
@@ -176,7 +178,7 @@ public class ControladorVentas {
 			throw new ExcepcionProceso("Monto Recibido menor al total a pagar.");
 
 	}
-
+	/*
 	private VentaDTO generarVentaTD(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp) {
 		VentaTarjetaDebito vta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA,
 				vd.getTotal(), vd.getNumeroTarjeta(), vd.getCodigoSeguridad(), vd.getNombre(), vd.getDni(),
@@ -224,7 +226,7 @@ public class ControladorVentas {
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
-
+	*/
 	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws UsuarioNoLogueado, UsuarioSinPermisos {
 
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {

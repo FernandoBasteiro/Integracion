@@ -12,6 +12,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 
+import daos.VentaDAO;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -20,12 +21,7 @@ import okhttp3.Response;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-		try {
-			System.out.println(consultarCobranza());;
-		}
-		catch (SocketTimeoutException e) {
-			System.err.println("Timeout");
-		}
+		//System.out.println(VentaDAO.getinstance().getProxVenta());
 	}
 
 	

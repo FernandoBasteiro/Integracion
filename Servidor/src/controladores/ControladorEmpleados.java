@@ -93,7 +93,7 @@ public class ControladorEmpleados {
 					
 					try {
 						this.crearCuentaBanco(this.crearJsonAltaEmpleado(nuevo));
-						String cbu = this.averiguarCBUEmpleado(emp.getDni());
+						String cbu = this.averiguarCBUEmpleado(nuevo.getDni());
 						nuevo.setCbu(cbu);
 					} catch (Exception e) {
 						throw new ExcepcionProceso("No se pudo crear la cuenta bancaria.");
@@ -334,7 +334,7 @@ public class ControladorEmpleados {
 		RequestBody body = RequestBody.create(input);
 		Request request = new Request.Builder()
 		  .url("http://appdistflix.herokuapp.com/api/empleado/insert")
-		  .put(body)
+		  .post(body)
 		  .addHeader("Content-Type", "application/json")
 		  .build();
 
@@ -344,12 +344,12 @@ public class ControladorEmpleados {
 	
 	private Integer bajaCuentaLiquidaciones(Empleado empleado) throws Exception {
 		OkHttpClient client = new OkHttpClient();
-		String json = "{ 'cuil' : " + empleado.getDni() + "}";
+		String json = "{ \"cuil\" : \"" + empleado.getDni() + "\"}";
 		byte[] input = json.getBytes("utf-8");
 		RequestBody body = RequestBody.create(input);
 		Request request = new Request.Builder()
 		  .url("http://appdistflix.herokuapp.com/api/empleado/delete")
-		  .put(body)
+		  .delete(body)
 		  .addHeader("Content-Type", "application/json")
 		  .build();
 
