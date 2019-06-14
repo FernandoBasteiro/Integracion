@@ -76,7 +76,6 @@ if ($('#productoAutocomplete').length) {
 
 	(function() {
 		"use strict";
-		var superSarasa = window.localStorage;
 		var venta = {
 				tipoFactura: null,
 				cuitFactura: null,
@@ -95,7 +94,8 @@ if ($('#productoAutocomplete').length) {
 				creditoTitular: null,
 				creditoDni: null,
 				creditoVencimiento: null,
-				creditoCuotas: null
+				creditoCuotas: null,
+				total: null
 		}
 		var productos = [];
 
@@ -202,14 +202,15 @@ if ($('#productoAutocomplete').length) {
 			index++;
 			$('#codigo-producto, #buscarProducto').val('');
 			$('#cantidad-producto').val('1');
-			$('#totalVenta').text('$'+ totalVenta.toFixed(2));
-			itemVta.find('.delete').on('click', function(e){e.preventDefault(); $('#listadoItemVenta tbody tr').get($(this).closest('tr').index()).remove(); index--;totalVenta -= prod.precio*cantProd;$('#totalVenta').text('$'+ totalVenta.toFixed(2));});
+			$('#totalVenta').text(totalVenta.toFixed(2));
+			itemVta.find('.delete').on('click', function(e){e.preventDefault(); $('#listadoItemVenta tbody tr').get($(this).closest('tr').index()).remove(); index--;totalVenta -= prod.precio*cantProd;$('#totalVenta').text(totalVenta.toFixed(2));});
 			
 		})
 		
 		$('#formVenta').on('submit', function(e){
 			
-			if($('#formVenta tbody tr').length == 0) e.preventDefault(); return;
+			if($('#formVenta tbody tr').length == 0) e.preventDefault();
+			if(localStorage.getItem('venta')!=null)localStorage.clear();
 			
 			var venta = {
 					tipoFactura: $('select[name=tipoFactura]').val(),
@@ -229,7 +230,8 @@ if ($('#productoAutocomplete').length) {
 					creditoTitular: $('input[name=creditoTitular]').val(),
 					creditoDni: $('input[name=creditoDni]').val(),
 					creditoVencimiento: $('input[name=creditoVencimiento]').val(),
-					creditoCuotas: $('input[name=creditoCuotas]').val()
+					creditoCuotas: $('input[name=creditoCuotas]').val(),
+					total : $('#totalVenta').text()
 			}
 			//#	Código	Nombre	Presentación	Cantidad	Precio	Subtotal
 			$.each($('input[name=items]'), function(){
@@ -242,7 +244,7 @@ if ($('#productoAutocomplete').length) {
 					};
 				venta.items.push(itemData);
 			})
-			superSarasa.setItem('venta', JSON.stringify(venta));
+			localStorage.setItem('venta', JSON.stringify(venta));
 
 		});
 
