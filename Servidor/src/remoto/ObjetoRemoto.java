@@ -10,6 +10,7 @@ import controladores.ControladorProductos;
 import controladores.ControladorVentas;
 import controladores.ConversorFechas;
 import dto.EmpleadoDTO;
+import dto.ParamGralesDTO;
 import dto.ProductoDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoEmpleado;
@@ -163,6 +164,10 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfazRemota 
 	@Override
 	public EmpleadoDTO listarNovedades(EmpleadoDTO empleado) throws RemoteException, ExcepcionProceso {
 		return ControladorEmpleados.getInstance().listarNovedades(empleado);
+	}
+	
+	public ArrayList<ParamGralesDTO> listarParamGrales(EmpleadoDTO empleado) throws RemoteException, ExcepcionProceso, UsuarioNoLogueado, UsuarioSinPermisos{
+		return ControladorVentas.getInstance().listarParamGrales(empleado);
 	}
 	
 }

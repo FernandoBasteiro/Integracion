@@ -1,15 +1,17 @@
 package controladores;
 
-import org.joda.time.LocalDate;
 import java.util.ArrayList;
-import daos.ParamGralesDAO;
+
+import org.joda.time.LocalDate;
+
 import daos.EmpleadoDAO;
+import daos.ParamGralesDAO;
 import daos.ProductoDAO;
 import daos.VentaDAO;
 import dto.EmpleadoDTO;
 import dto.ItemVentaDTO;
+import dto.ParamGralesDTO;
 import dto.VentaDTO;
-import entities.ParamGralesEntity;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
@@ -18,6 +20,7 @@ import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Empleado;
 import negocio.ItemVenta;
+import negocio.ParamGrales;
 import negocio.Producto;
 import negocio.Venta;
 import negocio.VentaEfectivo;
@@ -26,18 +29,34 @@ import negocio.VentaTarjetaDebito;
 
 public class ControladorVentas {
 	
-	private static ControladorVentas instance;
-	private String  cuit; // los usa el bco + liquidar sueldo
-	private Integer tc_id_establecimiento;	 //lo usa la entidad crediticia
-	private String  bco_cbu;          	     //lo usa la entidad bancaria
-	private String  razonSocial;	 	//lo usa la entidad bancaria
 	
+	private static ControladorVentas instance;
+	private ArrayList<ParamGrales> parametros;
+	/*
+	private String cuit; // los usa el bco + liquidar sueldo
+	private Integer tc_id_establecimiento;	 //lo usa la entidad crediticia
+	private String cc_cbu;          	     //lo usa la entidad bancaria
+	private String ca_cbu;
+	private String razonSocial;	 	//lo usa la entidad bancaria
+	private String default_password_banco;
+	private Integer banco_idRol;
+	private Integer banco_idProducto;
+	*/
 	public ControladorVentas() {
+		this.parametros = ParamGralesDAO.getinstance().getParamGrales();
+		/*
 		this.cuit = ParamGralesDAO.getinstance().getValor("cuit");
 		String id_est_str = ParamGralesDAO.getinstance().getValor("tc_id_establecimiento");
 		this.tc_id_establecimiento = (id_est_str == null ? null : Integer.valueOf(id_est_str));
-		this.bco_cbu = ParamGralesDAO.getinstance().getValor("bco_cbu");
+		this.cc_cbu = ParamGralesDAO.getinstance().getValor("cc_cbu");
+		this.ca_cbu = ParamGralesDAO.getinstance().getValor("ca_cbu");
 		this.razonSocial = ParamGralesDAO.getinstance().getValor("razonSocial");
+		this.default_password_banco = ParamGralesDAO.getinstance().getValor("default_password_banco");
+		String banco_idRolStr = ParamGralesDAO.getinstance().getValor("banco_idRol");
+		this.banco_idRol = (banco_idRolStr == null ? null : Integer.valueOf(banco_idRolStr));
+		String banco_idProductoStr = ParamGralesDAO.getinstance().getValor("banco_idProducto");
+		this.banco_idProducto = (banco_idProductoStr == null ? null : Integer.valueOf(banco_idProductoStr));
+		*/
 	}
 
 	public static ControladorVentas getInstance(){
@@ -253,21 +272,26 @@ public class ControladorVentas {
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 
-	public String getCuit() {
-		return cuit;
-	}
-
-	public Integer getTc_id_establecimiento() {
-		return tc_id_establecimiento;
-	}
-
-	public String getBco_cbu() {
-		return bco_cbu;
-	}
-
-	public String getRazonSocial() {
-		return razonSocial;
+	public String getParamGral(String clave) {
+		for (ParamGrales pg : parametros) if (pg.getClave().equals(clave)) return pg.getValor();
+		return null;
 	}
 	
+public ArrayList<ParamGralesDTO> listarParamGrales(EmpleadoDTO g) throws UsuarioNoLogueado, UsuarioSinPermisos {
+		
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<ParamGrales> pgs = ParamGralesDAO.getinstance().getParamGrales();
+				ArrayList<ParamGralesDTO> pgDTOs = new ArrayList<ParamGralesDTO> ();
+				
+				for (ParamGrales pg : pgs) 
+					 pgDTOs.add(pg.getDTO());
+								
+				return pgDTOs;								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");		
+	}
 	
 }

@@ -1,6 +1,18 @@
 package controladores;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 
 import org.joda.time.LocalDate;
 
@@ -58,19 +70,22 @@ public class ControladorEmpleados {
 				Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByDni(empleado.getDni());
 				if (emp == null) {
 					Empleado nuevo = new Empleado(empleado.getNombre(), empleado.getApellido(), empleado.getDni(),
-							empleado.getDomicilio(), empleado.getTelefono(), empleado.getEmail(),
-							empleado.getEstadoCivil(), empleado.getGenero(),
-							ConversorFechas.convertJavaToJoda(empleado.getFechaNacimiento()),
-							ConversorFechas.convertJavaToJoda(empleado.getFechaIngreso()),
-							ConversorFechas.convertJavaToJoda(empleado.getFechaEgreso()), empleado.getEstadoEmpleado(),
-							empleado.getNacionalidad(), empleado.getPassword(), empleado.getSueldoBase(),
-							empleado.getHorasAsignadas(), empleado.getPuesto(), empleado.getCbu(),
-							empleado.getSession());
-					
-					//*************************************************************
-					//TODO Alta caja de ahorro en la entidad bancaria si cbu vacio
-					//*************************************************************
-					
+					empleado.getDomicilio(), empleado.getTelefono(), empleado.getEmail(),
+					empleado.getEstadoCivil(), empleado.getGenero(),
+					ConversorFechas.convertJavaToJoda(empleado.getFechaNacimiento()),
+					ConversorFechas.convertJavaToJoda(empleado.getFechaIngreso()),
+					ConversorFechas.convertJavaToJoda(empleado.getFechaEgreso()), empleado.getEstadoEmpleado(),
+					empleado.getNacionalidad(), empleado.getPassword(), empleado.getSueldoBase(),
+					empleado.getHorasAsignadas(), empleado.getPuesto(), null,
+					empleado.getSession());
+					/*
+					try {
+						this.crearCuentaBanco(this.crearJsonAltaEmpleado(nuevo));
+					} catch (IOException e) {
+						throw new ExcepcionProceso("No se pudo crear la cuenta bancaria.");
+					}
+					*/
+					//TODO Traer CBU
 					//***********************************************
 					//TODO Infomar CBU a liquidacion sueldos
 					//***********************************************
@@ -120,7 +135,6 @@ public class ControladorEmpleados {
 					emp.setSueldoBase(e.getSueldoBase());
 					emp.setHorasAsignadas(e.getHorasAsignadas());
 					emp.setPuesto(e.getPuesto());
-					emp.setCbu(e.getCbu());	
 					
 
 					emp.guardar();
@@ -249,5 +263,37 @@ public class ControladorEmpleados {
 		if (emp != null) return emp.getDTO();
 		else throw new ExcepcionProceso("No existe el empleado");
 	}
-
+	
+	private String crearJsonAltaEmpleado(Empleado empleado) {
+		JsonObjectBuilder json = Json.createObjectBuilder();
+		Long idUsuario = Long.parseLong(empleado.getDni());
+		String pwd = ControladorVentas.getInstance().getParamGral("default_password_banco");
+		String nombre = empleado.getNombre();
+		String apellido = empleado.getApellido();
+		JsonObjectBuilder idRol = Json.createObjectBuilder().add("id", Integer.valueOf(ControladorVentas.getInstance().getParamGral("banco_idRol")));
+		JsonObjectBuilder idProducto = Json.createObjectBuilder().add("id", Integer.valueOf(ControladorVentas.getInstance().getParamGral("banco_idProducto")));
+		json.add("idUsuario", idUsuario);
+		json.add("contrasena", pwd);
+		json.add("nombre", nombre);
+		json.add("apellido", apellido);
+		json.add("idRol", idRol);
+		json.add("idProducto", idProducto);
+		return json.build().toString();
+	}
+	
+	private int crearCuentaBanco(String json) throws IOException {
+		URL url = new URL("https://bank-back.herokuapp.com/api/v1/usuario");
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("PUT");
+		con.setRequestProperty("Content-Type", "application/json; utf-8");
+		con.setRequestProperty("Accept", "application/json");
+		con.setDoOutput(true);
+		
+		 try (OutputStream os = con.getOutputStream()) {
+			byte[] input = json.getBytes("utf-8");
+			os.write(input, 0, input.length);
+		}
+		 
+		return con.getResponseCode();
+	}
 }

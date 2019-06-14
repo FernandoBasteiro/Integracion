@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dto.EmpleadoDTO;
+import dto.ParamGralesDTO;
 import dto.VentaDTO;
 import dto.ProductoDTO;
 import enumeraciones.EstadoEmpleado;
@@ -51,4 +52,6 @@ public interface InterfazRemota extends Remote {
 	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	public ProductoDTO mostrarProducto (EmpleadoDTO supervisor, ProductoDTO p) throws RemoteException, UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos;
 	
+	public ArrayList<ParamGralesDTO> listarParamGrales(EmpleadoDTO empleado) throws RemoteException, ExcepcionProceso, UsuarioNoLogueado, UsuarioSinPermisos;
+
 }
