@@ -110,7 +110,7 @@
 							itemVta.data('precio',v.precio);
 							$('#formVenta tbody').append(itemVta)
 							index++;
-							$('#totalVenta').text(totalVenta.toFixed(2));
+							$('#totalVenta').text(parseFloat(totalVenta).toFixed(2));
 							itemVta.find('.delete').on(
 									'click',
 									function(e) {
