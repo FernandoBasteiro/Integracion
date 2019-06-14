@@ -32,55 +32,20 @@ public class Test {
 
 	}
 
-	private static void listarEmpleados() throws Exception {
-		URL url = new URL("https://bank-back.herokuapp.com/api/v1/cuentas/1231231231");
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		// conn.setRequestProperty("Content-Length",
-		// String.valueOf(postDataBytes.length));
-		conn.setDoOutput(true);
-		// conn.getOutputStream().write();
+	
+	private static void crearCuentaBancaria() throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		byte[] input = crearJson().getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("https://bank-back.herokuapp.com/api/v1/usuario")
+		  .put(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("Postman-Token", "c17b7809-88f5-4b43-a848-93ac24536b41")
+		  .build();
 
-		Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-		
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
-			StringBuilder response = new StringBuilder();
-			String responseLine = null;
-			while ((responseLine = br.readLine()) != null) {
-				response.append(responseLine.trim());
-			}
-			System.out.println(response.toString());
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		for (int c; (c = in.read()) >= 0;)
-			sb.append((char) c);
-		String response = sb.toString();
-	}
-
-	private static void pegarleAlBanco() throws Exception {
-		URL url = new URL("https://bank-back.herokuapp.com/api/v1/usuario");
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("PUT");
-		con.setRequestProperty("Content-Type", "application/json; utf-8");
-		con.setRequestProperty("Accept", "application/json");
-		con.setDoOutput(true);
-		String jsonInputString = crearJson();
-
-		 try (OutputStream os = con.getOutputStream()) {
-			byte[] input = jsonInputString.getBytes("utf-8");
-			os.write(input, 0, input.length);
-		}
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-			StringBuilder response = new StringBuilder();
-			String responseLine = null;
-			while ((responseLine = br.readLine()) != null) {
-				response.append(responseLine.trim());
-			}
-			System.out.println(response.toString());
-		}
-		con.getResponseCode();
+		Response response = client.newCall(request).execute();
 	}
 	
 	public static String crearJson() {
@@ -120,9 +85,6 @@ public class Test {
 	
 	private static String compraCredito() throws Exception {
 		OkHttpClient client = new OkHttpClient();
-
-		MediaType mediaType = MediaType.parse("application/json");
-		//RequestBody body = RequestBody.create(mediaType, "{\n    \"tarjeta\": \"5491326606977978\",\n    \"idEstablecimiento\": \"2\",\n    \"nroComprobante\": \"123123\",\n    \"detalleTransaccion\": \"Cafe de Prueba\",\n    \"importeTotal\": \"500.50\",\n    \"cuotas\": \"1\",\n    \"cvc\": \"866\"\n}");
 		byte[] input = crearJsonCredito().getBytes("utf-8");
 		RequestBody body = RequestBody.create(input);
 		Request request = new Request.Builder()
