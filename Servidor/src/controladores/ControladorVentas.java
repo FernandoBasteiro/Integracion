@@ -97,8 +97,16 @@ public class ControladorVentas {
 				// Ver tipo de VENTA
 				switch (v.getMedioDePago()) {
 				case EFECTIVO:
-					v = generarVentaEfectivo(v, items, emp);
+					venta = new VentaEfectivo(LocalDate.now(), items, emp, EstadoVenta.COBRADA, v.getTotal(),
+							v.getMontoRecibido(), v.getVuelto(), v.getTipoFact(), v.getCuit(), LocalDate.now());
+					venta.setTotal(venta.calcularTotal());
 
+					v.setTotal(venta.getTotal());
+					v.setVuelto(((VentaEfectivo)venta).calcularVuelto());
+					if (v.getVuelto() >= (float) 0) {
+						venta.grabar();
+					} else
+						throw new ExcepcionProceso("Monto Recibido menor al total a pagar.");
 					break;
 				case TARJETA_DEBITO:
 					venta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, v.getTotal(),
@@ -143,6 +151,8 @@ public class ControladorVentas {
 				}
 				for (ItemVenta iv : venta.getItems()) {
 					iv.getProducto().getStock().descontarStock(iv.getCantidad());
+					ControladorProductos.getInstancia().actualizarStock(c, iv.getProducto().getDTO());
+					
 				}
 				return v;
 			} else
