@@ -21,6 +21,8 @@ import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import daos.EmpleadoDAO;
 import dto.EmpleadoDTO;
@@ -91,15 +93,19 @@ public class ControladorEmpleados {
 					
 					try {
 						this.crearCuentaBanco(this.crearJsonAltaEmpleado(nuevo));
-						String cbu = this.averiguarCBUEmpleado(emp.getDni());
+						String cbu = this.averiguarCBUEmpleado(nuevo.getDni());
+						nuevo.setCbu(cbu);
 					} catch (Exception e) {
 						throw new ExcepcionProceso("No se pudo crear la cuenta bancaria.");
 					}
 					
-					//***********************************************
-					//TODO Infomar CBU a liquidacion sueldos
-					//***********************************************
-					
+					try {
+						if (this.crearCuentaLiquidaciones(this.crearJsonAltaLiquidacion(nuevo)) != 200) {
+							throw new ExcepcionProceso("No se pudo crear la cuenta liquidacion.");
+						}
+					} catch (Exception e) {
+						throw new ExcepcionProceso("No se pudo crear la cuenta liquidacion.");
+					}
 					nuevo.guardar();
 				} else
 					throw new ExcepcionProceso("Ya existe un empleado con ese n�mero de DNI.");
@@ -124,9 +130,14 @@ public class ControladorEmpleados {
 					if ((emp.getFechaEgreso()!=null && emp.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO && e.getEstadoEmpleado() != EstadoEmpleado.DESVINCULADO) || 
 							(emp.getFechaEgreso() == null && e.getEstadoEmpleado() == EstadoEmpleado.DESVINCULADO)) {
 						emp.setFechaEgreso(ConversorFechas.convertJavaToJoda(e.getFechaEgreso()));
-						//*************************************************************
-						//TODO informar a liquidacion de sueldos para liquidacion final
-						//************************************************************
+
+						try {
+							if (this.bajaCuentaLiquidaciones(emp) != 200) {
+								throw new ExcepcionProceso("Hubo un error al dar de baja del sistema de liquidaciones. Contacte a Liquid Salary para m\u00E1s informaci\u00F3n.");
+							}							
+						} catch (Exception ex) {
+							throw new ExcepcionProceso("Hubo un error al dar de baja del sistema de liquidaciones. Contacte a Liquid Salary para m\u00E1s informaci\u00F3n.");
+						}
 					}
 					
 					if (e.getPassword()!=null) {
@@ -233,15 +244,7 @@ public class ControladorEmpleados {
 				if (emp != null) {
 					emp.setEstadoEmpleado(EstadoEmpleado.ANULADO);
 					emp.setFechaEgreso(LocalDate.now());
-					emp.guardar();
-					//**************************************
-					//TODO llamar a LiqSueldo con baja
-					//***************************************
-					
-					//**************************************
-					//TODO llamar a Banco con baja?????
-					//***************************************
-					
+					emp.guardar();					
 				} else
 					throw new ExcepcionProceso("No existe un empleado con ese n�mero de legajo.");
 			} else
@@ -325,5 +328,60 @@ public class ControladorEmpleados {
 		return null;
 	}
 	
+	private Integer crearCuentaLiquidaciones(String json) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		byte[] input = json.getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("http://appdistflix.herokuapp.com/api/empleado/insert")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		return response.code();
+	}
 	
+	private Integer bajaCuentaLiquidaciones(Empleado empleado) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		String json = "{ \"cuil\" : \"" + empleado.getDni() + "\"}";
+		byte[] input = json.getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("http://appdistflix.herokuapp.com/api/empleado/delete")
+		  .delete(body)
+		  .addHeader("Content-Type", "application/json")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		return response.code();
+	}
+
+	
+	private String crearJsonAltaLiquidacion(Empleado empleado) {
+		JsonObjectBuilder json = Json.createObjectBuilder();
+		String cuit = ControladorVentas.getInstance().getParamGral("cuit");
+		String cuil = empleado.getDni();
+		String fechaIngreso = empleado.getFechaIngreso().toString(DateTimeFormat.forPattern("yyyy-MM-dd"));
+		String cbu = empleado.getCbu();
+		Boolean convenio = Boolean.valueOf(ControladorVentas.getInstance().getParamGral("liquidacion_hayConvenio")); //TODO
+		String rubro = ControladorVentas.getInstance().getParamGral("liquidacion_rubro");
+		String categoria = ControladorVentas.getInstance().getParamGral("liquidacion_categoria");
+		String tipoLiquidacion = ControladorVentas.getInstance().getParamGral("liquidacion_tipoLiquidacion");
+		Integer vacacionesDisp = Integer.valueOf(ControladorVentas.getInstance().getParamGral("liquidacion_vacacionesDisp"));
+		Integer diasEstudioDisp = Integer.valueOf(ControladorVentas.getInstance().getParamGral("liquidacion_diasEstudioDisp"));
+		Float sueldo = empleado.getSueldoBase();
+		json.add("cuit", cuit);
+		json.add("cuil", cuil);
+		json.add("fechaIngreso", fechaIngreso);
+		json.add("cbu", cbu);
+		json.add("convenio", convenio);
+		json.add("rubro", rubro);
+		json.add("categoria", categoria);
+		json.add("tipoLiquidacion", tipoLiquidacion);
+		json.add("vacacionesDisp", vacacionesDisp);
+		json.add("diasEstudioDisp", diasEstudioDisp);
+		json.add("sueldo", sueldo);
+		return json.build().toString();
+	}
 }

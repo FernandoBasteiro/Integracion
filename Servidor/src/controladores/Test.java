@@ -1,12 +1,9 @@
 package controladores;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.Reader;
+import java.io.IOException;
 import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.json.Json;
@@ -15,10 +12,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-
-import okhttp3.MediaType;
+import daos.VentaDAO;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -27,9 +21,7 @@ import okhttp3.Response;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(averiguarCBUEmpleado());
-		System.out.println(compraCredito());
-
+		System.out.println(consultarCobranza());
 	}
 
 	
@@ -106,8 +98,6 @@ public class Test {
 		return response.body().string();
 	}
 	
-
-	
 	public static String crearJsonCredito() {
 		JsonObjectBuilder json = Json.createObjectBuilder()
 				.add("tarjeta", "5491326606977978")
@@ -120,4 +110,59 @@ public class Test {
 		return json.build().toString();
 	}
 
+	private static Integer compraDebito() throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		byte[] input = crearJsonDebito().getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("https://bank-back.herokuapp.com/api/v1/public/debitar")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("User-Agent", "PostmanRuntime/7.15.0")
+		  .addHeader("Accept", "*/*")
+		  .addHeader("Cache-Control", "no-cache")
+		  .addHeader("Postman-Token", "01dc7d2e-4d70-41d7-94d7-d164671fb4d5,5118ffc9-c697-4fb7-a605-6ccce3b81a4a")
+		  .addHeader("Host", "bank-back.herokuapp.com")
+		  .addHeader("accept-encoding", "gzip, deflate")
+		  .addHeader("content-length", "229")
+		  .addHeader("Connection", "keep-alive")
+		  .addHeader("cache-control", "no-cache")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		return response.code();
+	}
+	
+	public static String crearJsonDebito() {
+		JsonObjectBuilder json = Json.createObjectBuilder()
+				.add("cbuEstablecimiento", "1234567891011614055292")
+				.add("codigoSeguridad", 885)
+				.add("descripcion", "Super Sarasa S.R.L.")
+				.add("fechaVencimiento", "2020-06-01T00:00:00.000")
+				.add("monto", 150)
+				.add("numeroTarjeta", "4517650281045768");
+		return json.build().toString();
+	}
+	
+	public static ArrayList<Integer> consultarCobranza() throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url("http://paypauli.herokuapp.com/api/consultar/resumen/abonados/9/201906").get().build();
+		Response response = client.newCall(request).execute();
+		String json = response.body().string();
+		try {
+		JsonReader reader = Json.createReader(new StringReader(json));
+		JsonArray cobrosArr = reader.readArray();
+        reader.close();
+        ArrayList<Integer> codOps = new ArrayList<Integer>();
+        List<JsonObject> cobros = cobrosArr.getValuesAs(JsonObject.class);
+		for (JsonObject cobro : cobros) {
+			codOps.add(cobro.getInt("comprobante"));
+		}
+		return codOps;
+		}
+		catch (Exception e) {
+			throw new Exception();
+		}
+	}
+	
 }

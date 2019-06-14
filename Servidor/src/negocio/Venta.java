@@ -132,5 +132,5 @@ public abstract class Venta {
 	
 	public abstract VentaDTO getDTO();
 	public abstract void grabar();
-	public abstract void confirmar() throws ExcepcionProceso;
+	public abstract void confirmar(Integer nroProxFactura) throws ExcepcionProceso;
 }
