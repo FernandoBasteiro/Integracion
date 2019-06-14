@@ -35,6 +35,9 @@ public class ParamGralesDTO implements Serializable{
 	public void setValor(String valor) {
 		this.valor = valor;
 	}
+	public ParamGralesDTO() {
+		super();
+	}
 	
 	
 	

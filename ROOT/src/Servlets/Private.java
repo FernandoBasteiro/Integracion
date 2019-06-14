@@ -35,6 +35,7 @@ import excepciones.ExcepcionProceso;
 import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 
+
 /**
  * Servlet implementation class Private
  */
@@ -260,7 +261,8 @@ public class Private extends HttpServlet {
 				}
 				request.setAttribute("empleados", empleados);
 				jspPage = "empleados/index.jsp";
-			}else if (action.equals("editParams")) {
+				
+			}else if (action.equals("listParams")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				ArrayList<ParamGralesDTO> params = new ArrayList<ParamGralesDTO>();
@@ -274,7 +276,29 @@ public class Private extends HttpServlet {
 				
 				request.setAttribute("params", params);
 				jspPage = "config.jsp";
+				
+				
+			}else if (action.equals("editParams")) {
+					
+			String[] cadenaParams = request.getParameterValues("params");
+			ParamGralesDTO pg = new ParamGralesDTO();
+			for (String item : cadenaParams) {
+				List<String> listStrItems = Arrays.asList(item.split(","));
+				pg.setId(Integer.parseInt(listStrItems.get(0)));
+				pg.setClave(listStrItems.get(1));
+				pg.setValor(listStrItems.get(2));
 			}
+		
+
+			}
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
