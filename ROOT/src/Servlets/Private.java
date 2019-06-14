@@ -262,7 +262,7 @@ public class Private extends HttpServlet {
 				request.setAttribute("empleados", empleados);
 				jspPage = "empleados/index.jsp";
 				
-			}else if (action.equals("listParams")) {
+			}else if (action.equals("listarParams")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 				ArrayList<ParamGralesDTO> params = new ArrayList<ParamGralesDTO>();
@@ -279,27 +279,30 @@ public class Private extends HttpServlet {
 				
 				
 			}else if (action.equals("editParams")) {
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
 					
-			String[] cadenaParams = request.getParameterValues("params");
-			ParamGralesDTO pg = new ParamGralesDTO();
-			for (String item : cadenaParams) {
-				List<String> listStrItems = Arrays.asList(item.split(","));
-				pg.setId(Integer.parseInt(listStrItems.get(0)));
-				pg.setClave(listStrItems.get(1));
-				pg.setValor(listStrItems.get(2));
+				String[] cadenaParams = request.getParameterValues("params");
+				ParamGralesDTO pg = new ParamGralesDTO();
+				
+				if(cadenaParams[0]!=null) {
+					pg.setId(Integer.parseInt(cadenaParams[0]));
+				}
+				if(cadenaParams[1]!=null) {
+					pg.setClave(cadenaParams[1]);
+				}
+				if(cadenaParams[2]!=null) {
+				pg.setValor(cadenaParams[2]);
+				}
+				try {
+					bd.guardarParamGrales(logged, pg);
+					request.setAttribute("success", "Se guard\u00F3 el par\u00E1metro.");
+				} catch (ExcepcionProceso e) {
+					request.setAttribute("error", e.getMessage());
+				}
+				jspPage = "Private?action=listarParams";
 			}
-		
-
-			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
+					
 			else if (action.equals("listarProductos")) {
 				HttpSession session = request.getSession();
 				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");

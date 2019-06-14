@@ -25,7 +25,7 @@ $(function() {
 		if ($this.val() == "2") {
 			$egreso.attr("required", "required");
 		} else {
-			$egreso.removeAttr("required");
+			$egreso.removeAttr("required").val('');
 		}
 	});
 
