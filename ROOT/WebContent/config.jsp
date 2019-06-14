@@ -23,18 +23,13 @@
 			if (isParams) {
 				for (ParamGralesDTO p : params) {
 		%>
-		<form method="post" action="/Private?action=editParams" id="editParam-<%=p.getId()%>">
-			<div class="form-row" class="col-sm-12">
-				<div class="col-sm-6">
-					<input type="hidden" name="params" value="<%=p.getId()%>" /> <label>Clave</label>
-					<input class="form-control" name="params" value="<%=p.getClave()%>" />
-				</div>
-				<div class="col-sm-6">
-					<label>Valor</label> 
-					<input class="form-control" name="params" value="<%=p.getValor()%>" />
-					<button class="btn btn-primary" type="submit"><i class="fas fa-save"></i></button>
-				</div>
-			</div>
+		<form class="form-inline" method="post" action="/Private?action=editParams" id="editParam-<%=p.getId()%>">
+			<input type="hidden" name="params" value="<%=p.getId()%>" /> 
+			<label>Clave</label>
+			<input class="form-control" name="params" value="<%=p.getClave()%>" />
+			<label>Valor</label> 
+			<input class="form-control" name="params" value="<%=p.getValor()%>" />
+				<button class="btn btn-primary" type="submit"><i class="fas fa-save"></i></button>
 		</form>
 		<%
 			}
