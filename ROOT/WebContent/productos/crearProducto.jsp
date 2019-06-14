@@ -1,5 +1,4 @@
 <%@ page import="dto.EmpleadoDTO"%>
-<%@ page import="dto.EmpleadoDTO"%>
 <%@ page import="dto.ProductoDTO"%>
 <%@ page import="enumeraciones.EstadoEmpleado"%>
 <%@ page import="enumeraciones.Puesto"%>
