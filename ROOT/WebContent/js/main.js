@@ -1,19 +1,25 @@
 $(function() {
 
-	var password = document.getElementById("passwordEmpleado"), confirm_password = document.getElementById("passwordEmpleado2");
-	function validatePassword() {
-		if (password.value != confirm_password.value) {
-			confirm_password.setCustomValidity("Las contrase\u00F1as no coinciden.");
-		} else {
-			confirm_password.setCustomValidity('');
+	if ($("#passwordEmpleado").length > 0) {
+
+		var password = document.getElementById("passwordEmpleado"), confirm_password = document
+				.getElementById("passwordEmpleado2");
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password
+						.setCustomValidity("Las contrase\u00F1as no coinciden.");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
 		}
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
 	}
-	password.onchange = validatePassword;
-	confirm_password.onkeyup = validatePassword;
 
 	$('a.disabled').on('click', function(e) {
 		e.preventDefault()
 	})
+
 	$('#estadoEmpleadoCombo').on('change', function(e) {
 		var $this = $(this), $egreso = $('#fechaEgresoEmpleado');
 		if ($this.val() == "2") {
