@@ -10,6 +10,7 @@ import daos.ProductoDAO;
 import daos.VentaDAO;
 import dto.EmpleadoDTO;
 import dto.ItemVentaDTO;
+import dto.ParamGralesDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
@@ -274,6 +275,23 @@ public class ControladorVentas {
 	public String getParamGral(String clave) {
 		for (ParamGrales pg : parametros) if (pg.getClave().equals(clave)) return pg.getValor();
 		return null;
+	}
+	
+public ArrayList<ParamGralesDTO> listarParamGrales(EmpleadoDTO g) throws UsuarioNoLogueado, UsuarioSinPermisos {
+		
+		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
+			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				ArrayList<ParamGrales> pgs = ParamGralesDAO.getinstance().getParamGrales();
+				ArrayList<ParamGralesDTO> pgDTOs = new ArrayList<ParamGralesDTO> ();
+				
+				for (ParamGrales pg : pgs) 
+					 pgDTOs.add(pg.getDTO());
+								
+				return pgDTOs;								
+			} 		
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+		}		
+		else throw new UsuarioNoLogueado("Usuario no logueado.");		
 	}
 	
 }

@@ -57,7 +57,7 @@ public class ParamGralesDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 			
-		String query =  "from EmpleadoEntity";
+		String query =  "from ParamGralesEntity";
 		
 		Query q = session.createQuery(query);	
 		@SuppressWarnings("unchecked")
