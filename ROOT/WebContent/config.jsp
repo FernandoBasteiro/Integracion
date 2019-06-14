@@ -44,22 +44,11 @@
 				</button>
 			</div>
 		</div>
-		<%
-			if (isParams) {
-				for (ParamGralesDTO p : params) {
-		%>
-		<form class="form-inline" method="post" action="/Private?action=listarParams" id="listarParams-<%=p.getId()%>">
-			<input type="hidden" name="params" value="<%=p.getId()%>" /> 
-			<label>Clave</label>
-			<input class="form-control" name="params" value="<%=p.getClave()%>" />
-			<label>Valor</label> 
-			<input class="form-control" name="params" value="<%=p.getValor()%>" />
-				<button class="btn btn-primary" type="submit"><i class="fas fa-save"></i></button>
-		</form>
-		<%
-			}
-			}
-		%>
+	</form>
+	<%
+		}
+		}
+	%>
 	<hr />
 </div>
 <!-- container --> </main>
