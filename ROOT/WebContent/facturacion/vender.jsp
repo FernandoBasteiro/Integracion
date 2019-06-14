@@ -49,7 +49,7 @@
 								<label class="input-group-text" for="cuitFactura">CUIT</label>
 							</div>
 							<input placeholder="Ingrese CUIT..." type="number"
-								name="cuitFactura" class="form-control" value="" min="0" />
+								name="cuitFactura" id="cuitFactura" class="form-control" value="" min="0" required/>
 						</div>
 					</div>
 				</div>
@@ -119,7 +119,7 @@
 					<div class="form-group col-sm-6">
 						<div class="input-group">
 							<div class="input-group-prepend">
-								<label class="input-group-text" for="buscarProducto">Seleccionar
+								<label class="input-group-text" for="medioPago">Seleccionar
 									medio de pago</label>
 							</div>
 							<select id="medioPago" name="medioPago" class="form-control">
@@ -141,7 +141,7 @@
 							</div>
 							<input type="number" min="0" step="0,01" name="montoPago"
 								id="montoPago" class="form-control"
-								placeholder="Ingrese monto con el que abona" />
+								placeholder="Ingrese monto con el que abona" required/>
 						</div>
 					</div>
 				</div>
@@ -278,8 +278,8 @@
 							<div class="input-group-prepend">
 								<label class="input-group-text" for="creditoCuotas">Cuotas</label>
 							</div>
-							<input type="number" min="0" max="12" name="creditoCuotas"
-								id="creditoCodigoSeguridad" class="form-control" />
+							<input type="number" value="1" min="1" max="12" name="creditoCuotas"
+								id="creditoCuotas" class="form-control" />
 						</div>
 					</div>
 				</div>

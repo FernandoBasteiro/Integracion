@@ -28,6 +28,35 @@ $(function() {
 			$egreso.removeAttr("required").val('');
 		}
 	});
+	$('#medioPago').on('change', function(e) {
+		var $this = $(this), $monto = $('#montoPago'), $reqCred = $('#creditoCodigoSeguridad, #creditoTarjeta, #creditoTitular, #creditoVencimiento, #creditoCuotas'), $reqDeb = $('#debitoTarjeta, #debitoCodigoSeguridad, #debitoTitular, #debitoVencimiento');
+		//efectivo
+		if ($this.val() == "1") {
+			$monto.attr("required", "required");
+		} else {
+			$monto.removeAttr("required").val('');
+		}
+		//tarjeta de credito
+		if ($this.val() == "2") {
+			$reqCred.attr("required", "required");
+		} else {
+			$reqCred.removeAttr("required").val('');
+		}
+		//tarjeta de debito
+		if ($this.val() == "3") {
+			$reqDeb.attr("required", "required");
+		} else {
+			$reqDeb.removeAttr("required").val('');
+		}
+	});
+	$('#tipoFactura').on('change', function(e) {
+		var $this = $(this), $cuit = $('#cuitFactura');
+		if ($this.val() == "1" || $this.val() == "2" ) {
+			$cuit.attr("required", "required");
+		} else {
+			$cuit.removeAttr("required").val('');
+		}
+	});
 
 	$('#modal')
 			.on(
