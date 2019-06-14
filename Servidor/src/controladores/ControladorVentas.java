@@ -1,15 +1,16 @@
 package controladores;
 
-import org.joda.time.LocalDate;
 import java.util.ArrayList;
-import daos.ParamGralesDAO;
+
+import org.joda.time.LocalDate;
+
 import daos.EmpleadoDAO;
+import daos.ParamGralesDAO;
 import daos.ProductoDAO;
 import daos.VentaDAO;
 import dto.EmpleadoDTO;
 import dto.ItemVentaDTO;
 import dto.VentaDTO;
-import entities.ParamGralesEntity;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.Puesto;
@@ -18,6 +19,7 @@ import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Empleado;
 import negocio.ItemVenta;
+import negocio.ParamGrales;
 import negocio.Producto;
 import negocio.Venta;
 import negocio.VentaEfectivo;
@@ -26,7 +28,10 @@ import negocio.VentaTarjetaDebito;
 
 public class ControladorVentas {
 	
+	
 	private static ControladorVentas instance;
+	private ArrayList<ParamGrales> parametros;
+	/*
 	private String cuit; // los usa el bco + liquidar sueldo
 	private Integer tc_id_establecimiento;	 //lo usa la entidad crediticia
 	private String cc_cbu;          	     //lo usa la entidad bancaria
@@ -35,8 +40,10 @@ public class ControladorVentas {
 	private String default_password_banco;
 	private Integer banco_idRol;
 	private Integer banco_idProducto;
-	
+	*/
 	public ControladorVentas() {
+		this.parametros = ParamGralesDAO.getinstance().getParamGrales();
+		/*
 		this.cuit = ParamGralesDAO.getinstance().getValor("cuit");
 		String id_est_str = ParamGralesDAO.getinstance().getValor("tc_id_establecimiento");
 		this.tc_id_establecimiento = (id_est_str == null ? null : Integer.valueOf(id_est_str));
@@ -48,6 +55,7 @@ public class ControladorVentas {
 		this.banco_idRol = (banco_idRolStr == null ? null : Integer.valueOf(banco_idRolStr));
 		String banco_idProductoStr = ParamGralesDAO.getinstance().getValor("banco_idProducto");
 		this.banco_idProducto = (banco_idProductoStr == null ? null : Integer.valueOf(banco_idProductoStr));
+		*/
 	}
 
 	public static ControladorVentas getInstance(){
@@ -263,37 +271,9 @@ public class ControladorVentas {
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
 
-	public String getCuit() {
-		return cuit;
+	public String getParamGral(String clave) {
+		for (ParamGrales pg : parametros) if (pg.getClave().equals(clave)) return pg.getValor();
+		return null;
 	}
-
-	public Integer getTc_id_establecimiento() {
-		return tc_id_establecimiento;
-	}
-
-	public String getCc_cbu() {
-		return cc_cbu;
-	}
-
-	public String getCa_cbu() {
-		return ca_cbu;
-	}
-
-	public String getRazonSocial() {
-		return razonSocial;
-	}
-
-	public String getDefault_password_banco() {
-		return default_password_banco;
-	}
-
-	public Integer getBanco_idRol() {
-		return banco_idRol;
-	}
-
-	public Integer getBanco_idProducto() {
-		return banco_idProducto;
-	}
-	
 	
 }
