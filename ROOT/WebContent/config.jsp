@@ -23,7 +23,7 @@
 		if (isParams) {
 			for (ParamGralesDTO p : params) {
 	%>
-	<form method="post" action="/Private?action=editParams" class="mb-2" id="editParam-<%=p.getId()%>">
+	<form method="post" action="/Private?action=editParams" class="mb-3 border-bottom" id="editParam-<%=p.getId()%>">
 		<input type="hidden" name="params" value="<%=p.getId()%>" /> 
 		<div class="row">
 			<div class="col col-5">
@@ -39,7 +39,7 @@
 				</div>
 			</div>
 			<div class="col col-2">
-				<button class="btn btn-primary btn-block" type="submit">
+				<button class="btn btn-outline-primary btn-block" type="submit">
 					<i class="fas fa-save mr-2"></i>Grabar
 				</button>
 			</div>

@@ -90,6 +90,13 @@ DecimalFormat priceFormatter = new DecimalFormat("$#0.00");
 			</div>
 			<% } %>
 		</div>
+		<% if(factura.getMedioDePago().getNombre() == MedioDePago.TARJETA_CREDITO.getNombre()){ %>
+		<div class="row">
+			<div class="col col-xs-6">
+				<p><strong class="mr-2">Cuotas:</strong><%=factura.getCantCuotas() %></p>
+			</div>
+		</div>
+		<% } %>
 		<div class="row">
 			<div class="col col-xs-6">
 				<p><strong class="mr-2">Cajero:</strong><%=factura.getEmpleado().getNombre()+" "+factura.getEmpleado().getApellido()   %></p>
