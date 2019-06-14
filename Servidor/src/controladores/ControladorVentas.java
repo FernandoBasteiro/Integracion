@@ -89,7 +89,7 @@ public class ControladorVentas {
 							items.add(i);
 						}
 				}
-				
+				Venta venta;
 				//Ver tipo de VENTA
 				switch (v.getMedioDePago()) {
 					case EFECTIVO:
@@ -97,17 +97,27 @@ public class ControladorVentas {
 						
 						break;
 					case TARJETA_DEBITO:
-						//TODO llamar al BANCO
-						v.setAprobada(true);
+						venta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, v.getTotal(), v.getNumeroTarjeta(),
+								v.getCodigoSeguridad(), v.getNombre(), v.getDni(), v.getFechaVto(), v.getNroOperacion(), v.getAprobada(),
+								v.getPin(), v.getTipoCuenta(), v.getTipoFact(), v.getCuit(), null);
+						venta.setTotal(venta.calcularTotal());
+						
+						venta.confirmar();
+						venta.grabar();		
+						
+						v.setTotal(venta.getTotal());
+						v.setNroOperacion(((VentaTarjetaDebito) venta).getNroOperacion());
+						v.setAprobada(((VentaTarjetaDebito) venta).getAprobada());
+						
+						/*v.setAprobada(true);
 						v.setNroOperacion(123456);
 						if (v.getAprobada()) {
 							v = generarVentaTD(v, items, emp);
 						}
-						else throw new ExcepcionProceso("Error TD. Venta no aprobada.");
+						else throw new ExcepcionProceso("Error TD. Venta no aprobada.");*/
 						break;
 					case TARJETA_CREDITO:
-						//TODO llamar a CREDITOS COD 200 + STRING
-						Venta venta = new VentaTarjetaCredito();
+						venta = new VentaTarjetaCredito();
 						venta.confirmar();
 						venta.grabar();
 						/*
@@ -120,7 +130,7 @@ public class ControladorVentas {
 						*/
 						break;
 					default: 
-						throw new ExcepcionProceso("Medio de pago invólido.");
+						throw new ExcepcionProceso("Medio de pago inválido.");
 				}
 				return v;
 			}
