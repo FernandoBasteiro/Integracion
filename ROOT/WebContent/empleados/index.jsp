@@ -75,8 +75,11 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 									%>
 							    </select>
 							  </div>
-							  <div class="form-group col-sm-2">
+							  <div class="form-group col-sm-1">
 						    		<button class="btn btn-secondary btn-block" type="submit">Filtrar</button>
+							  </div>
+							  <div class="form-group col-sm-1">
+						    		<a href="/Private?action=listarEmpleados" title="Limpiar Filtros" class="btn btn-outline-secondary btn-block" role="button"><i class="fas fa-eraser"></i></a>
 							  </div>
 							  </div>
 						</form>			

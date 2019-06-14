@@ -22,7 +22,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 		<div class="row">
 			<div class="col col-xs-12 menu-filtro">
 					<div class="form-row pb-2">
-						<div class="col-sm-6">
+						<div class="col-sm-5">
 						<form action="/Private?action=listarProductos" method="post">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -35,7 +35,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 							</div>
 							</form>
 						</div>	
-						<div class="col-sm-6">
+						<div class="col-sm-5">
 							<form action="/Private?action=listarProductos" method="post">
 							<div class="input-group">
 							<div class="input-group-prepend">
@@ -48,6 +48,9 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 							</div>
 							</form>
 						</div>	
+						<div class="form-group col-sm-2">
+							<a href="/Private?action=listarProductos" title="Limpiar Filtros" class="btn btn-outline-secondary btn-block" role="button"><i class="fas fa-eraser mr-2"></i>Limpiar</a>
+						</div>
 					</div>
 				<hr/>
 			</div>
