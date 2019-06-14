@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import enumeraciones.EstadoVenta;
 import enumeraciones.TipoFactura;
+import excepciones.ExcepcionProceso;
 import dto.ItemVentaDTO;
 import dto.VentaDTO;
 
@@ -131,4 +132,5 @@ public abstract class Venta {
 	
 	public abstract VentaDTO getDTO();
 	public abstract void grabar();
+	public abstract void confirmar() throws ExcepcionProceso;
 }

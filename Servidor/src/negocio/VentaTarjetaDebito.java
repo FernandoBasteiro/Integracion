@@ -11,6 +11,7 @@ import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.TipoCuenta;
 import enumeraciones.TipoFactura;
+import excepciones.ExcepcionProceso;
 
 public class VentaTarjetaDebito extends Venta {
 	private String numeroTarjeta;
@@ -133,5 +134,11 @@ public class VentaTarjetaDebito extends Venta {
 		}	
 		this.setEstado(EstadoVenta.ANULADA);
 		this.grabar();
+	}
+
+	@Override
+	public void confirmar() throws ExcepcionProceso {
+		// TODO Auto-generated method stub
+		
 	}
 }

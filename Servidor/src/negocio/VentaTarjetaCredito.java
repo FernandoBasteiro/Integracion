@@ -10,6 +10,7 @@ import dto.VentaDTO;
 import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.TipoFactura;
+import excepciones.ExcepcionProceso;
 
 public class VentaTarjetaCredito extends Venta {
 	private String numeroTarjeta;
@@ -123,6 +124,21 @@ public class VentaTarjetaCredito extends Venta {
 		}	
 		this.setEstado(EstadoVenta.ANULADA);
 		this.grabar();
+	}
+
+	@Override
+	public void confirmar() throws ExcepcionProceso {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public VentaTarjetaCredito(Integer id, LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
+			EstadoVenta estado, Float total, TipoFactura tipoFact, String cuit, LocalDate fechaCobro) {
+		super(id, fechaVenta, items, empleado, estado, total, tipoFact, cuit, fechaCobro);
+	}
+
+	public VentaTarjetaCredito() {
+		// TODO Auto-generated constructor stub
 	}
 	
 }
