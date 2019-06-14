@@ -51,10 +51,7 @@ if ($('#formVenta').length) {
 	}, {
 		hide : true
 	});
-	
-	$('#formVenta').on('submit', function(e){
-		if($('#formVenta tbody tr').length == 0) e.preventDefault();
-	})
+
 }
 
 /** * autocomplete ** */
@@ -79,7 +76,27 @@ if ($('#productoAutocomplete').length) {
 
 	(function() {
 		"use strict";
-		
+		var superSarasa = window.localStorage;
+		var venta = {
+				tipoFactura: null,
+				cuitFactura: null,
+				items:[],
+				medioPago: null,
+				montoPago: null,
+				debitoTarjeta: null,
+				debitoCodigoSeguridad: null,
+				debitoTitular: null,
+				debitoDni: null,
+				debitoVencimiento: null,
+				debitoTipoCuenta: null,
+				debitoPin: null,
+				creditoTarjeta: null,
+				creditoCodigoSeguridad: null,
+				creditoTitular: null,
+				creditoDni: null,
+				creditoVencimiento: null,
+				creditoCuotas: null
+		}
 		var productos = [];
 
 		$.ajax({
@@ -175,6 +192,12 @@ if ($('#productoAutocomplete').length) {
 			var prod = productos.find(producto => producto.codigo === codProd);
 			totalVenta += prod.precio*cantProd;
 			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.codigo+'</td><td>'+prod.nombre+'</td><td>'+prod.presentacion+'</td><td>'+cantProd+'</td><td>$'+prod.precio.toFixed(2)+'</td><td>$'+(prod.precio.toFixed(2)*cantProd).toFixed(2)+'</td><td><a href="#" class="delete"><i class="fas fa-trash text-danger"></i></a></td><input type="hidden" name="items" value="'+prod.codigo+','+cantProd+'" /></tr>')
+			itemVta.data('codigo',prod.codigo);
+			itemVta.data('nombre',prod.nombre);
+			itemVta.data('presentacion',prod.presentacion);
+			itemVta.data('cantidad',cantProd);
+			itemVta.data('precio',prod.precio);
+
 			listadoVenta.find('tbody').append(itemVta);
 			index++;
 			$('#codigo-producto, #buscarProducto').val('');
@@ -183,6 +206,45 @@ if ($('#productoAutocomplete').length) {
 			itemVta.find('.delete').on('click', function(e){e.preventDefault(); $('#listadoItemVenta tbody tr').get($(this).closest('tr').index()).remove(); index--;totalVenta -= prod.precio*cantProd;$('#totalVenta').text('$'+ totalVenta.toFixed(2));});
 			
 		})
+		
+		$('#formVenta').on('submit', function(e){
+			
+			if($('#formVenta tbody tr').length == 0) e.preventDefault(); return;
+			
+			var venta = {
+					tipoFactura: $('select[name=tipoFactura]').val(),
+					cuitFactura: $('input[name=cuitFactura]').val(),
+					items:[],
+					medioPago: $('select[name=medioPago]').val(),
+					montoPago: $('input[name=montoPago]').val(),
+					debitoTarjeta: $('input[name=debitoTarjeta]').val(),
+					debitoCodigoSeguridad: $('input[name=debitoCodigoSeguridad]').val(),
+					debitoTitular: $('input[name=debitoTitular]').val(),
+					debitoDni: $('input[name=debitoDni]').val(),
+					debitoVencimiento: $('input[name=debitoVencimiento]').val(),
+					debitoTipoCuenta: $('input[name=debitoTipoCuenta]').val(),
+					debitoPin: $('input[name=debitoPin]').val(),
+					creditoTarjeta: $('input[name=creditoTarjeta]').val(),
+					creditoCodigoSeguridad: $('input[name=creditoCodigoSeguridad]').val(),
+					creditoTitular: $('input[name=creditoTitular]').val(),
+					creditoDni: $('input[name=creditoDni]').val(),
+					creditoVencimiento: $('input[name=creditoVencimiento]').val(),
+					creditoCuotas: $('input[name=creditoCuotas]').val()
+			}
+			//#	Código	Nombre	Presentación	Cantidad	Precio	Subtotal
+			$.each($('input[name=items]'), function(){
+				var itemData = {
+						codigo: $(this).closest('tr').data('codigo'),
+						nombre: $(this).closest('tr').data('nombre'),
+						presentacion: $(this).closest('tr').data('presentacion'),
+						cantidad: $(this).closest('tr').data('cantidad'),
+						precio: $(this).closest('tr').data('precio')
+					};
+				venta.items.push(itemData);
+			})
+			superSarasa.setItem('venta', JSON.stringify(venta));
+
+		});
 
 	})();
 }
