@@ -37,7 +37,7 @@ public class eliminarEmpleado extends HttpServlet {
 			EmpleadoDTO empleado = new EmpleadoDTO();
 			empleado.setLegajo(legajo);
 			bd.eliminarEmpleado(logged, empleado);
-			json.add("warning", "El empleado fue dado de baja.\nComuníquese con la Entidad Bancaria para obtener información sobre cómo tramitar la baja de la cuenta.");
+			json.add("warning", "El empleado fue dado de baja.\nComuníquese con la Entidad Bancaria BX10 para obtener información sobre cómo tramitar la baja de la cuenta y con Liquid Salary para cancelar su liquidación.");
 		}
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos e) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
