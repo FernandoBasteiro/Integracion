@@ -21,7 +21,7 @@ import okhttp3.Response;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-		//System.out.println(VentaDAO.getinstance().getProxVenta());
+		System.out.println(consultarCobranza());
 	}
 
 	
@@ -150,7 +150,7 @@ public class Test {
 		Response response = client.newCall(request).execute();
 		String json = response.body().string();
 		try {
-		JsonReader reader = Json.createReader(new StringReader(response.body().string()));
+		JsonReader reader = Json.createReader(new StringReader(json));
 		JsonArray cobrosArr = reader.readArray();
         reader.close();
         ArrayList<Integer> codOps = new ArrayList<Integer>();

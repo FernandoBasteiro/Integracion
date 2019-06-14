@@ -456,6 +456,24 @@ public class Private extends HttpServlet {
 				 * creditoTitular creditoDni creditoVencimiento creditoCuotas
 				 */
 			} else if (action.equals("imputarCobros")) {
+				HttpSession session = request.getSession();
+				EmpleadoDTO logged = (EmpleadoDTO) session.getAttribute("loggedUsr");
+				//String anioNovedadStr = String.format("%04d", anioNovedad);
+				//String mesNovedadStr = String.format("%02d", mesNovedad);
+				
+				String anio = String.format("%04d", Integer.valueOf(request.getParameter("periodoAnio")));
+				String mes = String.format("%04d", Integer.valueOf(request.getParameter("periodoMes")));
+				
+				try {
+					bd.marcarFacturasCobradas(logged, anio+mes);
+					request.setAttribute("success", "Se actualizaron las ventas cobradas.");
+				} catch (ExcepcionProceso e) {
+					request.setAttribute("error", e.getMessage());
+				}
+				ArrayList<VentaDTO> ventas = bd.listarFacturas(logged, null, LocalDate.now(), null);
+				request.setAttribute("facturas", ventas);
+				jspPage = "facturacion/index.jsp";
+
 				// EJEMPLO:
 				// Le pega a: Web/Private?action=imputarCobros
 				// Envia: periodoMes=1&periodoAnio=2019

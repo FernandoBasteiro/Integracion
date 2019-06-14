@@ -1,9 +1,15 @@
 package controladores;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 
 import org.joda.time.LocalDate;
 
@@ -208,7 +214,7 @@ public class ControladorVentas {
 		vd.setAprobada(vta.getAprobada());
 		return vd;
 	}
-
+	*/
 	public void marcarFacturaCobrada(EmpleadoDTO g, VentaDTO v)
 			throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 
@@ -226,24 +232,52 @@ public class ControladorVentas {
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
-	*/
-	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws UsuarioNoLogueado, UsuarioSinPermisos {
+	
+	public void marcarFacturasCobradas(EmpleadoDTO g, String periodo) throws UsuarioNoLogueado, UsuarioSinPermisos, ExcepcionProceso {
 
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
 				ArrayList<Venta> ventas = VentaDAO.getinstance().getVentasByEstadoFechaMedioDePago(null,
 						EstadoVenta.FACTURADA, null);
+				ArrayList<Integer> ventasCobradas;
+				try {
+					ventasCobradas = this.obtenerVentasCobradas(periodo);
+				} catch (Exception e) {
+					throw new ExcepcionProceso("Hubo un error al contactar a la entidad crediticia.");
+				}
 				for (Venta v : ventas) {
-					// ********************************************
-					// TODO TRAER LAS COBRANZAR DE TC DEL PERIORDO
-					// ********************************************
-					v.marcarFacturaCobrada();
-					v.grabar();
+					for (Integer vc : ventasCobradas) {
+						if (v.getId().equals(vc)) {
+							v.marcarFacturaCobrada();
+							v.grabar();
+						}
+					}
 				}
 			} else
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
+	}
+
+	private ArrayList<Integer> obtenerVentasCobradas(String periodo) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url("http://paypauli.herokuapp.com/api/consultar/resumen/abonados/9/201906").get().build();
+		Response response = client.newCall(request).execute();
+		String json = response.body().string();
+		try {
+		JsonReader reader = Json.createReader(new StringReader(json));
+		JsonArray cobrosArr = reader.readArray();
+        reader.close();
+        ArrayList<Integer> codOps = new ArrayList<Integer>();
+        List<JsonObject> cobros = cobrosArr.getValuesAs(JsonObject.class);
+		for (JsonObject cobro : cobros) {
+			codOps.add(cobro.getInt("comprobante"));
+		}
+		return codOps;
+		}
+		catch (Exception e) {
+			throw new Exception();
+		}
 	}
 
 	public ArrayList<VentaDTO> listarFacturasPorNroFactura(EmpleadoDTO g, Integer idVta)
