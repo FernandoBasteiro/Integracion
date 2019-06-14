@@ -1,10 +1,10 @@
 package negocio;
 
 import java.io.StringReader;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
@@ -148,14 +148,12 @@ public class VentaTarjetaCredito extends Venta {
 	        reader.close();	
 	        if (cuentasArr.getInt("code") == 200) {
 	        	this.aprobada = true;
+	        	this.nroOperacion=cuentasArr.getInt("transaccion");
 	        }
-	        else {
-	        	throw new ExcepcionProceso ("La tarjeta fue rechazada.");
-	        }
-	        
 		} catch (Exception e) {
 			throw new ExcepcionProceso("No se pudo confirmar la Tarjeta de Credito");
 		}
+		if (this.aprobada == null) throw new ExcepcionProceso ("La tarjeta fue rechazada.");
 			
 	}
 
@@ -178,10 +176,8 @@ public class VentaTarjetaCredito extends Venta {
 		  .addHeader("User-Agent", "PostmanRuntime/7.15.0")
 		  .addHeader("Accept", "*/*")
 		  .addHeader("Cache-Control", "no-cache")
-		  .addHeader("Postman-Token", "c2ccb434-9399-466b-929e-be30277f3ed2,516af216-ea59-4356-8c61-46cc463a964a")
 		  .addHeader("Host", "paypauli.herokuapp.com")
 		  .addHeader("accept-encoding", "gzip, deflate")
-		  .addHeader("content-length", "210")
 		  .addHeader("Connection", "keep-alive")
 		  .addHeader("cache-control", "no-cache")
 		  .build();
@@ -194,19 +190,23 @@ public class VentaTarjetaCredito extends Venta {
 
 	public String crearJsonCredito() {
 		String numeroTarjeta = this.getNumeroTarjeta();
-		String idEstablecimiento = ControladorVentas.getInstance().getParamGral("idEstablecimiento");
-		String nroComprobante = this.getId().toString();
+		String idEstablecimiento = ControladorVentas.getInstance().getParamGral("tc_id_establecimiento");
+		//String nroComprobante = this.getId().toString();
 		String detalleTransaccion = ControladorVentas.getInstance().getParamGral("razonSocial");
-		String importeTotal = this.getTotal().toString();
+		Float importeTotal =  this.getTotal();
 		String cuotas = this.getCantCuotas().toString();
 		String cvc = this.getCodigoSeguridad().toString();
+		
+		
+		DecimalFormat priceFormatter = new DecimalFormat("#0.00");
+		
 		
 		JsonObjectBuilder json = Json.createObjectBuilder()
 				.add("tarjeta", numeroTarjeta)
 				.add("idEstablecimiento",idEstablecimiento)
-				.add("nroComprobante",nroComprobante)
+				.add("nroComprobante","2")
 				.add("detalleTransaccion",detalleTransaccion)
-				.add("importeTotal", importeTotal)
+				.add("importeTotal", priceFormatter.format(importeTotal).toString())
 				.add("cuotas",cuotas)
 				.add("cvc", cvc);
 		return json.build().toString();

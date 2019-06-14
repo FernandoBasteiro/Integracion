@@ -1,6 +1,7 @@
 package negocio;
 
 import java.io.StringReader;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.json.Json;
@@ -158,6 +159,7 @@ public class VentaTarjetaDebito extends Venta {
 			
 	        if (compraDebito().equals(200)) {
 	        	this.aprobada = true;
+	        	this.nroOperacion=this.getId();
 	        }      
 		} catch (Exception e) {
 			throw new ExcepcionProceso("No se pudo confirmar la Tarjeta de Debito");
@@ -204,6 +206,8 @@ public class VentaTarjetaDebito extends Venta {
 		
 		String fechaVtoParaPasar = "20"+this.getFechaVto().substring(2, 4)+"-"+this.getFechaVto().substring(0, 2)
 				+"-01T00:00:00.000";
+		
+		DecimalFormat priceFormatter = new DecimalFormat("#0.00");		
 		         
 		JsonObjectBuilder json = Json.createObjectBuilder()
 				.add("cbuEstablecimiento", cbuEstablecimiento)
