@@ -90,6 +90,12 @@ public class Test {
 	}
 	
 	private String averiguarCBUEmpleado() {
-		return null;
+		URL url = new URL("https://bank-back.herokuapp.com/api/v1/cuentas/1231231231");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		conn.setDoOutput(true);
+		Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
 	}
 }
