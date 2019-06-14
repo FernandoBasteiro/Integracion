@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dto.EmpleadoDTO;
+import dto.ParamGralesDTO;
 import dto.ProductoDTO;
 import dto.VentaDTO;
 import enumeraciones.EstadoEmpleado;
@@ -238,4 +239,17 @@ public class BusinessDelegate {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
 	}
+	
+	
+	public ArrayList<ParamGralesDTO> listarParamGrales(EmpleadoDTO empleado) throws RemoteException, ExcepcionProceso, UsuarioNoLogueado, UsuarioSinPermisos, ComunicacionException{
+			try {
+				return ir.listarParamGrales(empleado);
+			} catch (RemoteException re) {
+				throw new ComunicacionException("Error en las comunicaciones");	
+			}
+		}
+	
+	
+	
+	
 }
