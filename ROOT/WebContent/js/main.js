@@ -1,19 +1,25 @@
 $(function() {
 
-	var password = document.getElementById("passwordEmpleado"), confirm_password = document.getElementById("passwordEmpleado2");
-	function validatePassword() {
-		if (password.value != confirm_password.value) {
-			confirm_password.setCustomValidity("Las contrase\u00F1as no coinciden.");
-		} else {
-			confirm_password.setCustomValidity('');
+	if ($("#passwordEmpleado").length > 0) {
+
+		var password = document.getElementById("passwordEmpleado"), confirm_password = document
+				.getElementById("passwordEmpleado2");
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password
+						.setCustomValidity("Las contrase\u00F1as no coinciden.");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
 		}
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
 	}
-	password.onchange = validatePassword;
-	confirm_password.onkeyup = validatePassword;
 
 	$('a.disabled').on('click', function(e) {
 		e.preventDefault()
 	})
+
 	$('#estadoEmpleadoCombo').on('change', function(e) {
 		var $this = $(this), $egreso = $('#fechaEgresoEmpleado');
 		if ($this.val() == "2") {
@@ -105,7 +111,7 @@ $(function() {
 											+ $trigger.data('apellido')
 											+ '</p><p><strong class="mr-2">Legajo:</strong>'
 											+ $trigger.data('legajo')
-											+ '</p><hr/><form id="cargarNovedad" method="post" action="?"><div class="form-row pb-3"><div class="col-sm-6"><label for="novedadMes">Mes</label><input class="form-control" type="number" min="1" max="12" name="novedadMes" value="1"/></div><div class="col-sm-6"><label for="novedadAnio">A&ntilde;o</label><input class="form-control" type="number" min="2019" max="2030" name="novedadAnio" value="2019"/></div></div><div class="form-row"><div class="col-sm-6"><fieldset class="form-group "><legend class="col-form-label pt-0">Es una licencia paga?</legend><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="esPago"value="true" checked> <label class="form-check-label"for="gridRadios1">Si</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="esPago"value="false"> <label class="form-check-label"for="gridRadios2">No</label></div></fieldset></div><div class="col-sm-6"><label>Cantidad de d&iacute;as</label> <input type="number" min="1" name="cantDias" value="1" class="form-control" /></div></div></form>')
+											+ '</p><hr/><form id="cargarNovedad" method="post" action="?"><div class="form-row pb-3"><div class="col-sm-6"><label for="novedadMes">Mes</label><input class="form-control" type="number" min="1" max="12" name="novedadMes" value="1"/></div><div class="col-sm-6"><label for="novedadAnio">A&ntilde;o</label><input class="form-control" type="number" min="2019" max="2030" name="novedadAnio" value="2019"/></div></div><div class="form-row"><div class="col-sm-6"><fieldset class="form-group "><legend class="col-form-label pt-0">Es una licencia paga?</legend><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="esPago"value="true" checked> <label class="form-check-label"for="gridRadios1">Si</label></div><div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="esPago"value="false"> <label class="form-check-label"for="gridRadios2">No</label></div></fieldset></div><div class="col-sm-6"><label>Cantidad de d&iacute;as</label> <input type="number" max="31" min="1" name="cantDias" value="1" class="form-control" /></div></div></form>')
 							$footer
 									.find(".btn-primary")
 									.text("Guardar Novedad")

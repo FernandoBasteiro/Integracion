@@ -5,7 +5,9 @@
 	EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 	if (empleado == null)
 		response.sendRedirect("/index.jsp");
-%>
+	//boolean autocomplete = (session.getAttribute("error") != null) ? true: false;
+	//VentaDTO venta = (session.getAttribute("venta") != null) ? (VentaDTO) session.getAttribute("venta") : null;
+	%>
 <jsp:include page="../includes/header.jsp" />
 <%@ page import="enumeraciones.MedioDePago"%>
 <main role="main">

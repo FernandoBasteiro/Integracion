@@ -138,7 +138,7 @@ public class Private extends HttpServlet {
 						bd.altaEmpleado(logged, nuevo);
 					else
 						bd.modificacionEmpleado(logged, nuevo);
-					request.setAttribute("success", "Se guardo el usuario");
+					request.setAttribute("success", "Se guard\u00F3 el usuario.");
 					jspPage = "Private?action=listarEmpleados&todos=si";
 				} catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
@@ -175,7 +175,7 @@ public class Private extends HttpServlet {
 				nuevo.setStock(stock);
 				try {
 					bd.altaProducto(logged, nuevo);
-					request.setAttribute("success", "Se guardó el producto.");
+					request.setAttribute("success", "Se guard\u00F3 el producto.");
 					jspPage = "Private?action=listarProductos";
 				} catch (ExcepcionProceso e) {
 					request.setAttribute("error", e.getMessage());
@@ -396,7 +396,7 @@ public class Private extends HttpServlet {
 						resp = "Su pago ha sido debitado";
 					}
 					request.setAttribute("venta", v);
-					request.setAttribute("success", "¡Venta aprobada! "+resp+".");
+					request.setAttribute("success", "\u00A1Venta aprobada! "+resp+".");
 				} catch (ExcepcionProceso e) {
 					request.setAttribute("venta", v);
 					request.setAttribute("error", e.getMessage());
