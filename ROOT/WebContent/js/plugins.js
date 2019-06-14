@@ -51,6 +51,10 @@ if ($('#formVenta').length) {
 	}, {
 		hide : true
 	});
+	
+	$('#formVenta').on('submit', function(e){
+		if($('#formVenta tbody tr').length == 0) e.preventDefault();
+	})
 }
 
 /** * autocomplete ** */
@@ -166,17 +170,19 @@ if ($('#productoAutocomplete').length) {
 			e.preventDefault();
 			var codProd = $('#codigo-producto').val();
 			var cantProd = parseInt($('#cantidad-producto').val());
-			if (isNaN(codProd) || isNaN(cantProd)) return;
+			if (isNaN(codProd) || isNaN(cantProd) || codProd == "") return;
 			
 			var prod = productos.find(producto => producto.codigo === codProd);
 			totalVenta += prod.precio*cantProd;
-			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.codigo+'</td><td>'+prod.nombre+'</td><td>'+prod.presentacion+'</td><td>'+cantProd+'</td><td>$'+prod.precio.toFixed(2)+'</td><td>$'+(prod.precio.toFixed(2)*cantProd).toFixed(2)+'</td><input type="hidden" name="items" value="'+prod.codigo+','+cantProd+'" /></tr>')
+			var itemVta = $('<tr><th scope="row">'+index+'</th><td>'+prod.codigo+'</td><td>'+prod.nombre+'</td><td>'+prod.presentacion+'</td><td>'+cantProd+'</td><td>$'+prod.precio.toFixed(2)+'</td><td>$'+(prod.precio.toFixed(2)*cantProd).toFixed(2)+'</td><td><a href="#" class="delete"><i class="fas fa-trash text-danger"></i></a></td><input type="hidden" name="items" value="'+prod.codigo+','+cantProd+'" /></tr>')
 			listadoVenta.find('tbody').append(itemVta);
 			index++;
 			$('#codigo-producto, #buscarProducto').val('');
 			$('#cantidad-producto').val('1');
 			$('#totalVenta').text('$'+ totalVenta.toFixed(2));
+			itemVta.find('.delete').on('click', function(e){e.preventDefault(); $('#listadoItemVenta tbody tr').get($(this).closest('tr').index()).remove(); index--;totalVenta -= prod.precio*cantProd;$('#totalVenta').text('$'+ totalVenta.toFixed(2));});
 			
 		})
+
 	})();
 }

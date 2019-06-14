@@ -32,6 +32,10 @@ import excepciones.UsuarioNoLogueado;
 import excepciones.UsuarioSinPermisos;
 import negocio.Empleado;
 import negocio.Novedad;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ControladorEmpleados {
 
@@ -88,7 +92,7 @@ public class ControladorEmpleados {
 					try {
 						this.crearCuentaBanco(this.crearJsonAltaEmpleado(nuevo));
 						String cbu = this.averiguarCBUEmpleado(emp.getDni());
-					} catch (IOException e) {
+					} catch (Exception e) {
 						throw new ExcepcionProceso("No se pudo crear la cuenta bancaria.");
 					}
 					
@@ -290,46 +294,36 @@ public class ControladorEmpleados {
 		return json.build().toString();
 	}
 	
-	private int crearCuentaBanco(String json) throws IOException {
-		URL url = new URL("https://bank-back.herokuapp.com/api/v1/usuario");
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("PUT");
-		con.setRequestProperty("Content-Type", "application/json; utf-8");
-		con.setRequestProperty("Accept", "application/json");
-		con.setDoOutput(true);
-		
-		 try (OutputStream os = con.getOutputStream()) {
-			byte[] input = json.getBytes("utf-8");
-			os.write(input, 0, input.length);
-		}
-		 
-		return con.getResponseCode();
+	private int crearCuentaBanco(String json) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		byte[] input = json.getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("https://bank-back.herokuapp.com/api/v1/usuario")
+		  .put(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("Postman-Token", "c17b7809-88f5-4b43-a848-93ac24536b41")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		return response.code();
 	}
 	
-	private String averiguarCBUEmpleado(String cuit) throws IOException, ExcepcionProceso {
-		URL url = new URL("https://bank-back.herokuapp.com/api/v1/cuentas/" + cuit);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		conn.setDoOutput(true);
-		Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
-			StringBuilder response = new StringBuilder();
-			String responseLine = null;
-			while ((responseLine = br.readLine()) != null) {
-				response.append(responseLine.trim());
-			}
-			//return response.toString();
-			
-			JsonReader reader = Json.createReader(new StringReader(response.toString()));
-			JsonArray cuentasArr = reader.readArray();
-	        reader.close();
-	        List<JsonObject> cuentas = cuentasArr.getValuesAs(JsonObject.class);
-			for (JsonObject cuenta : cuentas) {
-				if (cuenta.getString("tipoCuenta").equals(ControladorVentas.getInstance().getParamGral("banco_tipoCuenta_deposito"))) return cuenta.getString("cbu");
-			}
-			throw new ExcepcionProceso("Caja de ahorro no encontrada.");
+	private String averiguarCBUEmpleado(String cuit) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url("https://bank-back.herokuapp.com/api/v1/cuentas/" + cuit).get().build();
+		Response response = client.newCall(request).execute();
+		JsonReader reader = Json.createReader(new StringReader(response.body().string()));
+		JsonArray cuentasArr = reader.readArray();
+        reader.close();
+        List<JsonObject> cuentas = cuentasArr.getValuesAs(JsonObject.class);
+		for (JsonObject cuenta : cuentas) {
+			if (cuenta.getString("tipoCuenta").equals(ControladorVentas.getInstance().getParamGral("banco_tipoCuenta_deposito"))) 
+				return cuenta.getString("cbu");
 		}
-
+		return null;
 	}
+	
+	
 }
