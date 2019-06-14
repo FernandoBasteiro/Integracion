@@ -95,7 +95,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				      <td class="actions text-center">
 				      	<a href="/Private?action=verProducto&codigo=<%=p.getCodigo() %>" class="view mx-1" title="Ver producto"><i class="fas fa-eye text-success"></i></a>
 				      	<a href="/Private?action=verProducto&modificar=true&codigo=<%=p.getCodigo() %>" class="edit mx-1" title="Editar producto"><i class="fas fa-pencil-alt text-primary"></i></a>
-				      	<a href="#" data-action="eliminarProducto" data-codigo="<%=p.getCodigo()%>" data-nombre="<%=p.getNombre()%>" class="delete mx-1" title="Eliminar producto" data-toggle="modal" data-target="#modal"><i class="fas fa-trash text-danger"></i></a>
+				      	<a href="#" data-action="eliminarProducto" data-codigo="<%=p.getCodigo()%>" data-nombre="<%=p.getNombre()%>" class="delete mx-1 <%=(p.getStock().getCantidadDisponible() == 0) ? "disabled" : ""%>" title="Eliminar producto" <%=(p.getStock().getCantidadDisponible() == 0) ? "aria-disabled='true' tabindex='-1'" : "data-toggle='modal' data-target='#modal'"%>><i class="fas fa-trash <%=(p.getStock().getCantidadDisponible() == 0) ? "text-muted" : "text-danger"%>"></i></a>
 				      </td>
 				    </tr>      
 				      <% } %>
