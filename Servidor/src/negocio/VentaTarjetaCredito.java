@@ -1,9 +1,17 @@
 package negocio;
 
+import java.io.StringReader;
 import java.util.List;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 
 import org.joda.time.LocalDate;
 
+import controladores.ControladorVentas;
 import controladores.ConversorFechas;
 import daos.VentaDAO;
 import dto.VentaDTO;
@@ -11,6 +19,10 @@ import enumeraciones.EstadoVenta;
 import enumeraciones.MedioDePago;
 import enumeraciones.TipoFactura;
 import excepciones.ExcepcionProceso;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class VentaTarjetaCredito extends Venta {
 	private String numeroTarjeta;
@@ -128,8 +140,23 @@ public class VentaTarjetaCredito extends Venta {
 
 	@Override
 	public void confirmar() throws ExcepcionProceso {
-		// TODO Auto-generated method stub
 		
+		JsonReader reader;
+		try {
+			reader = Json.createReader(new StringReader(compraCredito()));
+			JsonObject cuentasArr = reader.readObject();
+	        reader.close();	
+	        if (cuentasArr.getInt("code") == 200) {
+	        	this.aprobada = true;
+	        }
+	        else {
+	        	throw new ExcepcionProceso ("La tarjeta fue rechazada.");
+	        }
+	        
+		} catch (Exception e) {
+			throw new ExcepcionProceso("No se pudo confirmar la Tarjeta de Credito");
+		}
+			
 	}
 
 	public VentaTarjetaCredito(Integer id, LocalDate fechaVenta, List<ItemVenta> items, Empleado empleado,
@@ -140,5 +167,49 @@ public class VentaTarjetaCredito extends Venta {
 	public VentaTarjetaCredito() {
 		// TODO Auto-generated constructor stub
 	}
-	
+	private String compraCredito() throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		byte[] input = crearJsonCredito().getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("http://paypauli.herokuapp.com/api/txn/")
+		  .post(body)
+		  .addHeader("Content-Type", "application/json")
+		  .addHeader("User-Agent", "PostmanRuntime/7.15.0")
+		  .addHeader("Accept", "*/*")
+		  .addHeader("Cache-Control", "no-cache")
+		  .addHeader("Postman-Token", "c2ccb434-9399-466b-929e-be30277f3ed2,516af216-ea59-4356-8c61-46cc463a964a")
+		  .addHeader("Host", "paypauli.herokuapp.com")
+		  .addHeader("accept-encoding", "gzip, deflate")
+		  .addHeader("content-length", "210")
+		  .addHeader("Connection", "keep-alive")
+		  .addHeader("cache-control", "no-cache")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		return response.body().string();
+	}
+
+
+
+	public String crearJsonCredito() {
+		String numeroTarjeta = this.getNumeroTarjeta();
+		String idEstablecimiento = ControladorVentas.getInstance().getParamGral("idEstablecimiento");
+		String nroComprobante = this.getId().toString();
+		String detalleTransaccion = ControladorVentas.getInstance().getParamGral("razonSocial");
+		String importeTotal = this.getTotal().toString();
+		String cuotas = this.getCantCuotas().toString();
+		String cvc = this.getCodigoSeguridad().toString();
+		
+		JsonObjectBuilder json = Json.createObjectBuilder()
+				.add("tarjeta", numeroTarjeta)
+				.add("idEstablecimiento",idEstablecimiento)
+				.add("nroComprobante",nroComprobante)
+				.add("detalleTransaccion",detalleTransaccion)
+				.add("importeTotal", importeTotal)
+				.add("cuotas",cuotas)
+				.add("cvc", cvc);
+		return json.build().toString();
+	}
+
 }
