@@ -51,8 +51,15 @@ public class novedadesEmpleado extends HttpServlet {
 							//String mesNovedadStr = String.format("%02d", mesNovedad);
 							if (anioNovedad.equals(anio) && mesNovedad.equals(mes)) {
 							//if (anioStr.equals(anioNovedadStr) && mesStr.equals(mesNovedadStr)) {
+								String tipoLicencia;
+								if (n.getEsPaga()) {
+									tipoLicencia = "VACACIONES";
+								}
+								else {
+									tipoLicencia = "AUSENTE";
+								}
 								JsonObjectBuilder novedad = Json.createObjectBuilder()
-										.add("TipoLicencia", n.getEsPaga())
+										.add("TipoLicencia", tipoLicencia)
 										.add("CantidadDias", n.getCantDias())
 										.add("Periodo", String.format("%04d", anio)+String.format("%02d", mes));
 								novedades.add(novedad);
