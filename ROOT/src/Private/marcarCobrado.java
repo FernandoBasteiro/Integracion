@@ -35,7 +35,7 @@ public class marcarCobrado extends HttpServlet {
 			VentaDTO f = new VentaDTO();
 			f.setId(factura);
 			bd.marcarFacturaCobrada(logged, f);
-			json.add("success", "Se actualizaron los cobros.");			
+			json.add("success", "La factura fue marcada como cobrada.");			
 		}
 		catch (ComunicacionException | UsuarioNoLogueado | ExcepcionProceso | UsuarioSinPermisos ce) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

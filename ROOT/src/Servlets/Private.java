@@ -462,7 +462,7 @@ public class Private extends HttpServlet {
 				//String mesNovedadStr = String.format("%02d", mesNovedad);
 				
 				String anio = String.format("%04d", Integer.valueOf(request.getParameter("periodoAnio")));
-				String mes = String.format("%04d", Integer.valueOf(request.getParameter("periodoMes")));
+				String mes = String.format("%02d", Integer.valueOf(request.getParameter("periodoMes")));
 				
 				try {
 					bd.marcarFacturasCobradas(logged, anio+mes);
