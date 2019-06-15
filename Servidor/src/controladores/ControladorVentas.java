@@ -115,13 +115,13 @@ public class ControladorVentas {
 						throw new ExcepcionProceso("Monto Recibido menor al total a pagar.");
 					break;
 				case TARJETA_DEBITO:
-					venta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, v.getTotal(),
+					venta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.COBRADA, v.getTotal(),
 							v.getNumeroTarjeta(), v.getCodigoSeguridad(), v.getNombre(), v.getDni(), v.getFechaVto(),
 							v.getNroOperacion(), v.getAprobada(), v.getPin(), v.getTipoCuenta(), v.getTipoFact(),
 							v.getCuit(), null);
 					venta.setTotal(venta.calcularTotal());
 
-					venta.confirmar(VentaDAO.getProxVenta());
+					venta.confirmar(VentaDAO.getinstance().getProxVenta());
 					venta.grabar();
 
 					v.setTotal(venta.getTotal());
@@ -140,7 +140,7 @@ public class ControladorVentas {
 							v.getNroOperacion(), v.getAprobada(), v.getCantCuotas(), v.getTipoFact(), v.getCuit(),
 							null);
 					venta.setTotal(venta.calcularTotal());
-					venta.confirmar(VentaDAO.getProxVenta());
+					venta.confirmar(VentaDAO.getinstance().getProxVenta());
 					venta.grabar();
 
 					v.setTotal(venta.getTotal());
