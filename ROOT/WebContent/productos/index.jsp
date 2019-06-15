@@ -67,7 +67,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 				      <th scope="col">Presentación</th>
 				      <th scope="col">Precio</th>
 				      <th scope="col" class="text-center">Stock Disponible</th>
-				      <th scope="col" class="text-center">Acciones</th>
+				      <th scope="col"  class="text-center" style="min-width:110px;">Acciones</th>
 				    </tr>
 				  </thead>
 				  <tbody>

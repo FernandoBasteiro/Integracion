@@ -76,7 +76,7 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 			<div class="form-row">
 				<div class="form-group col-sm-6">
 					<label for="dniEmpleado">CUIL</label>
-					<input type="text" required name="dniEmpleado" class="form-control" value="<%=(emp != null) ? emp.getDni() : "" %>"/>
+					<input type="text" pattern="[\d]{11}" title="El CUIL debe contener exactamente 11 números, sin espacios ni guiones." required name="dniEmpleado" class="form-control" value="<%=(emp != null) ? emp.getDni() : "" %>"/>
 				</div>
 				<div class="form-group col-sm-6">
 					<label for="nacionalidadEmpleado">Nacionalidad</label>
