@@ -59,7 +59,7 @@ if ($('#productoAutocomplete').length) {
 	$.widget("ui.autocomplete", $.ui.autocomplete, {
 		_renderMenu : function(ul, items) {
 			var that = this;
-			ul.attr("class", "nav flex-column nav-pills bs-autocomplete-menu");
+			ul.attr("class", "nav nav-pills bs-autocomplete-menu");
 			$.each(items, function(index, item) {
 				that._renderItemData(ul, item);
 			});
@@ -170,7 +170,7 @@ if ($('#productoAutocomplete').length) {
 												}
 											}).data('ui-autocomplete')._renderItem = function(
 									ul, item) {
-								return $('<li class="nav-item"></li>').data(
+								return $('<li class="nav-item flex-fill"></li>').data(
 										"item.autocomplete", item).append(
 										'<a class="nav-link">'
 												+ item[_data.item_label]
