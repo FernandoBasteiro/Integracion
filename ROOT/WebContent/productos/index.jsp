@@ -28,7 +28,7 @@ ArrayList<ProductoDTO> productos = (ArrayList<ProductoDTO>) request.getAttribute
 								<div class="input-group-prepend">
 						          <div class="input-group-text">Buscar</div>
 						      </div>
-							  <input name="buscarProductoNombre" type="search" class="form-control" placeholder="Ingrese nombre del producto..." aria-label="Ingrese nombre del producto" aria-describedby="buscarProductoNombre">
+							  <input name="buscarProductoNombre" type="search" class="form-control" required placeholder="Ingrese nombre del producto..." aria-label="Ingrese nombre del producto" aria-describedby="buscarProductoNombre">
 							   <div class="input-group-append">
 							    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 							  </div>

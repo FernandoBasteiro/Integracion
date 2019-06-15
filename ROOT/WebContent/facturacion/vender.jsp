@@ -153,7 +153,7 @@
 									tarjeta</label>
 							</div>
 							<input type="text" name="debitoTarjeta" id="debitoTarjeta"
-								class="form-control" placeholder="0000 0000 0000 0000" />
+								class="form-control" pattern="[\d]{16}" title="El número de tarjeta debe tener 16 dígitos, sin espacios ni guiones." placeholder="0000 0000 0000 0000" />
 						</div>
 					</div>
 					<div class="form-group col-sm-4">
@@ -231,7 +231,7 @@
 									tarjeta</label>
 							</div>
 							<input type="text" name="creditoTarjeta" id="creditoTarjeta"
-								class="form-control" placeholder="0000 0000 0000 0000" />
+								class="form-control" pattern="[\d]{16}" title="El número de tarjeta debe tener 16 dígitos, sin espacios ni guiones." placeholder="0000 0000 0000 0000" />
 						</div>
 					</div>
 					<div class="form-group col-sm-4">

@@ -40,7 +40,7 @@ ArrayList<EmpleadoDTO> empleados = (ArrayList<EmpleadoDTO>) request.getAttribute
 									<div class="input-group-prepend">
 								          <div class="input-group-text">Buscar</div>
 								      </div>
-									  <input name="buscarEmpleadoDni" type="search" class="form-control" placeholder="Ingrese CUIL..." aria-label="Ingrese CUIL" aria-describedby="buscarEmpleadoDni">
+									  <input name="buscarEmpleadoDni" type="search" class="form-control" pattern="[\d]{11}" title="El CUIL debe contener exactamente 11 números, sin espacios ni guiones." required placeholder="Ingrese CUIL..." aria-label="Ingrese CUIL" aria-describedby="buscarEmpleadoDni">
 									   <div class="input-group-append">
 									    <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
 									  </div>
