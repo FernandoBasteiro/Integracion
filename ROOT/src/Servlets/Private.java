@@ -435,7 +435,7 @@ public class Private extends HttpServlet {
 					if(v.getMedioDePago() == MedioDePago.EFECTIVO) {
 						resp = "Su vuelto es $" + v.getVuelto().toString();
 					}else if(v.getMedioDePago() == MedioDePago.TARJETA_CREDITO) {
-						resp = "El nro. de operación es " + v.getNroOperacion();
+						resp = "El nro. de operaci\u00F3n es " + v.getNroOperacion();
 					}else {
 						resp = "Su pago ha sido debitado";
 					}
