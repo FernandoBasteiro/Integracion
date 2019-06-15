@@ -273,7 +273,7 @@ $(function() {
 
 												$
 														.ajax({
-															url : '/Private?action=imputarCobros',
+															url : '/Private/imputarCobros',
 															data : $(
 																	'#imputarCobrosTc')
 																	.serialize(),
