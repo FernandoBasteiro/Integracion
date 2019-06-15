@@ -115,13 +115,13 @@ public class ControladorVentas {
 						throw new ExcepcionProceso("Monto Recibido menor al total a pagar.");
 					break;
 				case TARJETA_DEBITO:
-					venta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.FACTURADA, v.getTotal(),
+					venta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.COBRADA, v.getTotal(),
 							v.getNumeroTarjeta(), v.getCodigoSeguridad(), v.getNombre(), v.getDni(), v.getFechaVto(),
 							v.getNroOperacion(), v.getAprobada(), v.getPin(), v.getTipoCuenta(), v.getTipoFact(),
 							v.getCuit(), null);
 					venta.setTotal(venta.calcularTotal());
 
-					venta.confirmar(VentaDAO.getProxVenta());
+					venta.confirmar(VentaDAO.getinstance().getProxVenta());
 					venta.grabar();
 
 					v.setTotal(venta.getTotal());
@@ -140,7 +140,7 @@ public class ControladorVentas {
 							v.getNroOperacion(), v.getAprobada(), v.getCantCuotas(), v.getTipoFact(), v.getCuit(),
 							null);
 					venta.setTotal(venta.calcularTotal());
-					venta.confirmar(VentaDAO.getProxVenta());
+					venta.confirmar(VentaDAO.getinstance().getProxVenta());
 					venta.grabar();
 
 					v.setTotal(venta.getTotal());
@@ -384,7 +384,7 @@ public class ControladorVentas {
 
 				return pgDTOs;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -393,10 +393,13 @@ public class ControladorVentas {
 
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				for (ParamGrales pgc : parametros) {
+					if (pgc.getId().equals(pgDTO.getId())) pgc.setValor(pgDTO.getValor()); 
+				}
 				ParamGrales pg = new ParamGrales(pgDTO.getId(), pgDTO.getClave(), pgDTO.getValor());
 				ParamGralesDAO.getinstance().add(pg);
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}

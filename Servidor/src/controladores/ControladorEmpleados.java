@@ -101,16 +101,16 @@ public class ControladorEmpleados {
 					
 					try {
 						if (this.crearCuentaLiquidaciones(this.crearJsonAltaLiquidacion(nuevo)) != 200) {
-							throw new ExcepcionProceso("No se pudo crear la cuenta liquidacion.");
+							throw new ExcepcionProceso("No se pudo crear la cuenta liquidac\u00F3n.");
 						}
 					} catch (Exception e) {
-						throw new ExcepcionProceso("No se pudo crear la cuenta liquidacion.");
+						throw new ExcepcionProceso("No se pudo crear la cuenta liquidaci\u00F3n.");
 					}
 					nuevo.guardar();
 				} else
-					throw new ExcepcionProceso("Ya existe un empleado con ese n�mero de DNI.");
+					throw new ExcepcionProceso("Ya existe un empleado con ese n\u00FAmero de DNI.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n.");
 		}
 	}
 
@@ -137,6 +137,17 @@ public class ControladorEmpleados {
 							}							
 						} catch (Exception ex) {
 							throw new ExcepcionProceso("Hubo un error al dar de baja del sistema de liquidaciones. Contacte a Liquid Salary para m\u00E1s informaci\u00F3n.");
+						}
+					}
+					else {
+						if (! emp.getSueldoBase().equals(e.getSueldoBase())) {
+							try {
+								if (this.modificarSueldoLiquidaciones(emp) != 200) {
+									throw new ExcepcionProceso("Hubo un error intentando actualizar el sueldo en el sistema de liquidaciones. Contacte a Liquid Salary para m\u00E1s informaci\u00F3n.");
+								}
+							} catch (Exception ex) {
+								throw new ExcepcionProceso("Hubo un error intentando actualizar el sueldo en el sistema de liquidaciones. Contacte a Liquid Salary para m\u00E1s informaci\u00F3n.");
+							}
 						}
 					}
 					
@@ -169,6 +180,7 @@ public class ControladorEmpleados {
 				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n.");
 		}
 	}
+
 
 	public EmpleadoDTO mostrarFichaEmpleado(EmpleadoDTO gerente, EmpleadoDTO e)
 			throws UsuarioSinPermisos, ExcepcionProceso, UsuarioNoLogueado {
@@ -342,6 +354,21 @@ public class ControladorEmpleados {
 		return response.code();
 	}
 	
+	private Integer modificarSueldoLiquidaciones(Empleado emp) throws Exception {
+		OkHttpClient client = new OkHttpClient();
+		String json = "{ \"sueldo\" : \"" + emp.getSueldoBase() + "\"}";
+		byte[] input = json.getBytes("utf-8");
+		RequestBody body = RequestBody.create(input);
+		Request request = new Request.Builder()
+		  .url("http://appdistflix.herokuapp.com/api/empleado/update/?cuil=" + emp.getDni())
+		  .put(body)
+		  .addHeader("Content-Type", "application/json")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+		return response.code();
+	}
+
 	private Integer bajaCuentaLiquidaciones(Empleado empleado) throws Exception {
 		OkHttpClient client = new OkHttpClient();
 		String json = "{ \"cuil\" : \"" + empleado.getDni() + "\"}";
