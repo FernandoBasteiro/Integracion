@@ -2,6 +2,7 @@
 <%@ page import="dto.NovedadDTO"%>
 <%@ page import="enumeraciones.EstadoEmpleado"%>
 <%@ page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.text.DecimalFormat" %>
 <% 
 EmpleadoDTO empleado = (EmpleadoDTO) session.getAttribute("loggedUsr");
 if (empleado == null) response.sendRedirect("/index.jsp");
@@ -108,7 +109,8 @@ EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute("fichaEmpleado");
 				<p><strong class="mr-2">Horas asignadas:</strong><%=emp.getHorasAsignadas()%> hs</p>
 			</div>
 			<div class="col col-xs-6">
-				<p><strong class="mr-2">Sueldo base:</strong>$<%=emp.getSueldoBase()%></p>
+			<% DecimalFormat priceFormatter = new DecimalFormat("$#0.00"); %>
+				<p><strong class="mr-2">Sueldo base:</strong><%=priceFormatter.format(emp.getSueldoBase())%></p>
 			</div>
 		</div>
 		<div class="row">
