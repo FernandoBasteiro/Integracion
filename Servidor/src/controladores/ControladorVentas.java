@@ -384,7 +384,7 @@ public class ControladorVentas {
 
 				return pgDTOs;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -393,10 +393,13 @@ public class ControladorVentas {
 
 		if (ControladorEmpleados.getInstance().estaLogueado(g)) {
 			if (g.getPuesto().getId() >= Puesto.GERENTE.getId()) {
+				for (ParamGrales pgc : parametros) {
+					if (pgc.getId().equals(pgDTO.getId())) pgc.setValor(pgDTO.getValor()); 
+				}
 				ParamGrales pg = new ParamGrales(pgDTO.getId(), pgDTO.getClave(), pgDTO.getValor());
 				ParamGralesDAO.getinstance().add(pg);
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
