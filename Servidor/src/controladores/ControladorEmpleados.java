@@ -101,16 +101,16 @@ public class ControladorEmpleados {
 					
 					try {
 						if (this.crearCuentaLiquidaciones(this.crearJsonAltaLiquidacion(nuevo)) != 200) {
-							throw new ExcepcionProceso("No se pudo crear la cuenta liquidacion.");
+							throw new ExcepcionProceso("No se pudo crear la cuenta liquidac\u00F3n.");
 						}
 					} catch (Exception e) {
-						throw new ExcepcionProceso("No se pudo crear la cuenta liquidacion.");
+						throw new ExcepcionProceso("No se pudo crear la cuenta liquidaci\u00F3n.");
 					}
 					nuevo.guardar();
 				} else
-					throw new ExcepcionProceso("Ya existe un empleado con ese n�mero de DNI.");
+					throw new ExcepcionProceso("Ya existe un empleado con ese n\u00FAmero de DNI.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n.");
 		}
 	}
 
