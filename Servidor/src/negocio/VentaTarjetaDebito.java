@@ -199,7 +199,7 @@ public class VentaTarjetaDebito extends Venta {
 
 	public String crearJsonDebito(Integer nroProxFactura) {
 		String cbuEstablecimiento = ControladorVentas.getInstance().getParamGral("ca_cbu");
-		Integer codigoSeguridad = nroProxFactura;
+		Integer codigoSeguridad = this.getCodigoSeguridad();
 		String descripcion = ControladorVentas.getInstance().getParamGral("razonSocial");
 		Float monto = this.getTotal();
 		String numeroTarjeta = this.getNumeroTarjeta();

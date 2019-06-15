@@ -82,7 +82,7 @@ public class ControladorProductos {
 	
 	public void actualizarStock(EmpleadoDTO supervisor, ProductoDTO p) throws UsuarioNoLogueado, ExcepcionProceso, UsuarioSinPermisos {
 		if (ControladorEmpleados.getInstance().estaLogueado(supervisor)) {
-			if (supervisor.getPuesto().getId() >= Puesto.SUPERVISOR.getId()) {
+			if (supervisor.getPuesto().getId() >= Puesto.CAJERO.getId()) {
 				 ArrayList<Producto> prods = ProductoDAO.getinstance().getProductoByCodigo(p.getCodigo());
 				if (prods.size() > 0) {
 					prods.get(0).actualizarStock(p.getStock().getCantidadTotal(), p.getStock().getCantidadDisponible(), p.getStock().getCantidadMinimo());
