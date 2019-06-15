@@ -43,7 +43,7 @@ public class ControladorProductos {
 					//throw new ExcepcionProceso("Ya existe un producto con ese c�digo.");
 				}*/
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n.");
 		}
 	}
 
@@ -57,7 +57,7 @@ public class ControladorProductos {
 				} else
 					throw new ExcepcionProceso("Error al dar de baja el producto.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n.");
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class ControladorProductos {
 				} else
 					throw new ExcepcionProceso("Error al modificar el producto.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n.");
 		}
 	}
 	
@@ -90,7 +90,7 @@ public class ControladorProductos {
 				} else
 					throw new ExcepcionProceso("Error al actualizar el producto.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n.");
 		}
 	}
 	
@@ -119,7 +119,7 @@ public class ControladorProductos {
 
 				return prodsDTO;		
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		}		
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -133,7 +133,7 @@ public class ControladorProductos {
 				}
 				else throw new ExcepcionProceso("No existen productos con esos criterios.");								
 			} 		
-			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
+			else throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		}
 		else throw new UsuarioNoLogueado("Usuario no logueado.");
 	}

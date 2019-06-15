@@ -57,7 +57,7 @@ public class ControladorEmpleados {
 	public EmpleadoDTO iniciarSesion(EmpleadoDTO e) throws UsuarioNoLogueado {
 		Empleado emp = EmpleadoDAO.getinstance().getEmpleadoByLegajo(e.getLegajo());
 		if (emp == null || !emp.getPassword().equals(e.getPassword()))
-			throw new UsuarioNoLogueado("Legajo o password inv�lido.");
+			throw new UsuarioNoLogueado("Legajo o password inv\u00E1lido.");
 		else {
 			emp.setSession(e.getSession());
 			emp.guardar();
@@ -72,7 +72,7 @@ public class ControladorEmpleados {
 				return true;
 			}
 		}
-		throw new UsuarioNoLogueado("El usuario no esta logueado");
+		throw new UsuarioNoLogueado("El usuario no est\u00E1 logueado");
 	}
 
 	public void altaEmpleado(EmpleadoDTO gerente, EmpleadoDTO empleado)
@@ -174,10 +174,10 @@ public class ControladorEmpleados {
 
 					emp.guardar();
 				} else
-					throw new ExcepcionProceso("No existe un empleado con ese n�mero de legajo.");
+					throw new ExcepcionProceso("No existe un empleado con ese n\u00FAmero de legajo.");
 
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n.");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n.");
 		}
 	}
 
@@ -191,9 +191,9 @@ public class ControladorEmpleados {
 				if (emp != null) {
 					return emp.getDTO();
 				} else
-					throw new ExcepcionProceso("No existe un empleado con ese n�mero de legajo.");
+					throw new ExcepcionProceso("No existe un empleado con ese n\u00FAmero de legajo.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -209,7 +209,7 @@ public class ControladorEmpleados {
 				}
 				return list;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -225,7 +225,7 @@ public class ControladorEmpleados {
 				}
 				return list;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -243,7 +243,7 @@ public class ControladorEmpleados {
 					listDTO.add(e.getDTO());
 				return listDTO;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -258,9 +258,9 @@ public class ControladorEmpleados {
 					emp.setFechaEgreso(LocalDate.now());
 					emp.guardar();					
 				} else
-					throw new ExcepcionProceso("No existe un empleado con ese n�mero de legajo.");
+					throw new ExcepcionProceso("No existe un empleado con ese n\u00FAmero de legajo.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -279,9 +279,9 @@ public class ControladorEmpleados {
 					emp.setNovedades(novedades);
 					emp.guardar();
 				} else
-					throw new ExcepcionProceso("No existe un empleado con ese n�mero de legajo.");
+					throw new ExcepcionProceso("No existe un empleado con ese n\u00FAmero de legajo.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci�n");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}

@@ -112,7 +112,7 @@ public class ControladorVentas {
 					if (v.getVuelto() >= (float) 0) {
 						venta.grabar();
 					} else
-						throw new ExcepcionProceso("Monto Recibido menor al total a pagar.");
+						throw new ExcepcionProceso("El monto recibido es menor al total a pagar.");
 					break;
 				case TARJETA_DEBITO:
 					venta = new VentaTarjetaDebito(LocalDate.now(), items, emp, EstadoVenta.COBRADA, v.getTotal(),
@@ -153,7 +153,7 @@ public class ControladorVentas {
 					 */
 					break;
 				default:
-					throw new ExcepcionProceso("Medio de pago inválido.");	
+					throw new ExcepcionProceso("Medio de pago inv\u00E1lido.");	
 				}
 				if (venta != null) {
 					for (ItemVenta iv : venta.getItems()) {
@@ -166,7 +166,7 @@ public class ControladorVentas {
 			} else
 				throw new ExcepcionProceso("Error al generar una venta.");
 		} else
-			throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción.");
+			throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n.");
 	}
 
 	private VentaDTO generarVentaEfectivo(VentaDTO vd, ArrayList<ItemVenta> items, Empleado emp)
@@ -181,7 +181,7 @@ public class ControladorVentas {
 			VentaDAO.getinstance().add(vta);
 			return vd;
 		} else
-			throw new ExcepcionProceso("Monto Recibido menor al total a pagar.");
+			throw new ExcepcionProceso("El monto recibido de menor al total a pagar.");
 
 	}
 	/*
@@ -226,9 +226,9 @@ public class ControladorVentas {
 					vta.marcarFacturaCobrada();
 					vta.grabar();
 				} else
-					throw new ExcepcionProceso("No existe una venta con ese nómero de venta.");
+					throw new ExcepcionProceso("No existe una venta con ese n\u00FAmero de venta.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -254,7 +254,7 @@ public class ControladorVentas {
 					}
 				}
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -292,7 +292,7 @@ public class ControladorVentas {
 					vtas.add(v.getDTO());
 				return vtas;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -310,7 +310,7 @@ public class ControladorVentas {
 
 				return vtas;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -328,7 +328,7 @@ public class ControladorVentas {
 
 				return vtas;
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -342,9 +342,9 @@ public class ControladorVentas {
 				if (ventas.size() > 0) {
 					return ventas.get(0).getDTO();
 				} else
-					throw new ExcepcionProceso("No existe una venta con ese nómero de venta.");
+					throw new ExcepcionProceso("No existe una venta con ese n\u00FAmero de venta.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
@@ -358,9 +358,9 @@ public class ControladorVentas {
 					ventas.get(0).cancelarVenta();
 					ventas.get(0).grabar();
 				} else
-					throw new ExcepcionProceso("No existe una factura con ese nómero de factura.");
+					throw new ExcepcionProceso("No existe una factura con ese n\u00FAmero de factura.");
 			} else
-				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acción");
+				throw new UsuarioSinPermisos("No tiene permisos para realizar esta acci\u00F3n");
 		} else
 			throw new UsuarioNoLogueado("Usuario no logueado.");
 	}
