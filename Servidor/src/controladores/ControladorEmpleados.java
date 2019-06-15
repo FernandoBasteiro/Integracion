@@ -141,6 +141,7 @@ public class ControladorEmpleados {
 					}
 					else {
 						if (! emp.getSueldoBase().equals(e.getSueldoBase())) {
+							emp.setSueldoBase(e.getSueldoBase());
 							try {
 								if (this.modificarSueldoLiquidaciones(emp) != 200) {
 									throw new ExcepcionProceso("Hubo un error intentando actualizar el sueldo en el sistema de liquidaciones. Contacte a Liquid Salary para m\u00E1s informaci\u00F3n.");
@@ -167,7 +168,6 @@ public class ControladorEmpleados {
 					emp.setFechaIngreso(ConversorFechas.convertJavaToJoda(e.getFechaIngreso()));
 					emp.setEstadoEmpleado(e.getEstadoEmpleado());
 					emp.setNacionalidad(e.getNacionalidad());
-					emp.setSueldoBase(e.getSueldoBase());
 					emp.setHorasAsignadas(e.getHorasAsignadas());
 					emp.setPuesto(e.getPuesto());
 					
@@ -356,7 +356,7 @@ public class ControladorEmpleados {
 	
 	private Integer modificarSueldoLiquidaciones(Empleado emp) throws Exception {
 		OkHttpClient client = new OkHttpClient();
-		String json = "{ \"sueldo\" : \"" + emp.getSueldoBase() + "\"}";
+		String json = "{ \"sueldo\" : " + emp.getSueldoBase() + "}";
 		byte[] input = json.getBytes("utf-8");
 		RequestBody body = RequestBody.create(input);
 		Request request = new Request.Builder()
