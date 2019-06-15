@@ -2,6 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -432,8 +433,9 @@ public class Private extends HttpServlet {
 				try {
 					v = bd.generarVenta(logged, v);
 					String resp = "";
+					DecimalFormat decimalFormat = new DecimalFormat("#.00");
 					if(v.getMedioDePago() == MedioDePago.EFECTIVO) {
-						resp = "Su vuelto es $" + v.getVuelto().toString();
+						resp = "Su vuelto es $" + decimalFormat.format(v.getVuelto());
 					}else if(v.getMedioDePago() == MedioDePago.TARJETA_CREDITO) {
 						resp = "El nro. de operaci\u00F3n es " + v.getNroOperacion();
 					}else {
