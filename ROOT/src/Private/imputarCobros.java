@@ -24,7 +24,7 @@ import excepciones.UsuarioSinPermisos;
 /**
  * Servlet implementation class imputarCobros
  */
-@WebServlet("/imputarCobros")
+@WebServlet("/Private/imputarCobros")
 public class imputarCobros extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
